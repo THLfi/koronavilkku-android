@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animated-vector
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@drawable/ic_radar" >
+
+    <target
+        android:name="sweepGroup"
+        android:animation="@animator/sweep_radar"
+        />
+    <target
+        android:name="scanRippleInner"
+        android:animation="@animator/ripple_fade_inner"
+        />
+    <target
+        android:name="scanRippleMiddle"
+        android:animation="@animator/ripple_fade_middle"
+        />
+    <target
+        android:name="scanRippleOuter"
+        android:animation="@animator/ripple_fade_outer"
+        />
+
+</animated-vector>

@@ -1,0 +1,213 @@
+<resources>
+    <string name="app_name">Coronablinkern</string>
+
+    <string name="all_next">Nästa</string>
+    <string name="all_cancel">Ångra</string>
+    <string name="all_thl_image_description">Institutet för hälsa och välfärd</string>
+    <string name="all_today">idag</string>
+    <string name="all_yesterday">igår</string>
+    <string name="all_app_additional_info">Se mer information om Coronablinkern</string>
+    <string name="all_system_enable">Koppla på</string>
+
+    <string name="diagnosis_title">Meddela din smitta</string>
+    <string name="diagnosis_body1">Om du har testats och konstaterats ha coronavirusinfektion får du en startkod från hälso- och sjukvården eller med ett textmeddelande från THL. Med startkoden kan du anonymt förmedla information om din smitta.</string>
+    <string name="diagnosis_body2">Ange startkoden med den telefon som du vanligtvis har med dig.</string>
+    <string name="diagnosis_page_title">Meddela om din smitta</string>
+    <string name="diagnosis_start">Meddela om smitta</string>
+    <string name="diagnosis_en_disabled">Exponeringsmeddelandena ska vara påkopplade för att du ska kunna meddela att du bär smitta. Gå tillbaka till hemsidan där du kan koppla på dem.</string>
+
+    <string name="diagnosis_locked_title">Du har redan meddelat att du blivit smittad</string>
+    <string name="diagnosis_locked_body1">Ditt meddelande hjälper eventuella exponerade att kontakta vården i rätt tid.</string>
+    <string name="diagnosis_locked_body2">Appen är nu låst och sänder eller samlar inte längre information om möten. Tack för att du använde appen och är med och bekämpar corona.</string>
+    <string name="diagnosis_locked_image_description">Låst</string>
+
+    <string name="diagnosis_instructions_1">Det är inte möjligt att identifiera dig med hjälp av startkoden.</string>
+    <string name="diagnosis_instructions_2">Informationen förmedlas till de användare som har varit i din närhet vid den sannolika tidpunkten för virusexponeringen.</string>
+    <string name="diagnosis_instructions_3">Informationen uppmanar mottagarna att undvika kontakter, att i tid lägga märke till symtom som passar in på infektionen och att vid behov ta ett test. På det här sättet kan smittospridning undvikas.</string>
+
+    <string name="code_entry_title">Ange din startkod</string>
+    <string name="code_entry_invalid">Startkoden är ogiltig eller har gått ut. Kontrollera att du har angett koden korrekt.</string>
+    <string name="code_entry_submit_failed">Det gick inte att meddela om din smitta eftersom servern inte kunde nås. Försök igen om ett ögonblick.</string>
+    <string name="code_entry_en_disabled">Meddelanden om exponering är inte på Gå tillbaka till hem-vyn där du kan koppla på dem</string>
+    <string name="code_entry_info">Det är inte möjligt att identifiera dig med hjälp av startkoden.</string>
+
+    <string name="diagnosis_complete_title">Tack för ditt meddelande</string>
+    <string name="diagnosis_complete_body">De uppgifter du angett bidrar till att bekämpa coronavirusepidemin. Appen är nu låst och samlar inte längre in information om personer du träffar. Krya på dig!</string>
+    <string name="diagnosis_complete_continue">Färdig</string>
+
+    <string name="home_title">Hem</string>
+    <string name="home_exposure_label">Eventuell exponering</string>
+    <string name="home_no_exposure_label">Ingen exponering har upptäckts</string>
+    <string name="home_exposure_sub_label">Du kan ha exponerats för viruset</string>
+    <string name="home_no_exposure_sub_label">Du har inte varit i närheten av en person som meddelat om smitta</string>
+    <string name="home_exposure_instructions">Se anvisningar</string>
+
+    <string name="home_symptom_label">Misstänker du smitta?</string>
+    <string name="home_prevention_label">Skydda dig mot smitta</string>
+    <string name="home_prevention_url">https://thl.fi/sv/web/infektionssjukdomar-och-vaccinationer/aktuellt/aktuellt-om-coronaviruset-covid-19/smitta-och-skydd-coronaviruset</string>
+    <string name="home_statistics_label">Virusläget i Finland</string>
+    <string name="home_statistics_url">https://thl.fi/sv/web/infektionssjukdomar-och-vaccinationer/aktuellt/aktuellt-om-coronaviruset-covid-19/lagesoversikt-om-coronaviruset</string>
+    <string name="home_thl_url">https://thl.fi/sv/web/thlfi-sv</string>
+
+    <string name="home_status_system_enabled">Coronablinkern är påkopplad</string>
+    <string name="home_status_system_disabled">Coronablinkern är bortkopplad</string>
+    <string name="home_status_system_locked">Coronablinkern är låst</string>
+
+    <string name="home_symptom_sub_label">Gör en symtombedömning</string>
+    <string name="home_app_guide">Så här fungerar appen</string>
+
+    <string name="home_status_disabled_explained">Koppla på exponeringsmeddelandena på nytt.</string>
+    <string name="home_status_enabled_explained">Appen fungerar även om du stänger den.</string>
+    <string name="home_status_locked_explained">Tack för att du meddelade om din smitta. Appen samlar inte längre någon information från andra personer du träffat. Krya på dig!</string>
+
+    <string name="symptoms_title">Bedömning av coronasymptom</string>
+    <string name="symptoms_info">Gör en bedömning av dina symtom i Omaolo, om du misstänker att du smittats av coronaviruset. Du får ytterligare anvisningar på basen av dina svar. Det räcker cirka 5–10 minuter att fylla i bedömningen.</string>
+    <string name="symptoms_link_title">Gör en bedömning av dina symptom i tjänsten Omaolo</string>
+    <string name="symptoms_link">https://www.omaolo.fi/palvelut/oirearviot/649?lang=sv</string>
+    <string name="symptoms_link_name">omaolo.fi</string>
+
+    <string name="settings_title">Inställningar</string>
+    <string name="settings_about_subtitle">Info om appen</string>
+    <string name="settings_status_item">Exponerings\u200Bmeddelandena:</string>
+    <string name="settings_status_on">I bruk</string>
+    <string name="settings_status_off">Ur bruk</string>
+    <string name="settings_status_locked">Låst</string>
+    <string name="settings_tos_item">Användningsvillkor</string>
+    <string name="settings_guide_item">Så fungerar Coronablinkern</string>
+    <string name="settings_faq_item">Vanliga frågor</string>
+    <string name="settings_faq_link_url">https://koronavilkku.fi/sv/vanliga-fragor/</string>
+    <string name="settings_faq_link_name">koronavilkku.fi</string>
+
+    <string name="settings_privacy_item">Datasekretess</string>
+    <string name="settings_privacy_link_url">https://koronavilkku.fi/sv/dataskydd/</string>
+    <string name="settings_version">%1$s %2$s</string>
+    <string name="settings_privacy_link_name">koronavilkku.fi</string>
+    <string name="settings_terms_link_name">koronavilkku.fi</string>
+
+    <string name="terms_url">https://koronavilkku.fi/sv/anvandningsvillkor/</string>
+
+    <string name="exposure_detail_title">Eventuell exponering</string>
+
+    <string name="exposure_detail_message">Du har under de senaste 14 dygnen varit nära en person som meddelat om coronasmitta via Coronablinkern.</string>
+    <string name="exposure_detail_disclaimer">Bedömningen om exponeringen bygger på den information om möten som Coronablinkern har samlat in under de senaste 14 dygnen. Coronablinkern ger inte en exakt bedömning av hur kraftig smittofaran är.</string>
+
+    <string name="exposure_detail_contact_title">Kontakta hälsovården</string>
+    <string name="exposure_detail_contact_subtitle">Information om eventuell exponering förmedlas till hälso- och sjukvården endast om du själv tar kontakt.</string>
+    <string name="exposure_detail_contact_start">Ta kontakt</string>
+
+    <string name="exposure_detail_title_none">Ingen exponering har upptäckts</string>
+
+    <string name="exposure_detail_message_none">Coronablinkern har inte observerat någon exponering för coronaviruset under de senaste 14 dagarna.</string>
+    <string name="exposure_detail_disclaimer_none">Appen kan emellertid inte identifiera alla eventuella exponeringar.</string>
+    <string name="exposure_detail_last_check">Senast granskad %1$s kl. %2$s</string>
+    <string name="exposure_detail_no_last_check">Ingen kontroll ännu</string>
+
+    <string name="exposure_detail_instructions_title">Iaktta dessa anvisningar noggrant i två veckors tid:</string>
+    <string name="exposure_detail_instructions_1">Ta så snabbt som möjligt kontakt med hälso- och sjukvården i din kommun och ta ett test, även om du bara har ett av dessa symtom som passar in på coronavirusinfektionen:</string>
+    <string name="exposure_detail_instructions_1_sublist">- nedsatt lukt- och smaksinne\n- andningssvårighet\n- hosta, halsont eller snuva\n- feber\n- huvudvärk eller muskelvärk\n- diarré eller magont utan annan uppenbar orsak.</string>
+    <string name="exposure_detail_instructions_2">Undvik att träffa människor.</string>
+    <string name="exposure_detail_instructions_3">Var noggrann med din handhygien.</string>
+    <string name="exposure_detail_instructions_4">Undvik offentliga platser och kollektivtrafik. Om du är tvungen att vistas på offentliga platser ska du iaktta ett avstånd på minst två meter till andra människor. Om du inte kan hålla tillräckligt långt avstånd ska du använda mun- och nässkydd.</string>
+    <string name="exposure_detail_instructions_5">Låt en annan person sköta dina matinköp och andra ärenden utanför hemmet, om möjligt.</string>
+    <string name="exposure_detail_instructions_6">Om du hostar eller nyser ska du skydda din mun och näsa med en engångsnäsduk. Kasta den använda näsduken i soporna och tvätta dina händer med tvål och vatten eller använd handdesinficeringsmedel. Om du inte har en näsduk ska du hosta och nysa i ärmen.</string>
+    <string name="exposure_detail_instructions_7">Arbeta på distans, om möjligt.</string>
+
+    <string name="guide_title">Om Coronablinkern</string>
+    <string name="guide_p1_text">Coronablinkern är en applikation (app) som Institutet för hälsa och välfärd ansvarar för. Appen analyserar huruvida du eventuellt har blivit utsatt för smitta. Om du har konstaterats ha coronavirusinfektion, kan du meddela om det här anonymt via appen. Appen skyddar effektivt din identitet.</string>
+
+    <string name="guide_code_title">Varje telefon får en slumpmässig identifikationskod</string>
+    <string name="guide_code_text">Appen lottar ut en identifikationskod till varje telefon. Koden är slumpmässig och byts ut flera gånger per timme så att din identitet inte kan avslöjas. Identifikationskoden innehåller inga uppgifter om dig eller din telefon.</string>
+
+    <string name="guide_exchange_title">Telefonerna skickar åt varandra identifikationskoder</string>
+    <string name="guide_exchange_text">När du är nära en annan person som använder Coronablinkern delar era telefoner ut sina identifikationskoder till varandra via Bluetooth. På det här sättet kan appen följa med telefoner som bärs av mötande personer. Appen lagrar inte användarnas identitet eller plats.</string>
+
+    <string name="guide_infection_title">Om du konstateras ha coronavirusinfektion</string>
+    <string name="guide_infection_text">Om du konstaterats ha coronavirusinfektion med ett coronavirustest, får du en startkod från hälso- och sjukvården. Med hjälp av koden kan du, om du vill, meddela via appen att du bär på smitta. Om du delar ut informationen, skickar appen identifikationskoder från din telefon till servern. Inga person- eller platsuppgifter skickas tillsammans med identifikationskoderna, så du förblir anonym.</string>
+
+    <string name="guide_check_title">Appen jämför användarnas koder</string>
+    <string name="guide_check_text">Coronablinkern laddar ner flera gånger per dag en förteckning över koder som skickats från smittade personers telefoner med motsvarande app. Coronablinkern jämför de här med de koder som din telefon har samlat in från andra användare. På det här sättet kan appen avgöra om du har varit i närheten av en person som har coronavirusinfektion.</string>
+
+    <string name="guide_notification_title">Du får ett meddelande om eventuell virusexponering</string>
+    <string name="guide_notification_text">Om koderna som din telefon samlat in motsvarar koderna som samlats in från personer som bär på smitta får du ett meddelande om eventuell exponering. I det här fallet kan du meddela dina kontaktuppgifter till hälso- och sjukvården som ger dig närmare anvisningar.\n\nOm du misstänker att du smittats med coronaviruset kan du när som helst göra en symtombedömning i tjänsten Omaolo.</string>
+
+    <string name="guide_privacy_title">Såhär skyddas din identitet</string>
+    <string name="guide_privacy_body">Din identitet skyddas på följande sätt:</string>
+    <string name="guide_privacy_item1">Informationen om möten som appen samlar in lagras endast på din telefon. De lagrade uppgifterna avlägsnas från din telefon senast efter 21 dagar eller om du avlägsnar appen från din telefon.</string>
+    <string name="guide_privacy_item2">Din identitet hålls hemlig med hjälp av slumpmässiga identifikationskoder.</string>
+    <string name="guide_privacy_item3">Appen kan inte lagra var du har befunnit dig med din telefon.</string>
+
+    <string name="guide_button_back">Tillbaka</string>
+
+    <string name="disable_title">COVID-19-\u200Bexponerings\u200Bmeddelandena är påkopplade</string>
+    <string name="disable_subtitle">Måste du koppla bort exponeringsmeddelandena?</string>
+    <string name="disable_body">I vissa situationer kan det vara nödvändigt att tillfälligt koppla bort exponeringsmeddelanden. Det här kan vara nödvändigt till exempel om du jobbar inom hälso- och sjukvården och inte vill använda appen på din arbetsplats.\n\nOm du kopplar bort exponeringsmeddelandena fungerar inte appen.</string>
+    <string name="disable_note">För att trygga din egen och dina närståendes hälsa uppmanas du att inte koppla bort exponeringsmeddelandena om det inte är absolut nödvändigt. Du kommer väl ihåg att koppla på dem genast då det är möjligt.</string>
+    <string name="disable_turn_off_note">Koppla bort COVID-19-exponeringsmeddelandena</string>
+    <string name="disable_button_turn_off">Koppla bort</string>
+
+    <string name="disable_confirm_title">Vill du säkert koppla bort COVID-19-\u200Bexponeringsmeddelandena?</string>
+    <string name="disable_confirm_message">Om du kopplar bort exponeringsmeddelandena, kan inte Coronablinkern meddela dig om eventuell exponering för coronaviruset.</string>
+
+    <string name="enable_title">COVID-19-\u200Bexponerings\u200Bmeddelandena är bortkopplade</string>
+
+    <string name="enable_body">Eftersom exponeringsmeddelandena är bortkopplade följer Coronablinkern inte med telefoner i din närhet.</string>
+    <string name="enable_alert">För att trygga din egen och dina närståendes hälsa är det tillrådligt att du kopplar på exponeringsmeddelandena genast då det är möjligt.</string>
+    <string name="enable_note">Koppla på COVID-19-exponeringsmeddelandena</string>
+
+    <string name="enable_err_title">Exponeringsloggen kunde inte startas</string>
+    <string name="enable_err_missing_capability">Din enhet stöds ej</string>
+    <string name="enable_err_generic">Okänt fel</string>
+    <string name="enable_err_dismiss">Stäng</string>
+    <string name="enable_error_api_code">Det skedde ett oväntat fel, kod: %d</string>
+
+    <string name="onboarding_done">Idrifttagningen klar!</string>
+
+    <string name="intro_header_title">Tack för att du laddade ner Coronablinkern</string>
+    <string name="intro_header_body">Coronablinkern är en applikation (app) som Institutet för hälsa och välfärd ansvarar för. Med appen strävar man till att förebygga spridningen av coronaviruset. Appen skyddar effektivt din identitet.</string>
+
+    <string name="concept_header_title">Så här fungerar appen</string>
+    <string name="concept_header_body">Coronablinkern följer med de telefoner i din närhet, på vilka appen är installerad. Om en person som du tidigare mött meddelar om coronavirusinfektion via Coronablinkern får du ett meddelande om at du blivit utsatt (exponerad) för smitta. Om ett test visar att du bär smitta, kan du meddela om det här anonymt med appen.</string>
+
+    <string name="accept_terms_header_title">Din identitet är skyddad</string>
+    <string name="accept_terms_header_body">Coronablinkern skyddar dina personuppgifter och din identitet på flera sätt.</string>
+    <string name="accept_terms_personal_title">Personuppgifter</string>
+    <string name="accept_terms_personal_text">Coronablinkern lagrar inte ditt namn, din födelsetid eller dina kontaktuppgifter. Den kan inte avslöja din identitet eller identiteten på personer du möter.\n\nAppen samlar inte in platsuppgifter.</string>
+    <string name="accept_terms_usage_title">Användningsuppgifter som gäller appen</string>
+    <string name="accept_terms_usage_text">Appen meddelar till en server att appen är påkopplad. Om du kontaktar hälso- och sjukvården via appen, förmedlar den dessutom information om huruvida du eventuellt blivit utsatt för viruset.\n\nAll datatrafik mellan Coronablinkern och servern är sekretessbelagda.\n\nInformationen lagras anonymt på en server som är belägen i Finland. Servern underhålls av myndigheter inom den offentliga förvaltningen. Uppgifterna avlägsnas då de inte längre behövs. Uppgifterna avlägsnas senast 31.3.2021.</string>
+    <string name="accept_terms_voluntary_title">Appen är inte oblikatorisk</string>
+    <string name="accept_terms_voluntary_text">Det är frivilligt att använda Coronablinkern. Du kan när som helst sluta använda appen genom att avlägsna den från telefonen.</string>
+
+    <string name="accept_terms_tos_text">Jag har läst och godkänner användningsvillkoren för tjänsten</string>
+    <string name="accept_terms_tos_link_text">Läs användningsvillkoren</string>
+    <string name="accept_terms_activation_text">Jag börjar frivilligt använda appen</string>
+    <string name="accept_terms_button_enable">Börja använd</string>
+    <string name="accept_terms_scroll">Scrolla ner</string>
+
+    <string name="en_blocked_title">Exponeringsmeddelandena är bortkopplade</string>
+    <string name="en_blocked_body">Coronablinkern fungerar inte om exponeringsmeddelandena är bortkopplade i telefonens Inställningar. För att koppla på exponeringsmeddelandena, välj Koppla på.</string>
+    <string name="en_blocked_location">I några Android-telefoner måste man ta platsuppgifterna i bruk för att koppla på exponeringsmeddelandena. Coronablinkern lagrar inte platsuppgifterna.</string>
+    <string name="en_blocked_button_label">Koppla på</string>
+
+    <string name="municipality_list_title">Välj hemkommun</string>
+    <string name="municipality_search_hint">Sök</string>
+    <string name="municipality_no_results">Inga kommuner som börjar med söktexten hittades</string>
+
+    <string name="contact_evaluation_title">Gör en symtombedömning</string>
+    <string name="contact_evaluation_body">Vi rekommenderar att du kontaktar hälso- och sjukvården via Omaolo symtombedömningen eftersom det underlättar hälso- och sjukvårdens arbetsbörda och är lätt för dig att utföra.</string>
+    <string name="contact_evaluation_start">Gör en symtombedömning</string>
+    <string name="contact_evaluation_footer">Det räcker cirka 5–10 minuter att göra en symtombedömning. Personer under 16 år ska kontakta hälso- och sjukvården per telefon.</string>
+    <string name="contact_evaluation_other_title">Eller kontakta hälso- och sjukvården i din kommun på följande sätt:</string>
+    <string name="card_contact_request_title">Lämna en begäran att hälsovården kontaktar dig</string>
+    <string name="card_contact_request_link_name">Avsätt ändast för 16 år fyllda, symptomfria personer</string>
+    <string name="info_icon">Info</string>
+
+    <string name="pre_web_contact_title_evaluation">Symtombedömning i Omaolo</string>
+    <string name="pre_web_contact_title_no_evaluation">Lämna en begäran att hälsovården kontaktar dig</string>
+    <string name="pre_web_contact_body_evaluation">Du kan göra symtombedömningen på nedanstående språk. Välj språk. Efter detta överförs du till nättjänsten Omaolo.fi. Det räcker cirka 5–10 minuter att göra en symtombedömning.</string>
+    <string name="pre_web_contact_body_no_evaluation">Om du är symtomfri, kan du skicka en begäran till nättjänsten Omaolo.fi att du vill bli kontaktad. Välj kontaktspråk. Efter det här överförs du till nättjänsten Omaolo.fi.</string>
+    <string name="pre_web_contact_title">Välj kontaktspråk</string>
+
+    <string name="municipality_load_failed">Det gick inte att ladda kommunuppgifterna. Kontrollera anslutningen och försök på nytt.</string>
+    <string name="municipality_retry_load">Försök på nytt</string>
+
+</resources>

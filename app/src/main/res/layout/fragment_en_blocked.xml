@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <import type="android.view.View" />
+        <variable name="model" type="fi.thl.koronahaavi.onboarding.OnboardingViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:fadingEdge="vertical"
+            android:requiresFadingEdge="vertical"
+            android:fadingEdgeLength="@dimen/onboarding_fading_edge_length"
+            android:scrollbars="none"
+            android:overScrollMode="never"
+            app:layout_constraintBottom_toTopOf="@id/button_en_blocked_enable"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/onboarding_view_margin"
+                android:clipToPadding="false">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/view_margin_top"
+                    android:textAppearance="?attr/textAppearanceHeadline1"
+                    android:text="@string/en_blocked_title"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:textAppearance="?attr/textAppearanceHeadline4"
+                    android:text="@string/en_blocked_body" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:textAppearance="?attr/textAppearanceBody2"
+                    android:text="@string/en_blocked_location"
+                    android:visibility="@{model.isLocationOn()==false ? View.VISIBLE : View.GONE}"/>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_en_blocked_enable"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginHorizontal="@dimen/onboarding_view_margin"
+            android:layout_marginBottom="@dimen/onboarding_button_bottom_margin"
+            android:text="@string/en_blocked_button_label" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

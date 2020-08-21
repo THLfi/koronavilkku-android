@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<objectAnimator xmlns:android="http://schemas.android.com/apk/res/android"
+    android:duration="2000"
+    android:repeatCount="infinite">
+
+    <propertyValuesHolder android:propertyName="strokeColor" >
+        <keyframe
+            android:fraction="0"
+            android:value="#ffffff" />
+
+        <keyframe
+            android:fraction=".5"
+            android:value="@color/lightBlue" />
+
+    </propertyValuesHolder>
+</objectAnimator>
+
+
+

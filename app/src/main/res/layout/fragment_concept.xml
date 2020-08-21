@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:fadingEdge="vertical"
+            android:requiresFadingEdge="vertical"
+            android:fadingEdgeLength="@dimen/onboarding_fading_edge_length"
+            android:scrollbars="none"
+            android:overScrollMode="never"
+            app:layout_constraintBottom_toTopOf="@id/button_concept_next"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/onboarding_view_margin"
+                android:clipToPadding="false">
+
+                <include
+                    android:id="@+id/layout_header"
+                    layout="@layout/layout_onboarding_header"
+                    app:image="@{@drawable/distributed_tracing}"
+                    app:title="@{@string/concept_header_title}"
+                    app:body="@{@string/concept_header_body}"
+                    />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/button_concept_how_it_works"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    style="?attr/borderlessButtonStyle"
+                    android:text="@string/all_app_additional_info"
+                    />
+
+            </LinearLayout>
+
+        </ScrollView>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_concept_next"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginHorizontal="@dimen/onboarding_view_margin"
+            android:layout_marginBottom="@dimen/onboarding_button_bottom_margin"
+            android:text="@string/all_next" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

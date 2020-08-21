@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View" />
+        <variable name="model" type="fi.thl.koronahaavi.diagnosis.CodeEntryViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".diagnosis.DiagnosisFragment"
+        tools:ignore="MissingConstraints">
+
+        <include android:id="@+id/layout_toolbar" layout="@layout/toolbar"/>
+
+        <ScrollView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@+id/layout_toolbar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/card_code_entry"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="40dp">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="6dp"
+                        style="@style/Widget.Vilkku.TextInputLayout.Code">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/text_input_edit_code_entry"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="number"
+                            android:text="@={model.code}"
+                            android:maxLength="@{model.maxCodeLength}"
+                            android:enabled="@{model.submitInProgress() ? false : true}"
+                            android:gravity="center"
+                            android:textAppearance="?attr/textAppearanceHeadline2"
+                            />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <ProgressBar
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/card_code_entry"
+                    android:layout_marginTop="10dp"
+                    android:visibility="@{model.submitInProgress() ? View.VISIBLE : View.GONE}"
+                    tools:visibility="gone"
+                    />
+                <TextView
+                    android:id="@+id/text_code_entry_error"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/card_code_entry"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginHorizontal="20dp"
+                    app:drawableStartCompat="@drawable/ic_alert_octagon"
+                    app:drawableTint="@color/mainRed"
+                    android:drawablePadding="10dp"
+                    style="@style/Widget.Vilkku.TextView.Critical"
+                    android:visibility="@{model.codeEntryError==null ? View.GONE : View.VISIBLE}"
+                    tools:visibility="visible"
+                    tools:text="@string/code_entry_invalid"
+                    />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/button_code_entry_submit"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+
+                    app:layout_constraintTop_toBottomOf="@id/card_code_entry"
+                    android:layout_marginTop="70dp"
+                    android:layout_marginHorizontal="20dp"
+                    android:text="@string/diagnosis_start"
+                    android:enabled="@{model.submitAllowed}"
+                    />
+
+                <TextView
+                    android:id="@+id/text_code_entry_info"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="20dp"
+                    app:layout_constraintTop_toBottomOf="@+id/button_code_entry_submit"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:gravity="center"
+                    android:text="@string/code_entry_info"
+                    android:textAppearance="?attr/textAppearanceBody2"
+                    />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

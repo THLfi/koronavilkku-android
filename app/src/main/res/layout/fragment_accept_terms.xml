@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable name="model" type="fi.thl.koronahaavi.onboarding.OnboardingViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ScrollView
+            android:id="@+id/scroll_accept_terms"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:fadingEdge="vertical"
+            android:requiresFadingEdge="vertical"
+            android:fadingEdgeLength="@dimen/onboarding_fading_edge_length"
+            android:scrollbars="none"
+            android:overScrollMode="never"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="@dimen/onboarding_view_margin"
+                android:clipToPadding="false">
+
+                <include
+                    android:id="@+id/layout_header"
+                    layout="@layout/layout_onboarding_header"
+                    app:image="@{@drawable/ic_privacy}"
+                    app:title="@{@string/accept_terms_header_title}"
+                    app:body="@{@string/accept_terms_header_body}"
+                    />
+
+                <Space
+                    android:layout_width="match_parent"
+                    android:layout_height="10dp"/>
+
+                <include
+                    android:id="@+id/terms_section_personal"
+                    layout="@layout/terms_section"
+                    app:title="@{@string/accept_terms_personal_title}"
+                    app:text="@{@string/accept_terms_personal_text}"
+                    app:icon="@{@drawable/ic_user}"
+                    app:divider="@{true}"
+                    />
+
+                <include
+                    android:id="@+id/terms_section_usage"
+                    layout="@layout/terms_section"
+                    app:title="@{@string/accept_terms_usage_title}"
+                    app:text="@{@string/accept_terms_usage_text}"
+                    app:icon="@{@drawable/ic_database}"
+                    app:divider="@{true}"
+                    />
+
+                <include
+                    android:id="@+id/terms_section_voluntary"
+                    layout="@layout/terms_section"
+                    app:title="@{@string/accept_terms_voluntary_title}"
+                    app:text="@{@string/accept_terms_voluntary_text}"
+                    app:icon="@{@drawable/ic_feather}"
+                    />
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/onboarding_check_card_margin_top"
+                    app:cardElevation="@dimen/onboarding_card_elevation">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <com.google.android.material.checkbox.MaterialCheckBox
+                            android:id="@+id/tos_checkbox"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="15dp"
+                            android:layout_marginEnd="@dimen/onboarding_check_box_margin"
+                            android:layout_marginTop="@dimen/onboarding_check_box_margin"
+                            android:paddingStart="8dp"
+                            android:paddingEnd="0dp"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            android:text="@string/accept_terms_tos_text"
+                            android:checked="@={model.termsAcceptedChecked}"
+                            />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/button_tos_link"
+                            style="?attr/borderlessButtonStyle"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="45dp"
+                            android:layout_marginEnd="@dimen/onboarding_check_box_margin"
+                            android:paddingHorizontal="10dp"
+                            android:gravity="start|center_vertical"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@id/tos_checkbox"
+                            android:text="@string/accept_terms_tos_link_text" />
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/onboarding_check_card_margin_top"
+                    app:cardElevation="@dimen/onboarding_card_elevation">
+
+                    <com.google.android.material.checkbox.MaterialCheckBox
+                        android:id="@+id/checkbox_voluntary_activation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginEnd="@dimen/onboarding_check_box_margin"
+                        android:layout_marginVertical="@dimen/onboarding_check_box_margin"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="0dp"
+                        android:checked="@={model.voluntaryActivationChecked}"
+                        android:text="@string/accept_terms_activation_text" />
+
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/button_enable_service"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:enabled="@{model.enableAllowed()}"
+                    android:text="@string/accept_terms_button_enable" />
+
+            </LinearLayout>
+
+        </ScrollView>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_accept_terms_scroll"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="25dp"
+            style="@style/Widget.Vilkku.Button.IconOnly"
+            app:icon="@drawable/ic_arrow_down"
+            app:iconSize="30dp"
+            android:contentDescription="@string/accept_terms_scroll"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

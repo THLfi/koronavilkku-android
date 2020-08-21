@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_navigation"
+    app:startDestination="@+id/home">
+
+    <action android:id="@+id/to_diagnosis"
+        app:destination="@id/diagnosis"/>
+
+    <action
+        android:id="@+id/to_code_entry"
+        app:destination="@id/code_entry"
+        app:launchSingleTop="true">  <!-- prevents multiple code entry screens, when repeating deeplink starts -->
+        <argument
+            android:name="code"
+            app:argType="string"/>
+    </action>
+
+    <fragment
+        android:id="@+id/home"
+        android:name="fi.thl.koronahaavi.home.HomeFragment"
+        tools:layout="@layout/fragment_home" >
+        <action
+            android:id="@+id/to_test"
+            app:destination="@id/test"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit" />
+        <action
+            android:id="@+id/to_symptoms"
+            app:destination="@id/symptoms"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit" />
+        <action
+            android:id="@+id/to_exposure_detail"
+            app:destination="@id/exposure_detail"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/diagnosis"
+        android:name="fi.thl.koronahaavi.diagnosis.DiagnosisFragment"
+        tools:layout="@layout/fragment_diagnosis" >
+        <action
+            android:id="@+id/to_code_entry"
+            app:destination="@id/code_entry" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/code_entry"
+        android:name="fi.thl.koronahaavi.diagnosis.CodeEntryFragment"
+        android:label="@string/code_entry_title"
+        tools:layout="@layout/fragment_code_entry" >
+        <!-- popUpTo=home so that back nav from diagnosis_complete goes to home -->
+        <action
+            android:id="@+id/to_diagnosis_complete"
+            app:destination="@id/diagnosis_complete"
+            app:popUpTo="@id/home"
+            app:popUpToInclusive="false"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+        <argument
+            android:name="code"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/exposure_detail"
+        android:name="fi.thl.koronahaavi.exposure.ExposureDetailFragment"
+        tools:layout="@layout/fragment_exposure_detail">
+        <action
+            android:id="@+id/to_select_municipality"
+            app:destination="@id/municipality_list" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/municipality_list"
+        android:name="fi.thl.koronahaavi.exposure.MunicipalityListFragment"
+        android:label="@string/municipality_list_title"
+        tools:layout="@layout/fragment_municipality_list">
+        <action
+            android:id="@+id/to_contact"
+            app:destination="@id/contact" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/contact"
+        android:name="fi.thl.koronahaavi.exposure.ContactFragment"
+        android:label="{titleName}"
+        tools:layout="@layout/fragment_contact">
+        <argument
+            android:name="titleName"
+            app:argType="string" />
+        <argument
+            android:name="code"
+            app:argType="string" />
+        <action
+            android:id="@+id/to_pre_web_contact"
+            app:destination="@id/pre_web_contact" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/pre_web_contact"
+        android:name="fi.thl.koronahaavi.exposure.PreWebContactFragment"
+        android:label="@string/pre_web_contact_title"
+        tools:layout="@layout/fragment_pre_web_contact">
+        <argument
+            android:name="startEvaluation"
+            app:argType="boolean" />
+        <argument
+            android:name="municipalityCode"
+            app:argType="string" />
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/diagnosis_complete"
+        android:name="fi.thl.koronahaavi.diagnosis.DiagnosisCompleteFragment"
+        android:label="@string/diagnosis_title"
+        tools:layout="@layout/fragment_diagnosis_complete" />
+
+    <fragment
+        android:id="@+id/settings"
+        android:name="fi.thl.koronahaavi.settings.SettingsFragment"
+        tools:layout="@layout/fragment_settings" >
+        <action
+            android:id="@+id/to_disable_service"
+            app:destination="@id/disable_service"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/to_enable_service"
+            app:destination="@id/enable_service"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/symptoms"
+        android:name="fi.thl.koronahaavi.info.SymptomsFragment"
+        tools:layout="@layout/fragment_symptoms" />
+
+    <fragment
+        android:id="@+id/disable_service"
+        android:name="fi.thl.koronahaavi.settings.DisableServiceFragment"
+        tools:layout="@layout/fragment_disable_service" >
+    </fragment>
+
+    <fragment
+        android:id="@+id/enable_service"
+        android:name="fi.thl.koronahaavi.settings.EnableServiceFragment"
+        tools:layout="@layout/fragment_enable_service" >
+    </fragment>
+
+    <fragment
+        android:id="@+id/test"
+        android:name="fi.thl.koronahaavi.test.TestFragment"
+        android:label="@string/test_title"
+        tools:layout="@layout/fragment_test" >
+        <action
+            android:id="@+id/to_onboarding"
+            app:destination="@id/onboarding" />
+    </fragment>
+
+    <action
+        android:id="@+id/to_onboarding"
+        app:destination="@id/onboarding"/>
+
+    <activity
+        android:id="@+id/onboarding"
+        android:name="fi.thl.koronahaavi.onboarding.OnboardingActivity" />
+
+</navigation>

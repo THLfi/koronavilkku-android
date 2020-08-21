@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View" />
+        <variable name="model" type="fi.thl.koronahaavi.exposure.PreWebContactData" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include android:id="@+id/layout_toolbar" layout="@layout/toolbar"/>
+
+        <ScrollView
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintTop_toBottomOf="@+id/layout_toolbar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="20dp"
+                tools:ignore="MissingConstraints">
+
+                <androidx.constraintlayout.helper.widget.Flow
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:flow_verticalGap="20dp"
+                    android:paddingBottom="10dp"
+                    app:constraint_referenced_ids="text_pre_web_contact_title,
+                    text_pre_web_contact_body,
+                    card_pre_web_lang_fi,card_pre_web_lang_sv,card_pre_web_lang_en"/>
+
+                <TextView
+                    android:id="@+id/text_pre_web_contact_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?attr/textAppearanceHeadline2"
+                    android:text="@{model.startEvaluation ? @string/pre_web_contact_title_evaluation : @string/pre_web_contact_title_no_evaluation}"
+                    tools:text="@string/pre_web_contact_title_evaluation" />
+
+                <TextView
+                    android:id="@+id/text_pre_web_contact_body"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="10dp"
+                    android:textAppearance="?attr/textAppearanceBody1"
+                    android:text="@{model.startEvaluation ? @string/pre_web_contact_body_evaluation : @string/pre_web_contact_body_no_evaluation}"
+                    tools:text="@string/pre_web_contact_body_evaluation"/>
+
+                <include
+                    android:id="@+id/card_pre_web_lang_fi"
+                    layout="@layout/link_item_card"
+                    app:label="@{@string/all_finnish}"
+                    android:visibility="@{model.showFinnish ? View.VISIBLE : View.GONE}"
+                    />
+                <include
+                    android:id="@+id/card_pre_web_lang_sv"
+                    layout="@layout/link_item_card"
+                    app:label="@{@string/all_swedish}"
+                    android:visibility="@{model.showSwedish ? View.VISIBLE : View.GONE}"
+                    />
+                <include
+                    android:id="@+id/card_pre_web_lang_en"
+                    layout="@layout/link_item_card"
+                    app:label="@{@string/all_english}"
+                    android:visibility="@{model.showEnglish ? View.VISIBLE : View.GONE}"
+                    />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </ScrollView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

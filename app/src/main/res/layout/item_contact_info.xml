@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.graphics.drawable.Drawable"/>
+        <variable name="header" type="java.lang.String"/>
+        <variable name="label" type="java.lang.String"/>
+        <variable name="footer" type="java.lang.String"/>
+        <variable name="icon" type="Drawable"/>
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginHorizontal="20dp"
+        >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="14dp"
+            android:layout_marginHorizontal="20dp">
+
+            <LinearLayout
+                android:id="@+id/layout_info_content"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginEnd="10dp"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/image_info_icon">
+
+                <TextView
+                    android:id="@+id/text_info_header"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{header}"
+                    android:textAppearance="?attr/textAppearanceBody2"
+                    tools:text="@tools:sample/lorem/random"
+                    tools:lines="1"
+                    />
+                <TextView
+                    android:id="@+id/text_info_label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{label}"
+                    style="@style/Widget.Vilkku.TextView.Primary"
+                    android:textAppearance="?attr/textAppearanceHeadline3"
+                    tools:text="@tools:sample/lorem/random"
+                    tools:lines="1"
+                    />
+                <TextView
+                    android:id="@+id/text_info_footer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{footer}"
+                    android:textAppearance="?attr/textAppearanceCaption"
+                    tools:text="@tools:sample/lorem/random"
+                    tools:lines="1"
+                    />
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/image_info_icon"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:src="@{icon}"
+                tools:src="@drawable/ic_phone"
+                app:tint="?attr/colorPrimary"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:contentDescription="@string/info_icon"
+                />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>

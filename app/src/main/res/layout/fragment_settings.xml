@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View" />
+        <variable name="model" type="fi.thl.koronahaavi.settings.SettingsViewModel" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:clipToPadding="false"
+            android:padding="@dimen/view_padding"
+            tools:context=".settings.SettingsFragment">
+
+            <TextView
+                android:id="@+id/settings_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/view_margin_top"
+                android:layout_marginBottom="30dp"
+                android:text="@string/settings_title"
+                android:textAppearance="?attr/textAppearanceHeadline1" />
+
+            <include
+                android:id="@+id/settings_status_item"
+                layout="@layout/link_item_card"
+                app:label="@{@string/settings_status_item}"
+                app:value="@{@string/settings_status_off}" /> <!-- updated at runtime in fragment, but data binding requires initial value -->
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/section_title_margin_top"
+                android:layout_marginBottom="@dimen/section_title_margin_bottom"
+                android:text="@string/settings_about_subtitle"
+                android:textAppearance="?attr/textAppearanceHeadline5" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <include
+                        android:id="@+id/settings_faq_item"
+                        layout="@layout/link_item_content"
+                        app:label="@{@string/settings_faq_item}"
+                        app:link="@{@string/settings_faq_link_name}" />
+
+                    <include layout="@layout/item_divider" />
+
+                    <include
+                        android:id="@+id/settings_guide_item"
+                        layout="@layout/link_item_content"
+                        app:label="@{String.format(@string/settings_guide_item, @string/app_name)}" />
+
+                    <include layout="@layout/item_divider" />
+
+                    <include
+                        android:id="@+id/settings_tos_item"
+                        layout="@layout/link_item_content"
+                        app:label="@{@string/settings_tos_item}"
+                        app:link="@{@string/settings_terms_link_name}"/>
+
+                    <include layout="@layout/item_divider" />
+
+                    <include
+                        android:id="@+id/settings_privacy_item"
+                        layout="@layout/link_item_content"
+                        app:label="@{@string/settings_privacy_item}"
+                        app:link="@{@string/settings_privacy_link_name}" />
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:id="@+id/settings_app_name_version"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:textAppearance="?attr/textAppearanceCaption" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</layout>

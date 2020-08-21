@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View" />
+        <variable name="label" type="java.lang.String"/>
+        <variable name="value" type="java.lang.String"/>
+        <variable name="link" type="java.lang.String"/>
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/link_item_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="16dp"
+        android:background="?android:attr/selectableItemBackground"
+        >
+
+        <TextView
+            android:id="@+id/link_item_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/link_item_link"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/link_item_value"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintHorizontal_bias="0"
+            android:layout_marginEnd="10dp"
+            android:text="@{label}"
+            android:textAppearance="?attr/textAppearanceBody2"
+            tools:text="@tools:sample/lorem"
+            />
+
+        <TextView
+            android:id="@+id/link_item_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/link_item_link"
+            app:layout_constraintStart_toEndOf="@+id/link_item_label"
+            app:layout_constraintEnd_toStartOf="@+id/link_item_indicator"
+            android:layout_marginEnd="10dp"
+            android:text="@{value}"
+            android:visibility="@{value == null ? View.GONE : View.VISIBLE}"
+            style="@style/LinkItemContentValue"
+            tools:text="@tools:sample/lorem"
+            />
+
+        <TextView
+            android:id="@+id/link_item_link"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/link_item_indicator"
+            app:layout_constraintHorizontal_bias="0"
+            android:layout_marginTop="2dp"
+            android:text="@{link}"
+            android:visibility="@{link == null ? View.GONE : View.VISIBLE}"
+            style="@style/LinkItemContentLink"
+            tools:text="@tools:sample/lorem"
+            />
+
+
+        <ImageView
+            android:id="@+id/link_item_indicator"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:src="@drawable/ic_chevron_right"
+            android:contentDescription="@null"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

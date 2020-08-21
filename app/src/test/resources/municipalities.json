@@ -1,0 +1,98 @@
+[
+  {
+    "code": "837",
+    "name": {
+      "fi": "Tampere",
+      "sv": "Tammerfors",
+      "en": "Tampere"
+    },
+    "omaolo": {
+      "available": false
+    },
+    "contact": [
+      {
+        "title": {
+          "fi": "Tays Keskussairaala",
+          "sv": "Tammerfors universitetssjukhus",
+          "en": "Central Hospital in Tampere"
+        },
+        "phoneNumber": "1234567890",
+        "info": {
+          "fi": "Maanantai-sunnuntai 7-17",
+          "sv": "Måndag-söndag 7-17",
+          "en": "Monday to Sunday 7am - 7pm"
+        }
+      },
+      {
+        "title": {
+          "fi": "Tays Hatanpää",
+          "sv": "Tays Hatanpää sjukhus",
+          "en": "Tays Hatanpää Hospital"
+        },
+        "phoneNumber": "1234567890",
+        "info": {
+          "fi": "Maanantai-perjantai 8-15",
+          "sv": "Måndag-fredag 8-15",
+          "en": "Monday to Friday 8am - 3pm"
+        }
+      }
+    ]
+  },
+  {
+    "code": "091",
+    "name": {
+      "fi": "Helsinki",
+      "sv": "Helsingfors",
+      "en": "Helsinki"
+    },
+    "omaolo": {
+      "available": true,
+      "serviceLanguages": {
+        "fi": true,
+        "sv": false,
+        "en": false
+      }
+    },
+    "contact": [
+      {
+        "title": {
+          "fi": "Meilahden sairaala",
+          "sv": "Mejlans sjukhus",
+          "en": "Meilahti Hospital"
+        },
+        "phoneNumber": "0987654321",
+        "info": {
+          "fi": "Maanantai-sunnuntai 6-18",
+          "sv": "Måndag-söndag 6-18",
+          "en": "Monday to Sunday 6am - 6pm"
+        }
+      },
+      {
+        "title": {
+          "fi": "Laakson sairaala",
+          "sv": "Dals sjukhus",
+          "en": "Laakso Hospital"
+        },
+        "phoneNumber": "0987654321",
+        "info": {
+          "fi": "Maanantai-perjantai 7-16",
+          "sv": "Måndag - fredag 7-16",
+          "en": "Monday to Friday 7am - 4pm"
+        }
+      },
+      {
+        "title": {
+          "fi": "Herttoniemen sairaala",
+          "sv": "Hertonäs sjukhus",
+          "en": "Herttoniemi Hospital"
+        },
+        "phoneNumber": "0987654321",
+        "info": {
+          "fi": "Maanantai-perjantai 8-18",
+          "sv": "Måndag - fredag 8-18",
+          "en": "Monday to Friday 8am - 6pm"
+        }
+      }
+    ]
+  }
+]

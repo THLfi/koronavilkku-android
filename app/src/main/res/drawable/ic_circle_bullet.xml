@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- creates a small circle with margin to match @dimen/bullet_icon_size -->
+    <item
+        android:top="@dimen/bullet_circle_top_margin"
+        android:left="@dimen/bullet_circle_horizontal_margin"
+        android:right="@dimen/bullet_circle_horizontal_margin"
+
+        android:width="@dimen/bullet_circle_size"
+        android:height="@dimen/bullet_circle_size"
+
+        android:drawable="@drawable/shape_circle"/>
+</layer-list>

@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include android:id="@+id/layout_toolbar" layout="@layout/toolbar"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="20dp">
+
+            <!-- visibility set in code only for Sim build -->
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button_test_receiver"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:text="@string/test_update_exposures" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button_test_update_municipalities"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/button_test_receiver"
+                app:layout_constraintStart_toStartOf="parent"
+                android:text="@string/test_update_municipalities" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button_test_download"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/button_test_update_municipalities"
+                app:layout_constraintStart_toStartOf="parent"
+                android:text="@string/test_download" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/input_layout_test_batch_id"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/button_test_download"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/button_test_set_batch_id"
+                android:hint="@string/test_batch_id_hint"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/input_edit_test_batch_id"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button_test_set_batch_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/button_test_download"
+                app:layout_constraintStart_toEndOf="@id/input_layout_test_batch_id"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginStart="10dp"
+                android:text="@string/test_set_batch_id" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button_test_clear_exposures"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/input_layout_test_batch_id"
+                app:layout_constraintStart_toStartOf="parent"
+                android:text="@string/test_clear_exposures" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button_test_reset_onboarding"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/button_test_clear_exposures"
+                app:layout_constraintStart_toStartOf="parent"
+                android:text="@string/test_reset_onboarding" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button_test_unlock"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/button_test_reset_onboarding"
+                app:layout_constraintStart_toStartOf="parent"
+                android:text="@string/test_unlock" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button_test_open_en_settings"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/button_test_unlock"
+                app:layout_constraintStart_toStartOf="parent"
+                android:text="@string/test_open_en_settings" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button_test_check_play_services"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/button_test_open_en_settings"
+                app:layout_constraintStart_toStartOf="parent"
+                android:text="@string/test_check_play_services" />
+
+            <TextView
+                android:id="@+id/test_play_version"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/button_test_check_play_services"
+                app:layout_constraintStart_toStartOf="parent"
+                android:paddingBottom="8dp"/>
+
+            <TextView
+                android:id="@+id/test_worker_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/test_play_version"
+                app:layout_constraintStart_toStartOf="parent"
+                android:paddingBottom="8dp"/>
+
+            <TextView
+                android:id="@+id/test_exposure_risk_scores"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/test_worker_info"
+                app:layout_constraintStart_toStartOf="parent"
+                android:paddingBottom="8dp"/>
+
+            <TextView
+                android:id="@+id/test_update_tokens"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/test_worker_info"
+                app:layout_constraintStart_toStartOf="parent"
+                android:paddingBottom="8dp"/>
+
+            <TextView
+                android:id="@+id/test_exposure_worker_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/test_update_tokens"
+                app:layout_constraintStart_toStartOf="parent"
+                android:paddingBottom="8dp"/>
+
+            <TextView
+                android:id="@+id/test_device_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/test_exposure_worker_info" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+</LinearLayout>

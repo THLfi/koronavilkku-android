@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="mainBlue">#2472b2</color>
+    <color name="mainYellow">#faa61a</color>
+    <color name="mainRed">#d64176</color>
+
+    <color name="darkBlue">#145c98</color>
+    <color name="lightBlue">#7699d6</color>
+    <color name="veryLightBlue">#f2f6fb</color>
+
+    <color name="black">#303030</color>
+    <color name="darkGrey">#606060</color>
+    <color name="mediumGrey">#8C8C8C</color>
+    <color name="lightGrey">#B2B2B2</color>
+    <color name="veryLightGrey">#EFEFEF</color>
+
+    <color name="textBlack">#de000000</color>
+    <color name="textDarkGrey">#99000000</color>
+
+</resources>

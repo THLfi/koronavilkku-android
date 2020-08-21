@@ -1,0 +1,173 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'dagger.hilt.android.plugin'
+apply plugin: 'androidx.navigation.safeargs.kotlin'
+
+// setup properties from local overrides or from gradle.properties defaults
+// these are then used to create buildConfigFields which are used in code
+Properties localProperties = new Properties()
+def propertiesFile = project.rootProject.file('local.properties')
+if (propertiesFile.exists()) {
+    localProperties.load(propertiesFile.newDataInputStream())
+}
+
+def backendUrl = localProperties.get("backendUrl", "$BACKEND_URL")
+def municipalityUrl = localProperties.get("municipalityUrl", "$MUNICIPALITY_URL")
+def omaoloUrl = localProperties.get("omaoloUrl", "$OMAOLO_URL")
+def enableTestUI = localProperties.get("enableTestUI", "$ENABLE_TEST_UI")
+def pinBackendHost = localProperties.get("pinBackendHost", "$PIN_BACKEND_HOST")
+def pinBackendKeyHash = localProperties.get("pinBackendKeyHash", "$PIN_BACKEND_KEY_HASH")
+def pinBackendKeyBackupHash = localProperties.get("pinBackendKeyBackupHash", "$PIN_BACKEND_KEY_BACKUP_HASH")
+
+android {
+    compileSdkVersion rootProject.compileSdkVersion
+    buildToolsVersion "29.0.3"
+
+    defaultConfig {
+        applicationId "fi.thl.koronahaavi"
+        minSdkVersion rootProject.minSdkVersion
+        targetSdkVersion rootProject.targetSdkVersion
+        versionCode 10
+        versionName "1.0.0"
+
+        buildConfigField "String", "BASE_URL", "\"$backendUrl\""
+        buildConfigField "String", "MUNICIPALITY_URL", "\"$municipalityUrl\""
+        buildConfigField "String", "OMAOLO_URL", "\"$omaoloUrl\""
+        buildConfigField "boolean", "ENABLE_TEST_UI", "$enableTestUI"
+        buildConfigField "String", "PIN_BACKEND_HOST", "\"$pinBackendHost\""
+        buildConfigField "String", "PIN_BACKEND_KEY_HASH", "\"$pinBackendKeyHash\""
+        buildConfigField "String", "PIN_BACKEND_KEY_BACKUP_HASH", "\"$pinBackendKeyBackupHash\""
+
+        testInstrumentationRunner "fi.thl.koronahaavi.HaaviTestRunner"
+    }
+
+    buildTypes {
+        debug {
+            applicationIdSuffix ".debug"
+            versionNameSuffix "-debug"
+            debuggable true
+            manifestPlaceholders = [allowCleartext:"true"]
+        }
+        release {
+            minifyEnabled false
+            manifestPlaceholders = [allowCleartext:"false"]
+        }
+    }
+
+    flavorDimensions "mode"
+    productFlavors {
+        sim {
+            dimension "mode"
+            applicationIdSuffix ".sim"
+            versionNameSuffix "-sim"
+        }
+        live {
+            dimension "mode"
+        }
+    }
+
+    buildFeatures {
+        dataBinding = true
+        viewBinding = true
+    }
+
+    compileOptions {
+        coreLibraryDesugaringEnabled true
+
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+        freeCompilerArgs += ["-Xuse-experimental=kotlinx.coroutines.ExperimentalCoroutinesApi"]
+    }
+
+    testOptions.unitTests.includeAndroidResources = true
+}
+
+configurations.all {
+    resolutionStrategy.force "junit:junit:$junitVersion"
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar', '*.aar'])
+    coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.0.10'
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlinVersion"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinXVersion"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlinXVersion"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-play-services:$kotlinXVersion"
+
+    implementation 'androidx.core:core-ktx:1.3.1'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.0-rc1'
+    implementation "com.google.android.material:material:$materialVersion"
+    implementation "com.jakewharton.timber:timber:$timberVersion"
+
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion"
+
+    // Navigation
+    implementation "androidx.navigation:navigation-fragment:$navigationVersion"
+    implementation "androidx.navigation:navigation-ui:$navigationVersion"
+    implementation "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
+    implementation "androidx.navigation:navigation-ui-ktx:$navigationVersion"
+
+    // Work manager
+    implementation "androidx.work:work-runtime-ktx:$workVersion"
+    testImplementation "androidx.work:work-testing:$workVersion"
+
+    // Hilt dependency injection
+    implementation "com.google.dagger:hilt-android:$hiltVersion"
+    kapt "com.google.dagger:hilt-android-compiler:$hiltVersion"
+    implementation "androidx.hilt:hilt-lifecycle-viewmodel:$hiltAndroidXVersion"
+    implementation "androidx.hilt:hilt-work:$hiltAndroidXVersion"
+    kapt "androidx.hilt:hilt-compiler:$hiltAndroidXVersion"
+
+    kaptTest "androidx.hilt:hilt-compiler:$hiltAndroidXVersion"
+
+    // Room database
+    implementation "androidx.room:room-runtime:$roomVersion"
+    implementation "androidx.room:room-ktx:$roomVersion"
+    kapt "androidx.room:room-compiler:$roomVersion"
+    testImplementation "androidx.room:room-testing:$roomVersion"
+
+    // Google Play (also aar file included from libs folder)
+    implementation "com.google.android.gms:play-services-base:$playVersion"
+    implementation "com.google.android.gms:play-services-basement:$playVersion"
+    implementation 'com.google.android.gms:play-services-safetynet:17.0.0'
+    implementation 'com.google.android.gms:play-services-tasks:17.1.0'
+
+    // Security
+    implementation 'androidx.security:security-crypto:1.0.0-rc02'  // 1.0 on purpose until 1.1 past alpha
+    implementation 'net.zetetic:android-database-sqlcipher:4.4.0'
+
+    // Network
+    implementation "com.squareup.retrofit2:retrofit:$retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-moshi:$moshiVersion"
+    kapt "com.squareup.moshi:moshi-kotlin-codegen:1.6.0"
+    implementation "com.squareup.okhttp3:logging-interceptor:4.7.2"
+
+    // Testing
+    testImplementation "junit:junit:$junitVersion"
+    testImplementation 'androidx.arch.core:core-testing:2.1.0'
+    testImplementation 'io.mockk:mockk:1.10.0'
+    testImplementation 'androidx.test:core:1.2.0'
+    testImplementation 'androidx.test.ext:junit:1.1.1'
+    testImplementation "org.robolectric:robolectric:4.3.1"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.7"
+    testImplementation 'org.jetbrains.kotlinx:kotlinx-coroutines-test:1.3.6'
+    testImplementation 'com.jraska.livedata:testing-ktx:1.1.1'
+
+    // Android test
+    debugImplementation 'androidx.fragment:fragment-testing:1.2.5'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.1'
+    androidTestImplementation 'androidx.test:runner:1.2.0'
+    androidTestImplementation 'androidx.test:rules:1.2.0'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
+    androidTestImplementation "com.google.dagger:hilt-android-testing:$hiltVersion"
+    kaptAndroidTest "com.google.dagger:hilt-android-compiler:$hiltVersion"
+    androidTestImplementation "androidx.work:work-testing:$workVersion"
+    androidTestImplementation "androidx.navigation:navigation-testing:$navigationVersion"
+}

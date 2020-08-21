@@ -1,0 +1,238 @@
+<resources>
+    <style name="Theme.Vilkku" parent="Theme.MaterialComponents.Light.DarkActionBar">
+        <item name="colorPrimary">@color/mainBlue</item>
+        <item name="colorPrimaryVariant">@color/darkBlue</item>
+        <item name="colorSecondary">@color/mainYellow</item>
+        <item name="colorError">@color/mainRed</item>
+        <item name="android:colorBackground">@color/veryLightBlue</item>
+
+        <item name="bottomNavigationStyle">@style/Widget.Vilkku.BottomNavigationView</item>
+        <item name="materialCardViewStyle">@style/Widget.Vilkku.CardView</item>
+        <item name="materialButtonStyle">@style/Widget.Vilkku.Button</item>
+        <item name="borderlessButtonStyle">@style/Widget.Vilkku.Button.TextButton</item>
+        <item name="searchViewStyle">@style/Widget.Vilkku.SearchView</item>
+        <item name="checkboxStyle">@style/Widget.Vilkku.Checkbox</item>
+        <item name="toolbarStyle">@style/Widget.Vilkku.Toolbar</item>
+
+        <item name="bulletTextViewStyle">@style/Widget.Vilkku.BulletTextView</item>
+
+        <item name="textAppearanceHeadline1">@style/TextAppearance.Vilkku.Heading1</item>
+        <item name="textAppearanceHeadline2">@style/TextAppearance.Vilkku.Heading2</item>
+        <item name="textAppearanceHeadline3">@style/TextAppearance.Vilkku.Heading3</item>
+        <item name="textAppearanceHeadline4">@style/TextAppearance.Vilkku.Heading4</item>
+        <item name="textAppearanceHeadline5">@style/TextAppearance.Vilkku.Heading5</item>
+        <item name="textAppearanceSubtitle1">@style/TextAppearance.Vilkku.LabelPrimary</item>
+        <item name="textAppearanceSubtitle2">@style/TextAppearance.Vilkku.LabelSecondary</item>
+        <item name="textAppearanceCaption">@style/TextAppearance.Vilkku.LabelTertiary</item>
+        <item name="textAppearanceBody1">@style/TextAppearance.Vilkku.BodyLarge</item>
+        <item name="textAppearanceBody2">@style/TextAppearance.Vilkku.BodySmall</item>
+
+        <item name="bottomSheetDialogTheme">@style/Widget.Vilkku.BottomSheetDialog</item>
+    </style>
+
+    <style name="Theme.Vilkku.Launcher">
+        <item name="android:windowBackground">@drawable/launch_screen</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.Vilkku.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.Vilkku.NoActionBar.DefaultBackground">
+        <item name="android:colorBackground">@color/design_default_color_background</item>
+    </style>
+
+    <style name="Widget.Vilkku.Toolbar" parent="Widget.MaterialComponents.Toolbar">
+        <item name="titleTextAppearance">?attr/textAppearanceSubtitle1</item>
+    </style>
+
+    <style name="Widget.Vilkku.Toolbar.Elevated" parent="Widget.MaterialComponents.Toolbar.Primary">
+        <item name="titleTextAppearance">?attr/textAppearanceSubtitle1</item>
+    </style>
+
+    <style name="Widget.Vilkku.TextInputLayout.Code" parent="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
+        <item name="boxBackgroundColor">?attr/colorSurface</item>
+        <!-- color state list required to override unfocused color -->
+        <item name="boxStrokeColor">@color/code_text_input_stroke_color</item>
+    </style>
+
+    <style name="Widget.Vilkku.SearchView" parent="@style/Widget.AppCompat.SearchView.ActionBar">
+        <item name="android:background">@drawable/shape_badge_background</item>
+        <item name="android:backgroundTint">?attr/colorSurface</item>
+        <item name="android:elevation">3dp</item>
+        <item name="iconifiedByDefault">false</item>
+    </style>
+
+    <style name="Widget.Vilkku.BulletTextView" parent="">
+        <item name="icon">@drawable/ic_circle_bullet</item>
+        <item name="iconColor">?attr/colorPrimary</item>
+        <item name="textStartPadding">10dp</item>
+        <item name="android:textAppearance">?attr/textAppearanceBody2</item>
+    </style>
+
+    <style name="Widget.Vilkku.BulletTextView.Critical">
+        <item name="icon">@drawable/ic_alert_octagon</item>
+        <item name="android:textColor">?attr/colorError</item>
+        <item name="iconColor">?attr/colorError</item>
+        <item name="android:textAppearance">?attr/textAppearanceSubtitle2</item>
+    </style>
+
+    <style name="ShapeAppearance.Vilkku.Button" parent="ShapeAppearance.MaterialComponents.SmallComponent">
+        <item name="cornerSize">20dp</item>
+    </style>
+
+    <style name="Widget.Vilkku.Button.IconOnly" parent="Widget.MaterialComponents.Button.Icon">
+        <item name="iconGravity">textStart</item>
+        <item name="iconPadding">0dp</item>
+        <item name="android:padding">0dp</item>
+        <item name="android:insetLeft">0dp</item>
+        <item name="android:insetTop">0dp</item>
+        <item name="android:insetRight">0dp</item>
+        <item name="android:insetBottom">0dp</item>
+        <item name="shapeAppearanceOverlay">@style/ShapeAppearanceOverlay.Vilkku.Circle</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay.Vilkku.Circle" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
+    <style name="Widget.Vilkku.Button.TextButton" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:textAppearance">@style/TextAppearance.Vilkku.LabelSecondary</item>
+        <!-- no padding so can align with other text -->
+        <item name="android:paddingLeft">0dp</item>
+        <item name="android:paddingRight">0dp</item>
+    </style>
+
+    <style name="Widget.Vilkku.Button" parent="Widget.MaterialComponents.Button">
+        <item name="shapeAppearance">@style/ShapeAppearance.Vilkku.Button</item>
+        <item name="android:textAppearance">@style/TextAppearance.Vilkku.LabelPrimary</item>
+        <item name="android:paddingLeft">50dp</item>
+        <item name="android:paddingRight">50dp</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+    </style>
+
+    <style name="Widget.Vilkku.BottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView">
+        <item name="backgroundTint">?attr/colorSurface</item>
+    </style>
+
+    <style name="Widget.Vilkku.CardView" parent="@style/Widget.MaterialComponents.CardView">
+        <item name="cardCornerRadius">14dp</item>
+    </style>
+
+    <style name="Widget.Vilkku.TextView.Critical" parent="@style/Widget.MaterialComponents.TextView">
+        <item name="android:textColor">?attr/colorError</item>
+    </style>
+
+    <style name="Widget.Vilkku.TextView.Primary" parent="@style/Widget.MaterialComponents.TextView">
+        <item name="android:textColor">?attr/colorPrimary</item>
+    </style>
+
+    <style name="Widget.Vilkku.ImageView.Exposure" parent="">
+        <item name="android:background">@drawable/shape_circle</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:tint">?attr/colorOnPrimary</item>
+    </style>
+
+    <style name="TextAppearance.Vilkku.Heading1" parent="TextAppearance.MaterialComponents.Headline1">
+        <item name="fontFamily">@font/source_sans_pro_black</item>
+        <item name="android:textSize">34sp</item>
+        <item name="android:textColor">?android:attr/textColorPrimary</item>  <!-- override secondary color from parent -->
+    </style>
+
+    <style name="TextAppearance.Vilkku.Heading2" parent="TextAppearance.Vilkku.Heading1">
+        <item name="fontFamily">@font/source_sans_pro_black</item>
+        <item name="android:textSize">24sp</item>
+        <item name="android:letterSpacing">0.01</item>
+    </style>
+
+    <style name="TextAppearance.Vilkku.Heading3" parent="TextAppearance.Vilkku.Heading1">
+        <item name="fontFamily">@font/source_sans_pro_bold</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:letterSpacing">0.01</item>
+    </style>
+
+    <style name="TextAppearance.Vilkku.Heading4" parent="TextAppearance.Vilkku.Heading1">
+        <item name="fontFamily">@font/source_sans_pro_semibold</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:letterSpacing">0.01</item>
+    </style>
+
+    <style name="TextAppearance.Vilkku.Heading5" parent="TextAppearance.Vilkku.Heading1">
+        <item name="fontFamily">@font/source_sans_pro_semibold</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:letterSpacing">0.05</item>
+    </style>
+
+    <style name="TextAppearance.Vilkku.LabelPrimary" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="fontFamily">@font/source_sans_pro_bold</item>
+        <item name="android:textSize">17sp</item>
+        <item name="android:letterSpacing">0.01</item>
+    </style>
+
+    <style name="TextAppearance.Vilkku.LabelSecondary" parent="TextAppearance.Vilkku.LabelPrimary">
+        <item name="fontFamily">@font/source_sans_pro_bold</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:letterSpacing">0.01</item>
+    </style>
+
+    <style name="TextAppearance.Vilkku.LabelTertiary" parent="TextAppearance.Vilkku.LabelPrimary">
+        <item name="fontFamily">@font/source_sans_pro</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:letterSpacing">0.01</item>
+    </style>
+
+    <style name="TextAppearance.Vilkku.BodyLarge" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="fontFamily">@font/source_sans_pro</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="TextAppearance.Vilkku.BodySmall" parent="TextAppearance.Vilkku.BodyLarge">
+        <item name="fontFamily">@font/source_sans_pro</item>
+        <item name="android:textSize">15sp</item>
+    </style>
+
+    <style name="LinkItemContentValue" parent="@style/Widget.MaterialComponents.TextView">
+        <item name="android:textAppearance">?attr/textAppearanceBody2</item>
+    </style>
+
+    <style name="LinkItemContentLink" parent="@style/Widget.MaterialComponents.TextView">
+        <item name="android:textAppearance">?attr/textAppearanceCaption</item>
+        <item name="android:textColor">@color/mainBlue</item>
+    </style>
+
+    <style name="ThemeOverlay.Vilkku.Button.Critical" parent="">
+        <item name="colorPrimary">?attr/colorError</item>
+    </style>
+
+    <style name="ThemeOverlay.Vilkku.Button.Surface" parent="">
+        <item name="colorPrimary">?attr/colorSurface</item>
+        <item name="colorOnPrimary">@color/mediumGrey</item>
+    </style>
+
+    <style name="Widget.Vilkku.BottomSheetDialog" parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/Widget.Vilkku.BottomSheet</item>
+    </style>
+
+    <style name="Widget.Vilkku.BottomSheet" parent="Widget.MaterialComponents.BottomSheet">
+        <item name="shapeAppearanceOverlay">@style/Widget.Vilkku.BottomSheet.Shape</item>
+    </style>
+
+    <style name="Widget.Vilkku.BottomSheet.Shape" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">14dp</item>
+        <item name="cornerSizeTopLeft">14dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+    </style>
+
+    <style name="Widget.Vilkku.Checkbox" parent="Widget.AppCompat.CompoundButton.CheckBox">
+        <item name="android:buttonTint">?attr/colorPrimary</item>
+        <item name="android:textAppearance">?attr/textAppearanceBody2</item>
+    </style>
+
+</resources>

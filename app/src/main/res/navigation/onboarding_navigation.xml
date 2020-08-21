@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/onboarding_navigation"
+    app:startDestination="@+id/intro">
+
+    <fragment
+        android:id="@+id/intro"
+        android:name="fi.thl.koronahaavi.onboarding.IntroFragment"
+        tools:layout="@layout/fragment_intro">
+        <action
+            android:id="@+id/to_concept"
+            app:destination="@id/concept"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"  />
+    </fragment>
+
+    <fragment
+        android:id="@+id/concept"
+        android:name="fi.thl.koronahaavi.onboarding.ConceptFragment"
+        tools:layout="@layout/fragment_concept">
+        <action
+            android:id="@+id/to_terms"
+            app:destination="@id/accept_terms"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/accept_terms"
+        android:name="fi.thl.koronahaavi.onboarding.AcceptTermsFragment"
+        tools:layout="@layout/fragment_accept_terms">
+        <action
+            android:id="@+id/to_done"
+            app:destination="@id/onboarding_done"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/concept"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/to_blocked"
+            app:destination="@id/en_blocked"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/en_blocked"
+        android:name="fi.thl.koronahaavi.onboarding.ExposureNotificationsBlockedFragment"
+        tools:layout="@layout/fragment_en_blocked">
+        <action
+            android:id="@+id/to_done"
+            app:destination="@id/onboarding_done"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/concept"
+            app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/onboarding_done"
+        android:name="fi.thl.koronahaavi.onboarding.OnboardingDoneFragment"
+        tools:layout="@layout/fragment_onboarding_done">
+        <action
+            android:id="@+id/to_main"
+            app:destination="@id/main"
+            app:enterAnim="@anim/fragment_fade_enter"
+            app:exitAnim="@anim/fragment_fade_exit" />
+    </fragment>
+
+    <activity
+        android:id="@+id/main"
+        android:name="fi.thl.koronahaavi.MainActivity" />
+
+</navigation>

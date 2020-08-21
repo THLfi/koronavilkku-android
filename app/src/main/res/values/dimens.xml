@@ -1,0 +1,26 @@
+<resources>
+    <dimen name="home_exposure_status_icon_size">50dp</dimen>
+
+    <dimen name="bullet_circle_top_margin">5dp</dimen>
+    <dimen name="bullet_circle_horizontal_margin">4dp</dimen>
+    <dimen name="bullet_circle_size">8dp</dimen>
+
+    <dimen name="view_padding">20dp</dimen>
+
+    <!-- Space above the first view element, e.g. a view title. -->
+    <dimen name="view_margin_top">40dp</dimen>
+
+    <!-- Space above a view section, e.g. a subtitle. -->
+    <dimen name="section_title_margin_top">30dp</dimen>
+    <dimen name="section_title_margin_bottom">10dp</dimen>
+
+    <dimen name="onboarding_header_image_height">180dp</dimen>
+    <dimen name="onboarding_view_margin">40dp</dimen>
+    <dimen name="onboarding_button_bottom_margin">32dp</dimen>
+    <dimen name="onboarding_fading_edge_length">80dp</dimen>
+    <dimen name="onboarding_card_elevation">4dp</dimen>
+    <dimen name="onboarding_check_card_margin_top">24dp</dimen>
+    <dimen name="onboarding_check_box_margin">20dp</dimen>
+    <dimen name="home_status_area_elevation">4dp</dimen>
+
+</resources>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="BulletTextView">
+        <attr name="textStartPadding" format="dimension"/>
+        <attr name="icon" format="reference"/>
+        <attr name="iconColor" format="color"/>
+    </declare-styleable>
+
+    <declare-styleable name="BulletTextViewCustomTheme">
+        <attr name="bulletTextViewStyle" format="reference"/>
+    </declare-styleable>
+</resources>

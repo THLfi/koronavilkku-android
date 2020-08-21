@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable name="label" type="java.lang.String"/>
+        <variable name="value" type="java.lang.String"/>
+        <variable name="link" type="java.lang.String"/>
+    </data>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/link_item_card"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="20dp"
+        >
+
+        <include
+            layout="@layout/link_item_content"
+            app:label="@{label}"
+            app:value="@{value}"
+            app:link="@{link}" />
+
+    </com.google.android.material.card.MaterialCardView>
+</layout>
