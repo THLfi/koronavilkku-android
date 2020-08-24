@@ -2,4 +2,4 @@
 
 set -e
 
-sh -c "./gradlew dependencyCheckAnalyze"
+sh -c "gradle dependencyCheckAnalyze"
