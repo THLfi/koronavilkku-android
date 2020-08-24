@@ -10,7 +10,7 @@ jobs:
   dependency-scan:
     name: Owasp Dependency Scanning
     runs-on: ubuntu-latest
-    container: openjdk:14
+    container: openjdk:13
     steps:
       - uses: actions/checkout@v2
       - name: Cache Gradle cache and wrapper
