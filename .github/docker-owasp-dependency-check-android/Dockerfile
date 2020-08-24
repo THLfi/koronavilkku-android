@@ -8,6 +8,7 @@ ENV ANDROID_CL_TOOLS 6609375
 
 # Define ANDROID_HOME directory
 ENV ANDROID_HOME /usr/local/android-sdk-linux
+ENV GRADLE_USER_HOME /root/gradle
 
 # Install android SDK
 RUN apt-get --quiet update --yes
