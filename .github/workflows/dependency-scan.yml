@@ -22,7 +22,7 @@ jobs:
           key: ${{ runner.os }}-gradle-dependency-scan-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-gradle-dependency-scan
       - name: OWASP dependency check
-        run: ./gradlew dependencyCheckAnalyze
+        uses: ./.github/docker-owasp-dependency-check-android
       - uses: actions/upload-artifact@v2
         with:
           name: dependency-check-result
