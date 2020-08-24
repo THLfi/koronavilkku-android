@@ -26,3 +26,6 @@ RUN echo y | ${ANDROID_HOME}/tools/bin/sdkmanager 'extras;google;google_play_ser
 RUN echo y | ${ANDROID_HOME}/tools/bin/sdkmanager 'extras;google;m2repository' | grep -v = || true
 
 ENV PATH "$PATH:${ANDROID_HOME}/tools/"
+
+COPY entrypoint.sh /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
