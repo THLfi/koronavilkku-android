@@ -13,6 +13,7 @@ ENV ANDROID_HOME /usr/local/android-sdk-linux
 RUN apt-get --quiet update --yes
 RUN apt-get --quiet install --yes wget tar unzip lib32stdc++6 lib32z1
 RUN wget --quiet --output-document=android-cl.zip https://dl.google.com/android/repository/commandlinetools-linux-${ANDROID_CL_TOOLS}_latest.zip
+RUN mkdir ${ANDROID_HOME}
 RUN unzip -qq android-cl.zip -d ${ANDROID_HOME}/cmdline-tools
 
 RUN echo y | ${ANDROID_HOME}/cmdline-tools/tools/bin/sdkmanager --update | grep -v = || true
