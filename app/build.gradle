@@ -176,4 +176,5 @@ dependencies {
 dependencyCheck {
     failBuildOnCVSS=0
     skipConfigurations += 'lintClassPath'
+    suppressionFile='owasp_suppressions.xml'
 }
