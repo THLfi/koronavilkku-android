@@ -5,9 +5,18 @@ This is the COVID-19 exposure notifications Android app for the Finnish Institut
 [https://www.google.com/covid19/exposurenotifications/](https://www.google.com/covid19/exposurenotifications/)
 
 ## Build and run
-You can build the app from command line with Gradle, or with Android Studio.
+Clone the repository, and open in Android Studio 4.0 or later (or build directly with Gradle).
 
-There are two product flavors:
-* live for real exposure notification system
-* sim for a simulated exposure notification system which allows running in emulator
+Choose a build variant:
+* liveDebug for real exposure notification system on a device. Note that using the exposure notification system is restricted by app id.
+* simDebug for a simulated exposure notification system which provides dummy responses and allows running in emulator.
 
+Configure the app for your local environment by creating a local.properties file in project root directory with entries that override defaults from gradle.properties. For example:
+
+```
+backendUrl=http://10.0.2.2:8080/
+enableTestUI=true
+```
+
+## Backend
+See [koronavilkku-backend](https://github.com/THLfi/koronavilkku-backend) for information on application backend.
