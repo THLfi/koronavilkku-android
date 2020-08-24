@@ -10,13 +10,17 @@ jobs:
   dependency-scan:
     name: Owasp Dependency Scanning
     runs-on: ubuntu-latest
-    container: openjdk:13
+    container: openjdk:8
+    env:
+      GRADLE_USER_HOME: '/root/gradle'
     steps:
       - uses: actions/checkout@v2
       - name: Cache Gradle cache and wrapper
         uses: actions/cache@v2
         with:
-          path: /root/.gradle
+          path: |
+            /root/gradle/caches
+            /root/gradle/wrapper
           key: ${{ runner.os }}-gradle-dependency-scan-${{ hashFiles('**/*.gradle*') }}
           restore-keys: ${{ runner.os }}-gradle-dependency-scan
       - name: OWASP dependency check
