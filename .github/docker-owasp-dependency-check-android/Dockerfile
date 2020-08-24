@@ -16,7 +16,6 @@ RUN wget --quiet --output-document=android-cl.zip https://dl.google.com/android/
 RUN unzip -qq android-cl.zip -d ${ANDROID_HOME}
 
 RUN echo y | ${ANDROID_HOME}/tools/bin/sdkmanager --update | grep -v = || true
-
 RUN echo y | ${ANDROID_HOME}/tools/bin/sdkmanager 'tools' | grep -v = || true
 RUN echo y | ${ANDROID_HOME}/tools/bin/sdkmanager 'platform-tools' | grep -v = || true
 RUN echo y | ${ANDROID_HOME}/tools/bin/sdkmanager 'build-tools;'${ANDROID_BUILD_TOOLS} | grep -v = || true
@@ -24,6 +23,7 @@ RUN echo y | ${ANDROID_HOME}/tools/bin/sdkmanager 'platforms;android-'${ANDROID_
 RUN echo y | ${ANDROID_HOME}/tools/bin/sdkmanager 'extras;android;m2repository' | grep -v = || true
 RUN echo y | ${ANDROID_HOME}/tools/bin/sdkmanager 'extras;google;google_play_services' | grep -v = || true
 RUN echo y | ${ANDROID_HOME}/tools/bin/sdkmanager 'extras;google;m2repository' | grep -v = || true
+RUN yes | ${ANDROID_HOME}/tools/bin/sdkmanager --licenses
 
 ENV PATH "$PATH:${ANDROID_HOME}/tools/"
 
