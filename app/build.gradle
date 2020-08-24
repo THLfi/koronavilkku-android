@@ -3,6 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'dagger.hilt.android.plugin'
 apply plugin: 'androidx.navigation.safeargs.kotlin'
+apply plugin: 'org.owasp.dependencycheck'
 
 // setup properties from local overrides or from gradle.properties defaults
 // these are then used to create buildConfigFields which are used in code
