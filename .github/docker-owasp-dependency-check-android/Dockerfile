@@ -8,7 +8,6 @@ ENV ANDROID_CL_TOOLS 6609375
 
 # Define ANDROID_HOME directory
 ENV ANDROID_HOME /usr/local/android-sdk-linux
-ENV GRADLE_USER_HOME /root/gradle_home
 
 # Install android SDK
 RUN apt-get --quiet update --yes
@@ -28,6 +27,8 @@ RUN echo y | ${ANDROID_HOME}/cmdline-tools/tools/bin/sdkmanager 'extras;google;m
 RUN yes | ${ANDROID_HOME}/cmdline-tools/tools/bin/sdkmanager --licenses
 
 ENV PATH "$PATH:${ANDROID_HOME}/cmdline-tools/tools/"
+
+RUN mkdir /root/gradle_home
 
 COPY entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]

@@ -2,4 +2,6 @@
 
 set -e
 
-sh -c "gradle dependencyCheckAnalyze"
+export GRADLE_USER_HOME="/root/gradle_home"
+
+sh -c "gradle --no-daemon dependencyCheckAnalyze"
