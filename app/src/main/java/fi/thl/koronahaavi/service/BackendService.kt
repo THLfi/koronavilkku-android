@@ -12,29 +12,20 @@ typealias BatchId = String
  */
 interface BackendService {
 
-    @GET("/exposure/configuration/v1")
+    @GET("exposure/configuration/v1")
     suspend fun getConfiguration(): ExposureConfigurationData
 
-    @GET("/diagnosis/v1/current")
+    @GET("diagnosis/v1/current")
     suspend fun getInitialBatchId(): InitialBatchId
 
-    @GET("/diagnosis/v1/list")
+    @GET("diagnosis/v1/list")
     suspend fun listDiagnosisKeyBatches(@Query("previous") previous: BatchId): DiagnosisKeyBatches
 
-    /*
-    @GET("/diagnosis/v1/status")
-    suspend fun getStatus(
-        @Query("batch") previousBatchId: BatchId?,
-        @Query("exposure-config") previousExposureConfigurationVersion: Int?,
-        @Query("app-config") previousAppConfigurationVersion: Int?
-    ): StatusData
-     */
-
     @Streaming
-    @GET("/diagnosis/v1/batch/{batch_id}")
+    @GET("diagnosis/v1/batch/{batch_id}")
     suspend fun getDiagnosisKeyFile(@Path("batch_id") batchId: BatchId): ResponseBody
 
-    @POST("/diagnosis/v1")
+    @POST("diagnosis/v1")
     suspend fun sendKeys(
         @Header("KV-Publish-Token") token: String,
         @Body data: DiagnosisKeyList,
