@@ -28,7 +28,5 @@ RUN yes | ${ANDROID_HOME}/cmdline-tools/tools/bin/sdkmanager --licenses
 
 ENV PATH "$PATH:${ANDROID_HOME}/cmdline-tools/tools/"
 
-RUN mkdir /root/gradle_home
-
 COPY entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]

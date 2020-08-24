@@ -16,10 +16,10 @@ jobs:
         uses: actions/cache@v2
         with:
           path: |
-            /root/gradle_home/caches
-            /root/gradle_home/wrapper
-          key: ${{ runner.os }}-owasp-dependency-scan-${{ hashFiles('**/*.gradle*') }}
-          restore-keys: ${{ runner.os }}-gradle-dependency-scan
+            /home/gradle/gradle_home/caches
+            /home/gradle/gradle_home/wrapper
+          key: ${{ runner.os }}-dependency-scan-${{ hashFiles('**/*.gradle*') }}
+          restore-keys: ${{ runner.os }}-dependency-scan
       - name: OWASP dependency check
         uses: ./.github/docker-owasp-dependency-check-android
       - uses: actions/upload-artifact@v2
