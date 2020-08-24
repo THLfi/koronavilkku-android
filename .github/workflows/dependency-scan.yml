@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     container: openjdk:8
     env:
-      GRADLE_USER_HOME: '/root/gradle'
+      GRADLE_USER_HOME: '/root/gradle_home'
     steps:
       - uses: actions/checkout@v2
       - name: Cache Gradle cache and wrapper
