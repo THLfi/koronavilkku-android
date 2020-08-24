@@ -3,7 +3,6 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'dagger.hilt.android.plugin'
 apply plugin: 'androidx.navigation.safeargs.kotlin'
-apply plugin: 'org.owasp.dependencycheck'
 
 // setup properties from local overrides or from gradle.properties defaults
 // these are then used to create buildConfigFields which are used in code
@@ -171,10 +170,4 @@ dependencies {
     kaptAndroidTest "com.google.dagger:hilt-android-compiler:$hiltVersion"
     androidTestImplementation "androidx.work:work-testing:$workVersion"
     androidTestImplementation "androidx.navigation:navigation-testing:$navigationVersion"
-}
-
-dependencyCheck {
-    failBuildOnCVSS=0
-    skipConfigurations += 'lintClassPath'
-    suppressionFile='owasp_suppressions.xml'
 }

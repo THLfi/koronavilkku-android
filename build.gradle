@@ -39,6 +39,14 @@ allprojects {
         google()
         jcenter()
     }
+
+    apply plugin: 'org.owasp.dependencycheck'
+
+    dependencyCheck {
+        skipConfigurations += 'lintClassPath'
+        failBuildOnCVSS=0
+        suppressionFile='owasp_suppressions.xml'
+    }
 }
 
 task clean(type: Delete) {
