@@ -17,8 +17,8 @@ jobs:
         uses: actions/cache@v2
         with:
           path: |
-            ~/.gradle/caches
-            ~/.gradle/wrapper
+            /root/.gradle/caches
+            /root/.gradle/wrapper
           key: ${{ runner.os }}-gradle-dependency-scan-${{ hashFiles('**/*.gradle*') }}
           restore-keys: ${{ runner.os }}-gradle-dependency-scan
       - name: OWASP dependency check
