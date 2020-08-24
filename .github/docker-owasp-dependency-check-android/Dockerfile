@@ -25,7 +25,7 @@ RUN echo y | ${ANDROID_HOME}/cmdline-tools/tools/bin/sdkmanager 'extras;google;g
 RUN echo y | ${ANDROID_HOME}/cmdline-tools/tools/bin/sdkmanager 'extras;google;m2repository' | grep -v = || true
 RUN yes | ${ANDROID_HOME}/cmdline-tools/tools/bin/sdkmanager --licenses
 
-ENV PATH "$PATH:${ANDROID_HOME}/tools/"
+ENV PATH "$PATH:${ANDROID_HOME}/cmdline-tools/tools/"
 
 COPY entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
