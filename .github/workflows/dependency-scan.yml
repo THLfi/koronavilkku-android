@@ -35,7 +35,7 @@ jobs:
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         with:
-          text: "koronavilkku-android OWASP dependency check"
+          text: "OWASP dependency check"
           status: ${{job.status}}
       - name: Notify by email
         if: ${{ success() || failure() }}
