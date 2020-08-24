@@ -43,7 +43,6 @@ allprojects {
     apply plugin: 'org.owasp.dependencycheck'
 
     dependencyCheck {
-        skipConfigurations += 'lintClassPath'
         failBuildOnCVSS=0
         suppressionFile='owasp_suppressions.xml'
     }
