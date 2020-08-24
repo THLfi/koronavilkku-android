@@ -19,6 +19,7 @@ jobs:
           path: |
             /root/.gradle/caches
             /root/.gradle/wrapper
+            /usr/local/android-sdk-linux
           key: ${{ runner.os }}-gradle-dependency-scan-${{ hashFiles('**/*.gradle*') }}
           restore-keys: ${{ runner.os }}-gradle-dependency-scan
       - name: OWASP dependency check
