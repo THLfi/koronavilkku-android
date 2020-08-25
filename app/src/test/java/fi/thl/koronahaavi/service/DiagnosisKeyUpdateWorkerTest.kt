@@ -1,5 +1,6 @@
 package fi.thl.koronahaavi.service
 
+import android.app.Application
 import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -13,16 +14,14 @@ import fi.thl.koronahaavi.data.ExposureRepository
 import io.mockk.*
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.runBlocking
-import org.junit.Assert
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertFalse
-import org.junit.Before
-import org.junit.Rule
-import org.junit.Test
 import org.junit.rules.TemporaryFolder
 import org.junit.runner.RunWith
 import retrofit2.HttpException
 import okhttp3.ResponseBody.Companion.toResponseBody
+import org.junit.*
+import org.robolectric.annotation.Config
 import retrofit2.Response
 import java.io.File
 import java.io.IOException
@@ -31,6 +30,7 @@ import java.io.IOException
  * This runs as local JVM unit test with Robolectric
  */
 @RunWith(AndroidJUnit4::class)
+@Config(application = Application::class)
 class DiagnosisKeyUpdateWorkerTest {
     private lateinit var context: Context
 

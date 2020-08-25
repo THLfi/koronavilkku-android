@@ -1,5 +1,6 @@
 package fi.thl.koronahaavi.exposure
 
+import android.app.Application
 import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -24,9 +25,11 @@ import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.robolectric.annotation.Config
 import java.time.ZonedDateTime
 
 @RunWith(AndroidJUnit4::class)
+@Config(application = Application::class)
 class ClearExpiredExposuresWorkerTest {
     private lateinit var context: Context
     private lateinit var exposureRepository: ExposureRepository
