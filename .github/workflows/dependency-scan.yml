@@ -1,0 +1,45 @@
+name: Check dependencies
+
+on:
+  push:
+    branches: '*'
+  schedule:
+  - cron:  "0 5 * * *" # this is utc time
+
+jobs:
+  dependency-scan:
+    name: Owasp Dependency Scanning
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Cache Gradle cache and wrapper
+        uses: actions/cache@v2
+        with:
+          path: /.gradle
+          key: ${{ runner.os }}-owasp-dependency-scan-with-gradle-${{ hashFiles('**/*.gradle*') }}
+          restore-keys: ${{ runner.os }}-owasp-dependency-scan-with-gradle
+      - name: OWASP dependency check
+        uses: ./.github/docker-owasp-dependency-check-android
+      - uses: actions/upload-artifact@v2
+        if: ${{ success() || failure() }}
+        with:
+          name: dependency-check-result
+          path: ./**/build/reports/dependency-check-report.html
+      - name: Notify to slack
+        if: ${{ failure() }}
+        uses: ./.github/docker-slack
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
+        with:
+          text: "OWASP dependency check"
+          status: ${{job.status}}
+      - name: Notify by email
+        if: ${{ failure() }}
+        uses: ./.github/docker-notify-email
+        env:
+          API_KEY: ${{ secrets.EMAIL_SERVICE_API_KEY }}
+          SEND_URL: ${{ secrets.EMAIL_SERVICE_SEND_URL }}
+          RECIPIENTS: ${{ secrets.EMAIL_SERVICE_RECIPIENTS }}
+          FROM: ${{ secrets.EMAIL_SERVICE_SENDER }}
+        with:
+          status: ${{job.status}}
