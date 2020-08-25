@@ -1,0 +1,13 @@
+name: 'thl-email-notification'
+description: 'Simple email notification action'
+inputs:
+  status:
+    description: 'Status as text'
+    required: true
+  text:
+    description: 'Custom text which will be appended to email template'
+    required: false
+    default: ''
+runs:
+  using: 'docker'
+  image: 'Dockerfile'

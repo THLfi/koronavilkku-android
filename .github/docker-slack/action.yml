@@ -1,0 +1,12 @@
+name: 'thl-slack-notification'
+description: 'Simple slack notification action'
+inputs:
+  text:
+    description: 'Text content to send'
+    required: true
+  status:
+    description: 'Status as text'
+    required: true
+runs:
+  using: 'docker'
+  image: 'Dockerfile'

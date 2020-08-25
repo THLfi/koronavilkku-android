@@ -1,0 +1,5 @@
+name: 'Android OWASP dependency check'
+description: 'Runs OWASP dependency check with gradle for Android project.'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
