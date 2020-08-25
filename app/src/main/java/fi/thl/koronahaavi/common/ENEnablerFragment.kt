@@ -90,7 +90,7 @@ open class ENEnablerFragment : Fragment() {
      */
     protected fun startEnablingSystem() {
         val gaa = GoogleApiAvailability.getInstance()
-        val result = gaa.isGooglePlayServicesAvailable(activity)
+        val result = gaa.isGooglePlayServicesAvailable(requireContext(), MIN_GOOGLE_PLAY_VERSION)
 
         if (result == ConnectionResult.SUCCESS) {
             Timber.v("Play services up-to-date")
@@ -120,6 +120,10 @@ open class ENEnablerFragment : Fragment() {
                 // -> play dialog result is posted to playServicesResolvedEvent
             }
         }
+    }
+
+    companion object {
+        const val MIN_GOOGLE_PLAY_VERSION = 201813000   // v20.18.13
     }
 }
 
