@@ -3,4 +3,4 @@
 set -e
 
 
-sh -c "gradle --no-daemon dependencyCheckAnalyze"
+sh -c "gradle --no-daemon -g=/.gradle dependencyCheckAnalyze"
