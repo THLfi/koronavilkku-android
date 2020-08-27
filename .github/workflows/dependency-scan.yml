@@ -15,7 +15,9 @@ jobs:
       - name: Cache Gradle cache and wrapper
         uses: actions/cache@v2
         with:
-          path: gradle_home/caches
+          path: |
+            gradle_home/caches
+            gradle_home/wrapper
           key: ${{ runner.os }}-owasp-dependency-scan-with-gradle-${{ hashFiles('app/build.gradle') }}
           restore-keys: ${{ runner.os }}-owasp-dependency-scan-with-gradle
       - name: OWASP dependency check
