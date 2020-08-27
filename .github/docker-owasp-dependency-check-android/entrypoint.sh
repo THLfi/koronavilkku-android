@@ -2,4 +2,4 @@
 
 set -e
 
-sh -c "gradle --no-daemon -g=$INPUT_GRADLE_HOME dependencyCheckAnalyze"
+sh -c "gradle --no-daemon -g='$PWD/$INPUT_GRADLE_HOME' dependencyCheckAnalyze"
