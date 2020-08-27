@@ -15,16 +15,21 @@ jobs:
       - name: Cache Gradle cache and wrapper
         uses: actions/cache@v2
         with:
-          path: /.gradle
-          key: ${{ runner.os }}-owasp-dependency-scan-with-gradle-${{ hashFiles('**/*.gradle*') }}
-          restore-keys: ${{ runner.os }}-owasp-dependency-scan-with-gradle
+          path: |
+            gradle_home/caches
+            gradle_home/wrapper
+          key: ${{ runner.os }}-owasp-dependency-scan-with-gradle-${{ hashFiles('app/build.gradle') }}
       - name: OWASP dependency check
         uses: ./.github/docker-owasp-dependency-check-android
+        env:
+          GRADLE_HOME: "./gradle_home"
       - uses: actions/upload-artifact@v2
         if: ${{ success() || failure() }}
         with:
           name: dependency-check-result
-          path: ./**/build/reports/dependency-check-report.html
+          path: |
+            ./build/reports/dependency-check-report.html
+            ./app/build/reports/dependency-check-report.html
       - name: Notify to slack
         if: ${{ failure() }}
         uses: ./.github/docker-slack
