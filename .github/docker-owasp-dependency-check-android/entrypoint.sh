@@ -2,6 +2,8 @@
 
 set -e
 
-ls -Rla
+ls -Rla /home
 
-sh -c "./gradlew --no-daemon -g=$PWD/$INPUT_GRADLE_HOME dependencyCheckAnalyze"
+sh -c "./gradlew --no-daemon -g=$INPUT_GRADLE_HOME dependencyCheckAnalyze"
+
+ls -Rla /home
