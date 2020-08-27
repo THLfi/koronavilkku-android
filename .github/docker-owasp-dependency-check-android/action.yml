@@ -1,5 +1,9 @@
 name: 'Android OWASP dependency check'
 description: 'Runs OWASP dependency check with gradle for Android project.'
+inputs:
+  gradle-home:
+    description: 'Gradle custom home directory'
+    required: true
 runs:
   using: 'docker'
   image: 'Dockerfile'
