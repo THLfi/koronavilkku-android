@@ -12,3 +12,9 @@ although we keep your name confidential if you request it.
 
 Reported vulnerabilities will be analyzed swiftly.
 
+## OWASP dependency checks
+
+Dependencies of this project is checked against known vulnerabilities with *OWASP dependency-check* -tool.
+Dependency checks are run periodically once in a day and on every push to the repository.
+
+More info about the tool can be found from here: https://jeremylong.github.io/DependencyCheck/index.html
