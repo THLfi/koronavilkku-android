@@ -1,17 +1,12 @@
 package fi.thl.koronahaavi.exposure
 
-import fi.thl.koronahaavi.data.ServiceLanguages
+import fi.thl.koronahaavi.data.OmaoloFeatures
 
 data class Municipality (
     val code: String,
     val name: String,
     val omaoloFeatures: OmaoloFeatures,
     val contacts: List<MunicipalityContact>
-)
-
-data class OmaoloFeatures(
-    val available: Boolean,
-    val serviceLanguages: ServiceLanguages
 )
 
 data class MunicipalityContact (

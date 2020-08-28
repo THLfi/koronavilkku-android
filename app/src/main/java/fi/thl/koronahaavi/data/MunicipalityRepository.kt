@@ -1,12 +1,12 @@
 package fi.thl.koronahaavi.data
 
 import com.squareup.moshi.JsonAdapter
+import com.squareup.moshi.JsonClass
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
 import fi.thl.koronahaavi.BuildConfig
 import fi.thl.koronahaavi.exposure.Municipality
 import fi.thl.koronahaavi.exposure.MunicipalityContact
-import fi.thl.koronahaavi.exposure.OmaoloFeatures
 import fi.thl.koronahaavi.service.SystemOperations
 import fi.thl.koronahaavi.service.MunicipalityService
 import kotlinx.coroutines.Dispatchers
@@ -32,13 +32,9 @@ class MunicipalityRepository @Inject constructor (
      * a new copy
      */
     suspend fun loadAll(): List<Municipality>? =
-        withContext(Dispatchers.IO) {
-            tryLoadFromFile() ?: tryDownloadMunicipalities()
-        }?.let { list ->
-            list.map { it.toMunicipality() }.sortedBy { it.name }
-        }
+        tryLoadFromFile() ?: tryDownloadMunicipalities()
 
-    private suspend fun tryDownloadMunicipalities(): List<NetworkMunicipality>? {
+    private suspend fun tryDownloadMunicipalities(): List<Municipality>? {
         return try {
             reloadMunicipalities()
             tryLoadFromFile()
@@ -63,21 +59,26 @@ class MunicipalityRepository @Inject constructor (
         }
     }
 
-    private fun tryLoadFromFile(): List<NetworkMunicipality>? {
+    private suspend fun tryLoadFromFile(): List<Municipality>? {
         if (!systemOperations.fileExistsInPersistedStorage(municipalityFilename)) {
             Timber.d("$municipalityFilename file does not exist")
             return null
         }
 
         Timber.d("Returning municipalities from $municipalityFilename")
+
         return try {
-            systemOperations.createFileInPersistedStorage(municipalityFilename).let { file ->
-                file.inputStream().use { input ->
-                    createListAdapter().fromJson(
-                        input.source().buffer()
-                    )
+            val persistedList = withContext(Dispatchers.IO) {
+                systemOperations.createFileInPersistedStorage(municipalityFilename).let { file ->
+                    file.inputStream().use { input ->
+                        createListAdapter().fromJson(
+                            input.source().buffer()
+                        )
+                    }
                 }
             }
+
+            persistedList?.map { it.toMunicipality() }?.sortedBy { it.name }
         }
         catch (e: Throwable) {
             Timber.e(e, "Failed to load municipalities from cache file")
@@ -111,6 +112,7 @@ class MunicipalityRepository @Inject constructor (
         )
 }
 
+@JsonClass(generateAdapter = true)
 data class NetworkMunicipality(
     val code: String,
     val name: LocaleString,
@@ -118,12 +120,20 @@ data class NetworkMunicipality(
     val contact: List<NetworkContact>
 )
 
+@JsonClass(generateAdapter = true)
 data class NetworkContact(
     val title: LocaleString,
     val phoneNumber: String,
     val info: LocaleString
 )
 
+@JsonClass(generateAdapter = true)
+data class OmaoloFeatures(
+    val available: Boolean,
+    val serviceLanguages: ServiceLanguages?
+)
+
+@JsonClass(generateAdapter = true)
 data class ServiceLanguages (
     val fi: Boolean,
     val sv: Boolean,
@@ -136,6 +146,7 @@ data class ServiceLanguages (
  * If new localizations are added to the app, this should be
  * updated as well.
  */
+@JsonClass(generateAdapter = true)
 data class LocaleString(
     val fi: String,
     val sv: String?
