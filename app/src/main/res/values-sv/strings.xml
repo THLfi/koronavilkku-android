@@ -174,7 +174,7 @@
     <string name="accept_terms_personal_text">Coronablinkern lagrar inte ditt namn, din födelsetid eller dina kontaktuppgifter. Den kan inte avslöja din identitet eller identiteten på personer du möter.\n\nAppen samlar inte in platsuppgifter.</string>
     <string name="accept_terms_usage_title">Användningsuppgifter som gäller appen</string>
     <string name="accept_terms_usage_text">Appen meddelar till en server att appen är påkopplad. Om du kontaktar hälso- och sjukvården via appen, förmedlar den dessutom information om huruvida du eventuellt blivit utsatt för viruset.\n\nAll datatrafik mellan Coronablinkern och servern är sekretessbelagda.\n\nInformationen lagras anonymt på en server som är belägen i Finland. Servern underhålls av myndigheter inom den offentliga förvaltningen. Uppgifterna avlägsnas då de inte längre behövs. Uppgifterna avlägsnas senast 31.3.2021.</string>
-    <string name="accept_terms_voluntary_title">Appen är inte oblikatorisk</string>
+    <string name="accept_terms_voluntary_title">Appen är inte obligatorisk</string>
     <string name="accept_terms_voluntary_text">Det är frivilligt att använda Coronablinkern. Du kan när som helst sluta använda appen genom att avlägsna den från telefonen.</string>
 
     <string name="accept_terms_tos_text">Jag har läst och godkänner användningsvillkoren för tjänsten</string>
