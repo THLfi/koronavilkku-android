@@ -60,15 +60,15 @@
     <string name="home_status_enabled_explained">Appen fungerar även om du stänger den.</string>
     <string name="home_status_locked_explained">Tack för att du meddelade om din smitta. Appen samlar inte längre någon information från andra personer du träffat. Krya på dig!</string>
 
-    <string name="symptoms_title">Bedömning av coronasymptom</string>
+    <string name="symptoms_title">Bedömning av coronasymtom</string>
     <string name="symptoms_info">Gör en bedömning av dina symtom i Omaolo, om du misstänker att du smittats av coronaviruset. Du får ytterligare anvisningar på basen av dina svar. Det räcker cirka 5–10 minuter att fylla i bedömningen.</string>
-    <string name="symptoms_link_title">Gör en bedömning av dina symptom i tjänsten Omaolo</string>
+    <string name="symptoms_link_title">Gör en bedömning av dina symtom i tjänsten Omaolo</string>
     <string name="symptoms_link">https://www.omaolo.fi/palvelut/oirearviot/649?lang=sv</string>
     <string name="symptoms_link_name">omaolo.fi</string>
 
     <string name="settings_title">Inställningar</string>
     <string name="settings_about_subtitle">Info om appen</string>
-    <string name="settings_status_item">Exponerings\u200Bmeddelandena:</string>
+    <string name="settings_status_item">Exponerings\u200Bmeddelanden:</string>
     <string name="settings_status_on">I bruk</string>
     <string name="settings_status_off">Ur bruk</string>
     <string name="settings_status_locked">Låst</string>
@@ -125,7 +125,7 @@
     <string name="guide_infection_text">Om du konstaterats ha coronavirusinfektion med ett coronavirustest, får du en startkod från hälso- och sjukvården. Med hjälp av koden kan du, om du vill, meddela via appen att du bär på smitta. Om du delar ut informationen, skickar appen identifikationskoder från din telefon till servern. Inga person- eller platsuppgifter skickas tillsammans med identifikationskoderna, så du förblir anonym.</string>
 
     <string name="guide_check_title">Appen jämför användarnas koder</string>
-    <string name="guide_check_text">Coronablinkern laddar ner flera gånger per dag en förteckning över koder som skickats från smittade personers telefoner med motsvarande app. Coronablinkern jämför de här med de koder som din telefon har samlat in från andra användare. På det här sättet kan appen avgöra om du har varit i närheten av en person som har coronavirusinfektion.</string>
+    <string name="guide_check_text">Coronablinkern laddar flera gånger per dag ner en förteckning över koder som skickats från smittade personers telefoner med motsvarande app. Coronablinkern jämför de här med de koder som din telefon har samlat in från andra användare. På det här sättet kan appen avgöra om du har varit i närheten av en person som har coronavirusinfektion.</string>
 
     <string name="guide_notification_title">Du får ett meddelande om eventuell virusexponering</string>
     <string name="guide_notification_text">Om koderna som din telefon samlat in motsvarar koderna som samlats in från personer som bär på smitta får du ett meddelande om eventuell exponering. I det här fallet kan du meddela dina kontaktuppgifter till hälso- och sjukvården som ger dig närmare anvisningar.\n\nOm du misstänker att du smittats med coronaviruset kan du när som helst göra en symtombedömning i tjänsten Omaolo.</string>
@@ -198,7 +198,7 @@
     <string name="contact_evaluation_footer">Det räcker cirka 5–10 minuter att göra en symtombedömning. Personer under 16 år ska kontakta hälso- och sjukvården per telefon.</string>
     <string name="contact_evaluation_other_title">Eller kontakta hälso- och sjukvården i din kommun på följande sätt:</string>
     <string name="card_contact_request_title">Lämna en begäran att hälsovården kontaktar dig</string>
-    <string name="card_contact_request_link_name">Avsätt ändast för 16 år fyllda, symptomfria personer</string>
+    <string name="card_contact_request_link_name">Avsett endast för 16 år fyllda, symptomfria personer</string>
     <string name="info_icon">Info</string>
 
     <string name="pre_web_contact_title_evaluation">Symtombedömning i Omaolo</string>
