@@ -17,8 +17,7 @@
     <string name="diagnosis_en_disabled">Exponeringsmeddelandena ska vara påkopplade för att du ska kunna meddela att du bär smitta. Gå tillbaka till hemsidan där du kan koppla på dem.</string>
 
     <string name="diagnosis_locked_title">Du har redan meddelat att du blivit smittad</string>
-    <string name="diagnosis_locked_body1">Ditt meddelande hjälper eventuella exponerade att kontakta vården i rätt tid.</string>
-    <string name="diagnosis_locked_body2">Appen är nu låst och sänder eller samlar inte längre information om möten. Tack för att du använde appen och är med och bekämpar corona.</string>
+    <string name="diagnosis_locked_body1">De uppgifter du angett bidrar till att bekämpa coronavirusepidemin. Appen är nu bortkopplad och samlar inte längre in information om personer du träffar. Krya på dig!</string>
     <string name="diagnosis_locked_image_description">Låst</string>
 
     <string name="diagnosis_instructions_1">Det är inte möjligt att identifiera dig med hjälp av startkoden.</string>
@@ -32,8 +31,8 @@
     <string name="code_entry_info">Det är inte möjligt att identifiera dig med hjälp av startkoden.</string>
 
     <string name="diagnosis_complete_title">Tack för ditt meddelande</string>
-    <string name="diagnosis_complete_body">De uppgifter du angett bidrar till att bekämpa coronavirusepidemin. Appen är nu låst och samlar inte längre in information om personer du träffar. Krya på dig!</string>
-    <string name="diagnosis_complete_continue">Färdig</string>
+    <string name="diagnosis_complete_body">De uppgifter du angett bidrar till att bekämpa coronavirusepidemin. Appen är nu bortkopplad och samlar inte längre in information om personer du träffar. Krya på dig!</string>
+    <string name="diagnosis_complete_continue">OK</string>
 
     <string name="home_title">Hem</string>
     <string name="home_exposure_label">Eventuell exponering</string>
