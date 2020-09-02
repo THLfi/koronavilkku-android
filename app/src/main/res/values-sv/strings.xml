@@ -117,7 +117,7 @@
     <string name="guide_code_title">Varje telefon får en slumpmässig identifikationskod</string>
     <string name="guide_code_text">Appen lottar ut en identifikationskod till varje telefon. Koden är slumpmässig och byts ut flera gånger per timme så att din identitet inte kan avslöjas. Identifikationskoden innehåller inga uppgifter om dig eller din telefon.</string>
 
-    <string name="guide_exchange_title">Telefonerna skickar åt varandra identifikationskoder</string>
+    <string name="guide_exchange_title">Telefonerna skickar identifikationskoder åt varandra</string>
     <string name="guide_exchange_text">När du är nära en annan person som använder Coronablinkern delar era telefoner ut sina identifikationskoder till varandra via Bluetooth. På det här sättet kan appen följa med telefoner som bärs av mötande personer. Appen lagrar inte användarnas identitet eller plats.</string>
 
     <string name="guide_infection_title">Om du konstateras ha coronavirusinfektion</string>
