@@ -53,8 +53,9 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:flow_verticalGap="20dp"
-                app:constraint_referenced_ids="image_diagnosis_locked,text_diagnosis_locked_title,
-            text_diagnosis_locked_body1,text_diagnosis_locked_body2"
+                app:constraint_referenced_ids="image_diagnosis_locked,
+                text_diagnosis_locked_title,
+                text_diagnosis_locked_body1"
                 android:visibility="@{model.showLocked==true ? View.VISIBLE : View.GONE}"
                 tools:visibility="gone"
                 />
@@ -148,14 +149,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/diagnosis_locked_body1"
-                android:textAppearance="?attr/textAppearanceBody2"
-                android:gravity="center_horizontal"
-                />
-            <TextView
-                android:id="@+id/text_diagnosis_locked_body2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/diagnosis_locked_body2"
                 android:textAppearance="?attr/textAppearanceBody2"
                 android:gravity="center_horizontal"
                 />
