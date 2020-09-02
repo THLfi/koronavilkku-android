@@ -25,9 +25,9 @@
     <string name="diagnosis_instructions_3">Informationen uppmanar mottagarna att undvika kontakter, att i tid lägga märke till symtom som passar in på infektionen och att vid behov ta ett test. På det här sättet kan smittospridning undvikas.</string>
 
     <string name="code_entry_title">Ange din startkod</string>
-    <string name="code_entry_invalid">Startkoden är ogiltig eller har gått ut. Kontrollera att du har angett koden korrekt.</string>
+    <string name="code_entry_invalid">Startkoden är ogiltig eller inte i kraft. Kontrollera att du har angett koden korrekt.</string>
     <string name="code_entry_submit_failed">Det gick inte att meddela om din smitta eftersom servern inte kunde nås. Försök igen om ett ögonblick.</string>
-    <string name="code_entry_en_disabled">Meddelanden om exponering är inte på Gå tillbaka till hem-vyn där du kan koppla på dem</string>
+    <string name="code_entry_en_disabled">Exponeringsmeddelandena ska vara påkopplade för att du ska kunna meddela att du bär smitta. Gå tillbaka till hemsidan där du kan koppla på dem.</string>
     <string name="code_entry_info">Det är inte möjligt att identifiera dig med hjälp av startkoden.</string>
 
     <string name="diagnosis_complete_title">Tack för ditt meddelande</string>
