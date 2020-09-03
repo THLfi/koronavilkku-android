@@ -10,7 +10,7 @@
     <string name="all_system_enable">Enable</string>
 
     <string name="diagnosis_title">Report infection</string>
-    <string name="diagnosis_body1">If you have tested positive for SARS-CoV-2, you can anonymously report your diagnosis using the code supplied by your healthcare provider or THL (Finnish Institute for Health and Welfare).</string>
+    <string name="diagnosis_body1">If you have tested positive for COVID-19, you can anonymously report your diagnosis using the code supplied by your healthcare provider or THL (Finnish Institute for Health and Welfare).</string>
     <string name="diagnosis_body2">Enter your PIN code</string>
     <string name="diagnosis_page_title">Report your infection</string>
     <string name="diagnosis_start">Report infection</string>
