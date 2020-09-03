@@ -46,7 +46,7 @@
     <string name="home_prevention_label">This is how you protect yourself</string>
     <string name="home_prevention_url">https://thl.fi/en/web/infectious-diseases-and-vaccinations/what-s-new/coronavirus-covid-19-latest-updates/transmission-and-protection-coronavirus</string>
     <string name="home_statistics_label">Coronavirus situation in Finland</string>
-    <string name="home_statistics_url">https://thl.fi/en/web/infectious-diseases-and-vaccinations/what-s-new/coronavirus-covid-19-latest-updates</string>
+    <string name="home_statistics_url">https://thl.fi/en/web/infectious-diseases-and-vaccinations/what-s-new/coronavirus-covid-19-latest-updates/situation-update-on-coronavirus</string>
     <string name="home_thl_url">https://thl.fi/en/web/thlfi-en</string>
 
     <string name="home_status_system_enabled">Corona Alert is enabled</string>
