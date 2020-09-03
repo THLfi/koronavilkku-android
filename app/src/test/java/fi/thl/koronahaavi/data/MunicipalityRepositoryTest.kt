@@ -8,6 +8,7 @@ import io.mockk.*
 import kotlinx.coroutines.runBlocking
 import okhttp3.ResponseBody.Companion.toResponseBody
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -48,6 +49,17 @@ class MunicipalityRepositoryTest {
         runBlocking {
             val list = repository.loadAll()
             assertEquals(2, list?.size)
+            assertTrue(list?.any { it.code == "837" && it.name == "Tampere" } == true)
+        }
+    }
+
+    @Test
+    fun usesLocaleName() {
+        Locale.setDefault(Locale("sv"))
+        runBlocking {
+            val list = repository.loadAll()
+            assertEquals(2, list?.size)
+            assertTrue(list?.any { it.code == "837" && it.name == "Tammerfors" } == true)
         }
     }
 
@@ -60,6 +72,39 @@ class MunicipalityRepositoryTest {
         runBlocking {
             repository.loadAll()
             coVerify { municipalityService.getMunicipalities(any()) }
+        }
+    }
+
+    @Test
+    fun recoversFromInvalidJsonFile() {
+        // mock two return values that are returned for first and second call
+        // so that it won't overwrite the invalid test file in resources
+        every { systemOperations.createFileInPersistedStorage(any()) } returns
+                File(javaClass.getResource("/municipalities_invalid.json")!!.file) andThen
+                folder.newFile()
+
+        // this should be called after an error occurs when reading invalid file
+        coEvery { municipalityService.getMunicipalities(any()) } returns testInput().toResponseBody()
+
+        runBlocking {
+            val list = repository.loadAll()
+
+            coVerify { municipalityService.getMunicipalities(any()) }
+            assertTrue(list?.any { it.code == "123" } == true)
+        }
+    }
+
+    @Test
+    fun recoversFromEmptyJsonFile() {
+        every { systemOperations.createFileInPersistedStorage(any()) } returns folder.newFile()
+
+        coEvery { municipalityService.getMunicipalities(any()) } returns testInput().toResponseBody()
+
+        runBlocking {
+            val list = repository.loadAll()
+
+            coVerify { municipalityService.getMunicipalities(any()) }
+            assertTrue(list?.any { it.code == "123" } == true)
         }
     }
 
