@@ -75,7 +75,7 @@
     <string name="settings_tos_item">Terms of use</string>
     <string name="settings_guide_item">This is how the Corona Alert works</string>
     <string name="settings_faq_item">Frequently asked questions</string>
-    <string name="settings_faq_link_url">https://koronavilkku.fi/en/</string>
+    <string name="settings_faq_link_url">https://koronavilkku.fi/en/faq/</string>
     <string name="settings_faq_link_name">koronavilkku.fi</string>
 
     <string name="settings_privacy_item">Privacy policy</string>
