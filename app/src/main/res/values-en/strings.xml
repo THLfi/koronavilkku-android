@@ -14,7 +14,7 @@
     <string name="diagnosis_body2">Enter your PIN code</string>
     <string name="diagnosis_page_title">Report your infection</string>
     <string name="diagnosis_start">Report infection</string>
-    <string name="diagnosis_en_disabled">To report an infection you must enable Exposure Notification servcie. You can enable Exposure Notification from home screen.</string>
+    <string name="diagnosis_en_disabled">To report an infection you must enable the Exposure Notifications System. You can enable it from the home screen.</string>
 
     <string name="diagnosis_locked_title">You have already reported the infection</string>
     <string name="diagnosis_locked_body1">The information you provided will help others make appropriate decisions about their health.</string>
