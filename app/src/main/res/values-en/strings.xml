@@ -113,7 +113,7 @@
     <string name="exposure_detail_instructions_7">Work remotely, if possible.</string>
 
     <string name="guide_title">About Corona Alert</string>
-    <string name="guide_p1_text">Corona Alert is an application (app) for which the Institute for Health and Welfare is responsible. The app analyzes whether you may have been exposed to infection. If you have been diagnosed with coronavirus infection, you can report this anonymously via the app. The app effectively protects your identity.</string>
+    <string name="guide_p1_text">Corona Alert is an application (app) for which the Finnish Institute for Health and Welfare is responsible. The app analyses whether you may have been exposed to infection. If you have been diagnosed with a coronavirus infection, you can report this anonymously via the app. The app effectively protects your identity.</string>
 
     <string name="guide_code_title">Each device uses a random identification code.</string>
     <string name="guide_code_text">The app generates an identification code for each device. The code is random and is changed several times per hour so that your identity can not be revealed. The identification code does not contain any information about you or your phone.</string>
