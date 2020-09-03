@@ -85,6 +85,8 @@ class GoogleExposureNotificationService(
                 return ResolvableResult.ResolutionRequired(exception.status)
             }
 
+            Timber.e(exception, "Exposure notification API call failed")
+
             if (exception.statusCode == ExposureNotificationStatusCodes.FAILED_NOT_SUPPORTED) {
                 return ResolvableResult.MissingCapability(exception.localizedMessage)
             }
@@ -98,7 +100,6 @@ class GoogleExposureNotificationService(
                 )
             }
 
-            Timber.e(exception, "Exposure notification API call failed")
             return ResolvableResult.Failed(
                 apiErrorCode = exception.statusCode,
                 connectionErrorCode = exception.status.connectionResult?.errorCode,

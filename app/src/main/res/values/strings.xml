@@ -159,7 +159,7 @@
 
     <string name="enable_err_title">Altistumisilmoitusten käynnistys epäonnistui</string>
     <string name="enable_err_missing_capability">Laitteesi ei ole tuettu</string>
-    <string name="enable_err_api_not_supported">Laitteesi ei tue altistumisilmoituksia. Tarkista Google Play Palveluiden versio laitteesi asetuksista. Yhteysvirheen koodi: %d</string>
+    <string name="enable_err_api_not_supported">Laitteesi ei tue altistumisilmoituksia. Tarkista Google Play Palveluiden versio laitteesi asetuksista.\n\nVirhekoodi: %d</string>
     <string name="enable_err_generic">Tuntematon virhe</string>
     <string name="enable_error_api_code">Tapahtui odottamaton virhe, koodi: %1$d (%2$d)</string>
     <string name="enable_err_dismiss">Sulje</string>
