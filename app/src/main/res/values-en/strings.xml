@@ -99,7 +99,7 @@
 
     <string name="exposure_detail_message_none">Corona Alert has not observed any exposure to the coronavirus in the last 14 days.</string>
     <string name="exposure_detail_disclaimer_none">However, the app cannot identify all possible exposures.</string>
-    <string name="exposure_detail_last_check">Last check %1$s hrs. %2$s</string>
+    <string name="exposure_detail_last_check">Last check %1$s at %2$s</string>
     <string name="exposure_detail_no_last_check">No checks performed.</string>
 
     <string name="exposure_detail_instructions_title">Follow these instructions carefully for two weeks:</string>
