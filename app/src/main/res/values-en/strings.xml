@@ -88,7 +88,7 @@
 
     <string name="exposure_detail_title">Possible exposure</string>
 
-    <string name="exposure_detail_message">In the past 14 days, you have been in proximity to a person who reported coronavirus infection via Corona Alert.</string>
+    <string name="exposure_detail_message">In the past 14 days, you have been in proximity to a person who reported a coronavirus infection via Corona Alert.</string>
     <string name="exposure_detail_disclaimer">The indication of exposure is based on encounters that Corona Alert has collected during the last 14 days. Corona Alert does not provide an accurate assessment of how strong the risk of infection is.</string>
 
     <string name="exposure_detail_contact_title">Contact health services</string>
