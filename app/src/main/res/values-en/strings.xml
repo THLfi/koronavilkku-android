@@ -178,7 +178,7 @@
     <string name="accept_terms_voluntary_text">It is optional to use Corona Alert. You can stop using the app at any time by removing it from your phone.</string>
 
     <string name="accept_terms_tos_text">I have read and agree to the terms and conditions of the service</string>
-    <string name="accept_terms_tos_link_text">I've read the terms of service</string>
+    <string name="accept_terms_tos_link_text">Read the terms of service</string>
     <string name="accept_terms_activation_text">My enrollment is voluntary</string>
     <string name="accept_terms_button_enable">Enable</string>
     <string name="accept_terms_scroll">Scroll down</string>
