@@ -155,9 +155,10 @@
 
     <string name="enable_err_title">Exponeringsloggen kunde inte startas</string>
     <string name="enable_err_missing_capability">Din enhet stöds ej</string>
+    <string name="enable_err_api_not_supported">Din enhet stöder inte exponeringsmeddelanden. För att kontrollera versionen av Google Play Services, gå till enhetens inställningar. Felkod: %d</string>
     <string name="enable_err_generic">Okänt fel</string>
     <string name="enable_err_dismiss">Stäng</string>
-    <string name="enable_error_api_code">Det skedde ett oväntat fel, kod: %d</string>
+    <string name="enable_error_api_code">Det skedde ett oväntat fel, kod: %1$d (%2$d)</string>
 
     <string name="onboarding_done">Idrifttagningen klar!</string>
 

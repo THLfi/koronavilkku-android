@@ -4,9 +4,11 @@ package fi.thl.koronahaavi.service
 
 import android.content.Context
 import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.common.api.CommonStatusCodes
 import com.google.android.gms.nearby.Nearby
 import com.google.android.gms.nearby.exposurenotification.ExposureConfiguration
 import com.google.android.gms.nearby.exposurenotification.ExposureInformation
+import com.google.android.gms.nearby.exposurenotification.ExposureNotificationStatusCodes
 import com.google.android.gms.nearby.exposurenotification.ExposureSummary
 import fi.thl.koronahaavi.BuildConfig
 import fi.thl.koronahaavi.service.ExposureNotificationService.ResolvableResult
@@ -83,21 +85,30 @@ class GoogleExposureNotificationService(
                 return ResolvableResult.ResolutionRequired(exception.status)
             }
 
-            if (exception.statusCode == NOT_SUPPORTED_API_ERROR_STATUS) {
+            if (exception.statusCode == ExposureNotificationStatusCodes.FAILED_NOT_SUPPORTED) {
                 return ResolvableResult.MissingCapability(exception.localizedMessage)
             }
 
+            if (exception.statusCode == CommonStatusCodes.API_NOT_CONNECTED) {
+                // this occurs on small number of devices for unknown reason, assuming some problem
+                // related to Google Play Services installation
+                return ResolvableResult.ApiNotSupported(
+                    connectionErrorCode = exception.status.connectionResult?.errorCode,
+                    error = exception.localizedMessage
+                )
+            }
+
             Timber.e(exception, "Exposure notification API call failed")
-            return ResolvableResult.Failed(exception.statusCode, exception.localizedMessage)
+            return ResolvableResult.Failed(
+                apiErrorCode = exception.statusCode,
+                connectionErrorCode = exception.status.connectionResult?.errorCode,
+                error = exception.localizedMessage
+            )
         }
         catch (exception: Exception) {
             Timber.e(exception, "Exposure notification API call failed")
             return ResolvableResult.Failed(error = exception.localizedMessage)
         }
-    }
-
-    companion object {
-        private const val NOT_SUPPORTED_API_ERROR_STATUS = 39501
     }
 
     // this maps backend json object to google EN api configuration

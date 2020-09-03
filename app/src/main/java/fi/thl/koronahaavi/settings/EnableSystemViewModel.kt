@@ -48,13 +48,22 @@ class EnableSystemViewModel @ViewModelInject constructor(
             }
             is ResolvableResult.Failed -> {
                 enableENErrorEvent.postValue(Event(
-                    EnableENError.Failed(code = result.apiErrorCode)
+                    EnableENError.Failed(
+                        code = result.apiErrorCode,
+                        connectionErrorCode = result.connectionErrorCode
+                    )
                 ))
                 false
             }
             is ResolvableResult.MissingCapability -> {
                 enableENErrorEvent.postValue(Event(
                     EnableENError.MissingCapability
+                ))
+                false
+            }
+            is ResolvableResult.ApiNotSupported -> {
+                enableENErrorEvent.postValue(Event(
+                    EnableENError.ApiNotSupported(result.connectionErrorCode)
                 ))
                 false
             }
@@ -68,5 +77,6 @@ class EnableSystemViewModel @ViewModelInject constructor(
 
 sealed class EnableENError {
     object MissingCapability : EnableENError()
-    data class Failed(val code: Int? = null, val error: String? = null): EnableENError()
+    data class ApiNotSupported(val connectionErrorCode: Int? = null): EnableENError()
+    data class Failed(val code: Int? = null, val connectionErrorCode: Int? = null, val error: String? = null): EnableENError()
 }

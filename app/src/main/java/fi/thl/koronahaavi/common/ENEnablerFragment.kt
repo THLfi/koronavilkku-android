@@ -136,10 +136,16 @@ fun Context.showEnableFailureReasonDialog(error: EnableENError) {
         is EnableENError.MissingCapability -> {
             builder.setMessage(R.string.enable_err_missing_capability)
         }
+        is EnableENError.ApiNotSupported -> {
+            builder.setMessage(
+                getString(R.string.enable_err_api_not_supported, error.connectionErrorCode ?: 0
+            ))
+        }
+
         is EnableENError.Failed -> {
             builder.setMessage(
                 error.code?.let {
-                    getString(R.string.enable_error_api_code, it)
+                    getString(R.string.enable_error_api_code, it, error.connectionErrorCode ?: 0)
                 } ?:
                 getString(R.string.enable_err_generic)
             )

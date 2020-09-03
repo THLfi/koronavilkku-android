@@ -31,7 +31,8 @@ interface ExposureNotificationService {
         data class ResolutionRequired<T>(val status: Status) : ResolvableResult<T>()
         data class Success<T>(val data: T) : ResolvableResult<T>()
         data class MissingCapability<T>(val error: String?) : ResolvableResult<T>()
-        data class Failed<T>(val apiErrorCode: Int? = null, val error: String?) : ResolvableResult<T>()
+        data class ApiNotSupported<T>(val connectionErrorCode: Int?, val error: String?) : ResolvableResult<T>()
+        data class Failed<T>(val apiErrorCode: Int? = null, val connectionErrorCode: Int? = null, val error: String?) : ResolvableResult<T>()
     }
 }
 
