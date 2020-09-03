@@ -184,7 +184,7 @@
     <string name="accept_terms_scroll">Scroll down</string>
 
     <string name="en_blocked_title">The exposure notifications are disabled</string>
-    <string name="en_blocked_body">Corona Alert does not work if the exposure messages are disabled in the phone's Settings. To switch on exposure notifications, select Enable.</string>
+    <string name="en_blocked_body">Corona Alert does not work if exposure notifications are disabled in the phone's settings. To switch on exposure notifications, select Enable.</string>
     <string name="en_blocked_location">On some Android devices, you may have to enable location data to switch on exposure notifications. Corona Alert does not store location data.</string>
     <string name="en_blocked_button_label">Enable</string>
 
