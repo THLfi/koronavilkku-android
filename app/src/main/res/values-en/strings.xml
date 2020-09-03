@@ -158,7 +158,7 @@
     <string name="enable_err_missing_capability">Your device is not supported</string>
     <string name="enable_err_generic">Unknown error</string>
     <string name="enable_err_dismiss">Dismiss</string>
-    <string name="enable_error_api_code">An unexpected error has occurred, code:% d</string>
+    <string name="enable_error_api_code">An unexpected error has occurred, code: %d</string>
 
     <string name="onboarding_done">Onboarding complete!</string>
 
