@@ -171,7 +171,7 @@
     <string name="accept_terms_header_title">Your identity is protected</string>
     <string name="accept_terms_header_body">Corona Alert protects your personal data and identity in several ways.</string>
     <string name="accept_terms_personal_title">Personal information</string>
-    <string name="accept_terms_personal_text">Corona Alert does not store your name, date of birth or contact information. It can not reveal your identity or the identities of people you meet.\n\nThe app does not collect location information.</string>
+    <string name="accept_terms_personal_text">Corona Alert does not store your name, date of birth or contact information. It cannot reveal your identity or the identities of people you meet.\n\nThe app does not collect location information.</string>
     <string name="accept_terms_usage_title">Terms of use</string>
     <string name="accept_terms_usage_text">The app communicates with a server. If you contact a healthcare provider via the app, it will also provide information on whether you may have been exposed to the virus.\n\nAll communication between Corona Alert and the server is encrypted. \n\nThe information is stored anonymously on a server located in Finland. The server is maintained by public administration authorities. The information is removed when it is no longer needed. The information will be removed no later than 31.3.2021.</string>
     <string name="accept_terms_voluntary_title">The app is not mandatory</string>
