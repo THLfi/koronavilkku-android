@@ -163,7 +163,7 @@
     <string name="onboarding_done">Onboarding complete!</string>
 
     <string name="intro_header_title">Thank you for downloading Corona Alert</string>
-    <string name="intro_header_body">Corona Alert is an application (app) for which the Institute for Health and Welfare is responsible. The app strives to prevent the spread of the coronavirus. The app effectively guards your privacy.</string>
+    <string name="intro_header_body">Corona Alert is an application (app) for which the Finnish Institute for Health and Welfare is responsible. The app strives to prevent the spread of the coronavirus. The app effectively guards your privacy.</string>
 
     <string name="concept_header_title">This is how the app works</string>
     <string name="concept_header_body">Corona Alert listens for the phones near you, which have the app installed. If a person you have previously met reports a coronavirus infection via Corona Alert, you will receive a message stating that you have been exposed (exposed) to infection. If a test shows that you are infected, you can report this anonymously using this app.</string>
