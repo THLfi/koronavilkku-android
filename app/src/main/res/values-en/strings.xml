@@ -166,7 +166,7 @@
     <string name="intro_header_body">Corona Alert is an application (app) for which the Finnish Institute for Health and Welfare is responsible. The app strives to prevent the spread of the coronavirus. The app effectively guards your privacy.</string>
 
     <string name="concept_header_title">This is how the app works</string>
-    <string name="concept_header_body">Corona Alert listens for the phones near you, which have the app installed. If a person you have previously met reports a coronavirus infection via Corona Alert, you will receive a message stating that you have been exposed (exposed) to infection. If a test shows that you are infected, you can report this anonymously using this app.</string>
+    <string name="concept_header_body">Corona Alert listens for phones near you which have the app installed. If a person you have previously met reports a coronavirus infection via Corona Alert, you will receive a message stating that you have been exposed to infection. If a test shows that you are infected, you can report this anonymously using this app.</string>
 
     <string name="accept_terms_header_title">Your identity is protected</string>
     <string name="accept_terms_header_body">Corona Alert protects your personal data and identity in several ways.</string>
