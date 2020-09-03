@@ -1,0 +1,214 @@
+<resources>
+    <string name="app_name">Corona Alert</string>
+
+    <string name="all_next">Next</string>
+    <string name="all_cancel">Cancel</string>
+    <string name="all_thl_image_description">Finnish Institute for Health and Welfare</string>
+    <string name="all_today">Today</string>
+    <string name="all_yesterday">Yesterday</string>
+    <string name="all_app_additional_info">More info on Corona Alert</string>
+    <string name="all_system_enable">Enable</string>
+
+    <string name="diagnosis_title">Report infection</string>
+    <string name="diagnosis_body1">If you have tested positive for COVID-19, you can anonymously report your diagnosis using the code supplied by your healthcare provider or THL (Finnish Institute for Health and Welfare).</string>
+    <string name="diagnosis_body2">Enter your PIN code</string>
+    <string name="diagnosis_page_title">Report your infection</string>
+    <string name="diagnosis_start">Report infection</string>
+    <string name="diagnosis_en_disabled">To report an infection you must enable the Exposure Notifications System. You can enable it from the home screen.</string>
+
+    <string name="diagnosis_locked_title">You have already reported the infection</string>
+    <string name="diagnosis_locked_body1">The information you provided will help others make appropriate decisions about their health.</string>
+    <string name="diagnosis_locked_body2">The app is now locked and will no longer send or collect encounter information. Thank you for using the app and helping fight COVID-19.</string>
+    <string name="diagnosis_locked_image_description">Locked</string>
+
+    <string name="diagnosis_instructions_1">The unlock code cannot be used to identify you.</string>
+    <string name="diagnosis_instructions_2">Corona Alert notifies users who have been in your vicinity for some duration of infection risk.</string>
+    <string name="diagnosis_instructions_3">This information encourages recipients to avoid contact, monitor their symptoms and take a test if necessary, helping avoid further spread of infection.</string>
+
+    <string name="code_entry_title">Enter unlock code</string>
+    <string name="code_entry_invalid">The unlock code is invalid. Please check that you entered the code correctly.</string>
+    <string name="code_entry_submit_failed">Your infection could not be reported because the server could not be reached. Please try again in a moment.</string>
+    <string name="code_entry_en_disabled">Exposure notifications are off. Return to the home view where you can turn them on.</string>
+    <string name="code_entry_info">The unlock code cannot be used to identify you.</string>
+
+    <string name="diagnosis_complete_title">Thank you for your message</string>
+    <string name="diagnosis_complete_body">The information you provide will help control the coronavirus epidemic. The app is now locked and no longer collects information about encounters. Get well soon!</string>
+    <string name="diagnosis_complete_continue">Continue</string>
+
+    <string name="home_title">Home</string>
+    <string name="home_exposure_label">Potential exposure</string>
+    <string name="home_no_exposure_label">No exposures observed</string>
+    <string name="home_exposure_sub_label">You may have been exposed to the virus</string>
+    <string name="home_no_exposure_sub_label">You have not been near a person who reported an infection</string>
+    <string name="home_exposure_instructions">See instructions</string>
+
+    <string name="home_symptom_label">Do you suspect an infection?</string>
+    <string name="home_prevention_label">This is how you protect yourself</string>
+    <string name="home_prevention_url">https://thl.fi/en/web/infectious-diseases-and-vaccinations/what-s-new/coronavirus-covid-19-latest-updates/transmission-and-protection-coronavirus</string>
+    <string name="home_statistics_label">Coronavirus situation in Finland</string>
+    <string name="home_statistics_url">https://thl.fi/en/web/infectious-diseases-and-vaccinations/what-s-new/coronavirus-covid-19-latest-updates/situation-update-on-coronavirus</string>
+    <string name="home_thl_url">https://thl.fi/en/web/thlfi-en</string>
+
+    <string name="home_status_system_enabled">Corona Alert is enabled</string>
+    <string name="home_status_system_disabled">Corona Alert is disabled</string>
+    <string name="home_status_system_locked">Corona Alert is locked</string>
+
+    <string name="home_symptom_sub_label">Make a symptom assessment</string>
+    <string name="home_app_guide">This is how the app works</string>
+
+    <string name="home_status_disabled_explained">Re-enable exposure notifications.</string>
+    <string name="home_status_enabled_explained">The application works even if you close it.</string>
+    <string name="home_status_locked_explained">Thank you for reporting your infection. The app no longer collects any information from other people you have met. Get well!</string>
+
+    <string name="symptoms_title">Assessment of corona symptoms</string>
+    <string name="symptoms_info">If you suspect that you have been infected with the coronavirus, make an assessment of your symptoms in Omaolo. You will receive additional instructions based on your answers. It takes about 5-10 minutes to complete the assessment.</string>
+    <string name="symptoms_link_title">Make an assessment of your symptoms in the Omaolo service</string>
+    <string name="symptoms_link">https://www.omaolo.fi/palvelut/oirearviot/649?lang=en</string>
+    <string name="symptoms_link_name">omaolo.fi</string>
+
+    <string name="settings_title">Settings</string>
+    <string name="settings_about_subtitle">Info about the app</string>
+    <string name="settings_status_item">Exposure\u200Bnotifications:</string>
+    <string name="settings_status_on">Enabled</string>
+    <string name="settings_status_off">Disabled</string>
+    <string name="settings_status_locked">Locked</string>
+    <string name="settings_tos_item">Terms of use</string>
+    <string name="settings_guide_item">This is how the Corona Alert works</string>
+    <string name="settings_faq_item">Frequently asked questions</string>
+    <string name="settings_faq_link_url">https://koronavilkku.fi/en/faq/</string>
+    <string name="settings_faq_link_name">koronavilkku.fi</string>
+
+    <string name="settings_privacy_item">Privacy policy</string>
+    <string name="settings_privacy_link_url">https://www.omaolo.fi/tietosuojaseloste</string>
+    <string name="settings_version">%1$s %2$s</string>
+    <string name="settings_privacy_link_name">koronavilkku.fi</string>
+    <string name="settings_terms_link_name">koronavilkku.fi</string>
+
+    <string name="terms_url">https://koronavilkku.fi/en/terms/</string>
+
+    <string name="exposure_detail_title">Possible exposure</string>
+
+    <string name="exposure_detail_message">In the past 14 days, you have been in proximity to a person who reported a coronavirus infection via Corona Alert.</string>
+    <string name="exposure_detail_disclaimer">The indication of exposure is based on encounters that Corona Alert has collected during the last 14 days. Corona Alert does not provide an accurate assessment of how strong the risk of infection is.</string>
+
+    <string name="exposure_detail_contact_title">Contact health services</string>
+    <string name="exposure_detail_contact_subtitle">Information about your possible exposure will only be passed on to healthcare provider if you contact them directly.</string>
+    <string name="exposure_detail_contact_start">Contact</string>
+
+    <string name="exposure_detail_title_none">No exposure was detected</string>
+
+    <string name="exposure_detail_message_none">Corona Alert has not observed any exposure to the coronavirus in the last 14 days.</string>
+    <string name="exposure_detail_disclaimer_none">However, the app cannot identify all possible exposures.</string>
+    <string name="exposure_detail_last_check">Last check %1$s at %2$s</string>
+    <string name="exposure_detail_no_last_check">No checks performed.</string>
+
+    <string name="exposure_detail_instructions_title">Follow these instructions carefully for two weeks:</string>
+    <string name="exposure_detail_instructions_1">Contact your municipal health service as soon as possible and apply for a test if you experience any of these symptoms that are relevant to coronavirus infection:</string>
+    <string name="exposure_detail_instructions_1_sublist">- change in sense of smell or taste \n- difficulty breathing \n- cough, sore throat or runny nose \n- fever \n- headache or muscle aches \n- diarrhea or stomach pain without any other obvious cause.</string>
+    <string name="exposure_detail_instructions_2">Avoid meeting people.</string>
+    <string name="exposure_detail_instructions_3">Practice good hand hygiene</string>
+    <string name="exposure_detail_instructions_4">Avoid public places and transport. If you have to visit public places, observe at least two metres distance from others. If you can not maintain separation, use mouth and nose protection.</string>
+    <string name="exposure_detail_instructions_5">Let others handle your grocery shopping and other errands outside the home, if possible.</string>
+    <string name="exposure_detail_instructions_6">If you cough or sneeze, protect your mouth and nose with a disposable handkerchief. Throw the used handkerchief in the bin and wash your hands with soap and water or use hand sanitiser. If you do not have a handkerchief, cough and sneeze into your sleeve.</string>
+    <string name="exposure_detail_instructions_7">Work remotely, if possible.</string>
+
+    <string name="guide_title">About Corona Alert</string>
+    <string name="guide_p1_text">Corona Alert is an application (app) for which the Finnish Institute for Health and Welfare is responsible. The app analyses whether you may have been exposed to infection. If you have been diagnosed with a coronavirus infection, you can report this anonymously via the app. The app effectively protects your identity.</string>
+
+    <string name="guide_code_title">Each device uses a random identification code.</string>
+    <string name="guide_code_text">The app generates an identification code for each device. The code is random and changes several times per hour so that your identity cannot be revealed. The identification code does not contain any information about you or your phone.</string>
+
+    <string name="guide_exchange_title">The phones send each other identification codes.</string>
+    <string name="guide_exchange_text">When you are close to another person who uses Corona Alert, your phones share their identification codes with each other via Bluetooth. In this way, the app can keep track of phones carried by other people. The app does not store users' identities or location.</string>
+
+    <string name="guide_infection_title">If you are diagnosed with coronavirus infection</string>
+    <string name="guide_infection_text">If you have been diagnosed with a coronavirus infection with a coronavirus test, you will receive a start code from your healthcare provider. With the help of the code, you can, if you want, announce via the app that you are infected. If you share the information, the app sends identification codes it has encountered from your phone to the server. No personal or location information is sent along with the identification codes, so you remain anonymous.</string>
+
+    <string name="guide_check_title">The app compares users' codes</string>
+    <string name="guide_check_text">Corona Alert downloads a list of codes sent from infected people's phones with the corresponding app several times a day. Corona Alert compares these with the codes your phone has collected from other users. This way, the app can determine if you have been near a person with a coronavirus infection.</string>
+
+    <string name="guide_notification_title">You will receive a notification about any virus exposure</string>
+    <string name="guide_notification_text">If the codes collected by your phone correspond to the codes collected from infected persons, you will be notified of potential exposure. In this case, you can report your contact details to the health service, which will give you further instructions.\n\nIf you suspect that you have been infected with coronavirus, you can make a symptom assessment at the Omaolo service at any time.</string>
+
+    <string name="guide_privacy_title">This is how your identity is protected</string>
+    <string name="guide_privacy_body">Your identity is protected as follows:</string>
+    <string name="guide_privacy_item1">The information about encounters that the app collects is only stored on your phone. The stored data is removed from your phone no later than after 21 days or when you remove the app from your phone.</string>
+    <string name="guide_privacy_item2">Your identity is kept secret with the help of random identification codes.</string>
+    <string name="guide_privacy_item3">The app does not collect location data.</string>
+
+    <string name="guide_button_back">Back</string>
+
+    <string name="disable_title">COVID-19-\u200Bexposure\u200Bnotification enabled</string>
+    <string name="disable_subtitle">Do you need to turn off exposure notifications?</string>
+    <string name="disable_body">In some situations, it may be necessary to temporarily disable exposure notifications. This may be the case, for example, if you are a healthcare professional and do not want to use the application in your workplace.\n\nThe application will not work while the exposure notifications are disabled.</string>
+    <string name="disable_note">To take care of your health and the health of your loved ones, it is recommended that you turn off exposure notifications only when absolutely necessary. Remember to re-enable them as soon as possible.</string>
+    <string name="disable_turn_off_note">Disable the COVID-19 exposure log and notifications</string>
+    <string name="disable_button_turn_off">Disable</string>
+
+    <string name="disable_confirm_title">Are you sure you want to disable COVID-19 exposure notifications?</string>
+    <string name="disable_confirm_message">If you disable the exposure notifications, Corona Alert will not notify you of any exposure to the coronavirus.</string>
+
+    <string name="enable_title">The COVID-19-\u200Bexposure\u200Bnotifications are disabled</string>
+
+    <string name="enable_body">Exposure notifications are disabled, Corona Alert does not follow phones near you.</string>
+    <string name="enable_alert">To ensure your own and your loved ones' health, it is advisable to switch on exposure notifications as soon as possible.</string>
+    <string name="enable_note">Enable COVID-19 exposure notifications</string>
+
+    <string name="enable_err_title">The exposure log could not be initialised</string>
+    <string name="enable_err_missing_capability">Your device is not supported</string>
+    <string name="enable_err_generic">Unknown error</string>
+    <string name="enable_err_dismiss">Dismiss</string>
+    <string name="enable_error_api_code">An unexpected error has occurred, code: %d</string>
+
+    <string name="onboarding_done">Onboarding complete!</string>
+
+    <string name="intro_header_title">Thank you for downloading Corona Alert</string>
+    <string name="intro_header_body">Corona Alert is an application (app) for which the Finnish Institute for Health and Welfare is responsible. The app strives to prevent the spread of the coronavirus. The app effectively guards your privacy.</string>
+
+    <string name="concept_header_title">This is how the app works</string>
+    <string name="concept_header_body">Corona Alert listens for phones near you which have the app installed. If a person you have previously met reports a coronavirus infection via Corona Alert, you will receive a message stating that you have been exposed to infection. If a test shows that you are infected, you can report this anonymously using this app.</string>
+
+    <string name="accept_terms_header_title">Your identity is protected</string>
+    <string name="accept_terms_header_body">Corona Alert protects your personal data and identity in several ways.</string>
+    <string name="accept_terms_personal_title">Personal information</string>
+    <string name="accept_terms_personal_text">Corona Alert does not store your name, date of birth or contact information. It cannot reveal your identity or the identities of people you meet.\n\nThe app does not collect location information.</string>
+    <string name="accept_terms_usage_title">Terms of use</string>
+    <string name="accept_terms_usage_text">The app communicates with a server. If you contact a healthcare provider via the app, it will also provide information on whether you may have been exposed to the virus.\n\nAll communication between Corona Alert and the server is encrypted. \n\nThe information is stored anonymously on a server located in Finland. The server is maintained by public administration authorities. The information is removed when it is no longer needed. The information will be removed no later than 31.3.2021.</string>
+    <string name="accept_terms_voluntary_title">The app is not mandatory</string>
+    <string name="accept_terms_voluntary_text">It is optional to use Corona Alert. You can stop using the app at any time by removing it from your phone.</string>
+
+    <string name="accept_terms_tos_text">I have read and agree to the terms and conditions of the service</string>
+    <string name="accept_terms_tos_link_text">Read the terms of service</string>
+    <string name="accept_terms_activation_text">My enrollment is voluntary</string>
+    <string name="accept_terms_button_enable">Enable</string>
+    <string name="accept_terms_scroll">Scroll down</string>
+
+    <string name="en_blocked_title">The exposure notifications are disabled</string>
+    <string name="en_blocked_body">Corona Alert does not work if exposure notifications are disabled in the phone's settings. To switch on exposure notifications, select Enable.</string>
+    <string name="en_blocked_location">On some Android devices, you may have to enable location data to switch on exposure notifications. Corona Alert does not store location data.</string>
+    <string name="en_blocked_button_label">Enable</string>
+
+    <string name="municipality_list_title">Select your municipality</string>
+    <string name="municipality_search_hint">Search</string>
+    <string name="municipality_no_results">No municipalities starting with the search text were found</string>
+
+
+    <string name="contact_evaluation_title">Perform a symptom assessment</string>
+    <string name="contact_evaluation_body">We recommend that you contact the healthcare system via the Omaolo symptom assessment as it eases the healthcare burden and is easy for you to perform.</string>
+    <string name="contact_evaluation_start">Perform a symptom assessment</string>
+    <string name="contact_evaluation_footer">It takes about 5-10 minutes to make a symptom assessment. People under the age of 16 must contact the health service by telephone.</string>
+    <string name="contact_evaluation_other_title">Or contact the health care in your municipality in the following way:</string>
+    <string name="card_contact_request_title">Leave a request for healthcare provider to contact you</string>
+    <string name="card_contact_request_link_name">Asymptomatic only (not for children under 16)</string>
+    <string name="info_icon">Info</string>
+
+    <string name="pre_web_contact_title_evaluation">Symptom assessment in Omaolo</string>
+    <string name="pre_web_contact_title_no_evaluation">Leave a request for contact for healthcare provider</string>
+    <string name="pre_web_contact_body_evaluation">You can make the symptom assessment in the language below. Select your language. After that, you will be redirected to the Omaolo.fi online service. It takes about 5-10 minutes to make a symptom assessment.</string>
+    <string name="pre_web_contact_body_no_evaluation">If you are symptom-free, you can send a request to the online service Omaolo.fi that you want to be contacted. Select contact language. After this, you will be redirected to the Omaolo.fi web service.</string>
+    <string name="pre_web_contact_title">Select contact language</string>
+
+    <string name="municipality_load_failed">The municipal data could not be loaded. Check the connection and try again.</string>
+    <string name="municipality_retry_load">Try again</string>
+
+</resources>
