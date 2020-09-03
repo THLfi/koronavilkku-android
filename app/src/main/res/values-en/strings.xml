@@ -154,7 +154,7 @@
     <string name="enable_alert">To ensure your own and your loved ones' health, it is advisable to switch on exposure notifications as soon as possible.</string>
     <string name="enable_note">Enable COVID-19 exposure notifications</string>
 
-    <string name="enable_err_title">The exposure log could not be initialized</string>
+    <string name="enable_err_title">The exposure log could not be initialised</string>
     <string name="enable_err_missing_capability">Your device is not supported</string>
     <string name="enable_err_generic">Unknown error</string>
     <string name="enable_err_dismiss">Dismiss</string>
