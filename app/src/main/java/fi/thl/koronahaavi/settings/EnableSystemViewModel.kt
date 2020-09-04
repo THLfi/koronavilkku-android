@@ -9,6 +9,7 @@ import com.google.android.gms.common.api.Status
 import fi.thl.koronahaavi.common.Event
 import fi.thl.koronahaavi.device.DeviceStateRepository
 import fi.thl.koronahaavi.service.ExposureNotificationService
+import fi.thl.koronahaavi.service.ExposureNotificationService.ConnectionError
 import fi.thl.koronahaavi.service.ExposureNotificationService.ResolvableResult
 
 class EnableSystemViewModel @ViewModelInject constructor(
@@ -63,7 +64,7 @@ class EnableSystemViewModel @ViewModelInject constructor(
             }
             is ResolvableResult.ApiNotSupported -> {
                 enableENErrorEvent.postValue(Event(
-                    EnableENError.ApiNotSupported(result.connectionErrorCode)
+                    EnableENError.ApiNotSupported(result.connectionError?.toENApiError())
                 ))
                 false
             }
@@ -75,8 +76,21 @@ class EnableSystemViewModel @ViewModelInject constructor(
     }
 }
 
+fun ConnectionError.toENApiError(): ENApiError =
+    when (this) {
+        is ConnectionError.DeviceNotSupported -> ENApiError.DeviceNotSupported
+        is ConnectionError.ClientNotAuthorized -> ENApiError.AppNotAuthorized
+        is ConnectionError.Failed -> ENApiError.Failed(errorCode)
+    }
+
 sealed class EnableENError {
     object MissingCapability : EnableENError()
-    data class ApiNotSupported(val connectionErrorCode: Int? = null): EnableENError()
+    data class ApiNotSupported(val enApiError: ENApiError? = null): EnableENError()
     data class Failed(val code: Int? = null, val connectionErrorCode: Int? = null, val error: String? = null): EnableENError()
+}
+
+sealed class ENApiError {
+    object DeviceNotSupported: ENApiError()
+    object AppNotAuthorized: ENApiError()
+    data class Failed(val errorCode: Int?): ENApiError()
 }

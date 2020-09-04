@@ -3,6 +3,7 @@
 package fi.thl.koronahaavi.service
 
 import android.content.Context
+import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.CommonStatusCodes
 import com.google.android.gms.nearby.Nearby
@@ -11,6 +12,7 @@ import com.google.android.gms.nearby.exposurenotification.ExposureInformation
 import com.google.android.gms.nearby.exposurenotification.ExposureNotificationStatusCodes
 import com.google.android.gms.nearby.exposurenotification.ExposureSummary
 import fi.thl.koronahaavi.BuildConfig
+import fi.thl.koronahaavi.service.ExposureNotificationService.ConnectionError
 import fi.thl.koronahaavi.service.ExposureNotificationService.ResolvableResult
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -92,11 +94,11 @@ class GoogleExposureNotificationService(
             }
 
             if (exception.statusCode == CommonStatusCodes.API_NOT_CONNECTED) {
-                // this occurs on small number of devices for unknown reason, assuming some problem
-                // related to Google Play Services installation
+                // Google Play Services exposure notification module is not available
+                // because device not supported, app not authorized to use exposure notifications
+                // or other reason as defined by status.connectionResult
                 return ResolvableResult.ApiNotSupported(
-                    connectionErrorCode = exception.status.connectionResult?.errorCode,
-                    error = exception.localizedMessage
+                    connectionError = connectionErrorFrom(exception.status.connectionResult)
                 )
             }
 
@@ -111,6 +113,13 @@ class GoogleExposureNotificationService(
             return ResolvableResult.Failed(error = exception.localizedMessage)
         }
     }
+
+    private fun connectionErrorFrom(connectionResult: ConnectionResult?) =
+        when (connectionResult?.errorCode) {
+            ExposureNotificationStatusCodes.FAILED_NOT_SUPPORTED -> ConnectionError.DeviceNotSupported
+            ExposureNotificationStatusCodes.FAILED_UNAUTHORIZED -> ConnectionError.ClientNotAuthorized
+            else -> ConnectionError.Failed(connectionResult?.errorCode)
+        }
 
     // this maps backend json object to google EN api configuration
     private fun ExposureConfigurationData.toExposureConfiguration(): ExposureConfiguration {

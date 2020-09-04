@@ -15,6 +15,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import fi.thl.koronahaavi.R
 import fi.thl.koronahaavi.common.RequestResolutionViewModel.Companion.REQUEST_CODE_PLAY_SERVICES_ERROR_DIALOG
+import fi.thl.koronahaavi.settings.ENApiError
 import fi.thl.koronahaavi.settings.EnableENError
 import fi.thl.koronahaavi.settings.EnableSystemViewModel
 import kotlinx.coroutines.launch
@@ -136,10 +137,19 @@ fun Context.showEnableFailureReasonDialog(error: EnableENError) {
         is EnableENError.MissingCapability -> {
             builder.setMessage(R.string.enable_err_missing_capability)
         }
+
         is EnableENError.ApiNotSupported -> {
+            val apiError = error.enApiError?.let {
+                when (it) {
+                    is ENApiError.DeviceNotSupported -> getString(R.string.enable_err_api_connection_device)
+                    is ENApiError.AppNotAuthorized -> getString(R.string.enable_err_api_connection_unauthorized)
+                    is ENApiError.Failed -> getString(R.string.enable_err_api_connection_generic, it.errorCode ?: 0)
+                }
+            }
+
             builder.setMessage(
-                getString(R.string.enable_err_api_not_supported, error.connectionErrorCode ?: 0
-            ))
+                getString(R.string.enable_err_api_not_supported, apiError)
+            )
         }
 
         is EnableENError.Failed -> {

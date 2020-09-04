@@ -104,7 +104,7 @@ class DiagnosisKeyUpdateWorker @WorkerInject constructor(
                 false
             }
             is ResolvableResult.ApiNotSupported -> {
-                Timber.e("provideDiagnosisKeys call failed with api not supported, error: %s", result.error)
+                Timber.e("provideDiagnosisKeys call failed with api not supported")
                 false
             }
             is ResolvableResult.ResolutionRequired -> {
