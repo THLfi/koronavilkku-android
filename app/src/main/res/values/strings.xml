@@ -20,8 +20,7 @@
     <string name="diagnosis_en_disabled">Altistumisilmoitusten tulee olla päällä jotta voit ilmoittaa tartunnasta. Palaa koti-näkymään jossa voit laittaa ne päälle.</string>
 
     <string name="diagnosis_locked_title">Olet jo ilmoittanut tartunnasta</string>
-    <string name="diagnosis_locked_body1">Ilmoittamasi tiedot auttavat mahdollisia altistuneita olemaan oikea-aikaisesti yhteydessä terveydenhuoltoon.</string>
-    <string name="diagnosis_locked_body2">Sovellus on nyt lukittu, eikä enää lähetä tai kerää kohtaamistietoja. Kiitos sovelluksen käytöstä ja avustasi koronan voittamisessa.</string>
+    <string name="diagnosis_locked_body1">Ilmoittamasi tiedot auttavat koronavirusepidemian taltuttamisessa. Sovellus on nyt lukittu eikä enää kerää tietoja kohtaamisista. Pikaista paranemista!</string>
     <string name="diagnosis_locked_image_description">Lukittu</string>
 
     <string name="diagnosis_instructions_1">Avauskoodista ei voi tunnistaa henkilöllisyyttäsi.</string>
@@ -29,14 +28,14 @@
     <string name="diagnosis_instructions_3">Tieto mahdollisesta altistumisesta kannustaa ilmoituksen saaneita pitämään etäisyyttä muihin, havaitsemaan tartuntaan sopivat oireet ajoissa ja tarvittaessa hakeutumaan testiin. Näin voidaan välttää uusia tartuntoja.</string>
 
     <string name="code_entry_title">Syötä avauskoodisi</string>
-    <string name="code_entry_invalid">Avauskoodi on virheellinen. Tarkistathan, että olet syöttänyt koodin täsmälleen oikein.</string>
-    <string name="code_entry_submit_failed">Tartuntatiedon lähetys epäonnistui</string>
+    <string name="code_entry_invalid">Avauskoodi on virheellinen tai sen voimassaolo on päättynyt. Tarkistathan, että olet syöttänyt koodin täsmälleen oikein.</string>
+    <string name="code_entry_submit_failed">Tartunnasta ilmoittaminen epäonnistui, koska palvelimeen ei saada yhteyttä. Ole hyvä ja yritä hetken kuluttua uudelleen.</string>
     <string name="code_entry_en_disabled">Altistumisilmoitukset ovat pois päältä. Palaa koti-näkymään jossa voit laittaa ne päälle</string>
     <string name="code_entry_info">Avauskoodista ei voi tunnistaa henkilöllisyyttäsi.</string>
 
     <string name="diagnosis_complete_title">Kiitos ilmoituksestasi</string>
     <string name="diagnosis_complete_body">Ilmoittamasi tiedot auttavat koronavirusepidemian taltuttamisessa. Sovellus on nyt lukittu eikä enää kerää tietoja kohtaamisista. Pikaista paranemista!</string>
-    <string name="diagnosis_complete_continue">Valmis</string>
+    <string name="diagnosis_complete_continue">OK</string>
 
     <string name="home_title">Koti</string>
     <string name="home_exposure_label">Mahdollinen altistuminen</string>
@@ -146,7 +145,7 @@
     <string name="disable_subtitle">Pitääkö sinun poistaa altistumisilmoitukset käytöstä?</string>
     <string name="disable_body">Joissakin tilanteissa voi olla tarpeen väliaikaisesti poistaa altistumisilmoitukset käytöstä. Näin voi olla esimerkiksi silloin, jos olet terveydenhuollon ammattilainen etkä halua käyttää sovellusta työpaikallasi.\n\nJos otat altistumisilmoitukset pois käytöstä, sovellus ei toimi.</string>
     <string name="disable_note">Terveydestäsi ja läheistesi terveydestä huolehtimiseksi on suositeltavaa, että otat altistumisilmoitukset pois käytöstä vain silloin, jos se on todella tarpeellista. Muistathan ottaa ne uudelleen käyttöön heti kun mahdollista.</string>
-    <string name="disable_turn_off_note">Poista COVID-19-altistusloki ja -ilmoitukset käytöstä</string>
+    <string name="disable_turn_off_note">Poista COVID-19-\u200Baltistumisilmoitukset käytöstä</string>
     <string name="disable_button_turn_off">Poista käytöstä</string>
 
     <string name="disable_confirm_title">Oletko varma, että haluat poistaa käytöstä?</string>

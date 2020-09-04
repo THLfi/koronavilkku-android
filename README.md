@@ -20,3 +20,9 @@ enableTestUI=true
 
 ## Backend
 See [koronavilkku-backend](https://github.com/THLfi/koronavilkku-backend) for information on application backend.
+
+## Contributing
+
+We are grateful for all the people who have contributed so far. Due to tight schedule of Koronovilkku release we had no time to hone the open source contribution process to the very last detail. This has caused for some contributors to do work we cannot accept due to legal details or design choices that have been made during development. For this we are sorry.
+
+**IMPORTANT** See further details from [CONTRIBUTING.md](CONTRIBUTING.md)

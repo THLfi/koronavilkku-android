@@ -1,5 +1,5 @@
 # Use an official openjdk runtime as a parent image
-FROM gradle:6.1.1-jdk8
+FROM openjdk:8-jdk
 
 # Define versions to install
 ENV ANDROID_COMPILE_SDK 29
