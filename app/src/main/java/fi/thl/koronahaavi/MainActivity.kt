@@ -2,7 +2,10 @@ package fi.thl.koronahaavi
 
 import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -49,6 +52,8 @@ class MainActivity : AppCompatActivity() {
             finish()
         }
         else {
+            //Fix: Issue #31 - automatically whitelist application from Doze
+            checkDoze()
             setupServices()
 
             // configure navigation to work with bottom nav bar
@@ -131,6 +136,15 @@ class MainActivity : AppCompatActivity() {
         }
         else {
             workDispatcher.scheduleWorkers()
+        }
+    }
+
+    private fun checkDoze() {
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            val whitelist = Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS).apply {
+                setData(Uri.parse("package:$packageName"))
+            }
+            startActivity(whitelist)
         }
     }
 }
