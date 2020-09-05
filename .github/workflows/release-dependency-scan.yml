@@ -1,6 +1,8 @@
 name: Check latest release dependencies
 
 on:
+  push:
+    branches: '*'
   schedule:
     - cron:  "30 5 * * *" # this is utc time
 
@@ -12,6 +14,9 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: '0'
+      - name: Store latest actions
+        run: |
+          cp -R .github .github_latest
       - name: Checkout latest release
         run: |
           git fetch --all --tags --prune
@@ -24,7 +29,7 @@ jobs:
             gradle_home/wrapper
           key: ${{ runner.os }}-owasp-release-dependency-scan-with-gradle-${{ hashFiles('app/build.gradle') }}
       - name: OWASP dependency check
-        uses: ./.github/docker-owasp-dependency-check-android
+        uses: ./.github_latest/docker-owasp-dependency-check-android
         env:
           GRADLE_HOME: "./gradle_home"
       - uses: actions/upload-artifact@v2
@@ -36,7 +41,7 @@ jobs:
             ./app/build/reports/dependency-check-report.html
       - name: Notify to slack
         if: ${{ failure() }}
-        uses: ./.github/docker-slack
+        uses: ./.github_latest/docker-slack
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         with:
@@ -44,7 +49,7 @@ jobs:
           status: ${{job.status}}
       - name: Notify by email
         if: ${{ failure() }}
-        uses: ./.github/docker-notify-email
+        uses: ./.github_latest/docker-notify-email
         env:
           API_KEY: ${{ secrets.EMAIL_SERVICE_API_KEY }}
           SEND_URL: ${{ secrets.EMAIL_SERVICE_SEND_URL }}
