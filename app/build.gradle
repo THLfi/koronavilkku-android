@@ -39,6 +39,8 @@ android {
         buildConfigField "String", "PIN_BACKEND_KEY_HASH", "\"$pinBackendKeyHash\""
         buildConfigField "String", "PIN_BACKEND_KEY_BACKUP_HASH", "\"$pinBackendKeyBackupHash\""
 
+        resConfigs "fi", "sv"
+
         testInstrumentationRunner "fi.thl.koronahaavi.HaaviTestRunner"
     }
 
