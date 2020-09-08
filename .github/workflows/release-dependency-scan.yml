@@ -1,7 +1,10 @@
 name: Check latest release dependencies
 
-#on:
+on:
   # Release scan is disables until next release which have dependency scan defined n gradle.properties
+  push:
+    branches-ignore:
+      - '**'
   # schedule:
   #  - cron:  "30 5 * * *" # this is utc time
 
