@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
@@ -46,8 +45,7 @@ class SettingsFragment : Fragment() {
         // updating text with data binding adapter directly here since layout uses an
         // include tag with a string variable and adapter wont't work there
 
-        val itemCard = binding.settingsStatusItem.linkItemCard.rootView
-        itemCard.findViewById<TextView>(R.id.link_item_value)?.fromDeviceState(state)
+        binding.settingsStatusItem.linkItemValue.fromDeviceState(state)
     }
 
     private fun updateStatusDirections(state: SystemState) {
@@ -68,10 +66,14 @@ class SettingsFragment : Fragment() {
             }
         })
 
-        binding.settingsStatusItem.linkItemCard.setOnClickListener {
+        binding.settingsStatusItem.linkItemContainer.setOnClickListener {
             toggleServiceStateNavDirections?.let { directions ->
                 findNavController().navigateSafe(directions)
             }
+        }
+
+        binding.settingsLanguageItem.linkItemContainer.setOnClickListener {
+            findNavController().navigateSafe(SettingsFragmentDirections.toSelectLanguage())
         }
 
         binding.settingsGuideItem.linkItemContainer.setOnClickListener {

@@ -82,6 +82,7 @@
     <string name="settings_version">%1$s %2$s</string>
     <string name="settings_privacy_link_name">koronavilkku.fi</string>
     <string name="settings_terms_link_name">koronavilkku.fi</string>
+    <string name="settings_language_item">Ändra applikationsspråk</string>
 
     <string name="terms_url">https://koronavilkku.fi/sv/anvandningsvillkor/</string>
 
@@ -212,5 +213,9 @@
 
     <string name="municipality_load_failed">Det gick inte att ladda kommunuppgifterna. Kontrollera anslutningen och försök på nytt.</string>
     <string name="municipality_retry_load">Försök på nytt</string>
+
+    <string name="select_language_title">Ändra applikationsspråk</string>
+    <string name="select_language_item_system_default">Enhetens standard</string>
+    <string name="select_language_item_selected_description">Vald</string>
 
 </resources>
