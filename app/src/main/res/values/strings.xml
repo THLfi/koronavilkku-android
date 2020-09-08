@@ -157,10 +157,14 @@
     <string name="enable_alert">"Terveydestäsi ja läheistesi terveydestä huolehtimiseksi on suositeltavaa, että otat altistumisilmoitukset käyttöön heti kun mahdollista. "</string>
     <string name="enable_note">Ota COVID-19-altistumisilmoitukset käyttöön</string>
 
-    <string name="enable_err_title">Altistuslokin käynnistys epäonnistui</string>
+    <string name="enable_err_title">Altistumisilmoitusten käynnistys epäonnistui</string>
     <string name="enable_err_missing_capability">Laitteesi ei ole tuettu</string>
+    <string name="enable_err_api_not_supported">Valitettavasti Google Play Palveluiden altistumisilmoitukset eivät ole saatavilla laitteessasi.\n\n%s</string>
+    <string name="enable_err_api_connection_device">Virhe: Laitteesi ei ole tuettu</string>
+    <string name="enable_err_api_connection_unauthorized">Virhe: Altistumisilmoitukset eivät ole sallittu sovellukselle</string>
+    <string name="enable_err_api_connection_generic">Virhe: %d</string>
     <string name="enable_err_generic">Tuntematon virhe</string>
-    <string name="enable_error_api_code">Tapahtui odottamaton virhe, koodi: %d</string>
+    <string name="enable_error_api_code">Tapahtui odottamaton virhe, koodi: %1$d (%2$d)</string>
     <string name="enable_err_dismiss">Sulje</string>
 
     <string name="onboarding_done">Käyttöönotto valmis!</string>

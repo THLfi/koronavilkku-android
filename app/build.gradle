@@ -139,7 +139,7 @@ dependencies {
     implementation "com.google.android.gms:play-services-base:$playVersion"
     implementation "com.google.android.gms:play-services-basement:$playVersion"
     implementation 'com.google.android.gms:play-services-safetynet:17.0.0'
-    implementation 'com.google.android.gms:play-services-tasks:17.1.0'
+    implementation 'com.google.android.gms:play-services-tasks:17.2.0'
 
     // Security
     implementation 'androidx.security:security-crypto:1.0.0-rc03'  // 1.0 on purpose until 1.1 past alpha
