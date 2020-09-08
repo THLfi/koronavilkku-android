@@ -143,7 +143,7 @@ fun Context.showEnableFailureReasonDialog(error: EnableENError) {
                 when (it) {
                     is ENApiError.DeviceNotSupported -> getString(R.string.enable_err_api_connection_device)
                     is ENApiError.AppNotAuthorized -> getString(R.string.enable_err_api_connection_unauthorized)
-                    is ENApiError.Failed -> getString(R.string.enable_err_api_connection_generic, it.errorCode ?: 0)
+                    is ENApiError.Failed -> getString(R.string.enable_err_api_connection_generic, it.errorCode)
                 }
             }
 
@@ -155,7 +155,7 @@ fun Context.showEnableFailureReasonDialog(error: EnableENError) {
         is EnableENError.Failed -> {
             builder.setMessage(
                 error.code?.let {
-                    getString(R.string.enable_error_api_code, it, error.connectionErrorCode ?: 0)
+                    getString(R.string.enable_error_api_code, it, error.connectionErrorCode)
                 } ?:
                 getString(R.string.enable_err_generic)
             )
