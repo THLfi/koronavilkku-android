@@ -82,6 +82,7 @@
     <string name="settings_version">%1$s %2$s</string>
     <string name="settings_privacy_link_name">koronavilkku.fi</string>
     <string name="settings_terms_link_name">koronavilkku.fi</string>
+    <string name="settings_open_source_notices">Öppen källkod</string>
 
     <string name="terms_url">https://koronavilkku.fi/sv/anvandningsvillkor/</string>
 

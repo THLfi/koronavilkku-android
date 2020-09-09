@@ -84,6 +84,7 @@
     <string name="settings_privacy_link_url">https://koronavilkku.fi/tietosuojaseloste/</string>
     <string name="settings_privacy_link_name">koronavilkku.fi</string>
     <string name="settings_terms_link_name">koronavilkku.fi</string>
+    <string name="settings_open_source_notices">Avoin lähdekoodi</string>
 
     <string name="settings_version">%1$s %2$s</string>
 
