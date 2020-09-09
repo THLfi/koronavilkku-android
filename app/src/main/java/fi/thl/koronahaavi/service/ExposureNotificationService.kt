@@ -31,7 +31,16 @@ interface ExposureNotificationService {
         data class ResolutionRequired<T>(val status: Status) : ResolvableResult<T>()
         data class Success<T>(val data: T) : ResolvableResult<T>()
         data class MissingCapability<T>(val error: String?) : ResolvableResult<T>()
-        data class Failed<T>(val apiErrorCode: Int? = null, val error: String?) : ResolvableResult<T>()
+        data class ApiNotSupported<T>(val connectionError: ConnectionError?) : ResolvableResult<T>()
+        data class Failed<T>(val apiErrorCode: Int? = null, val connectionErrorCode: Int? = null, val error: String?) : ResolvableResult<T>()
+    }
+
+    // These map to ExposureNotificationStatusCodes, but only the ones have been defined which
+    // we need to handle in user interface to show specific error
+    sealed class ConnectionError {
+        object DeviceNotSupported: ConnectionError()  // 39501
+        object ClientNotAuthorized: ConnectionError()  // 39507
+        data class Failed(val errorCode: Int?): ConnectionError()
     }
 }
 
