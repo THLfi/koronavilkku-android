@@ -6,5 +6,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### Fixed
+- Localized texts
+- Minor layout issue with diagnosis code error
+
+### Changed
+- Error handling for exposure notifications
+
+## [1.0.0] - 2017-06-20
+
 ### Added
-- Handle Doze whitelist gracefully after onboarding by [@denzilferreira](https://github.com/denzilferreira).
+- Initial release of the application
+
+
+[1.0.0]: https://github.com/THLfi/koronavilkku-android/releases/tag/v1.0.0

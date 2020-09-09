@@ -3,12 +3,16 @@
 package fi.thl.koronahaavi.service
 
 import android.content.Context
+import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.common.api.CommonStatusCodes
 import com.google.android.gms.nearby.Nearby
 import com.google.android.gms.nearby.exposurenotification.ExposureConfiguration
 import com.google.android.gms.nearby.exposurenotification.ExposureInformation
+import com.google.android.gms.nearby.exposurenotification.ExposureNotificationStatusCodes
 import com.google.android.gms.nearby.exposurenotification.ExposureSummary
 import fi.thl.koronahaavi.BuildConfig
+import fi.thl.koronahaavi.service.ExposureNotificationService.ConnectionError
 import fi.thl.koronahaavi.service.ExposureNotificationService.ResolvableResult
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -83,12 +87,26 @@ class GoogleExposureNotificationService(
                 return ResolvableResult.ResolutionRequired(exception.status)
             }
 
-            if (exception.statusCode == NOT_SUPPORTED_API_ERROR_STATUS) {
+            Timber.e(exception, "Exposure notification API call failed")
+
+            if (exception.statusCode == ExposureNotificationStatusCodes.FAILED_NOT_SUPPORTED) {
                 return ResolvableResult.MissingCapability(exception.localizedMessage)
             }
 
-            Timber.e(exception, "Exposure notification API call failed")
-            return ResolvableResult.Failed(exception.statusCode, exception.localizedMessage)
+            if (exception.statusCode == CommonStatusCodes.API_NOT_CONNECTED) {
+                // Google Play Services exposure notification module is not available
+                // because device not supported, app not authorized to use exposure notifications
+                // or other reason as defined by status.connectionResult
+                return ResolvableResult.ApiNotSupported(
+                    connectionError = connectionErrorFrom(exception.status.connectionResult)
+                )
+            }
+
+            return ResolvableResult.Failed(
+                apiErrorCode = exception.statusCode,
+                connectionErrorCode = exception.status.connectionResult?.errorCode,
+                error = exception.localizedMessage
+            )
         }
         catch (exception: Exception) {
             Timber.e(exception, "Exposure notification API call failed")
@@ -96,9 +114,12 @@ class GoogleExposureNotificationService(
         }
     }
 
-    companion object {
-        private const val NOT_SUPPORTED_API_ERROR_STATUS = 39501
-    }
+    private fun connectionErrorFrom(connectionResult: ConnectionResult?) =
+        when (connectionResult?.errorCode) {
+            ExposureNotificationStatusCodes.FAILED_NOT_SUPPORTED -> ConnectionError.DeviceNotSupported
+            ExposureNotificationStatusCodes.FAILED_UNAUTHORIZED -> ConnectionError.ClientNotAuthorized
+            else -> ConnectionError.Failed(connectionResult?.errorCode)
+        }
 
     // this maps backend json object to google EN api configuration
     private fun ExposureConfigurationData.toExposureConfiguration(): ExposureConfiguration {
