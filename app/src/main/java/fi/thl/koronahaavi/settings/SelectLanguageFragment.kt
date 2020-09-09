@@ -54,7 +54,7 @@ class SelectLanguageFragment: Fragment() {
                 indicator.imageTintList = ColorStateList.valueOf(requireContext().getColor(R.color.mainBlue))
                 indicator.contentDescription = getString(R.string.select_language_item_selected_description)
             } else {
-                indicator.visibility = View.GONE
+                indicator.visibility = View.INVISIBLE // Instead of GONE so that the height remains the same w/ or w/o check mark.
             }
 
             pair.second.linkItemCard.setOnClickListener {
