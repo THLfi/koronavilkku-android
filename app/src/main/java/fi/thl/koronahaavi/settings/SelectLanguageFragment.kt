@@ -54,10 +54,10 @@ class SelectLanguageFragment: Fragment() {
                 indicator.contentDescription = getString(R.string.select_language_item_selected_description)
             } else {
                 indicator.visibility = View.INVISIBLE // Instead of GONE so that the height remains the same w/ or w/o check mark.
-            }
 
-            pair.second.linkItemCard.setOnClickListener {
-                selectLanguage(pair.first)
+                pair.second.linkItemCard.setOnClickListener {
+                    selectLanguage(pair.first)
+                }
             }
         }
     }
