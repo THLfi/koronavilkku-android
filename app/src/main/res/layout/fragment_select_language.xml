@@ -10,7 +10,11 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@color/veryLightBlue">
+        <!-- When opened in OnboardingActivity the bg is white and the ~white card items do not 'pop'
+             from the bg. Thus define background explicitly since couldn't get fragment specific
+             theme override working. -->
 
         <include android:id="@+id/layout_toolbar" layout="@layout/toolbar"/>
 
