@@ -1,7 +1,6 @@
 package fi.thl.koronahaavi.settings
 
 import android.content.res.ColorStateList
-import android.content.res.Resources
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,9 +12,9 @@ import androidx.navigation.ui.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint
 import fi.thl.koronahaavi.R
 import fi.thl.koronahaavi.common.getSavedLanguage
-import fi.thl.koronahaavi.common.primaryLocale
 import fi.thl.koronahaavi.common.setSavedLanguage
 import fi.thl.koronahaavi.databinding.FragmentSelectLanguageBinding
+import fi.thl.koronahaavi.onboarding.OnboardingActivity
 
 @AndroidEntryPoint
 class SelectLanguageFragment: Fragment() {
@@ -65,15 +64,12 @@ class SelectLanguageFragment: Fragment() {
 
     private fun selectLanguage(language: String?) {
         activity?.apply {
+            setSavedLanguage(language)
 
-            if (language == null) {
-                // Restore system primary locale as Context.withSavedLanguage() doesn't do anything
-                // if saved language is null. Without this the previously set locale (fi/sv/en)
-                // would be used (for formatting - the UI language would be correct).
-                Locale.setDefault(Resources.getSystem().primaryLocale())
+            if (activity is OnboardingActivity) {
+                findNavController().popBackStack()
             }
 
-            setSavedLanguage(language)
             recreate()
         }
     }

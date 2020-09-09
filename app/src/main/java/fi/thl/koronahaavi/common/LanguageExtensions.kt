@@ -33,6 +33,14 @@ fun Context.getSavedLanguage(): String? {
 }
 
 fun Context.setSavedLanguage(language: String?) {
+
+    if (language == null) {
+        // Restore system primary locale as Context.withSavedLanguage() doesn't do anything
+        // if saved language is null. Without this the previously set locale (fi/sv/en)
+        // would be used (for formatting - the UI language would be correct).
+        Locale.setDefault(Resources.getSystem().primaryLocale())
+    }
+
     languagePreferences().edit()
         .putString(PREF_KEY_LANGUAGE, language)
         .apply()
