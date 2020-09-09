@@ -2,6 +2,8 @@ package fi.thl.koronahaavi.common
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.content.res.Resources
+import android.os.Build
 import java.util.*
 
 private const val PREF_KEY_LANGUAGE = "language"
@@ -40,4 +42,14 @@ private fun Context.languagePreferences(): SharedPreferences {
     // No encryption is needed for language preference, and not sure if SettingsRepository could
     // be accessed early enough (attachBaseContext) => use a separate SharedPreferences.
     return getSharedPreferences("language", Context.MODE_PRIVATE)
+}
+
+fun Resources.primaryLocale(): Locale {
+    return configuration.let { cfg ->
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            cfg.locales.get(0)
+        } else {
+            cfg.locale
+        }
+    }
 }

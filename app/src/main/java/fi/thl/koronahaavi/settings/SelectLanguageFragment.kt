@@ -1,6 +1,7 @@
 package fi.thl.koronahaavi.settings
 
 import android.content.res.ColorStateList
+import android.content.res.Resources
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +13,7 @@ import androidx.navigation.ui.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint
 import fi.thl.koronahaavi.R
 import fi.thl.koronahaavi.common.getSavedLanguage
+import fi.thl.koronahaavi.common.primaryLocale
 import fi.thl.koronahaavi.common.setSavedLanguage
 import fi.thl.koronahaavi.databinding.FragmentSelectLanguageBinding
 
@@ -25,7 +27,7 @@ class SelectLanguageFragment: Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val root = requireActivity().layoutInflater.inflate(R.layout.fragment_select_language, container, false)
+        val root = inflater.inflate(R.layout.fragment_select_language, container, false)
         binding = FragmentSelectLanguageBinding.bind(root)
         return binding.root
     }
@@ -63,6 +65,14 @@ class SelectLanguageFragment: Fragment() {
 
     private fun selectLanguage(language: String?) {
         activity?.apply {
+
+            if (language == null) {
+                // Restore system primary locale as Context.withSavedLanguage() doesn't do anything
+                // if saved language is null. Without this the previously set locale (fi/sv/en)
+                // would be used (for formatting - the UI language would be correct).
+                Locale.setDefault(Resources.getSystem().primaryLocale())
+            }
+
             setSavedLanguage(language)
             recreate()
         }
