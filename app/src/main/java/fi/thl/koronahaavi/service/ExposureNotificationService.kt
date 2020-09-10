@@ -22,6 +22,7 @@ interface ExposureNotificationService {
     suspend fun getExposureDetails(token: String): List<ExposureInformation>
     suspend fun provideDiagnosisKeyFiles(token: String, files: List<File>, config: ExposureConfigurationData): ResolvableResult<Unit>
     suspend fun getTemporaryExposureKeys(): ResolvableResult<List<TemporaryExposureKey>>
+    fun deviceSupportsLocationlessScanning(): Boolean
 
     fun isEnabledFlow() : StateFlow<Boolean?>
     suspend fun refreshEnabledFlow()
