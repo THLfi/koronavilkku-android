@@ -213,4 +213,8 @@
     <string name="municipality_load_failed">Det gick inte att ladda kommunuppgifterna. Kontrollera anslutningen och försök på nytt.</string>
     <string name="municipality_retry_load">Försök på nytt</string>
 
+    <string name="secondary_user_error_title">Käyttäjäprofiili ei tuettu</string>
+    <string name="secondary_user_error_message">Olet kirjautunut laitteeseen profiililla joka ei ole omistaja. Sovellus valitettavasti toimii ainoastaan laitteen omistajan profiililla.</string>
+    <string name="secondary_user_error_close">Sulje sovellus</string>
+
 </resources>
