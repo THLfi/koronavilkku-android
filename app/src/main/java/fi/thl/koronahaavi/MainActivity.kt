@@ -1,10 +1,12 @@
 package fi.thl.koronahaavi
 
+import android.content.Context
 import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.PowerManager
 import android.provider.Settings
 import android.view.View
 import androidx.activity.viewModels
@@ -53,7 +55,7 @@ class MainActivity : AppCompatActivity() {
         }
         else {
             //Fix: Issue #31 - automatically whitelist application from Doze
-            checkDoze()
+            checkDoze(manualToggle = false)
             setupServices()
 
             // configure navigation to work with bottom nav bar
@@ -139,12 +141,21 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun checkDoze() {
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            val whitelist = Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS).apply {
-                setData(Uri.parse("package:$packageName"))
+    /**
+     * Check if Doze is enabled and request user's intervention
+     * @param manualToggle: Boolean - default=false, to minimize users' burden and minimize misconfiguration
+     */
+    private fun checkDoze(manualToggle: Boolean) {
+        val powerManager = getSystemService(Context.POWER_SERVICE) as PowerManager
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !powerManager.isIgnoringBatteryOptimizations(packageName)) {
+            if (manualToggle) {
+                //TODO: Show instructions GUI on how to add app to the ignore list.
+                startActivity(Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS))
+                //TODO: Come back to the app, checkDoze state
+            } else {
+                val whitelist = Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS).setData(Uri.parse("package:$packageName"))
+                startActivityForResult(whitelist, RequestResolutionViewModel.REQUEST_CODE_WHITELIST)
             }
-            startActivity(whitelist)
         }
     }
 }
