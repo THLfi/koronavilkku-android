@@ -119,6 +119,15 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+
+        //Check whitelist status if the user's manually change Doze outside the app
+        if (appStateRepository.getWhitelistState() != AppStateRepository.WhitelistState.unknown.value) {
+            when(isWhitelisted()) {
+                true -> appStateRepository.setWhitelistState(AppStateRepository.WhitelistState.allowed)
+                false -> appStateRepository.setWhitelistState(AppStateRepository.WhitelistState.denied)
+            }
+        }
+
         // EN enabled status needs to be queried when returning to the app since there
         // is no listener mechanism, and user could have disabled it in device settings
         lifecycleScope.launch { exposureNotificationService.refreshEnabledFlow() }
@@ -156,10 +165,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun checkDoze() {
-        val powerManager = getSystemService(Context.POWER_SERVICE) as PowerManager
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !powerManager.isIgnoringBatteryOptimizations(packageName)) {
+        if(!isWhitelisted()) {
             val whitelist = Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS).setData(Uri.parse("package:$packageName"))
             startActivityForResult(whitelist, RequestResolutionViewModel.REQUEST_CODE_WHITELIST)
         }
     }
+
+    private fun isWhitelisted() = (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && (getSystemService(Context.POWER_SERVICE) as PowerManager).isIgnoringBatteryOptimizations(packageName))
 }
