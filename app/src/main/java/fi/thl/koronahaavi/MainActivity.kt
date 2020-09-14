@@ -11,6 +11,7 @@ import android.provider.Settings
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -54,8 +55,12 @@ class MainActivity : AppCompatActivity() {
             finish()
         }
         else {
-            //Fix: Issue #31 - automatically whitelist application from Doze
-            checkDoze(manualToggle = false)
+
+            //Fix #31 - automatically whitelist application from Doze
+            if (appStateRepository.getWhitelistState() == AppStateRepository.WhitelistState.unknown.value) {
+                checkDoze()
+            }
+
             setupServices()
 
             // configure navigation to work with bottom nav bar
@@ -116,7 +121,6 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
         // EN enabled status needs to be queried when returning to the app since there
         // is no listener mechanism, and user could have disabled it in device settings
-
         lifecycleScope.launch { exposureNotificationService.refreshEnabledFlow() }
     }
 
@@ -128,6 +132,16 @@ class MainActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         resolutionViewModel.handleActivityResult(requestCode, resultCode)
+
+        resolutionViewModel.whitelistResolvedEvent().observe(this, Observer {
+            it.getContentIfNotHandled()?.let { isAllowed ->
+                if (isAllowed) {
+                    appStateRepository.setWhitelistState(AppStateRepository.WhitelistState.allowed)
+                } else {
+                    appStateRepository.setWhitelistState(AppStateRepository.WhitelistState.denied)
+                }
+            }
+        })
     }
 
     private fun setupServices() {
@@ -141,21 +155,11 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    /**
-     * Check if Doze is enabled and request user's intervention
-     * @param manualToggle: Boolean - default=false, to minimize users' burden and minimize misconfiguration
-     */
-    private fun checkDoze(manualToggle: Boolean) {
+    private fun checkDoze() {
         val powerManager = getSystemService(Context.POWER_SERVICE) as PowerManager
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !powerManager.isIgnoringBatteryOptimizations(packageName)) {
-            if (manualToggle) {
-                //TODO: Show instructions GUI on how to add app to the ignore list.
-                startActivity(Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS))
-                //TODO: Come back to the app, checkDoze state
-            } else {
-                val whitelist = Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS).setData(Uri.parse("package:$packageName"))
-                startActivityForResult(whitelist, RequestResolutionViewModel.REQUEST_CODE_WHITELIST)
-            }
+            val whitelist = Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS).setData(Uri.parse("package:$packageName"))
+            startActivityForResult(whitelist, RequestResolutionViewModel.REQUEST_CODE_WHITELIST)
         }
     }
 }

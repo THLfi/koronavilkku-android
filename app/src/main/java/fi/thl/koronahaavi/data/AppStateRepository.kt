@@ -24,6 +24,7 @@ class AppStateRepository @Inject constructor (
     private val lastBatchIdKey = "last_batch_id"
     private val lastExposureCheckTimeKey = "last_exposure_check"
     private val diagnosisKeysSubmittedKey = "diagnosis_keys_submitted"
+    private val whitelistState = "whitelist_state"
 
     private val keysSubmitted = MutableStateFlow(
         prefs.getBoolean(diagnosisKeysSubmittedKey, false)
@@ -36,6 +37,17 @@ class AppStateRepository @Inject constructor (
     init {
         updateLastExposureCheckTime()
     }
+
+    /**
+     * State machine for Doze whitelisting: denied, allowed, unknown
+     */
+    enum class WhitelistState(val value: Int) { denied(0), allowed(1), unknown(3) }
+
+    fun setWhitelistState(state: WhitelistState) {
+        prefs.edit().putInt(whitelistState, state.value).apply()
+    }
+
+    fun getWhitelistState() = prefs.getInt(whitelistState, WhitelistState.unknown.value)
 
     fun setDiagnosisKeysSubmitted(submitted: Boolean) {
         keysSubmitted.value = submitted
