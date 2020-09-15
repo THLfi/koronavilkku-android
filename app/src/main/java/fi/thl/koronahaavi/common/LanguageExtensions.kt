@@ -7,6 +7,7 @@ import android.os.Build
 import java.util.*
 
 private const val PREF_KEY_LANGUAGE = "language"
+private const val SHARED_PREFERENCES_NAME = "fi.thl.koronavilkku.language_prefs"
 
 fun Context.withSavedLanguage(): Context {
     return withLanguage(getSavedLanguage())
@@ -49,7 +50,7 @@ fun Context.setSavedLanguage(language: String?) {
 private fun Context.languagePreferences(): SharedPreferences {
     // No encryption is needed for language preference, and not sure if SettingsRepository could
     // be accessed early enough (attachBaseContext) => use a separate SharedPreferences.
-    return getSharedPreferences("language", Context.MODE_PRIVATE)
+    return getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE)
 }
 
 fun Resources.primaryLocale(): Locale {
