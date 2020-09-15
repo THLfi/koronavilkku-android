@@ -142,13 +142,17 @@ fun Context.showEnableFailureReasonDialog(error: EnableENError) {
             val apiError = error.enApiError?.let {
                 when (it) {
                     is ENApiError.DeviceNotSupported -> getString(R.string.enable_err_api_connection_device)
+                    is ENApiError.UserIsNotOwner -> getString(R.string.enable_err_not_owner)
                     is ENApiError.AppNotAuthorized -> getString(R.string.enable_err_api_connection_unauthorized)
                     is ENApiError.Failed -> getString(R.string.enable_err_api_connection_generic, it.errorCode)
                 }
             }
 
             builder.setMessage(
-                getString(R.string.enable_err_api_not_supported, apiError)
+                if (error.enApiError == ENApiError.UserIsNotOwner)
+                    apiError
+                else
+                    getString(R.string.enable_err_api_not_supported, apiError)
             )
         }
 

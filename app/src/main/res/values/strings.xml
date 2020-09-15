@@ -160,6 +160,7 @@
     <string name="enable_err_title">Altistumisilmoitusten käynnistys epäonnistui</string>
     <string name="enable_err_missing_capability">Laitteesi ei ole tuettu</string>
     <string name="enable_err_api_not_supported">Valitettavasti Google Play Palveluiden altistumisilmoitukset eivät ole saatavilla laitteessasi.\n\n%s</string>
+    <string name="enable_err_not_owner">Olet kirjautunut laitteeseen käyttäjäprofiililla, joka ei ole laitteen omistaja. Koronavilkku toimii vain laitteen omistajan käyttäjäprofiililla.\n\nVoit vaihtaa profiilia pyyhkäisemällä kahdella sormella aloitusnäytön yläreunasta. Paina sitten Vaihda käyttäjää -painiketta.</string>
     <string name="enable_err_api_connection_device">Virhe: Laitteesi ei ole tuettu</string>
     <string name="enable_err_api_connection_unauthorized">Virhe: Altistumisilmoitukset eivät ole sallittu sovellukselle</string>
     <string name="enable_err_api_connection_generic">Virhe: %d</string>
@@ -230,9 +231,5 @@
 
     <string name="municipality_load_failed">Kuntatietojen lataus epäonnistui. Tarkista verkkoyhteys ja yritä uudelleen.</string>
     <string name="municipality_retry_load">Yritä uudelleen</string>
-
-    <string name="secondary_user_error_title">Käyttäjäprofiili ei tuettu</string>
-    <string name="secondary_user_error_message">Olet kirjautunut laitteeseen profiililla joka ei ole omistaja. Sovellus valitettavasti toimii ainoastaan laitteen omistajan profiililla.</string>
-    <string name="secondary_user_error_close">Sulje sovellus</string>
 
 </resources>

@@ -14,6 +14,4 @@ class DeviceStateRepository @Inject constructor (
     fun bluetoothOn(): LiveData<Boolean> = MutableLiveData(true) // fake always on
 
     fun locationOn(): LiveData<Boolean> = LocationOnLiveData(context)
-
-    fun isPrimaryUser() = true // fake primary, see live build for actual
 }

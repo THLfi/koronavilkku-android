@@ -156,6 +156,7 @@
     <string name="enable_err_title">Exponeringsloggen kunde inte startas</string>
     <string name="enable_err_missing_capability">Din enhet stöds ej</string>
     <string name="enable_err_api_not_supported">Din enhet stöder inte exponeringsmeddelanden av Google Play Services.\n\n%s</string>
+    <string name="enable_err_not_owner">Olet kirjautunut laitteeseen profiililla joka ei ole omistaja. Sovellus valitettavasti toimii ainoastaan laitteen omistajan profiililla.</string>
     <string name="enable_err_api_connection_device">Fel: Din enhet stöds ej</string>
     <string name="enable_err_api_connection_unauthorized">Fel: Appen har inte tillstånd att använda exponeringsmeddelanden</string>
     <string name="enable_err_api_connection_generic">Felkod: %d</string>
@@ -212,9 +213,5 @@
 
     <string name="municipality_load_failed">Det gick inte att ladda kommunuppgifterna. Kontrollera anslutningen och försök på nytt.</string>
     <string name="municipality_retry_load">Försök på nytt</string>
-
-    <string name="secondary_user_error_title">Käyttäjäprofiili ei tuettu</string>
-    <string name="secondary_user_error_message">Olet kirjautunut laitteeseen profiililla joka ei ole omistaja. Sovellus valitettavasti toimii ainoastaan laitteen omistajan profiililla.</string>
-    <string name="secondary_user_error_close">Sulje sovellus</string>
 
 </resources>

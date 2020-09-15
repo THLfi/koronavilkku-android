@@ -27,5 +27,4 @@ class OnboardingViewModel @ViewModelInject constructor(
     }
 
     val isLocationOn = deviceStateRepository.locationOn()
-    val isPrimaryUser = deviceStateRepository.isPrimaryUser()
 }

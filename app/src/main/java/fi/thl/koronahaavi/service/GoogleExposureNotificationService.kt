@@ -3,6 +3,8 @@
 package fi.thl.koronahaavi.service
 
 import android.content.Context
+import android.os.Process
+import android.os.UserManager
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.CommonStatusCodes
@@ -76,6 +78,11 @@ class GoogleExposureNotificationService(
         client.temporaryExposureKeyHistory.await()
     }
 
+    private fun isOwnerUserProfile(): Boolean =
+        (context.getSystemService(Context.USER_SERVICE) as? UserManager)?.let {
+            it.getSerialNumberForUser(Process.myUserHandle()) == 0L
+        } ?: false
+
     private suspend fun <T> resultFromRunning(block: suspend () -> T): ResolvableResult<T> {
         try {
             return ResolvableResult.Success(block())
@@ -116,7 +123,13 @@ class GoogleExposureNotificationService(
 
     private fun connectionErrorFrom(connectionResult: ConnectionResult?) =
         when (connectionResult?.errorCode) {
-            ExposureNotificationStatusCodes.FAILED_NOT_SUPPORTED -> ConnectionError.DeviceNotSupported
+            ExposureNotificationStatusCodes.FAILED_NOT_SUPPORTED -> {
+                // FAILED_NOT_SUPPORTED occurs for both unsupported device and when user profile is not device owner
+                if (isOwnerUserProfile())
+                    ConnectionError.DeviceNotSupported
+                else
+                    ConnectionError.UserIsNotOwner
+            }
             ExposureNotificationStatusCodes.FAILED_UNAUTHORIZED -> ConnectionError.ClientNotAuthorized
             else -> ConnectionError.Failed(connectionResult?.errorCode)
         }
