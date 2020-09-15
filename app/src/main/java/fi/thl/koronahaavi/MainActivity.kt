@@ -1,11 +1,17 @@
 package fi.thl.koronahaavi
 
+import android.content.Context
 import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
+import android.os.PowerManager
+import android.provider.Settings
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -49,6 +55,12 @@ class MainActivity : AppCompatActivity() {
             finish()
         }
         else {
+
+            //Fix #31 - automatically whitelist application from Doze
+            if (appStateRepository.getWhitelistState() == AppStateRepository.WhitelistState.unknown.value) {
+                checkDoze()
+            }
+
             setupServices()
 
             // configure navigation to work with bottom nav bar
@@ -107,9 +119,17 @@ class MainActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
+
+        //Check whitelist status if the user's manually change Doze outside the app
+        if (appStateRepository.getWhitelistState() != AppStateRepository.WhitelistState.unknown.value) {
+            when(isWhitelisted()) {
+                true -> appStateRepository.setWhitelistState(AppStateRepository.WhitelistState.allowed)
+                false -> appStateRepository.setWhitelistState(AppStateRepository.WhitelistState.denied)
+            }
+        }
+
         // EN enabled status needs to be queried when returning to the app since there
         // is no listener mechanism, and user could have disabled it in device settings
-
         lifecycleScope.launch { exposureNotificationService.refreshEnabledFlow() }
     }
 
@@ -121,6 +141,16 @@ class MainActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         resolutionViewModel.handleActivityResult(requestCode, resultCode)
+
+        resolutionViewModel.whitelistResolvedEvent().observe(this, Observer {
+            it.getContentIfNotHandled()?.let { isAllowed ->
+                if (isAllowed) {
+                    appStateRepository.setWhitelistState(AppStateRepository.WhitelistState.allowed)
+                } else {
+                    appStateRepository.setWhitelistState(AppStateRepository.WhitelistState.denied)
+                }
+            }
+        })
     }
 
     private fun setupServices() {
@@ -133,4 +163,13 @@ class MainActivity : AppCompatActivity() {
             workDispatcher.scheduleWorkers()
         }
     }
+
+    private fun checkDoze() {
+        if(!isWhitelisted()) {
+            val whitelist = Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS).setData(Uri.parse("package:$packageName"))
+            startActivityForResult(whitelist, RequestResolutionViewModel.REQUEST_CODE_WHITELIST)
+        }
+    }
+
+    private fun isWhitelisted() = (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && (getSystemService(Context.POWER_SERVICE) as PowerManager).isIgnoringBatteryOptimizations(packageName))
 }
