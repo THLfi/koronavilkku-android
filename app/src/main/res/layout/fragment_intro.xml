@@ -56,8 +56,12 @@
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"
             android:text="@string/onboarding_select_language_button"
-            style="?attr/borderlessButtonStyle" />
+            app:icon="@drawable/ic_globe"
+            style="@style/Widget.Vilkku.Button.SmallButton"
+            />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button_intro_next"
