@@ -8,6 +8,7 @@
     <string name="all_yesterday">igår</string>
     <string name="all_app_additional_info">Se mer information om Coronablinkern</string>
     <string name="all_system_enable">Koppla på</string>
+    <string name="all_ok">OK</string>
 
     <string name="diagnosis_title">Meddela din smitta</string>
     <string name="diagnosis_body1">Om du har testats och konstaterats ha coronavirusinfektion får du en startkod från hälso- och sjukvården eller med ett textmeddelande från THL. Med startkoden kan du anonymt förmedla information om din smitta.</string>
@@ -17,8 +18,7 @@
     <string name="diagnosis_en_disabled">Exponeringsmeddelandena ska vara påkopplade för att du ska kunna meddela att du bär smitta. Gå tillbaka till hemsidan där du kan koppla på dem.</string>
 
     <string name="diagnosis_locked_title">Du har redan meddelat att du blivit smittad</string>
-    <string name="diagnosis_locked_body1">Ditt meddelande hjälper eventuella exponerade att kontakta vården i rätt tid.</string>
-    <string name="diagnosis_locked_body2">Appen är nu låst och sänder eller samlar inte längre information om möten. Tack för att du använde appen och är med och bekämpar corona.</string>
+    <string name="diagnosis_locked_body1">De uppgifter du angett bidrar till att bekämpa coronavirusepidemin. Appen är nu bortkopplad och samlar inte längre in information om personer du träffar. Krya på dig!</string>
     <string name="diagnosis_locked_image_description">Låst</string>
 
     <string name="diagnosis_instructions_1">Det är inte möjligt att identifiera dig med hjälp av startkoden.</string>
@@ -26,14 +26,14 @@
     <string name="diagnosis_instructions_3">Informationen uppmanar mottagarna att undvika kontakter, att i tid lägga märke till symtom som passar in på infektionen och att vid behov ta ett test. På det här sättet kan smittospridning undvikas.</string>
 
     <string name="code_entry_title">Ange din startkod</string>
-    <string name="code_entry_invalid">Startkoden är ogiltig eller har gått ut. Kontrollera att du har angett koden korrekt.</string>
+    <string name="code_entry_invalid">Startkoden är ogiltig eller inte i kraft. Kontrollera att du har angett koden korrekt.</string>
     <string name="code_entry_submit_failed">Det gick inte att meddela om din smitta eftersom servern inte kunde nås. Försök igen om ett ögonblick.</string>
-    <string name="code_entry_en_disabled">Meddelanden om exponering är inte på. Gå tillbaka till hem-vyn där du kan koppla på dem.</string>
+    <string name="code_entry_en_disabled">Exponeringsmeddelandena ska vara påkopplade för att du ska kunna meddela att du bär smitta. Gå tillbaka till hemsidan där du kan koppla på dem.</string>
     <string name="code_entry_info">Det är inte möjligt att identifiera dig med hjälp av startkoden.</string>
 
     <string name="diagnosis_complete_title">Tack för ditt meddelande</string>
-    <string name="diagnosis_complete_body">De uppgifter du angett bidrar till att bekämpa coronavirusepidemin. Appen är nu låst och samlar inte längre in information om personer du träffar. Krya på dig!</string>
-    <string name="diagnosis_complete_continue">Färdig</string>
+    <string name="diagnosis_complete_body">De uppgifter du angett bidrar till att bekämpa coronavirusepidemin. Appen är nu bortkopplad och samlar inte längre in information om personer du träffar. Krya på dig!</string>
+    <string name="diagnosis_complete_continue">OK</string>
 
     <string name="home_title">Hem</string>
     <string name="home_exposure_label">Eventuell exponering</string>
@@ -83,6 +83,7 @@
     <string name="settings_version">%1$s %2$s</string>
     <string name="settings_privacy_link_name">koronavilkku.fi</string>
     <string name="settings_terms_link_name">koronavilkku.fi</string>
+    <string name="settings_open_source_notices">Öppen källkod</string>
 
     <string name="terms_url">https://koronavilkku.fi/sv/anvandningsvillkor/</string>
 
@@ -156,9 +157,13 @@
 
     <string name="enable_err_title">Exponeringsloggen kunde inte startas</string>
     <string name="enable_err_missing_capability">Din enhet stöds ej</string>
+    <string name="enable_err_api_not_supported">Din enhet stöder inte exponeringsmeddelanden av Google Play Services.\n\n%s</string>
+    <string name="enable_err_api_connection_device">Fel: Din enhet stöds ej</string>
+    <string name="enable_err_api_connection_unauthorized">Fel: Appen har inte tillstånd att använda exponeringsmeddelanden</string>
+    <string name="enable_err_api_connection_generic">Felkod: %d</string>
     <string name="enable_err_generic">Okänt fel</string>
     <string name="enable_err_dismiss">Stäng</string>
-    <string name="enable_error_api_code">Det skedde ett oväntat fel, kod: %d</string>
+    <string name="enable_error_api_code">Det skedde ett oväntat fel, kod: %1$d (%2$d)</string>
 
     <string name="onboarding_done">Idrifttagningen klar!</string>
 
@@ -207,7 +212,13 @@
     <string name="pre_web_contact_body_no_evaluation">Om du är symtomfri, kan du skicka en begäran till nättjänsten Omaolo.fi att du vill bli kontaktad. Välj kontaktspråk. Efter det här överförs du till nättjänsten Omaolo.fi.</string>
     <string name="pre_web_contact_title">Välj kontaktspråk</string>
 
+    <string name="omaolo_link_failed_title">Omaoloa ei voitu avata</string>
+    <string name="omaolo_link_failed_message">Koronavilkku ei voinut ohjata sinua Omaolo-palveluun, sillä verkkoselainta ei voitu käynnistää. Laitteellasi ei ole selainohjelmaa tai sen käyttö on estetty. Ole hyvä ja ota yhteys terveydenhuoltoon puhelimitse.</string>
+
     <string name="municipality_load_failed">Det gick inte att ladda kommunuppgifterna. Kontrollera anslutningen och försök på nytt.</string>
     <string name="municipality_retry_load">Försök på nytt</string>
+
+    <string name="open_link_failed_title">Länken kunde inte öppnas</string>
+    <string name="open_link_failed_message">Länken kunde inte öppnas</string>
 
 </resources>

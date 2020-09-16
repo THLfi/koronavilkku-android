@@ -11,6 +11,7 @@
     <string name="all_english" translatable="false">English</string>
     <string name="all_app_additional_info">Katso lisätietoa Koronavilkusta</string>
     <string name="all_system_enable">Ota käyttöön</string>
+    <string name="all_ok">OK</string>
 
     <string name="diagnosis_title">Ilmoita tartunnastasi</string>
     <string name="diagnosis_body1">Jos sinulla todetaan tartunta koronavirustestillä, saat avauskoodin terveydenhuollon ammattilaiselta tai tekstiviestillä THL:ltä. Avauskoodilla voit jakaa nimettömästi tiedon tartunnastasi.</string>
@@ -20,8 +21,7 @@
     <string name="diagnosis_en_disabled">Altistumisilmoitusten tulee olla päällä jotta voit ilmoittaa tartunnasta. Palaa koti-näkymään jossa voit laittaa ne päälle.</string>
 
     <string name="diagnosis_locked_title">Olet jo ilmoittanut tartunnasta</string>
-    <string name="diagnosis_locked_body1">Ilmoittamasi tiedot auttavat mahdollisia altistuneita olemaan oikea-aikaisesti yhteydessä terveydenhuoltoon.</string>
-    <string name="diagnosis_locked_body2">Sovellus on nyt lukittu, eikä enää lähetä tai kerää kohtaamistietoja. Kiitos sovelluksen käytöstä ja avustasi koronan voittamisessa.</string>
+    <string name="diagnosis_locked_body1">Ilmoittamasi tiedot auttavat koronavirusepidemian taltuttamisessa. Sovellus on nyt lukittu eikä enää kerää tietoja kohtaamisista. Pikaista paranemista!</string>
     <string name="diagnosis_locked_image_description">Lukittu</string>
 
     <string name="diagnosis_instructions_1">Avauskoodista ei voi tunnistaa henkilöllisyyttäsi.</string>
@@ -29,14 +29,14 @@
     <string name="diagnosis_instructions_3">Tieto mahdollisesta altistumisesta kannustaa ilmoituksen saaneita pitämään etäisyyttä muihin, havaitsemaan tartuntaan sopivat oireet ajoissa ja tarvittaessa hakeutumaan testiin. Näin voidaan välttää uusia tartuntoja.</string>
 
     <string name="code_entry_title">Syötä avauskoodisi</string>
-    <string name="code_entry_invalid">Avauskoodi on virheellinen. Tarkistathan, että olet syöttänyt koodin täsmälleen oikein.</string>
-    <string name="code_entry_submit_failed">Tartuntatiedon lähetys epäonnistui</string>
+    <string name="code_entry_invalid">Avauskoodi on virheellinen tai sen voimassaolo on päättynyt. Tarkistathan, että olet syöttänyt koodin täsmälleen oikein.</string>
+    <string name="code_entry_submit_failed">Tartunnasta ilmoittaminen epäonnistui, koska palvelimeen ei saada yhteyttä. Ole hyvä ja yritä hetken kuluttua uudelleen.</string>
     <string name="code_entry_en_disabled">Altistumisilmoitukset ovat pois päältä. Palaa koti-näkymään jossa voit laittaa ne päälle</string>
     <string name="code_entry_info">Avauskoodista ei voi tunnistaa henkilöllisyyttäsi.</string>
 
     <string name="diagnosis_complete_title">Kiitos ilmoituksestasi</string>
     <string name="diagnosis_complete_body">Ilmoittamasi tiedot auttavat koronavirusepidemian taltuttamisessa. Sovellus on nyt lukittu eikä enää kerää tietoja kohtaamisista. Pikaista paranemista!</string>
-    <string name="diagnosis_complete_continue">Valmis</string>
+    <string name="diagnosis_complete_continue">OK</string>
 
     <string name="home_title">Koti</string>
     <string name="home_exposure_label">Mahdollinen altistuminen</string>
@@ -85,6 +85,7 @@
     <string name="settings_privacy_link_url">https://koronavilkku.fi/tietosuojaseloste/</string>
     <string name="settings_privacy_link_name">koronavilkku.fi</string>
     <string name="settings_terms_link_name">koronavilkku.fi</string>
+    <string name="settings_open_source_notices">Avoimen lähdekoodin lisenssit</string>
 
     <string name="settings_version">%1$s %2$s</string>
 
@@ -146,7 +147,7 @@
     <string name="disable_subtitle">Pitääkö sinun poistaa altistumisilmoitukset käytöstä?</string>
     <string name="disable_body">Joissakin tilanteissa voi olla tarpeen väliaikaisesti poistaa altistumisilmoitukset käytöstä. Näin voi olla esimerkiksi silloin, jos olet terveydenhuollon ammattilainen etkä halua käyttää sovellusta työpaikallasi.\n\nJos otat altistumisilmoitukset pois käytöstä, sovellus ei toimi.</string>
     <string name="disable_note">Terveydestäsi ja läheistesi terveydestä huolehtimiseksi on suositeltavaa, että otat altistumisilmoitukset pois käytöstä vain silloin, jos se on todella tarpeellista. Muistathan ottaa ne uudelleen käyttöön heti kun mahdollista.</string>
-    <string name="disable_turn_off_note">Poista COVID-19-altistusloki ja -ilmoitukset käytöstä</string>
+    <string name="disable_turn_off_note">Poista COVID-19-\u200Baltistumisilmoitukset käytöstä</string>
     <string name="disable_button_turn_off">Poista käytöstä</string>
 
     <string name="disable_confirm_title">Oletko varma, että haluat poistaa käytöstä?</string>
@@ -158,10 +159,14 @@
     <string name="enable_alert">"Terveydestäsi ja läheistesi terveydestä huolehtimiseksi on suositeltavaa, että otat altistumisilmoitukset käyttöön heti kun mahdollista. "</string>
     <string name="enable_note">Ota COVID-19-altistumisilmoitukset käyttöön</string>
 
-    <string name="enable_err_title">Altistuslokin käynnistys epäonnistui</string>
+    <string name="enable_err_title">Altistumisilmoitusten käynnistys epäonnistui</string>
     <string name="enable_err_missing_capability">Laitteesi ei ole tuettu</string>
+    <string name="enable_err_api_not_supported">Valitettavasti Google Play Palveluiden altistumisilmoitukset eivät ole saatavilla laitteessasi.\n\n%s</string>
+    <string name="enable_err_api_connection_device">Virhe: Laitteesi ei ole tuettu</string>
+    <string name="enable_err_api_connection_unauthorized">Virhe: Altistumisilmoitukset eivät ole sallittu sovellukselle</string>
+    <string name="enable_err_api_connection_generic">Virhe: %d</string>
     <string name="enable_err_generic">Tuntematon virhe</string>
-    <string name="enable_error_api_code">Tapahtui odottamaton virhe, koodi: %d</string>
+    <string name="enable_error_api_code">Tapahtui odottamaton virhe, koodi: %1$d (%2$d)</string>
     <string name="enable_err_dismiss">Sulje</string>
 
     <string name="onboarding_done">Käyttöönotto valmis!</string>
@@ -225,7 +230,13 @@
     <string name="pre_web_contact_body_no_evaluation">Jos olet oireeton, voit lähettää yhteydenottopyynnön Omaolo.fi-verkkopalvelussa. Valitse asiointikieli. Tämän jälkeen siirryt Omaolo.fi-verkkopalveluun.</string>
     <string name="pre_web_contact_title">Valitse asiointikieli</string>
 
+    <string name="omaolo_link_failed_title">Omaoloa ei voida avata</string>
+    <string name="omaolo_link_failed_message">Koronavilkku ei voi ohjata sinua Omaolo-palveluun, koska puhelimessasi ei ole selainta tai sen käyttö on estetty. Ole hyvä ja ota yhteys terveydenhuoltoon puhelimitse.</string>
+
     <string name="municipality_load_failed">Kuntatietojen lataus epäonnistui. Tarkista verkkoyhteys ja yritä uudelleen.</string>
     <string name="municipality_retry_load">Yritä uudelleen</string>
+
+    <string name="open_link_failed_title">Verkkosivua ei voida avata</string>
+    <string name="open_link_failed_message">Verkkosivua ei voida avata, koska puhelimessasi ei ole selainta tai sen käyttö on estetty.</string>
 
 </resources>

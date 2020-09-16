@@ -15,6 +15,7 @@ import fi.thl.koronahaavi.device.SystemStateLiveData
 import fi.thl.koronahaavi.service.ExposureNotificationService
 import fi.thl.koronahaavi.service.ExposureNotificationService.ResolvableResult
 import fi.thl.koronahaavi.settings.EnableENError
+import fi.thl.koronahaavi.settings.toENApiError
 import kotlinx.coroutines.launch
 
 class HomeViewModel @ViewModelInject constructor(
@@ -58,12 +59,17 @@ class HomeViewModel @ViewModelInject constructor(
                 }
                 is ResolvableResult.Failed -> {
                     enableENErrorEvent.postValue(Event(
-                        EnableENError.Failed(code = result.apiErrorCode)
+                        EnableENError.Failed(code = result.apiErrorCode, connectionErrorCode = result.connectionErrorCode)
                     ))
                 }
                 is ResolvableResult.MissingCapability -> {
                     enableENErrorEvent.postValue(Event(
                         EnableENError.MissingCapability
+                    ))
+                }
+                is ResolvableResult.ApiNotSupported -> {
+                    enableENErrorEvent.postValue(Event(
+                        EnableENError.ApiNotSupported(result.connectionError?.toENApiError())
                     ))
                 }
             }

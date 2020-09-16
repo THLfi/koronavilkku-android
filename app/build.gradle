@@ -3,6 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'dagger.hilt.android.plugin'
 apply plugin: 'androidx.navigation.safeargs.kotlin'
+apply plugin: 'com.google.android.gms.oss-licenses-plugin'
 
 // setup properties from local overrides or from gradle.properties defaults
 // these are then used to create buildConfigFields which are used in code
@@ -29,7 +30,7 @@ android {
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
         versionCode 10
-        versionName "1.0.0"
+        versionName "1.0.1"
 
         buildConfigField "String", "BASE_URL", "\"$backendUrl\""
         buildConfigField "String", "MUNICIPALITY_URL", "\"$municipalityUrl\""
@@ -38,6 +39,8 @@ android {
         buildConfigField "String", "PIN_BACKEND_HOST", "\"$pinBackendHost\""
         buildConfigField "String", "PIN_BACKEND_KEY_HASH", "\"$pinBackendKeyHash\""
         buildConfigField "String", "PIN_BACKEND_KEY_BACKUP_HASH", "\"$pinBackendKeyBackupHash\""
+
+        resConfigs "fi", "sv"
 
         testInstrumentationRunner "fi.thl.koronahaavi.HaaviTestRunner"
     }
@@ -137,10 +140,11 @@ dependencies {
     implementation "com.google.android.gms:play-services-base:$playVersion"
     implementation "com.google.android.gms:play-services-basement:$playVersion"
     implementation 'com.google.android.gms:play-services-safetynet:17.0.0'
-    implementation 'com.google.android.gms:play-services-tasks:17.1.0'
+    implementation 'com.google.android.gms:play-services-tasks:17.2.0'
+    implementation 'com.google.android.gms:play-services-oss-licenses:17.0.0'
 
     // Security
-    implementation 'androidx.security:security-crypto:1.0.0-rc02'  // 1.0 on purpose until 1.1 past alpha
+    implementation 'androidx.security:security-crypto:1.0.0-rc03'  // 1.0 on purpose until 1.1 past alpha
     implementation 'net.zetetic:android-database-sqlcipher:4.4.0'
 
     // Network
