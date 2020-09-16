@@ -1,5 +1,6 @@
 package fi.thl.koronahaavi.settings
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -18,6 +19,8 @@ import fi.thl.koronahaavi.common.openGuide
 import fi.thl.koronahaavi.common.openLink
 import fi.thl.koronahaavi.databinding.FragmentSettingsBinding
 import fi.thl.koronahaavi.device.SystemState
+import com.google.android.gms.oss.licenses.OssLicensesMenuActivity;
+
 
 @AndroidEntryPoint
 class SettingsFragment : Fragment() {
@@ -90,6 +93,10 @@ class SettingsFragment : Fragment() {
 
         binding.settingsTosItem.linkItemContainer.setOnClickListener {
             openLink(getString(R.string.terms_url))
+        }
+
+        binding.settingsOpenSourceNotices.linkItemContainer.setOnClickListener {
+            startActivity(Intent(requireContext(), OssLicensesMenuActivity::class.java))
         }
 
         binding.settingsAppNameVersion.text = getString(R.string.settings_version,
