@@ -13,10 +13,7 @@ import dagger.hilt.android.components.ApplicationComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
 import fi.thl.koronahaavi.BuildConfig
 import fi.thl.koronahaavi.R
-import fi.thl.koronahaavi.data.DefaultExposureRepository
-import fi.thl.koronahaavi.data.ExposureDao
-import fi.thl.koronahaavi.data.ExposureRepository
-import fi.thl.koronahaavi.data.KeyGroupTokenDao
+import fi.thl.koronahaavi.data.*
 import fi.thl.koronahaavi.service.UserAgentInterceptor
 import okhttp3.CertificatePinner
 import okhttp3.OkHttpClient
@@ -34,18 +31,10 @@ annotation class DatabaseName
 @InstallIn(ApplicationComponent::class)
 object AppModule {
 
-    const val SHARED_PREFERENCES_NAME = "fi.thl.koronavilkku.prefs"
-
     @Singleton
     @Provides
     fun provideSharedPreferences(@ApplicationContext context: Context): SharedPreferences {
-        return EncryptedSharedPreferences.create(
-            SHARED_PREFERENCES_NAME,
-            MasterKeys.getOrCreate(MasterKeys.AES256_GCM_SPEC), // gets encryption key alias from keystore
-            context,
-            PrefKeyEncryptionScheme.AES256_SIV,
-            PrefValueEncryptionScheme.AES256_GCM
-        )
+        return VilkkuSharedPreferences(context)
     }
 
     // this allows database testing with a different name so it does not interfere with actual app db
