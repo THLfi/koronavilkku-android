@@ -217,7 +217,7 @@
     <string name="municipality_load_failed">Det gick inte att ladda kommunuppgifterna. Kontrollera anslutningen och försök på nytt.</string>
     <string name="municipality_retry_load">Försök på nytt</string>
 
-    <string name="open_link_failed_title">Linkkiä ei voitu avata</string>
-    <string name="open_link_failed_message">Valitsemaasi linkkiä ei voitu avata, sillä verkkoselainta ei voitu käynnistää. Laitteellasi ei ole selainohjelmaa tai sen käyttö on estetty.</string>
+    <string name="open_link_failed_title">Länken kunde inte öppnas</string>
+    <string name="open_link_failed_message">Länken kunde inte öppnas</string>
 
 </resources>
