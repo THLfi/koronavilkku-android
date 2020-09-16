@@ -18,6 +18,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import fi.thl.koronahaavi.R
 import fi.thl.koronahaavi.settings.GuideFragment
 import timber.log.Timber
 
@@ -33,7 +35,21 @@ fun Fragment.openLink(url: String) {
     val intent = Intent(Intent.ACTION_VIEW).apply {
         data = Uri.parse(url)
     }
-    startActivity(intent)
+
+    activity?.let {
+        if (intent.resolveActivity(it.packageManager) != null) {
+            startActivity(intent)
+        }
+        else {
+            // device does not have any apps that can open a web link, maybe
+            // browser app disabled, or profile restrictions in place
+            MaterialAlertDialogBuilder(it)
+                .setTitle(R.string.open_link_failed_title)
+                .setMessage(R.string.open_link_failed_message)
+                .setPositiveButton(R.string.all_ok, null)
+                .show()
+        }
+    }
 }
 
 fun FragmentActivity.openGuide() {

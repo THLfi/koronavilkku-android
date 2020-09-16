@@ -11,6 +11,7 @@
     <string name="all_english" translatable="false">English</string>
     <string name="all_app_additional_info">Katso lisätietoa Koronavilkusta</string>
     <string name="all_system_enable">Ota käyttöön</string>
+    <string name="all_ok">OK</string>
 
     <string name="diagnosis_title">Ilmoita tartunnastasi</string>
     <string name="diagnosis_body1">Jos sinulla todetaan tartunta koronavirustestillä, saat avauskoodin terveydenhuollon ammattilaiselta tai tekstiviestillä THL:ltä. Avauskoodilla voit jakaa nimettömästi tiedon tartunnastasi.</string>
@@ -229,7 +230,13 @@
     <string name="pre_web_contact_body_no_evaluation">Jos olet oireeton, voit lähettää yhteydenottopyynnön Omaolo.fi-verkkopalvelussa. Valitse asiointikieli. Tämän jälkeen siirryt Omaolo.fi-verkkopalveluun.</string>
     <string name="pre_web_contact_title">Valitse asiointikieli</string>
 
+    <string name="omaolo_link_failed_title">Omaoloa ei voida avata</string>
+    <string name="omaolo_link_failed_message">Koronavilkku ei voi ohjata sinua Omaolo-palveluun, koska puhelimessasi ei ole selainta tai sen käyttö on estetty. Ole hyvä ja ota yhteys terveydenhuoltoon puhelimitse.</string>
+
     <string name="municipality_load_failed">Kuntatietojen lataus epäonnistui. Tarkista verkkoyhteys ja yritä uudelleen.</string>
     <string name="municipality_retry_load">Yritä uudelleen</string>
+
+    <string name="open_link_failed_title">Verkkosivua ei voida avata</string>
+    <string name="open_link_failed_message">Verkkosivua ei voida avata, koska puhelimessasi ei ole selainta tai sen käyttö on estetty.</string>
 
 </resources>

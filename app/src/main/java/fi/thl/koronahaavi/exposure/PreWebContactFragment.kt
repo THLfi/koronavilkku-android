@@ -11,6 +11,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import fi.thl.koronahaavi.BuildConfig
 import fi.thl.koronahaavi.R
 import fi.thl.koronahaavi.databinding.FragmentPreWebContactBinding
@@ -70,7 +71,21 @@ class PreWebContactFragment : Fragment() {
             .build()
 
         val intent = Intent(Intent.ACTION_VIEW).apply { data = uri }
-        startActivity(intent)
+
+        activity?.let {
+            if (intent.resolveActivity(it.packageManager) != null) {
+                startActivity(intent)
+            }
+            else {
+                // device does not have any apps that can open a web link, maybe
+                // browser app disabled, or profile restrictions in place
+                MaterialAlertDialogBuilder(it)
+                    .setTitle(R.string.omaolo_link_failed_title)
+                    .setMessage(R.string.omaolo_link_failed_message)
+                    .setPositiveButton(R.string.all_ok, null)
+                    .show()
+            }
+        }
     }
 
     companion object {
