@@ -148,6 +148,13 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/to_select_language"
+            app:destination="@id/select_language"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
     <fragment
@@ -158,14 +165,17 @@
     <fragment
         android:id="@+id/disable_service"
         android:name="fi.thl.koronahaavi.settings.DisableServiceFragment"
-        tools:layout="@layout/fragment_disable_service" >
-    </fragment>
+        tools:layout="@layout/fragment_disable_service" />
 
     <fragment
         android:id="@+id/enable_service"
         android:name="fi.thl.koronahaavi.settings.EnableServiceFragment"
-        tools:layout="@layout/fragment_enable_service" >
-    </fragment>
+        tools:layout="@layout/fragment_enable_service" />
+
+    <fragment
+        android:id="@+id/select_language"
+        android:name="fi.thl.koronahaavi.settings.SelectLanguageFragment"
+        tools:layout="@layout/fragment_select_language" />
 
     <fragment
         android:id="@+id/test"

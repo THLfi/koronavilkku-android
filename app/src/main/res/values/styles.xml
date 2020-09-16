@@ -106,9 +106,28 @@
         <item name="android:paddingRight">0dp</item>
     </style>
 
+    <style name="Widget.Vilkku.Button.SmallButton" parent="Widget.MaterialComponents.Button">
+        <item name="shapeAppearance">@style/ShapeAppearance.MaterialComponents.SmallComponent</item>
+        <item name="cornerRadius">8dp</item>
+
+        <item name="backgroundTint">@color/veryLightBlue</item>
+        <item name="android:textColor">@color/mainBlue</item>
+        <item name="iconTint">@color/mainBlue</item>
+
+        <item name="android:textAppearance">@style/TextAppearance.Vilkku.BodySmall</item>
+        <item name="android:paddingLeft">12dp</item>
+        <item name="android:paddingRight">16dp</item>
+        <item name="android:paddingTop">6dp</item>
+        <item name="android:paddingBottom">6dp</item>
+        <item name="android:minWidth">0dp</item>
+        <item name="android:minHeight">0dp</item>
+        <item name="iconPadding">6dp</item>
+        <item name="iconSize">18dp</item>
+    </style>
+
     <style name="Widget.Vilkku.Button" parent="Widget.MaterialComponents.Button">
         <item name="shapeAppearance">@style/ShapeAppearance.Vilkku.Button</item>
-        <item name="android:textAppearance">@style/TextAppearance.Vilkku.LabelPrimary</item>
+        <item name="android:textAppearance">@style/TextAppearance.Vilkku.LabelSecondary</item>
         <item name="android:paddingLeft">50dp</item>
         <item name="android:paddingRight">50dp</item>
         <item name="android:paddingTop">10dp</item>

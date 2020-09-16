@@ -1,7 +1,9 @@
 package fi.thl.koronahaavi
 
+import android.content.Context
 import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
@@ -13,6 +15,7 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint
 import fi.thl.koronahaavi.common.RequestResolutionViewModel
+import fi.thl.koronahaavi.common.withSavedLanguage
 import fi.thl.koronahaavi.data.AppStateRepository
 import fi.thl.koronahaavi.databinding.ActivityMainBinding
 import fi.thl.koronahaavi.service.ExposureNotificationService
@@ -35,6 +38,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private val topLevelDestinations = setOf(R.id.home, R.id.diagnosis, R.id.settings)
+
+    override fun attachBaseContext(newBase: Context?) {
+        super.attachBaseContext(newBase?.withSavedLanguage())
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         // Replace launcher theme with the actual one.

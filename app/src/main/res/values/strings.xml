@@ -85,6 +85,7 @@
     <string name="settings_privacy_link_url">https://koronavilkku.fi/tietosuojaseloste/</string>
     <string name="settings_privacy_link_name">koronavilkku.fi</string>
     <string name="settings_terms_link_name">koronavilkku.fi</string>
+    <string name="settings_language_item">Vaihda sovelluksen kieli</string>
     <string name="settings_open_source_notices">Avoimen lähdekoodin lisenssit</string>
 
     <string name="settings_version">%1$s %2$s</string>
@@ -235,6 +236,14 @@
 
     <string name="municipality_load_failed">Kuntatietojen lataus epäonnistui. Tarkista verkkoyhteys ja yritä uudelleen.</string>
     <string name="municipality_retry_load">Yritä uudelleen</string>
+
+    <string name="onboarding_select_language_button" translatable="false">Language</string>
+    <string name="select_language_title">Vaihda sovelluksen kieli</string>
+    <string name="select_language_item_finnish" translatable="false">Suomi</string>
+    <string name="select_language_item_swedish" translatable="false">Svenska</string>
+    <string name="select_language_item_english" translatable="false">English</string>
+    <string name="select_language_item_system_default">Laitteen kieli</string>
+    <string name="select_language_item_selected_description">Valittu</string>
 
     <string name="open_link_failed_title">Verkkosivua ei voida avata</string>
     <string name="open_link_failed_message">Verkkosivua ei voida avata, koska puhelimessasi ei ole selainta tai sen käyttö on estetty.</string>
