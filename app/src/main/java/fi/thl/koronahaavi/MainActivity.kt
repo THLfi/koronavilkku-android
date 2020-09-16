@@ -1,26 +1,26 @@
 package fi.thl.koronahaavi
 
-import android.content.Context
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
-import android.os.PowerManager
 import android.provider.Settings
+import android.provider.Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import fi.thl.koronahaavi.common.RequestResolutionViewModel
 import fi.thl.koronahaavi.data.AppStateRepository
 import fi.thl.koronahaavi.databinding.ActivityMainBinding
+import fi.thl.koronahaavi.device.DeviceStateRepository
 import fi.thl.koronahaavi.service.ExposureNotificationService
 import fi.thl.koronahaavi.service.WorkDispatcher
 import kotlinx.coroutines.launch
@@ -32,6 +32,7 @@ class MainActivity : AppCompatActivity() {
     @Inject lateinit var appStateRepository: AppStateRepository
     @Inject lateinit var exposureNotificationService: ExposureNotificationService
     @Inject lateinit var workDispatcher: WorkDispatcher
+    @Inject lateinit var deviceStateRepository: DeviceStateRepository
 
     private val resolutionViewModel by viewModels<RequestResolutionViewModel>()
 
@@ -55,12 +56,6 @@ class MainActivity : AppCompatActivity() {
             finish()
         }
         else {
-
-            //Fix #31 - automatically whitelist application from Doze
-            if (appStateRepository.getWhitelistState() == AppStateRepository.WhitelistState.unknown.value) {
-                checkDoze()
-            }
-
             setupServices()
 
             // configure navigation to work with bottom nav bar
@@ -117,16 +112,54 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onStart() {
+        super.onStart()
+
+        if (shouldRequestPowerOptimizationDisable()) {
+            showPowerOptimizationDisableRationale()
+        }
+    }
+
+    private fun shouldRequestPowerOptimizationDisable() =
+        !deviceStateRepository.isPowerOptimizationsDisabled() &&
+        appStateRepository.isPowerOptimizationDisableAllowed() != false
+
+    private fun showPowerOptimizationDisableRationale() {
+        MaterialAlertDialogBuilder(this)
+            .setTitle(R.string.power_rationale_title)
+            .setMessage(R.string.power_rationale_message)
+            .setPositiveButton(R.string.all_allow) { _, _ ->
+                showPowerOptimizationDisablePrompt()
+            }
+            .setNegativeButton(R.string.all_deny) { _, _ ->
+                showPowerOptimizationDisableDenyConfirm()
+            }
+            .show()
+    }
+
+    @SuppressLint("BatteryLife")
+    private fun showPowerOptimizationDisablePrompt() {
+        val intent = Intent(ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS)
+            .setData(Uri.parse("package:$packageName"))
+
+        startActivityForResult(intent, REQUEST_CODE_POWER_OPTIMIZATION_DISABLE)
+    }
+
+    private fun showPowerOptimizationDisableDenyConfirm() {
+        MaterialAlertDialogBuilder(this)
+            .setTitle(R.string.power_deny_confirm_title)
+            .setMessage(R.string.power_deny_confirm_message)
+            .setPositiveButton(R.string.all_close) { _, _ ->
+                appStateRepository.setPowerOptimizationDisableAllowed(false)
+            }
+            .setNegativeButton(R.string.power_allow_retry) { _, _ ->
+                showPowerOptimizationDisablePrompt()  // ask again
+            }
+            .show()
+    }
+
     override fun onResume() {
         super.onResume()
-
-        //Check whitelist status if the user's manually change Doze outside the app
-        if (appStateRepository.getWhitelistState() != AppStateRepository.WhitelistState.unknown.value) {
-            when(isWhitelisted()) {
-                true -> appStateRepository.setWhitelistState(AppStateRepository.WhitelistState.allowed)
-                false -> appStateRepository.setWhitelistState(AppStateRepository.WhitelistState.denied)
-            }
-        }
 
         // EN enabled status needs to be queried when returning to the app since there
         // is no listener mechanism, and user could have disabled it in device settings
@@ -140,17 +173,20 @@ class MainActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        resolutionViewModel.handleActivityResult(requestCode, resultCode)
 
-        resolutionViewModel.whitelistResolvedEvent().observe(this, Observer {
-            it.getContentIfNotHandled()?.let { isAllowed ->
-                if (isAllowed) {
-                    appStateRepository.setWhitelistState(AppStateRepository.WhitelistState.allowed)
-                } else {
-                    appStateRepository.setWhitelistState(AppStateRepository.WhitelistState.denied)
+        when (requestCode) {
+            REQUEST_CODE_POWER_OPTIMIZATION_DISABLE -> {
+                if (resultCode == RESULT_OK) {
+                    appStateRepository.setPowerOptimizationDisableAllowed(true)
+                }
+                else {
+                    showPowerOptimizationDisableDenyConfirm()
                 }
             }
-        })
+            else -> {
+                resolutionViewModel.handleActivityResult(requestCode, resultCode)
+            }
+        }
     }
 
     private fun setupServices() {
@@ -164,12 +200,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun checkDoze() {
-        if(!isWhitelisted()) {
-            val whitelist = Intent(Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS).setData(Uri.parse("package:$packageName"))
-            startActivityForResult(whitelist, RequestResolutionViewModel.REQUEST_CODE_WHITELIST)
-        }
+    companion object {
+        const val REQUEST_CODE_POWER_OPTIMIZATION_DISABLE = 42
     }
-
-    private fun isWhitelisted() = (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && (getSystemService(Context.POWER_SERVICE) as PowerManager).isIgnoringBatteryOptimizations(packageName))
 }

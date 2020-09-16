@@ -54,6 +54,9 @@ class MainActivityTest {
             InstrumentationRegistry.getInstrumentation().targetContext,
             Configuration.Builder().setExecutor(SynchronousExecutor()).build()
         )
+
+        // disable power disable prompts
+        appStateRepository.setPowerOptimizationDisableAllowed(false)
     }
 
     @Test
