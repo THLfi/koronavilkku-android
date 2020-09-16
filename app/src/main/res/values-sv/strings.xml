@@ -8,6 +8,9 @@
     <string name="all_yesterday">igår</string>
     <string name="all_app_additional_info">Se mer information om Coronablinkern</string>
     <string name="all_system_enable">Koppla på</string>
+    <string name="all_allow">Tillåt</string>
+    <string name="all_deny">Avvisa</string>
+    <string name="all_close">Stäng</string>
 
     <string name="diagnosis_title">Meddela din smitta</string>
     <string name="diagnosis_body1">Om du har testats och konstaterats ha coronavirusinfektion får du en startkod från hälso- och sjukvården eller med ett textmeddelande från THL. Med startkoden kan du anonymt förmedla information om din smitta.</string>
@@ -212,5 +215,12 @@
 
     <string name="municipality_load_failed">Det gick inte att ladda kommunuppgifterna. Kontrollera anslutningen och försök på nytt.</string>
     <string name="municipality_retry_load">Försök på nytt</string>
+
+    <string name="power_rationale_title">Saako Koronavilkku toimia aina taustalla?</string>
+    <string name="power_rationale_message">Näin Koronavilkku voi suljettunakin tarkistaa, oletko mahdollisesti altistunut koronavirukselle. Tätä varten akun käytön optimointi on otettava pois käytöstä.\n\nVaikutus puhelimesi akunkestoon on pieni.</string>
+
+    <string name="power_deny_confirm_title">Et sallinut Koronavilkun toimia aina taustalla</string>
+    <string name="power_deny_confirm_message">Jos et salli Koronavilkun toimia aina taustalla, suosittelemme avaamaan sovelluksen ainakin kerran päivässä.\n\nVoit muuttaa valintaasi myöhemmin kohdassa Asetukset > Sovellukset ja ilmoitukset.</string>
+    <string name="power_allow_retry">Salli sittenkin</string>
 
 </resources>

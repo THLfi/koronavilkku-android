@@ -14,12 +14,10 @@ class RequestResolutionViewModel : ViewModel() {
     private val enableResolvedMutableEvent = MutableLiveData<Event<Boolean>>()
     private val keyHistoryResolvedMutableEvent = MutableLiveData<Event<Boolean>>()
     private val playServicesResolvedMutableEvent = MutableLiveData<Event<Boolean>>()
-    private val whitelistResolvedMutableEvent = MutableLiveData<Event<Boolean>>()
 
     fun enableResolvedEvent(): LiveData<Event<Boolean>> = enableResolvedMutableEvent
     fun keyHistoryResolvedEvent(): LiveData<Event<Boolean>> = keyHistoryResolvedMutableEvent
     fun playServicesResolvedEvent(): LiveData<Event<Boolean>> = playServicesResolvedMutableEvent
-    fun whitelistResolvedEvent(): LiveData<Event<Boolean>> = whitelistResolvedMutableEvent
 
     private fun setEnableResolutionResult(accepted: Boolean) {
         enableResolvedMutableEvent.postValue(Event(accepted))
@@ -31,10 +29,6 @@ class RequestResolutionViewModel : ViewModel() {
 
     private fun setPlayServicesUpdateResolutionResult(successful: Boolean) {
         playServicesResolvedMutableEvent.postValue(Event(successful))
-    }
-
-    private fun setWhitelistResolutionResult(successful: Boolean) {
-        whitelistResolvedMutableEvent.postValue(Event(successful))
     }
 
     fun handleActivityResult(requestCode: Int, resultCode: Int) {
@@ -55,10 +49,6 @@ class RequestResolutionViewModel : ViewModel() {
                 Timber.d("Got play services update result ($resultCode): $ok")
                 setPlayServicesUpdateResolutionResult(ok)
             }
-            REQUEST_CODE_WHITELIST -> {
-                Timber.d("Got doze whitelisting request result ($resultCode): $ok")
-                setWhitelistResolutionResult(ok)
-            }
         }
     }
 
@@ -66,6 +56,5 @@ class RequestResolutionViewModel : ViewModel() {
         const val REQUEST_CODE_ENABLE = 1
         const val REQUEST_CODE_KEY_HISTORY = 2
         const val REQUEST_CODE_PLAY_SERVICES_ERROR_DIALOG = 3
-        const val REQUEST_CODE_WHITELIST = 42
     }
 }
