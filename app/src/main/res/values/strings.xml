@@ -232,7 +232,7 @@
     <string name="municipality_load_failed">Kuntatietojen lataus epäonnistui. Tarkista verkkoyhteys ja yritä uudelleen.</string>
     <string name="municipality_retry_load">Yritä uudelleen</string>
 
-    <string name="onboarding_select_language_button">Kieli</string>
+    <string name="onboarding_select_language_button" translatable="false">Language</string>
     <string name="select_language_title">Vaihda sovelluksen kieli</string>
     <string name="select_language_item_finnish" translatable="false">Suomi</string>
     <string name="select_language_item_swedish" translatable="false">Svenska</string>

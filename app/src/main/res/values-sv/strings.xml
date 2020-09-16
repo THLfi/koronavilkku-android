@@ -214,7 +214,6 @@
     <string name="municipality_load_failed">Det gick inte att ladda kommunuppgifterna. Kontrollera anslutningen och försök på nytt.</string>
     <string name="municipality_retry_load">Försök på nytt</string>
 
-    <string name="onboarding_select_language_button">Språk</string>
     <string name="select_language_title">Ändra applikationsspråk</string>
     <string name="select_language_item_system_default">Enhetens standard</string>
     <string name="select_language_item_selected_description">Vald</string>
