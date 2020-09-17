@@ -1,8 +1,6 @@
 package fi.thl.koronahaavi.device
 
 import android.content.Context
-import android.os.Process
-import android.os.UserManager
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import dagger.hilt.android.qualifiers.ApplicationContext
