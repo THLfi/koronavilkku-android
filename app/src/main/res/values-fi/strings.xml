@@ -9,6 +9,9 @@
     <string name="all_app_additional_info">Katso lisätietoa Koronavilkusta</string>
     <string name="all_system_enable">Ota käyttöön</string>
     <string name="all_ok">OK</string>
+    <string name="all_allow">Salli</string>
+    <string name="all_deny">Hylkää</string>
+    <string name="all_close">Sulje</string>
 
     <string name="diagnosis_title">Ilmoita tartunnastasi</string>
     <string name="diagnosis_body1">Jos sinulla todetaan tartunta koronavirustestillä, saat avauskoodin terveydenhuollon ammattilaiselta tai tekstiviestillä THL:ltä. Avauskoodilla voit jakaa nimettömästi tiedon tartunnastasi.</string>
@@ -226,5 +229,12 @@
 
     <string name="open_link_failed_title">Verkkosivua ei voida avata</string>
     <string name="open_link_failed_message">Verkkosivua ei voida avata, koska puhelimessasi ei ole selainta tai sen käyttö on estetty.</string>
+
+    <string name="power_rationale_title">Saako Koronavilkku toimia aina taustalla?</string>
+    <string name="power_rationale_message">Näin Koronavilkku voi suljettunakin tarkistaa, oletko mahdollisesti altistunut koronavirukselle. Tätä varten akun käytön optimointi on otettava pois käytöstä.\n\nVaikutus puhelimesi akunkestoon on pieni.</string>
+
+    <string name="power_deny_confirm_title">Et sallinut Koronavilkun toimia aina taustalla</string>
+    <string name="power_deny_confirm_message">Jos et salli Koronavilkun toimia aina taustalla, suosittelemme avaamaan sovelluksen ainakin kerran päivässä.\n\nVoit muuttaa valintaasi myöhemmin kohdassa Asetukset > Sovellukset ja ilmoitukset.</string>
+    <string name="power_allow_retry">Salli sittenkin</string>
 
 </resources>
