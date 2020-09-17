@@ -76,6 +76,8 @@ class GoogleExposureNotificationService(
         client.temporaryExposureKeyHistory.await()
     }
 
+    override fun deviceSupportsLocationlessScanning() = client.deviceSupportsLocationlessScanning()
+
     private suspend fun <T> resultFromRunning(block: suspend () -> T): ResolvableResult<T> {
         try {
             return ResolvableResult.Success(block())
