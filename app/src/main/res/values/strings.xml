@@ -86,8 +86,8 @@
     <string name="settings_version">%1$s %2$s</string>
     <string name="settings_privacy_link_name">koronavilkku.fi</string>
     <string name="settings_terms_link_name">koronavilkku.fi</string>
-    <string name="settings_language_item">Vaihda sovelluksen kieli</string>
-    <string name="settings_open_source_notices">Avoimen lähdekoodin lisenssit</string>
+    <string name="settings_language_item">Change app language</string>
+    <string name="settings_open_source_notices">Open source licenses</string>
 
     <string name="terms_url">https://koronavilkku.fi/en/terms/</string>
 
@@ -231,21 +231,21 @@
     <string name="pre_web_contact_body_no_evaluation">If you don\'t have symptoms, you can send a contact request via the Omaolo.fi web service. Select the language for the service. You will then be taken to the Omaolo.fi web service.</string>
     <string name="pre_web_contact_title">Select language</string>
 
-    <string name="omaolo_link_failed_title">Omaoloa ei voida avata</string>
-    <string name="omaolo_link_failed_message">Koronavilkku ei voi ohjata sinua Omaolo-palveluun, koska puhelimessasi ei ole selainta tai sen käyttö on estetty. Ole hyvä ja ota yhteys terveydenhuoltoon puhelimitse.</string>
+    <string name="omaolo_link_failed_title">Omaolo.fi cannot not be opened</string>
+    <string name="omaolo_link_failed_message">Koronavilkku can\'t direct you to the Omaolo.fi web service because your phone does not have an internet browser or its use has been blocked. Please contact health services by telephone.</string>
 
     <string name="municipality_load_failed">Error loading municipality list. Please check your internet connection and try again.</string>
     <string name="municipality_retry_load">Try again</string>
 
     <string name="onboarding_select_language_button" translatable="false">Language</string>
-    <string name="select_language_title">Vaihda sovelluksen kieli</string>
+    <string name="select_language_title">Change app language</string>
     <string name="select_language_item_finnish" translatable="false">Suomi</string>
     <string name="select_language_item_swedish" translatable="false">Svenska</string>
     <string name="select_language_item_english" translatable="false">English</string>
-    <string name="select_language_item_system_default">Laitteen kieli</string>
-    <string name="select_language_item_selected_description">Valittu</string>
+    <string name="select_language_item_system_default">Device default language</string>
+    <string name="select_language_item_selected_description">Selected</string>
 
-    <string name="open_link_failed_title">Verkkosivua ei voida avata</string>
-    <string name="open_link_failed_message">Verkkosivua ei voida avata, koska puhelimessasi ei ole selainta tai sen käyttö on estetty.</string>
+    <string name="open_link_failed_title">Web page cannot be opened</string>
+    <string name="open_link_failed_message">Web page cannot be opened because your phone does not have an internet browser or its use has been blocked.</string>
 
 </resources>
