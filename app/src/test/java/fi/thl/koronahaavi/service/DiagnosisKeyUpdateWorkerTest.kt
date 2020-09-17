@@ -106,7 +106,7 @@ class DiagnosisKeyUpdateWorkerTest {
                 downloadResultWithFiles(listOf(File("")))
 
         coEvery { exposureNotificationService.provideDiagnosisKeyFiles(any(), any(), any()) } returns
-                ExposureNotificationService.ResolvableResult.Failed(1, "error")
+                ExposureNotificationService.ResolvableResult.Failed(1, 1, "error")
 
         runBlocking {
             val result = worker.startWork().get()

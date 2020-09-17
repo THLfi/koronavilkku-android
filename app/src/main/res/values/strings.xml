@@ -11,6 +11,7 @@
     <string name="all_english" translatable="false">English</string>
     <string name="all_app_additional_info">More information about Koronavilkku</string>
     <string name="all_system_enable">Enable</string>
+    <string name="all_ok">OK</string>
 
     <string name="diagnosis_title">Report your infection</string>
     <string name="diagnosis_body1">If you are diagnosed with COVID-19 disease, you will receive a key code from a healthcare professional or a text message from the Finnish Institute for Health and Welfare. You can use the key code to anonymously share information about your infection.</string>
@@ -85,6 +86,8 @@
     <string name="settings_version">%1$s %2$s</string>
     <string name="settings_privacy_link_name">koronavilkku.fi</string>
     <string name="settings_terms_link_name">koronavilkku.fi</string>
+    <string name="settings_language_item">Vaihda sovelluksen kieli</string>
+    <string name="settings_open_source_notices">Avoimen lähdekoodin lisenssit</string>
 
     <string name="terms_url">https://koronavilkku.fi/en/terms/</string>
 
@@ -158,9 +161,13 @@
 
     <string name="enable_err_title">The exposure log could not be initialised</string>
     <string name="enable_err_missing_capability">Your device is not supported</string>
+    <string name="enable_err_api_not_supported">Valitettavasti Google Play Palveluiden altistumisilmoitukset eivät ole saatavilla laitteessasi.\n\n%s</string>
+    <string name="enable_err_api_connection_device">Virhe: Laitteesi ei ole tuettu</string>
+    <string name="enable_err_api_connection_unauthorized">Virhe: Altistumisilmoitukset eivät ole sallittu sovellukselle</string>
+    <string name="enable_err_api_connection_generic">Virhe: %d</string>
     <string name="enable_err_generic">Unknown error</string>
+    <string name="enable_error_api_code">Tapahtui odottamaton virhe, koodi: %1$d (%2$d)</string>
     <string name="enable_err_dismiss">Dismiss</string>
-    <string name="enable_error_api_code">Exposure notifications are not currently supported by your phone. This may be due to Google Play Services being outdated. Check Play Store if an updated version of Google Play Services is available.  Error code: %d</string>
 
     <string name="onboarding_done">Set-up complete!</string>
 
@@ -224,7 +231,21 @@
     <string name="pre_web_contact_body_no_evaluation">If you don\'t have symptoms, you can send a contact request via the Omaolo.fi web service. Select the language for the service. You will then be taken to the Omaolo.fi web service.</string>
     <string name="pre_web_contact_title">Select language</string>
 
+    <string name="omaolo_link_failed_title">Omaoloa ei voida avata</string>
+    <string name="omaolo_link_failed_message">Koronavilkku ei voi ohjata sinua Omaolo-palveluun, koska puhelimessasi ei ole selainta tai sen käyttö on estetty. Ole hyvä ja ota yhteys terveydenhuoltoon puhelimitse.</string>
+
     <string name="municipality_load_failed">Error loading municipality list. Please check your internet connection and try again.</string>
     <string name="municipality_retry_load">Try again</string>
+
+    <string name="onboarding_select_language_button" translatable="false">Language</string>
+    <string name="select_language_title">Vaihda sovelluksen kieli</string>
+    <string name="select_language_item_finnish" translatable="false">Suomi</string>
+    <string name="select_language_item_swedish" translatable="false">Svenska</string>
+    <string name="select_language_item_english" translatable="false">English</string>
+    <string name="select_language_item_system_default">Laitteen kieli</string>
+    <string name="select_language_item_selected_description">Valittu</string>
+
+    <string name="open_link_failed_title">Verkkosivua ei voida avata</string>
+    <string name="open_link_failed_message">Verkkosivua ei voida avata, koska puhelimessasi ei ole selainta tai sen käyttö on estetty.</string>
 
 </resources>

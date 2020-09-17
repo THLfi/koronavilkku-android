@@ -29,11 +29,30 @@
                 android:text="@string/settings_title"
                 android:textAppearance="?attr/textAppearanceHeadline1" />
 
-            <include
-                android:id="@+id/settings_status_item"
-                layout="@layout/link_item_card"
-                app:label="@{@string/settings_status_item}"
-                app:value="@{@string/settings_status_off}" /> <!-- updated at runtime in fragment, but data binding requires initial value -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <include
+                        android:id="@+id/settings_status_item"
+                        layout="@layout/link_item_content"
+                        app:label="@{@string/settings_status_item}"
+                        app:value="@{@string/settings_status_off}" /> <!-- updated at runtime in fragment, but data binding requires initial value -->
+
+                    <include layout="@layout/item_divider" />
+
+                    <include
+                        android:id="@+id/settings_language_item"
+                        layout="@layout/link_item_content"
+                        app:label="@{@string/settings_language_item}" />
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -80,6 +99,13 @@
                         layout="@layout/link_item_content"
                         app:label="@{@string/settings_privacy_item}"
                         app:link="@{@string/settings_privacy_link_name}" />
+
+                    <include layout="@layout/item_divider" />
+
+                    <include
+                        android:id="@+id/settings_open_source_notices"
+                        layout="@layout/link_item_content"
+                        app:label="@{@string/settings_open_source_notices}" />
 
                 </LinearLayout>
 
