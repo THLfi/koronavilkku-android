@@ -80,6 +80,9 @@ class GoogleExposureNotificationService(
 
     override fun deviceSupportsLocationlessScanning() = client.deviceSupportsLocationlessScanning()
 
+    /**
+     * check if device owner based on https://stackoverflow.com/a/15448131/1467657
+     */
     private fun isOwnerUserProfile(): Boolean =
         (context.getSystemService(Context.USER_SERVICE) as? UserManager)?.let {
             it.getSerialNumberForUser(Process.myUserHandle()) == 0L
