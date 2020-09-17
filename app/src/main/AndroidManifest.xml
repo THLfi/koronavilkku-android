@@ -49,6 +49,17 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Vilkku.NoActionBar.DefaultBackground"/>
 
+        <!-- Definition required here to use a theme with toolbar -->
+        <activity
+            android:name="com.google.android.gms.oss.licenses.OssLicensesMenuActivity"
+            android:label="@string/settings_open_source_notices"
+            tools:replace="android:label"
+            android:theme="@style/Theme.Vilkku"/>
+
+        <activity
+            android:name="com.google.android.gms.oss.licenses.OssLicensesActivity"
+            android:theme="@style/Theme.Vilkku"/>
+
         <receiver
             android:name=".exposure.ExposureStateUpdatedReceiver"
             android:permission="com.google.android.gms.nearby.exposurenotification.EXPOSURE_CALLBACK"
