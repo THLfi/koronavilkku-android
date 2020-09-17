@@ -2,17 +2,12 @@ package fi.thl.koronahaavi.di
 
 import android.content.Context
 import android.content.SharedPreferences
-import androidx.security.crypto.EncryptedSharedPreferences
-import androidx.security.crypto.EncryptedSharedPreferences.PrefKeyEncryptionScheme
-import androidx.security.crypto.EncryptedSharedPreferences.PrefValueEncryptionScheme
-import androidx.security.crypto.MasterKeys
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
 import fi.thl.koronahaavi.BuildConfig
-import fi.thl.koronahaavi.R
 import fi.thl.koronahaavi.data.*
 import fi.thl.koronahaavi.service.UserAgentInterceptor
 import okhttp3.CertificatePinner
@@ -34,7 +29,7 @@ object AppModule {
     @Singleton
     @Provides
     fun provideSharedPreferences(@ApplicationContext context: Context): SharedPreferences {
-        return VilkkuSharedPreferences(context)
+        return EncryptedSharedPreferencesWrapper(context)
     }
 
     // this allows database testing with a different name so it does not interfere with actual app db
