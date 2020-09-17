@@ -159,16 +159,16 @@
     <string name="enable_alert">To protect your health and the health of your loved ones, it is recommended that you enable exposure notifications as soon as possible.</string>
     <string name="enable_note">Enable COVID-19 exposure notifications</string>
 
-    <string name="enable_err_title">The exposure log could not be initialised</string>
+    <string name="enable_err_title">Exposure notifications could not be turned on</string>
     <string name="enable_err_missing_capability">Your device is not supported</string>
-    <string name="enable_err_api_not_supported">Valitettavasti Google Play Palveluiden altistumisilmoitukset eivät ole saatavilla laitteessasi.\n\n%s</string>
-    <string name="enable_err_not_owner">Olet kirjautunut laitteeseen käyttäjäprofiililla, joka ei ole laitteen omistaja. Koronavilkku toimii vain laitteen omistajan käyttäjäprofiililla.\n\nVoit vaihtaa profiilia pyyhkäisemällä kahdella sormella aloitusnäytön yläreunasta. Paina sitten Vaihda käyttäjää -painiketta.</string>
-    <string name="enable_err_api_connection_device">Virhe: Laitteesi ei ole tuettu</string>
-    <string name="enable_err_api_connection_unauthorized">Virhe: Altistumisilmoitukset eivät ole sallittu sovellukselle</string>
-    <string name="enable_err_api_connection_generic">Virhe: %d</string>
+    <string name="enable_err_api_not_supported">Unfortunately Google Play Services exposure notifications are not available for your device.\n\n%s</string>
+    <string name="enable_err_not_owner">You are not logged into your phone as the device owner. Koronavilkku only works with the device owner\'s user profile.\n\nYou can switch between profiles by swiping down from the top of the home screen with two fingers and tapping the Switch User button.</string>
+    <string name="enable_err_api_connection_device">Error: Your device is not supported.</string>
+    <string name="enable_err_api_connection_unauthorized">Error: The app is not allowed to turn on exposure notifications.</string>
+    <string name="enable_err_api_connection_generic">Error code: %d</string>
     <string name="enable_err_generic">Unknown error</string>
-    <string name="enable_error_api_code">Tapahtui odottamaton virhe, koodi: %1$d (%2$d)</string>
-    <string name="enable_err_dismiss">Dismiss</string>
+    <string name="enable_error_api_code">An unexpected exception occurred, error code: %1$d (%2$d)</string>
+    <string name="enable_err_dismiss">Close</string>
 
     <string name="onboarding_done">Set-up complete!</string>
 

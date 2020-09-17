@@ -156,16 +156,16 @@
     <string name="enable_alert">För att trygga din egen och dina närståendes hälsa är det tillrådligt att du kopplar på exponeringsmeddelandena genast då det är möjligt.</string>
     <string name="enable_note">Koppla på COVID-19-exponeringsmeddelandena</string>
 
-    <string name="enable_err_title">Exponeringsloggen kunde inte startas</string>
-    <string name="enable_err_missing_capability">Din enhet stöds ej</string>
-    <string name="enable_err_api_not_supported">Din enhet stöder inte exponeringsmeddelanden av Google Play Services.\n\n%s</string>
-    <string name="enable_err_not_owner">Olet kirjautunut laitteeseen profiililla joka ei ole omistaja. Sovellus valitettavasti toimii ainoastaan laitteen omistajan profiililla.</string>
-    <string name="enable_err_api_connection_device">Fel: Din enhet stöds ej</string>
-    <string name="enable_err_api_connection_unauthorized">Fel: Appen har inte tillstånd att använda exponeringsmeddelanden</string>
-    <string name="enable_err_api_connection_generic">Felkod: %d</string>
+    <string name="enable_err_title">Det gick inte att aktivera exponeringsmeddelanden</string>
+    <string name="enable_err_missing_capability">Din enhet stöds inte</string>
+    <string name="enable_err_api_not_supported">Tyvärr är exponeringsmeddelanden från Google Play-tjänster inte tillgängliga för din enhet.\n\n%s</string>
+    <string name="enable_err_not_owner">Du är inloggad på enheten med en användarprofil som inte är enhetsägaren. Coronablinkern fungerar bara med enhetens ägare.\n\nFör att ändra profil, svep med två fingrar från toppen av startskärmen. Tryck sedan på knappen Byt användare.</string>
+    <string name="enable_err_api_connection_device">Fel: Din enhet stöds inte.</string>
+    <string name="enable_err_api_connection_unauthorized">Fel: Appen får inte aktivera exponeringsmeddelanden.</string>
+    <string name="enable_err_api_connection_generic">Fel: %d</string>
     <string name="enable_err_generic">Okänt fel</string>
+    <string name="enable_error_api_code">Ett oväntat fel uppstod, felkod: %1$d (%2$d)</string>
     <string name="enable_err_dismiss">Stäng</string>
-    <string name="enable_error_api_code">Det skedde ett oväntat fel, kod: %1$d (%2$d)</string>
 
     <string name="onboarding_done">Idrifttagningen klar!</string>
 
