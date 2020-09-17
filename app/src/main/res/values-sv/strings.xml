@@ -10,7 +10,7 @@
     <string name="all_system_enable">Koppla på</string>
     <string name="all_ok">OK</string>
     <string name="all_allow">Tillåt</string>
-    <string name="all_deny">Avvisa</string>
+    <string name="all_deny">Neka</string>
     <string name="all_close">Stäng</string>
 
     <string name="diagnosis_title">Meddela din smitta</string>
@@ -229,11 +229,11 @@
     <string name="open_link_failed_title">Länken kunde inte öppnas</string>
     <string name="open_link_failed_message">Länken kunde inte öppnas</string>
 
-    <string name="power_rationale_title">Saako Koronavilkku toimia aina taustalla?</string>
-    <string name="power_rationale_message">Näin Koronavilkku voi suljettunakin tarkistaa, oletko mahdollisesti altistunut koronavirukselle. Tätä varten akun käytön optimointi on otettava pois käytöstä.\n\nVaikutus puhelimesi akunkestoon on pieni.</string>
+    <string name="power_rationale_title">Vill du att Coronablinkern alltid körs i bakgrunden?</string>
+    <string name="power_rationale_message">Detta gör det möjligt för Coronablinkern, även när den är stängd, att kontrollera eventuell exponering för coronavirus. För att göra detta måste batterioptimering vara inaktiverad.\n\nEffekten på telefonens batteritid är inte signifikant.</string>
 
-    <string name="power_deny_confirm_title">Et sallinut Koronavilkun toimia aina taustalla</string>
-    <string name="power_deny_confirm_message">Jos et salli Koronavilkun toimia aina taustalla, suosittelemme avaamaan sovelluksen ainakin kerran päivässä.\n\nVoit muuttaa valintaasi myöhemmin kohdassa Asetukset > Sovellukset ja ilmoitukset.</string>
-    <string name="power_allow_retry">Salli sittenkin</string>
+    <string name="power_deny_confirm_title">Du förbjöd att köra Coronablinkern i bakgrunden</string>
+    <string name="power_deny_confirm_message">Om du inte tillåter att Coronablinkern körs i bakgrunden rekommenderar vi att du öppnar appen minst en gång om dagen.\n\nDu kan ändra ditt val när som helst i Inställningar på din telefon.</string>
+    <string name="power_allow_retry">Tillåt</string>
 
 </resources>
