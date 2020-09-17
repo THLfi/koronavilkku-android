@@ -40,6 +40,7 @@ interface ExposureNotificationService {
     // we need to handle in user interface to show specific error
     sealed class ConnectionError {
         object DeviceNotSupported: ConnectionError()  // 39501
+        object UserIsNotOwner: ConnectionError()      // special case for 39501
         object ClientNotAuthorized: ConnectionError()  // 39507
         data class Failed(val errorCode: Int?): ConnectionError()
     }

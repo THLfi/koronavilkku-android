@@ -79,6 +79,7 @@ class EnableSystemViewModel @ViewModelInject constructor(
 fun ConnectionError.toENApiError(): ENApiError =
     when (this) {
         is ConnectionError.DeviceNotSupported -> ENApiError.DeviceNotSupported
+        is ConnectionError.UserIsNotOwner -> ENApiError.UserIsNotOwner
         is ConnectionError.ClientNotAuthorized -> ENApiError.AppNotAuthorized
         is ConnectionError.Failed -> ENApiError.Failed(errorCode)
     }
@@ -91,6 +92,7 @@ sealed class EnableENError {
 
 sealed class ENApiError {
     object DeviceNotSupported: ENApiError()
+    object UserIsNotOwner: ENApiError()
     object AppNotAuthorized: ENApiError()
     data class Failed(val errorCode: Int?): ENApiError()
 }

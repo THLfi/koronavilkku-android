@@ -26,6 +26,5 @@ class OnboardingViewModel @ViewModelInject constructor(
             && enableInProgress.value==false
     }
 
-
     val isLocationOn = deviceStateRepository.locationOn()
 }
