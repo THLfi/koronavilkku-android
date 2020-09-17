@@ -78,6 +78,8 @@ class GoogleExposureNotificationService(
         client.temporaryExposureKeyHistory.await()
     }
 
+    override fun deviceSupportsLocationlessScanning() = client.deviceSupportsLocationlessScanning()
+
     private fun isOwnerUserProfile(): Boolean =
         (context.getSystemService(Context.USER_SERVICE) as? UserManager)?.let {
             it.getSerialNumberForUser(Process.myUserHandle()) == 0L

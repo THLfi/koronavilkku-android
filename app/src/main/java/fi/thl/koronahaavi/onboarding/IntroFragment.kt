@@ -32,5 +32,9 @@ class IntroFragment: Fragment() {
         binding.buttonIntroHowItWorks.setOnClickListener {
             activity?.openGuide()
         }
+
+        binding.buttonSelectLanguage.setOnClickListener {
+            findNavController().navigateSafe(IntroFragmentDirections.toSelectLanguage())
+        }
     }
 }

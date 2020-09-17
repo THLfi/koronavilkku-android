@@ -8,6 +8,7 @@
     <string name="all_yesterday">igår</string>
     <string name="all_app_additional_info">Se mer information om Coronablinkern</string>
     <string name="all_system_enable">Koppla på</string>
+    <string name="all_ok">OK</string>
 
     <string name="diagnosis_title">Meddela din smitta</string>
     <string name="diagnosis_body1">Om du har testats och konstaterats ha coronavirusinfektion får du en startkod från hälso- och sjukvården eller med ett textmeddelande från THL. Med startkoden kan du anonymt förmedla information om din smitta.</string>
@@ -82,6 +83,8 @@
     <string name="settings_version">%1$s %2$s</string>
     <string name="settings_privacy_link_name">koronavilkku.fi</string>
     <string name="settings_terms_link_name">koronavilkku.fi</string>
+    <string name="settings_language_item">Ändra applikationsspråk</string>
+    <string name="settings_open_source_notices">Öppen källkod</string>
 
     <string name="terms_url">https://koronavilkku.fi/sv/anvandningsvillkor/</string>
 
@@ -211,7 +214,17 @@
     <string name="pre_web_contact_body_no_evaluation">Om du är symtomfri, kan du skicka en begäran till nättjänsten Omaolo.fi att du vill bli kontaktad. Välj kontaktspråk. Efter det här överförs du till nättjänsten Omaolo.fi.</string>
     <string name="pre_web_contact_title">Välj kontaktspråk</string>
 
+    <string name="omaolo_link_failed_title">Omaoloa ei voitu avata</string>
+    <string name="omaolo_link_failed_message">Koronavilkku ei voinut ohjata sinua Omaolo-palveluun, sillä verkkoselainta ei voitu käynnistää. Laitteellasi ei ole selainohjelmaa tai sen käyttö on estetty. Ole hyvä ja ota yhteys terveydenhuoltoon puhelimitse.</string>
+
     <string name="municipality_load_failed">Det gick inte att ladda kommunuppgifterna. Kontrollera anslutningen och försök på nytt.</string>
     <string name="municipality_retry_load">Försök på nytt</string>
+
+    <string name="select_language_title">Ändra applikationsspråk</string>
+    <string name="select_language_item_system_default">Enhetens standard</string>
+    <string name="select_language_item_selected_description">Vald</string>
+
+    <string name="open_link_failed_title">Länken kunde inte öppnas</string>
+    <string name="open_link_failed_message">Länken kunde inte öppnas</string>
 
 </resources>

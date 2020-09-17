@@ -96,6 +96,8 @@ class FakeExposureNotificationService(
         ))
     }
 
+    override fun deviceSupportsLocationlessScanning() = false
+
     private fun fakeExposureKey() = TemporaryExposureKeyBuilder()
         .setKeyData(Random.nextBytes(16))
         .setRollingPeriod(144)

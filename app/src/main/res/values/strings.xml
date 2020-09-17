@@ -1,212 +1,215 @@
 <resources>
     <string name="app_name">Koronavilkku</string>
 
-    <string name="all_next">Seuraava</string>
-    <string name="all_cancel">Peruuta</string>
-    <string name="all_thl_image_description">Terveyden ja hyvinvoinnin laitos</string>
-    <string name="all_today">tänään</string>
-    <string name="all_yesterday">eilen</string>
+    <string name="all_next">Next</string>
+    <string name="all_cancel">Cancel</string>
+    <string name="all_thl_image_description">Finnish Institute for Health and Welfare</string>
+    <string name="all_today">Today</string>
+    <string name="all_yesterday">Yesterday</string>
     <string name="all_finnish" translatable="false">Suomi</string>
     <string name="all_swedish" translatable="false">Svenska</string>
     <string name="all_english" translatable="false">English</string>
-    <string name="all_app_additional_info">Katso lisätietoa Koronavilkusta</string>
-    <string name="all_system_enable">Ota käyttöön</string>
+    <string name="all_app_additional_info">More information about Koronavilkku</string>
+    <string name="all_system_enable">Enable</string>
+    <string name="all_ok">OK</string>
 
-    <string name="diagnosis_title">Ilmoita tartunnastasi</string>
-    <string name="diagnosis_body1">Jos sinulla todetaan tartunta koronavirustestillä, saat avauskoodin terveydenhuollon ammattilaiselta tai tekstiviestillä THL:ltä. Avauskoodilla voit jakaa nimettömästi tiedon tartunnastasi.</string>
-    <string name="diagnosis_body2">Syötä avauskoodi sillä puhelimella, jota yleensä pidät mukanasi.</string>
-    <string name="diagnosis_page_title">Ilmoita tartunnastasi</string>
-    <string name="diagnosis_start">Ilmoita tartunnasta</string>
-    <string name="diagnosis_en_disabled">Altistumisilmoitusten tulee olla päällä jotta voit ilmoittaa tartunnasta. Palaa koti-näkymään jossa voit laittaa ne päälle.</string>
+    <string name="diagnosis_title">Report your infection</string>
+    <string name="diagnosis_body1">If you are diagnosed with COVID-19 disease, you will receive a key code from a healthcare professional or a text message from the Finnish Institute for Health and Welfare. You can use the key code to anonymously share information about your infection.</string>
+    <string name="diagnosis_body2">Enter the key code on the phone you usually carry with you.</string>
+    <string name="diagnosis_page_title">Report your infection</string>
+    <string name="diagnosis_start">Report infection</string>
+    <string name="diagnosis_en_disabled">Exposure notifications must be turned on in order to report an infection. Return to the Home view and enable them there.</string>
 
-    <string name="diagnosis_locked_title">Olet jo ilmoittanut tartunnasta</string>
-    <string name="diagnosis_locked_body1">Ilmoittamasi tiedot auttavat koronavirusepidemian taltuttamisessa. Sovellus on nyt lukittu eikä enää kerää tietoja kohtaamisista. Pikaista paranemista!</string>
-    <string name="diagnosis_locked_image_description">Lukittu</string>
+    <string name="diagnosis_locked_title">You have already reported your infection</string>
+    <string name="diagnosis_locked_body1">The information you have reported will help to tackle the coronavirus epidemic. The app is now locked and no longer collects information about nearby phones. We wish you a quick recovery!</string>
+    <string name="diagnosis_locked_image_description">Locked</string>
 
-    <string name="diagnosis_instructions_1">Avauskoodista ei voi tunnistaa henkilöllisyyttäsi.</string>
-    <string name="diagnosis_instructions_2">Koronavilkku ilmoittaa mahdollisesta altistumisesta käyttäjille, jotka ovat olleet lähelläsi todennäköisenä tartuttavuusaikana.</string>
-    <string name="diagnosis_instructions_3">Tieto mahdollisesta altistumisesta kannustaa ilmoituksen saaneita pitämään etäisyyttä muihin, havaitsemaan tartuntaan sopivat oireet ajoissa ja tarvittaessa hakeutumaan testiin. Näin voidaan välttää uusia tartuntoja.</string>
+    <string name="diagnosis_instructions_1">The key code does not reveal your identity.</string>
+    <string name="diagnosis_instructions_2">Koronavilkku indicates potential exposure to users who have been close to you during the period when you could have infected others.</string>
+    <string name="diagnosis_instructions_3">Information on potential exposure encourages those who have been notified to keep a safe distance from others, to detect symptoms early on that may indicate infection and, if necessary, to get tested. This will help to decrease the spread of infection.</string>
 
-    <string name="code_entry_title">Syötä avauskoodisi</string>
-    <string name="code_entry_invalid">Avauskoodi on virheellinen tai sen voimassaolo on päättynyt. Tarkistathan, että olet syöttänyt koodin täsmälleen oikein.</string>
-    <string name="code_entry_submit_failed">Tartunnasta ilmoittaminen epäonnistui, koska palvelimeen ei saada yhteyttä. Ole hyvä ja yritä hetken kuluttua uudelleen.</string>
-    <string name="code_entry_en_disabled">Altistumisilmoitukset ovat pois päältä. Palaa koti-näkymään jossa voit laittaa ne päälle</string>
-    <string name="code_entry_info">Avauskoodista ei voi tunnistaa henkilöllisyyttäsi.</string>
+    <string name="code_entry_title">Enter key code</string>
+    <string name="code_entry_invalid">The key code is invalid or has expired. Please check that you have entered the exact code you received.</string>
+    <string name="code_entry_submit_failed">Failed to report infection because the server cannot be accessed. Please check your internet connection and try again.</string>
+    <string name="code_entry_en_disabled">Exposure notifications are off. Return to the home view where you can turn them on.</string>
+    <string name="code_entry_info">The key code does not reveal your identity.</string>
 
-    <string name="diagnosis_complete_title">Kiitos ilmoituksestasi</string>
-    <string name="diagnosis_complete_body">Ilmoittamasi tiedot auttavat koronavirusepidemian taltuttamisessa. Sovellus on nyt lukittu eikä enää kerää tietoja kohtaamisista. Pikaista paranemista!</string>
+    <string name="diagnosis_complete_title">Thank you for your report</string>
+    <string name="diagnosis_complete_body">The information you have reported will help to tackle the coronavirus epidemic. The app is now locked and no longer collects information about nearby phones. We wish you a quick recovery!</string>
     <string name="diagnosis_complete_continue">OK</string>
 
-    <string name="home_title">Koti</string>
-    <string name="home_exposure_label">Mahdollinen altistuminen</string>
-    <string name="home_no_exposure_label">Ei havaittuja altistumisia</string>
-    <string name="home_exposure_sub_label">Olet saattanut altistua virukselle</string>
-    <string name="home_no_exposure_sub_label">Et ole ollut tartunnasta ilmoittaneen henkilön lähellä</string>
-    <string name="home_exposure_instructions">Katso toimintaohjeet</string>
+    <string name="home_title">Home</string>
+    <string name="home_exposure_label">Potential exposure</string>
+    <string name="home_no_exposure_label">No observed exposures</string>
+    <string name="home_exposure_sub_label">You may have been exposed to the coronavirus</string>
+    <string name="home_no_exposure_sub_label">You have not been near a person who has reported an infection</string>
+    <string name="home_exposure_instructions">See instructions</string>
 
-    <string name="home_symptom_label">Epäiletkö tartuntaa?</string>
-    <string name="home_prevention_label">Näin suojaudut</string>
-    <string name="home_prevention_url">https://thl.fi/fi/web/infektiotaudit-ja-rokotukset/ajankohtaista/ajankohtaista-koronaviruksesta-covid-19/tarttuminen-ja-suojautuminen-koronavirus</string>
-    <string name="home_statistics_label">Suomen tautitilanne</string>
-    <string name="home_statistics_url">https://thl.fi/fi/web/infektiotaudit-ja-rokotukset/ajankohtaista/ajankohtaista-koronaviruksesta-covid-19/tilannekatsaus-koronaviruksesta</string>
-    <string name="home_thl_url">https://thl.fi/</string>
+    <string name="home_symptom_label">Do you think you may have COVID-19?</string>
+    <string name="home_prevention_label">Protect yourself</string>
+    <string name="home_prevention_url">https://thl.fi/en/web/infectious-diseases-and-vaccinations/what-s-new/coronavirus-covid-19-latest-updates/transmission-and-protection-coronavirus</string>
+    <string name="home_statistics_label">COVID-19 in Finland</string>
+    <string name="home_statistics_url">https://thl.fi/en/web/infectious-diseases-and-vaccinations/what-s-new/coronavirus-covid-19-latest-updates/situation-update-on-coronavirus</string>
+    <string name="home_thl_url">https://thl.fi/en/web/thlfi-en</string>
 
-    <string name="home_status_system_enabled">Koronavilkku käytössä</string>
-    <string name="home_status_system_disabled">Koronavilkku ei käytössä</string>
-    <string name="home_status_system_locked">Koronavilkku lukittu</string>
+    <string name="home_status_system_enabled">Koronavilkku is in use</string>
+    <string name="home_status_system_disabled">Koronavilkku is not in use</string>
+    <string name="home_status_system_locked">Koronavilkku is locked</string>
 
-    <string name="home_symptom_sub_label">Tee koronavirustaudin oirearvio</string>
-    <string name="home_app_guide">Näin sovellus toimii</string>
+    <string name="home_symptom_sub_label">Take an online medical COVID-19 symptom check-up</string>
+    <string name="home_app_guide">About Koronavilkku</string>
 
-    <string name="home_status_disabled_explained">Ota altistumisilmoitukset uudelleen käyttöön.</string>
-    <string name="home_status_enabled_explained">Sovellus toimii, vaikka suljet sen.</string>
-    <string name="home_status_locked_explained">Kiitos, että ilmoitit tartunnastasi. Sovellus ei enää kerää tietoja kohtaamisista. Pikaista paranemista!</string>
+    <string name="home_status_disabled_explained">Re-enable exposure notifications.</string>
+    <string name="home_status_enabled_explained">The app works even if you close it.</string>
+    <string name="home_status_locked_explained">Thank you for reporting your infection. The app will no longer collect information about encounters. We wish you a quick recovery!</string>
 
-    <string name="symptoms_title">Koronavirustaudin oirearvio</string>
-    <string name="symptoms_info">Tee oirearvio Omaolo-palvelussa, jos epäilet saaneesi koronavirustartunnan. Saat vastaustesi perusteella lisäohjeita. Vastaaminen kestää noin 10 minuuttia.</string>
-    <string name="symptoms_link_title">Tee oirearvio Omaolo-\u200Bpalvelussa</string>
-    <string name="symptoms_link">https://www.omaolo.fi/palvelut/oirearviot/649?lang=fi</string>
+    <string name="symptoms_title">COVID-19 disease symptom assessment</string>
+    <string name="symptoms_info">If you suspect that you have COVID-19, take an online COVID-19 symptom assessment in the Omaolo service. You will receive additional instructions based on your answers. It takes approximately 10 minutes to complete the assessment.</string>
+    <string name="symptoms_link_title">Take a symptom assessment in the Omaolo service</string>
+    <string name="symptoms_link">https://www.omaolo.fi/palvelut/oirearviot/649?lang=en</string>
     <string name="symptoms_link_name">omaolo.fi</string>
 
-    <string name="settings_title">Asetukset</string>
-    <string name="settings_about_subtitle">Tietoa sovelluksesta</string>
-    <string name="settings_status_item">Altistumis\u200Bilmoitukset</string>
-    <string name="settings_status_on">Käytössä</string>
-    <string name="settings_status_off">Ei käytössä</string>
-    <string name="settings_status_locked">Lukittu</string>
-    <string name="settings_tos_item">Käyttöehdot</string>
-    <string name="settings_guide_item">Näin Koronavilkku toimii</string>
-
-    <string name="settings_faq_item">Usein kysyttyä</string>
-    <string name="settings_faq_link_url">https://koronavilkku.fi/ukk/</string>
+    <string name="settings_title">Settings</string>
+    <string name="settings_about_subtitle">About the app</string>
+    <string name="settings_status_item">Exposure notifications</string>
+    <string name="settings_status_on">Enabled</string>
+    <string name="settings_status_off">Disabled</string>
+    <string name="settings_status_locked">Locked</string>
+    <string name="settings_tos_item">Terms of use</string>
+    <string name="settings_guide_item">How Koronavilkku works</string>
+    <string name="settings_faq_item">Frequently asked questions</string>
+    <string name="settings_faq_link_url">https://koronavilkku.fi/en/faq/</string>
     <string name="settings_faq_link_name">koronavilkku.fi</string>
-    <string name="settings_privacy_item">Tietosuoja</string>
-    <string name="settings_privacy_link_url">https://koronavilkku.fi/tietosuojaseloste/</string>
+
+    <string name="settings_privacy_item">Privacy policy</string>
+    <string name="settings_privacy_link_url">https://www.omaolo.fi/tietosuojaseloste</string>
+    <string name="settings_version">%1$s %2$s</string>
     <string name="settings_privacy_link_name">koronavilkku.fi</string>
     <string name="settings_terms_link_name">koronavilkku.fi</string>
+    <string name="settings_language_item">Change app language</string>
+    <string name="settings_open_source_notices">Open source licenses</string>
 
-    <string name="settings_version">%1$s %2$s</string>
+    <string name="terms_url">https://koronavilkku.fi/en/terms/</string>
 
-    <string name="terms_url">https://koronavilkku.fi/kayttoehdot/</string>
+    <string name="exposure_detail_title">Potential exposure</string>
 
-    <string name="exposure_detail_title">Mahdollinen altistuminen</string>
+    <string name="exposure_detail_message">In the past 14 days, you have been close to a person who has reported a COVID-19 infection via Koronavilkku.</string>
+    <string name="exposure_detail_disclaimer">The assessment of your exposure is based on encounters that Koronavilkku has collected during the last 14 days. The intensity of exposure cannot be accurately assessed.</string>
 
-    <string name="exposure_detail_message">Olet ollut viimeisten 14 vuorokauden aikana lähellä henkilöä, joka on ilmoittanut koronatartunnasta Koronavilkun kautta.</string>
-    <string name="exposure_detail_disclaimer">Arvio altistumisesta perustuu Koronavilkun keräämiin kohtaamistietoihin viimeisten 14 vuorokauden ajalta. Altistumisen voimakkuutta ei voida täsmällisesti arvioida.</string>
+    <string name="exposure_detail_contact_title">Contact healthcare services</string>
+    <string name="exposure_detail_contact_subtitle">Information about your potential exposure will only be communicated to healthcare services if you contact them yourself.</string>
+    <string name="exposure_detail_contact_start">Contact</string>
 
-    <string name="exposure_detail_contact_title">Ota yhteyttä terveydenhuoltoon</string>
-    <string name="exposure_detail_contact_subtitle">Tieto mahdollisesta altistumisestasi välittyy terveydenhuoltoon vain, jos otat itse yhteyttä.</string>
-    <string name="exposure_detail_contact_start">Ota yhteyttä</string>
+    <string name="exposure_detail_title_none">No observed exposures</string>
 
-    <string name="exposure_detail_title_none">Ei havaittuja altistumisia</string>
+    <string name="exposure_detail_message_none">Koronavilkku has not detected exposures to the coronavirus in the last 14 days.</string>
+    <string name="exposure_detail_disclaimer_none">However, the application is not able to identify every situation where exposure may occur.</string>
+    <string name="exposure_detail_last_check">Last check %1$s at %2$s</string>
+    <string name="exposure_detail_no_last_check">No checks yet</string>
 
-    <string name="exposure_detail_message_none">Koronavilkku ei ole havainnut altistumista koronavirukselle viimeisten 14 päivän aikana.</string>
-    <string name="exposure_detail_disclaimer_none">Sovellus ei kuitenkaan tunnista kaikkia mahdollisia altistumistilanteita.</string>
-    <string name="exposure_detail_last_check">Tarkistettu viimeksi %1$s klo %2$s</string>
-    <string name="exposure_detail_no_last_check">Tarkistusta ei vielä tehty</string>
+    <string name="exposure_detail_instructions_title">Follow these instructions carefully during the next two weeks:</string>
+    <string name="exposure_detail_instructions_1">If you develop any of the following symptoms consistent with COVID-19 disease, contact your municipal healthcare services and get tested as soon as possible:</string>
+    <string name="exposure_detail_instructions_1_sublist">- change in sense of smell or taste\n- shortness of breath\n- cough, sore throat or runny nose\n- fever\n- headaches or muscle pain\n- unexplained diarrhoea or abdominal pain.</string>
+    <string name="exposure_detail_instructions_2">Avoid meeting other people.</string>
+    <string name="exposure_detail_instructions_3">Maintain good hand hygiene.</string>
+    <string name="exposure_detail_instructions_4">Avoid public places and public transport. If you have to visit public places, keep at least a two-meter distance to other people. If you cannot keep enough distance, use a face mask.</string>
+    <string name="exposure_detail_instructions_5">If possible, let someone else handle food shopping and other errands outside the home.</string>
+    <string name="exposure_detail_instructions_6">If you cough or sneeze, use a disposable tissue to cover your mouth and nose. Put the used tissue in a waste bin and wash your hands with water and soap or use hand sanitiser. If you do not have a tissue, cough or sneeze into your sleeve.</string>
+    <string name="exposure_detail_instructions_7">Work remotely if possible.</string>
 
-    <string name="exposure_detail_instructions_title">Noudata näitä ohjeita huolellisesti seuraavan kahden viikon ajan:</string>
-    <string name="exposure_detail_instructions_1">Ota mahdollisimman pian yhteyttä kuntasi terveydenhuoltoon ja hakeudu testiin, jos sinulla ilmenee yksikin näistä koronavirustautiin sopivista oireista:</string>
-    <string name="exposure_detail_instructions_1_sublist">- haju- tai makuaistin muutos\n- hengitysvaikeus\n- yskä, kurkkukipu tai nuha\n- kuume\n- päänsärky tai lihaskipuja\n- ripuli tai vatsakipu ilman muuta ilmeistä syytä.</string>
-    <string name="exposure_detail_instructions_2">Vältä tapaamasta muita ihmisiä.</string>
-    <string name="exposure_detail_instructions_3">Huolehdi käsihygieniastasi.</string>
-    <string name="exposure_detail_instructions_4">Vältä julkisia paikkoja ja liikennevälineitä. Jos joudut liikkumaan julkisilla paikoilla, pidä muihin ihmisiin etäisyyttä vähintään kaksi metriä. Jos et pysty pitämään riittävästi etäisyyttä, käytä kasvomaskia.</string>
-    <string name="exposure_detail_instructions_5">Anna toisen henkilön hoitaa ruokaostokset ja muu asiointi kodin ulkopuolella, jos mahdollista.</string>
-    <string name="exposure_detail_instructions_6">Jos yskit tai aivastat, suojaa suusi ja nenäsi kertakäyttönenäliinalla. Laita käytetty nenäliina jäteastiaan ja pese kätesi vedellä ja saippualla tai käytä käsihuuhdetta. Jos sinulla ei ole nenäliinaa, yski tai aivasta hihaan.</string>
-    <string name="exposure_detail_instructions_7">Tee etätyötä, jos mahdollista.</string>
+    <string name="guide_title">"About Koronavilkku "</string>
+    <string name="guide_p1_text">Koronavilkku is an application produced by the Finnish Institute for Health and Welfare that informs you if it estimates that you may have been exposed to the coronavirus. If you are diagnosed with COVID-19 disease, you can report this anonymously using the app. Your privacy is strongly protected.</string>
 
-    <string name="guide_title">Tietoa Koronavilkusta</string>
-    <string name="guide_p1_text">Koronavilkku on Terveyden ja hyvinvoinnin laitoksen tuottama sovellus, jonka avulla saat tiedon, jos olet sovelluksen arvion mukaan altistunut koronavirukselle. Jos sinulla todetaan tartunta, voit ilmoittaa siitä sovelluksella nimettömästi. Sovelluksessa yksityisyytesi on vahvasti suojattu.</string>
+    <string name="guide_code_title">Each phone receives a random code</string>
+    <string name="guide_code_text">The application generates an ID code for each phone. The code is random and changes several times an hour to ensure your privacy. The ID code does not contain information about you or your phone.</string>
 
-    <string name="guide_code_title">Jokainen puhelin saa satunnaisen tunnuskoodin</string>
-    <string name="guide_code_text">Sovellus arpoo jokaiselle puhelimelle tunnuskoodin. Koodi on satunnainen ja vaihtuu useita kertoja tunnissa, jotta yksityisyytesi voidaan varmistaa. Tunnuskoodi ei sisällä tietoja sinusta tai puhelimestasi.</string>
+    <string name="guide_exchange_title">Phones swap codes with each other</string>
+    <string name="guide_exchange_text">When close enough to each other, the apps swap codes through a Bluetooth signal. This allows the application to keep track of encounters without saving users\' identity or location data.</string>
 
-    <string name="guide_exchange_title">Puhelimet jakavat tunnuskoodit toisilleen</string>
-    <string name="guide_exchange_text">Kun olet lähellä toista Koronavilkun käyttäjää, puhelimenne jakavat tunnuskoodinsa toisilleen Bluetooth-tekniikalla. Näin sovellus voi pitää kirjaa kohtaamisista tallentamatta käyttäjiensä henkilöllisyyttä tai sijaintia.</string>
+    <string name="guide_infection_title">If you are diagnosed with COVID-19</string>
+    <string name="guide_infection_text">If you are diagnosed with COVID-19, you will receive a key code from your healthcare professional. You can use this code to report your infection through the app. If you report your infection, the app sends your phone\'s ID codes to the server. No personal or location information is sent with the ID codes, so you will remain anonymous.</string>
 
-    <string name="guide_infection_title">Jos sinulla todetaan tartunta</string>
-    <string name="guide_infection_text">Jos sinulla todetaan tartunta koronavirustestillä, saat terveydenhuollon ammattilaiselta avauskoodin. Koodin avulla voit halutessasi jakaa tiedon tartunnasta sovelluksen kautta. Jos jaat tiedon, sovellus lähettää puhelimesi tunnuskoodit palvelimelle. Tunnuskoodien mukana ei lähetetä henkilö- tai sijaintitietoja, joten pysyt nimettömänä.</string>
+    <string name="guide_check_title">The app compares codes</string>
+    <string name="guide_check_text">Koronavilkku downloads a list of codes from the server several times a day. The list contains the codes of the phones that have been used to report a COVID-19 infection through the app. Koronavilkku compares these codes to the codes your phone has collected from other app users. This enables the app to determine whether you have been near an infected person.</string>
 
-    <string name="guide_check_title">Sovellus vertaa käyttäjien koodeja</string>
-    <string name="guide_check_text">Koronavilkku hakee useita kertoja päivässä palvelimelta listan koodeista, joita tartunnan saaneiden puhelimissa olevat sovellukset ovat lähettäneet. Koronavilkku vertaa niitä koodeihin, joita puhelimesi on kerännyt muilta sovelluksen käyttäjiltä. Näin sovellus voi päätellä, oletko ollut lähellä tartunnan saanutta henkilöä.</string>
+    <string name="guide_notification_title">You receive a notification of potential exposure</string>
+    <string name="guide_notification_text">If the codes collected by your phone match those received from people who have reported a COVID-19 infection, you will be notified of a potential exposure. You can then provide your contact information to healthcare professionals and receive further instructions.\n\nIf you think that you may have COVID-19, you can take a symptom assessment at any time in the Omaolo.fi web service.</string>
 
-    <string name="guide_notification_title">Saat ilmoituksen mahdollisesta altistumisesta</string>
-    <string name="guide_notification_text">Jos puhelimesi keräämät koodit vastaavat tartunnan saaneilta kerättyjä koodeja, saat ilmoituksen mahdollisesta altistumisesta. Tällöin voit antaa yhteystietosi terveydenhuollon ammattilaisille, niin saat toimintaohjeita.\n\nJos epäilet saaneesi koronatartunnan, voit koska tahansa tehdä oirearvion Omaolo-palvelussa.</string>
+    <string name="guide_privacy_title">Your privacy is protected</string>
+    <string name="guide_privacy_body">The app protects your privacy in the following ways:</string>
+    <string name="guide_privacy_item1">The information on encounters is stored only on your device. The stored data is deleted within 21 days, and it is deleted immediately if you remove the app.</string>
+    <string name="guide_privacy_item2">Your identity is encrypted using random IDs.</string>
+    <string name="guide_privacy_item3">The app never saves your phone\'s location information.</string>
 
-    <string name="guide_privacy_title">Näin yksityisyydestäsi huolehditaan</string>
-    <string name="guide_privacy_body">Yksityisyydestäsi huolehditaan esimerkiksi seuraavilla tavoilla:</string>
-    <string name="guide_privacy_item1">Sovelluksen keräämät kohtaamistiedot tallentuvat vain sinun laitteellesi. Tallennetut tiedot poistuvat viimeistään 21 päivän kuluttua tai jos poistat sovelluksen.</string>
-    <string name="guide_privacy_item2">Henkilöllisyytesi salataan satunnaisten tunnuskoodien avulla.</string>
-    <string name="guide_privacy_item3">Sovellus ei koskaan tallenna puhelimesi sijaintitietoja.</string>
+    <string name="guide_button_back">Back</string>
 
-    <string name="guide_button_back">Palaa takaisin</string>
+    <string name="disable_title">COVID-19 exposure notifications are enabled</string>
+    <string name="disable_subtitle">Do you need to disable exposure notifications?</string>
+    <string name="disable_body">In some situations, it may be necessary to temporarily disable exposure notifications. This may be the case, for example, if you are a healthcare professional and do not want to use the application at your workplace.\n\nIf you disable exposure notifications, the application will stop working.</string>
+    <string name="disable_note">To protect your health and the health of your loved ones, it is recommended that you disable exposure notifications only if it is really necessary. Remember to enable them again as soon as possible.</string>
+    <string name="disable_turn_off_note">Disable COVID-19 exposure notifications</string>
+    <string name="disable_button_turn_off">Disable</string>
 
-    <string name="disable_title">COVID-19-\u200Baltistumis\u200Bilmoitukset käytössä</string>
-    <string name="disable_subtitle">Pitääkö sinun poistaa altistumisilmoitukset käytöstä?</string>
-    <string name="disable_body">Joissakin tilanteissa voi olla tarpeen väliaikaisesti poistaa altistumisilmoitukset käytöstä. Näin voi olla esimerkiksi silloin, jos olet terveydenhuollon ammattilainen etkä halua käyttää sovellusta työpaikallasi.\n\nJos otat altistumisilmoitukset pois käytöstä, sovellus ei toimi.</string>
-    <string name="disable_note">Terveydestäsi ja läheistesi terveydestä huolehtimiseksi on suositeltavaa, että otat altistumisilmoitukset pois käytöstä vain silloin, jos se on todella tarpeellista. Muistathan ottaa ne uudelleen käyttöön heti kun mahdollista.</string>
-    <string name="disable_turn_off_note">Poista COVID-19-\u200Baltistumisilmoitukset käytöstä</string>
-    <string name="disable_button_turn_off">Poista käytöstä</string>
+    <string name="disable_confirm_title">Are you sure you want to disable exposure notifications?</string>
+    <string name="disable_confirm_message">If you disable exposure notifications, Koronavilkku will not be able to notify you of potential exposure to the coronavirus.</string>
 
-    <string name="disable_confirm_title">Oletko varma, että haluat poistaa käytöstä?</string>
-    <string name="disable_confirm_message">Jos poistat altistusilmoitukset käytöstä, Koronavilkku ei voi ilmoittaa sinulle mahdollisesta altistumisesta koronavirukselle.</string>
+    <string name="enable_title">COVID-19 exposure notifications are disabled</string>
 
-    <string name="enable_title">COVID-19-\u200Baltistumis\u200Bilmoitukset eivät ole käytössä</string>
+    <string name="enable_body">Because exposure notifications are disabled, Koronavilkku is not currently monitoring nearby phones.</string>
+    <string name="enable_alert">To protect your health and the health of your loved ones, it is recommended that you enable exposure notifications as soon as possible.</string>
+    <string name="enable_note">Enable COVID-19 exposure notifications</string>
 
-    <string name="enable_body">Koska altistumisilmoitukset eivät ole käytössä, Koronavilkku ei tällä hetkellä seuraa lähelläsi olevia puhelimia.</string>
-    <string name="enable_alert">"Terveydestäsi ja läheistesi terveydestä huolehtimiseksi on suositeltavaa, että otat altistumisilmoitukset käyttöön heti kun mahdollista. "</string>
-    <string name="enable_note">Ota COVID-19-altistumisilmoitukset käyttöön</string>
-
-    <string name="enable_err_title">Altistumisilmoitusten käynnistys epäonnistui</string>
-    <string name="enable_err_missing_capability">Laitteesi ei ole tuettu</string>
+    <string name="enable_err_title">The exposure log could not be initialised</string>
+    <string name="enable_err_missing_capability">Your device is not supported</string>
     <string name="enable_err_api_not_supported">Valitettavasti Google Play Palveluiden altistumisilmoitukset eivät ole saatavilla laitteessasi.\n\n%s</string>
     <string name="enable_err_not_owner">Olet kirjautunut laitteeseen käyttäjäprofiililla, joka ei ole laitteen omistaja. Koronavilkku toimii vain laitteen omistajan käyttäjäprofiililla.\n\nVoit vaihtaa profiilia pyyhkäisemällä kahdella sormella aloitusnäytön yläreunasta. Paina sitten Vaihda käyttäjää -painiketta.</string>
     <string name="enable_err_api_connection_device">Virhe: Laitteesi ei ole tuettu</string>
     <string name="enable_err_api_connection_unauthorized">Virhe: Altistumisilmoitukset eivät ole sallittu sovellukselle</string>
     <string name="enable_err_api_connection_generic">Virhe: %d</string>
-    <string name="enable_err_generic">Tuntematon virhe</string>
+    <string name="enable_err_generic">Unknown error</string>
     <string name="enable_error_api_code">Tapahtui odottamaton virhe, koodi: %1$d (%2$d)</string>
-    <string name="enable_err_dismiss">Sulje</string>
+    <string name="enable_err_dismiss">Dismiss</string>
 
-    <string name="onboarding_done">Käyttöönotto valmis!</string>
+    <string name="onboarding_done">Set-up complete!</string>
 
-    <string name="intro_header_title">Kiitos, että latasit Koronavilkun</string>
-    <string name="intro_header_body">Koronavilkku on Terveyden ja hyvinvoinnin laitoksen tuottama sovellus, jonka avulla pyritään ehkäisemään koronavirustaudin leviämistä. Sovelluksessa yksityisyytesi on vahvasti suojattu.</string>
+    <string name="intro_header_title">Thank you for installing Koronavilkku</string>
+    <string name="intro_header_body">Koronavilkku is an application produced by the Finnish Institute for Health and Welfare. It aims to prevent the spread of COVID-19 disease. Your privacy is strongly protected in the application.</string>
 
-    <string name="concept_header_title">Näin sovellus toimii</string>
-    <string name="concept_header_body">Koronavilkku seuraa lähelläsi olevia puhelimia, joihin on asennettu sama sovellus. Jos aiemmin kohtaamasi henkilö ilmoittaa tartunnastaan Koronavilkun avulla, saat ilmoituksen altistumisesta. Jos sinulla todetaan tartunta, voit ilmoittaa siitä sovelluksella nimettömästi.</string>
+    <string name="concept_header_title">How the app works</string>
+    <string name="concept_header_body">Koronavilkku looks for nearby phones that have the same app installed. If someone you have previously met reports via Koronavilkku that they have COVID-19 disease, you receive an exposure notification. If you are diagnosed with COVID-19 disease, you can report this anonymously using the app.</string>
 
-    <string name="accept_terms_header_title">Yksityisyytesi on suojattu</string>
-    <string name="accept_terms_header_body">Koronavilkku suojaa tietojasi ja yksityisyyttäsi monin tavoin.</string>
-    <string name="accept_terms_personal_title">Henkilötiedot</string>
-    <string name="accept_terms_personal_text">Koronavilkku ei tallenna nimeäsi, syntymäaikaasi tai yhteystietojasi. Se ei pysty selvittämään sinun tai tapaamiesi ihmisten henkilöllisyyttä.\n\nSovellus ei kerää sijaintitietoja.</string>
-    <string name="accept_terms_usage_title">Sovelluksen käyttötiedot</string>
-    <string name="accept_terms_usage_text">Sovellus välittää palvelimelle tiedon siitä, että sovellus on toiminnassa. Jos otat yhteyttä terveydenhuoltoon sovelluksen kautta, sovellus välittää lisäksi tiedon, oletko mahdollisesti altistunut tartunnalle.\n\nKaikki tietoliikenne Koronavilkun ja palvelimen välillä on salattu.\n\nTiedot tallennetaan nimettömänä palvelimelle, joka sijaitsee Suomessa. Palvelinta hallinnoivat julkishallinnon toimijat. Tiedot poistetaan, kun niitä ei enää tarvita. Viimeistään tiedot poistetaan 31.3.2021.</string>
-    <string name="accept_terms_voluntary_title">Käyttö on vapaaehtoista</string>
-    <string name="accept_terms_voluntary_text">Koronavilkun käyttö ei ole pakollista. Voit milloin tahansa lopettaa käytön poistamalla sovelluksen puhelimestasi.</string>
+    <string name="accept_terms_header_title">Your privacy is protected</string>
+    <string name="accept_terms_header_body">Koronavilkku protects your data and privacy in several ways.</string>
+    <string name="accept_terms_personal_title">About personal information</string>
+    <string name="accept_terms_personal_text">Koronavilkku does not store your name, date of birth or contact information. It cannot determine your identity or the identity of the people you come close to.\n\nThe application does not collect location data.</string>
+    <string name="accept_terms_usage_title">How the app uses your data</string>
+    <string name="accept_terms_usage_text">The app informs the server that the app is running. If you contact healthcare services through the app, the app will also provide information that you may have been exposed to COVID-19.\n\nAll communication between Koronavilkku and the server is encrypted.\n\nThe data is stored anonymously on a server located in Finland, and this server is managed by public administration bodies. The data is deleted when it is no longer needed. At the latest, it is deleted on 31 March 2021.</string>
+    <string name="accept_terms_voluntary_title">Use is voluntary</string>
+    <string name="accept_terms_voluntary_text">You do not have to use Koronavilkku. You can stop using it at any time by removing the app from your phone.</string>
 
-    <string name="accept_terms_tos_text">Olen lukenut ja hyväksynyt palvelun käyttöehdot</string>
-    <string name="accept_terms_tos_link_text">Lue käyttöehdot</string>
-    <string name="accept_terms_activation_text">Otan sovelluksen vapaaehtoisesti käyttööni</string>
-    <string name="accept_terms_button_enable">Aloita käyttö</string>
-    <string name="accept_terms_scroll">Vieritä alas</string>
+    <string name="accept_terms_tos_text">I have read and agree to the terms of use for the service.</string>
+    <string name="accept_terms_tos_link_text">Read the terms of use</string>
+    <string name="accept_terms_activation_text">I am voluntarily starting to use the application</string>
+    <string name="accept_terms_button_enable">Start using the app</string>
+    <string name="accept_terms_scroll">Scroll down</string>
 
-    <string name="en_blocked_title">Altistumis\u200Bilmoitukset eivät ole käytössä</string>
-    <string name="en_blocked_body">Koronavilkku ei toimi, jos et ota käyttöön puhelimesi käyttöjärjestelmän altistumisilmoituksia. Ota ilmoitukset käyttöön alla olevasta painikkeesta ja hyväksy käyttöönotto.</string>
-    <string name="en_blocked_location">Joissakin Android-puhelimissa altistumisilmoitukset vaativat lisäksi sijaintiasetuksen käyttöönoton. Sijaintiasi ei kuitenkaan tallenneta.</string>
-    <string name="en_blocked_button_label">Ota käyttöön</string>
+    <string name="en_blocked_title">Exposure notifications are off</string>
+    <string name="en_blocked_body">Koronavilkku will not work unless you turn on the exposure notifications in your phone’s operating system. Start by pressing the Enable button below.</string>
+    <string name="en_blocked_location">On some Android phones, exposure notifications also require that the location setting is turned on. The app does not, however, use your location data.</string>
+    <string name="en_blocked_button_label">Enable</string>
 
-    <string name="municipality_list_title">Valitse asuinkuntasi</string>
-    <string name="municipality_search_hint">Etsi</string>
-    <string name="municipality_no_results">Hakutekstillä alkavia kuntia ei löytynyt</string>
+    <string name="municipality_list_title">Select your municipality</string>
+    <string name="municipality_search_hint">Search</string>
+    <string name="municipality_no_results">"No municipality found "</string>
 
-    <string name="contact_evaluation_title">Tee oirearvio</string>
-    <string name="contact_evaluation_body">Suosittelemme, että otat yhteyttä terveydenhuoltoon oirearvion kautta, koska se helpottaa terveydenhuollon ammattilaisten tekemää työtä ja säästää sinulta vaivaa asian käsittelyssä.</string>
-    <string name="contact_evaluation_start">Tee oirearvio</string>
-    <string name="contact_evaluation_footer">Oirearvion tekemiseen kuluu noin 5–10 minuuttia. Alle 16-vuotiaiden pitää ottaa yhteyttä terveydenhuoltoon puhelimitse.</string>
-    <string name="contact_evaluation_other_title">Tai ota yhteyttä kuntasi terveydenhuoltoon muilla tavoin:</string>
-    <string name="card_contact_request_title">Lähetä yhteydenottopyyntö</string>
-    <string name="card_contact_request_link_name">Vain oireettomille (ei alle 16-vuotiaille)</string>
+
+    <string name="contact_evaluation_title">Take a symptom assessment</string>
+    <string name="contact_evaluation_body">We recommend that you contact healthcare services by taking a symptom assessment. This helps the healthcare professionals in their work and saves you effort when handling the matter.</string>
+    <string name="contact_evaluation_start">Take assessment</string>
+    <string name="contact_evaluation_footer">It takes approximately 5-10 minutes to take the symptom assessment. Children under the age of 16 must contact healthcare services by telephone.</string>
+    <string name="contact_evaluation_other_title">Or contact your municipal healthcare services in another way:</string>
+    <string name="card_contact_request_title">Send a contact request</string>
+    <string name="card_contact_request_link_name">Only for people without symptoms (not for children under 16)</string>
     <string name="info_icon">Info</string>
 
     <string name="test_title" translatable="false">Testi</string>
@@ -223,13 +226,27 @@
     <string name="test_check_play_services" translatable="false">Play services tarkistus</string>
     <string name="test_update_municipalities" translatable="false">Päivitä kuntalista</string>
 
-    <string name="pre_web_contact_title_evaluation">Omaolon oirearvio</string>
-    <string name="pre_web_contact_title_no_evaluation">Lähetä yhteydenottopyyntö</string>
-    <string name="pre_web_contact_body_evaluation">Voit tehdä oirearvion alla olevilla kielillä. Valitse kieli. Tämän jälkeen siirryt Omaolo.fi-verkkopalveluun. Oirearvion tekemiseen kuluu noin 5–10 minuuttia.</string>
-    <string name="pre_web_contact_body_no_evaluation">Jos olet oireeton, voit lähettää yhteydenottopyynnön Omaolo.fi-verkkopalvelussa. Valitse asiointikieli. Tämän jälkeen siirryt Omaolo.fi-verkkopalveluun.</string>
-    <string name="pre_web_contact_title">Valitse asiointikieli</string>
+    <string name="pre_web_contact_title_evaluation">Omaolo symptom assessment</string>
+    <string name="pre_web_contact_title_no_evaluation">Send a contact request</string>
+    <string name="pre_web_contact_body_evaluation">You can take the symptom assessment in the following languages. Select a language. You will then be taken to the Omaolo.fi web service. It takes approximately 5-10 minutes to take a symptom assessment.</string>
+    <string name="pre_web_contact_body_no_evaluation">If you don\'t have symptoms, you can send a contact request via the Omaolo.fi web service. Select the language for the service. You will then be taken to the Omaolo.fi web service.</string>
+    <string name="pre_web_contact_title">Select language</string>
 
-    <string name="municipality_load_failed">Kuntatietojen lataus epäonnistui. Tarkista verkkoyhteys ja yritä uudelleen.</string>
-    <string name="municipality_retry_load">Yritä uudelleen</string>
+    <string name="omaolo_link_failed_title">Omaolo.fi cannot not be opened</string>
+    <string name="omaolo_link_failed_message">Koronavilkku can\'t direct you to the Omaolo.fi web service because your phone does not have an internet browser or its use has been blocked. Please contact health services by telephone.</string>
+
+    <string name="municipality_load_failed">Error loading municipality list. Please check your internet connection and try again.</string>
+    <string name="municipality_retry_load">Try again</string>
+
+    <string name="onboarding_select_language_button" translatable="false">Language</string>
+    <string name="select_language_title">Change app language</string>
+    <string name="select_language_item_finnish" translatable="false">Suomi</string>
+    <string name="select_language_item_swedish" translatable="false">Svenska</string>
+    <string name="select_language_item_english" translatable="false">English</string>
+    <string name="select_language_item_system_default">Device default language</string>
+    <string name="select_language_item_selected_description">Selected</string>
+
+    <string name="open_link_failed_title">Web page cannot be opened</string>
+    <string name="open_link_failed_message">Web page cannot be opened because your phone does not have an internet browser or its use has been blocked.</string>
 
 </resources>
