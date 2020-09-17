@@ -38,15 +38,16 @@ class GoogleExposureNotificationService(
     override suspend fun enable() = resultFromRunning {
         if (!isEnabled()) {
             client.start().await()
-            isEnabledFlow.value = true
         }
+        isEnabledFlow.value = true
+        // Always set the value in case isEnabledFlow.value was out of sync.
     }
 
     override suspend fun disable() = resultFromRunning {
         if (isEnabled()) {
             client.stop().await()
-            isEnabledFlow.value = false
         }
+        isEnabledFlow.value = false
     }
 
     override suspend fun isEnabled(): Boolean {

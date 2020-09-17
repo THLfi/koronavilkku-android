@@ -18,7 +18,12 @@ class BluetoothOnLiveData @Inject constructor (
         super.onActive()
 
         // set initial value since receiver will only get changes
-        value = BluetoothAdapter.getDefaultAdapter()?.isEnabled
+        value = try {
+            BluetoothAdapter.getDefaultAdapter()?.isEnabled ?: false
+        } catch (e: Exception) {
+            Timber.e(e, "Error checking adapter enabled")
+            false
+        }
 
         Timber.d("Register bluetooth receiver")
         context.registerReceiver(receiver, IntentFilter(BluetoothAdapter.ACTION_STATE_CHANGED))
