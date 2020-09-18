@@ -170,7 +170,6 @@ class DiagnosisKeyUpdateWorker @WorkerInject constructor(
             // start polling for backend diagnosis keys
             val constraints = Constraints.Builder()
                 .setRequiredNetworkType(NetworkType.CONNECTED)
-                .setRequiresBatteryNotLow(true)
                 .build()
 
             // KEEP policy is used normally so that previously configured (and possibly running)
