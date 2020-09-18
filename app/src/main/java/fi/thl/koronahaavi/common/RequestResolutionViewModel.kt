@@ -19,6 +19,8 @@ class RequestResolutionViewModel : ViewModel() {
     fun keyHistoryResolvedEvent(): LiveData<Event<Boolean>> = keyHistoryResolvedMutableEvent
     fun playServicesResolvedEvent(): LiveData<Event<Boolean>> = playServicesResolvedMutableEvent
 
+    var requestActivityInProgress = false
+
     private fun setEnableResolutionResult(accepted: Boolean) {
         enableResolvedMutableEvent.postValue(Event(accepted))
     }
