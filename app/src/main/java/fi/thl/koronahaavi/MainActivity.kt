@@ -9,6 +9,7 @@ import android.provider.Settings
 import android.provider.Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS
 import android.view.View
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
@@ -35,6 +36,10 @@ class MainActivity : AppCompatActivity() {
     @Inject lateinit var deviceStateRepository: DeviceStateRepository
 
     private val resolutionViewModel by viewModels<RequestResolutionViewModel>()
+
+    // keep prompt visibility state here since if its cleared on activity recreate
+    // we would just show the dialog again
+    private var powerOptimizationDialog: AlertDialog? = null
 
     private val navController by lazy {
         (supportFragmentManager.findFragmentById(R.id.fragment_main_nav_host) as NavHostFragment)
@@ -73,6 +78,13 @@ class MainActivity : AppCompatActivity() {
 
             checkViewIntent(intent)
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        // avoid WindowLeaked error if dialog was visible during config change
+        powerOptimizationDialog?.dismiss()
     }
 
     override fun onNewIntent(intent: Intent?) {
@@ -122,10 +134,18 @@ class MainActivity : AppCompatActivity() {
 
     private fun shouldRequestPowerOptimizationDisable() =
         !deviceStateRepository.isPowerOptimizationsDisabled() &&
-        appStateRepository.isPowerOptimizationDisableAllowed() != false
+        appStateRepository.isPowerOptimizationDisableAllowed() != false &&  // do not prompt if user denied before
+        !isPowerOptimizationRequestInProgress()
+
+    /**
+     * Request is considered to be in progress if either a rationale or deny confirm dialog is showing
+     * or play service permission dialog activity was started
+     */
+    private fun isPowerOptimizationRequestInProgress() =
+        powerOptimizationDialog?.isShowing == true || resolutionViewModel.requestActivityInProgress
 
     private fun showPowerOptimizationDisableRationale() {
-        MaterialAlertDialogBuilder(this)
+        powerOptimizationDialog = MaterialAlertDialogBuilder(this)
             .setTitle(R.string.power_rationale_title)
             .setMessage(R.string.power_rationale_message)
             .setPositiveButton(R.string.all_continue) { _, _ ->
@@ -134,6 +154,7 @@ class MainActivity : AppCompatActivity() {
             .setNegativeButton(R.string.all_close) { _, _ ->
                 showPowerOptimizationDisableDenyConfirm()
             }
+            .setCancelable(false) // dont close on back or when clicking outside dialog
             .show()
     }
 
@@ -142,11 +163,12 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS)
             .setData(Uri.parse("package:$packageName"))
 
+        resolutionViewModel.requestActivityInProgress = true
         startActivityForResult(intent, REQUEST_CODE_POWER_OPTIMIZATION_DISABLE)
     }
 
     private fun showPowerOptimizationDisableDenyConfirm() {
-        MaterialAlertDialogBuilder(this)
+        powerOptimizationDialog = MaterialAlertDialogBuilder(this)
             .setTitle(R.string.power_deny_confirm_title)
             .setMessage(R.string.power_deny_confirm_message)
             .setPositiveButton(R.string.all_close) { _, _ ->
@@ -155,6 +177,7 @@ class MainActivity : AppCompatActivity() {
             .setNegativeButton(R.string.power_allow_retry) { _, _ ->
                 showPowerOptimizationDisablePrompt()  // ask again
             }
+            .setCancelable(false)
             .show()
     }
 
@@ -176,6 +199,7 @@ class MainActivity : AppCompatActivity() {
 
         when (requestCode) {
             REQUEST_CODE_POWER_OPTIMIZATION_DISABLE -> {
+                resolutionViewModel.requestActivityInProgress = false
                 if (resultCode == RESULT_OK) {
                     appStateRepository.setPowerOptimizationDisableAllowed(true)
                 }
