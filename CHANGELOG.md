@@ -6,6 +6,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### Added
+- English localization
+- User can change app language to override device language
+- Request to disable battery optimization for the app
+- Open source notices in app settings
+- Android 11: Do not check for device location setting when not required by exposure notifications
+
+### Changed
+- Show specific error messages during onboarding if user is not the device owner
+
+### Fixed
+- Show an error message if device does not have a web browser app
+
 ## [1.0.1] - 2020-09-14
 
 ### Fixed
