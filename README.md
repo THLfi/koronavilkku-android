@@ -18,6 +18,11 @@ backendUrl=http://10.0.2.2:8080/
 enableTestUI=true
 ```
 
+## System requirements
+* Android version 6 or above
+* Google Play Services version 20.18.13 or above
+* Device owner user profile
+
 ## Backend
 See [koronavilkku-backend](https://github.com/THLfi/koronavilkku-backend) for information on application backend.
 
