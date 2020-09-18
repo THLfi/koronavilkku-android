@@ -56,8 +56,9 @@ class EncryptedSharedPreferencesWrapper(
         prefs.contains(key)
     }
 
-    override fun edit(): SharedPreferences.Editor
-            = prefs.edit()
+    override fun edit(): SharedPreferences.Editor = callWithRetry {
+        prefs.edit()
+    }
 
     override fun registerOnSharedPreferenceChangeListener(listener: SharedPreferences.OnSharedPreferenceChangeListener?)
             = prefs.registerOnSharedPreferenceChangeListener(listener)
@@ -65,6 +66,11 @@ class EncryptedSharedPreferencesWrapper(
     override fun unregisterOnSharedPreferenceChangeListener(listener: SharedPreferences.OnSharedPreferenceChangeListener?)
             = prefs.unregisterOnSharedPreferenceChangeListener(listener)
 
+    // Synchronized since EncryptedSharedPreferences methods not thread-safe
+    // see https://developer.android.com/topic/security/data#classes-in-library
+    // Also synchronizing at method level to prevent other threads from accessing
+    // preferences instance during recovery attempts
+    @Synchronized
     private fun <T> callWithRetry(retryDelay: Long = 100, block: () -> T): T {
         return try {
             block()
