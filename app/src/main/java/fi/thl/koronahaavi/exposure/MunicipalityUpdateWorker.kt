@@ -30,7 +30,6 @@ class MunicipalityUpdateWorker @WorkerInject constructor(
 
             val constraints = Constraints.Builder()
                 .setRequiredNetworkType(NetworkType.CONNECTED)
-                .setRequiresBatteryNotLow(true)
                 .build()
 
             val request = PeriodicWorkRequestBuilder<MunicipalityUpdateWorker>(48, TimeUnit.HOURS)
