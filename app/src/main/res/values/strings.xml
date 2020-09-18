@@ -31,7 +31,7 @@
     <string name="code_entry_title">Enter key code</string>
     <string name="code_entry_invalid">The key code is invalid or has expired. Please check that you have entered the exact code you received.</string>
     <string name="code_entry_submit_failed">Failed to report infection because the server cannot be accessed. Please check your internet connection and try again.</string>
-    <string name="code_entry_en_disabled">Exposure notifications are off. Return to the home view where you can turn them on.</string>
+    <string name="code_entry_en_disabled">Exposure notifications must be turned on in order to report an infection. Return to the Home view and enable them there.</string>
     <string name="code_entry_info">The key code does not reveal your identity.</string>
 
     <string name="diagnosis_complete_title">Thank you for your report</string>
