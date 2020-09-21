@@ -235,11 +235,11 @@
     <string name="municipality_load_failed">Kuntatietojen lataus epäonnistui. Tarkista verkkoyhteys ja yritä uudelleen.</string>
     <string name="municipality_retry_load">Yritä uudelleen</string>
 
-    <string name="power_rationale_title">Saako Koronavilkku toimia aina taustalla?</string>
-    <string name="power_rationale_message">Anna Koronavilkulle lupa toimia aina taustalla. Näin sovellus voi suljettunakin tarkistaa, oletko mahdollisesti altistunut koronavirukselle. Tätä varten akun käytön optimointi on otettava pois käytöstä.\n\nVaikutus puhelimesi akunkestoon on pieni.</string>
+    <string name="power_rationale_title">Anna Koronavilkun toimia aina taustalla</string>
+    <string name="power_rationale_message">Jos annat Koronavilkulle luvan toimia aina taustalla, sovellus voi suljettunakin tarkistaa, oletko mahdollisesti altistunut koronavirukselle. Tätä varten sovellus ottaa akun käytön optimoinnin pois käytöstä Koronavilkun osalta.\n\nVaikutus puhelimesi akunkestoon on pieni.</string>
 
-    <string name="power_deny_confirm_title">Et antanut Koronavilkulle lupaa toimia taustalla</string>
-    <string name="power_deny_confirm_message">Jos et halua antaa Koronavilkulle lupaa toimia aina taustalla, suosittelemme, että avaat sovelluksen ainakin kerran päivässä.\n\nVoit muuttaa valintaasi myöhemmin puhelimesi asetuksissa.</string>
-    <string name="power_allow_retry">Salli sittenkin</string>
+    <string name="power_deny_confirm_title">Etkö anna Koronavilkulle lupaa toimia taustalla?</string>
+    <string name="power_deny_confirm_message">Jos et anna Koronavilkulle lupaa toimia aina taustalla, sovellus ei välttämättä voi hakea palvelimelta tietoja mahdollisesta altistumisesta. Siinä tapauksessa suosittelemme, että avaat sovelluksen ainakin kerran päivässä.\n\nVoit muuttaa valintaasi myöhemmin puhelimesi asetuksissa.</string>
+    <string name="power_allow_retry">Anna lupa</string>
 
 </resources>
