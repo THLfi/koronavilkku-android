@@ -128,10 +128,10 @@ class MainActivity : AppCompatActivity() {
         MaterialAlertDialogBuilder(this)
             .setTitle(R.string.power_rationale_title)
             .setMessage(R.string.power_rationale_message)
-            .setPositiveButton(R.string.all_allow) { _, _ ->
+            .setPositiveButton(R.string.all_continue) { _, _ ->
                 showPowerOptimizationDisablePrompt()
             }
-            .setNegativeButton(R.string.all_deny) { _, _ ->
+            .setNegativeButton(R.string.all_close) { _, _ ->
                 showPowerOptimizationDisableDenyConfirm()
             }
             .show()
