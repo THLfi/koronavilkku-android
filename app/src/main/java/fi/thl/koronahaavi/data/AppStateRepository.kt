@@ -24,7 +24,6 @@ class AppStateRepository @Inject constructor (
     private val lastBatchIdKey = "last_batch_id"
     private val lastExposureCheckTimeKey = "last_exposure_check"
     private val diagnosisKeysSubmittedKey = "diagnosis_keys_submitted"
-    private val powerOptimizationDisabledKey = "power_optimization_disabled"
 
     private val keysSubmitted = MutableStateFlow(
         prefs.getBoolean(diagnosisKeysSubmittedKey, false)
@@ -37,18 +36,6 @@ class AppStateRepository @Inject constructor (
     init {
         updateLastExposureCheckTime()
     }
-
-    fun setPowerOptimizationDisableAllowed(isAllowed: Boolean) {
-        prefs.edit().putBoolean(powerOptimizationDisabledKey, isAllowed).apply()
-    }
-
-    fun isPowerOptimizationDisableAllowed(): Boolean? =
-        if (prefs.contains(powerOptimizationDisabledKey)) {
-            prefs.getBoolean(powerOptimizationDisabledKey, false)
-        }
-        else {
-            null
-        }
 
     fun setDiagnosisKeysSubmitted(submitted: Boolean) {
         keysSubmitted.value = submitted

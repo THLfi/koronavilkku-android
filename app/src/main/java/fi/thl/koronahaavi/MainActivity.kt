@@ -4,10 +4,8 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY
-import android.content.res.Configuration
 import android.net.Uri
 import android.os.Bundle
-import android.provider.Settings
 import android.provider.Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS
 import android.view.View
 import androidx.activity.viewModels
@@ -27,6 +25,7 @@ import fi.thl.koronahaavi.databinding.ActivityMainBinding
 import fi.thl.koronahaavi.device.DeviceStateRepository
 import fi.thl.koronahaavi.service.ExposureNotificationService
 import fi.thl.koronahaavi.service.WorkDispatcher
+import fi.thl.koronahaavi.settings.UserPreferences
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -37,6 +36,7 @@ class MainActivity : AppCompatActivity() {
     @Inject lateinit var exposureNotificationService: ExposureNotificationService
     @Inject lateinit var workDispatcher: WorkDispatcher
     @Inject lateinit var deviceStateRepository: DeviceStateRepository
+    @Inject lateinit var userPreferences: UserPreferences
 
     private val resolutionViewModel by viewModels<RequestResolutionViewModel>()
 
@@ -141,7 +141,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun shouldRequestPowerOptimizationDisable() =
         !deviceStateRepository.isPowerOptimizationsDisabled() &&
-        appStateRepository.isPowerOptimizationDisableAllowed() != false &&  // do not prompt if user denied before
+        userPreferences.powerOptimizationDisableAllowed != false &&  // do not prompt if user denied before
         !isPowerOptimizationRequestInProgress()
 
     /**
@@ -179,7 +179,7 @@ class MainActivity : AppCompatActivity() {
             .setTitle(R.string.power_deny_confirm_title)
             .setMessage(R.string.power_deny_confirm_message)
             .setPositiveButton(R.string.all_close) { _, _ ->
-                appStateRepository.setPowerOptimizationDisableAllowed(false)
+                userPreferences.powerOptimizationDisableAllowed = false
             }
             .setNegativeButton(R.string.power_allow_retry) { _, _ ->
                 showPowerOptimizationDisablePrompt()  // ask again
@@ -208,7 +208,7 @@ class MainActivity : AppCompatActivity() {
             REQUEST_CODE_POWER_OPTIMIZATION_DISABLE -> {
                 resolutionViewModel.requestActivityInProgress = false
                 if (resultCode == RESULT_OK) {
-                    appStateRepository.setPowerOptimizationDisableAllowed(true)
+                    userPreferences.powerOptimizationDisableAllowed = true
                 }
                 else {
                     showPowerOptimizationDisableDenyConfirm()
