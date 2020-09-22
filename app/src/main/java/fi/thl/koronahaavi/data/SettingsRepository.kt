@@ -5,6 +5,7 @@ import android.util.Base64
 import com.squareup.moshi.Moshi
 import fi.thl.koronahaavi.service.AppConfiguration
 import fi.thl.koronahaavi.service.ExposureConfigurationData
+import timber.log.Timber
 import java.security.SecureRandom
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -25,16 +26,16 @@ class SettingsRepository @Inject constructor (
     var appConfiguration: AppConfiguration
         private set
 
-    var exposureConfiguration: ExposureConfigurationData?
-        private set
+    private var exposureConfiguration: ExposureConfigurationData? = null
 
     init {
         appConfiguration = defaultAppConfig
-        exposureConfiguration = loadExposureConfig()
     }
 
     fun requireExposureConfiguration() : ExposureConfigurationData =
-        exposureConfiguration ?: throw Exception("exposure configuration not available")
+        exposureConfiguration ?:
+        loadExposureConfig() ?:
+        throw Exception("exposure configuration not available")
 
     fun updateExposureConfiguration(config: ExposureConfigurationData) {
         saveExposureConfig(config)
@@ -50,6 +51,7 @@ class SettingsRepository @Inject constructor (
 
     private fun loadExposureConfig() =
         prefs.getString(EXPOSURE_CONFIG_KEY, null)?.let {
+            Timber.d("loading exposure config from prefs")
             exposureConfigAdapter().fromJson(it)
         }
 
