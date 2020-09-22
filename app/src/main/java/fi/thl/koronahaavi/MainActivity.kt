@@ -1,25 +1,31 @@
 package fi.thl.koronahaavi
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.content.Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY
-import android.content.res.Configuration
+import android.net.Uri
 import android.os.Bundle
+import android.provider.Settings.ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS
 import android.view.View
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupWithNavController
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import fi.thl.koronahaavi.common.RequestResolutionViewModel
 import fi.thl.koronahaavi.common.withSavedLanguage
 import fi.thl.koronahaavi.data.AppStateRepository
 import fi.thl.koronahaavi.databinding.ActivityMainBinding
+import fi.thl.koronahaavi.device.DeviceStateRepository
 import fi.thl.koronahaavi.service.ExposureNotificationService
 import fi.thl.koronahaavi.service.WorkDispatcher
+import fi.thl.koronahaavi.settings.UserPreferences
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -29,8 +35,14 @@ class MainActivity : AppCompatActivity() {
     @Inject lateinit var appStateRepository: AppStateRepository
     @Inject lateinit var exposureNotificationService: ExposureNotificationService
     @Inject lateinit var workDispatcher: WorkDispatcher
+    @Inject lateinit var deviceStateRepository: DeviceStateRepository
+    @Inject lateinit var userPreferences: UserPreferences
 
     private val resolutionViewModel by viewModels<RequestResolutionViewModel>()
+
+    // keep prompt visibility state here since if its cleared on activity recreate
+    // we would just show the dialog again
+    private var powerOptimizationDialog: AlertDialog? = null
 
     private val navController by lazy {
         (supportFragmentManager.findFragmentById(R.id.fragment_main_nav_host) as NavHostFragment)
@@ -75,6 +87,13 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+
+        // avoid WindowLeaked error if dialog was visible during config change
+        powerOptimizationDialog?.dismiss()
+    }
+
     override fun onNewIntent(intent: Intent?) {
         super.onNewIntent(intent)
         checkViewIntent(intent)
@@ -112,11 +131,68 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onStart() {
+        super.onStart()
+
+        if (shouldRequestPowerOptimizationDisable()) {
+            showPowerOptimizationDisableRationale()
+        }
+    }
+
+    private fun shouldRequestPowerOptimizationDisable() =
+        !deviceStateRepository.isPowerOptimizationsDisabled() &&
+        userPreferences.powerOptimizationDisableAllowed != false &&  // do not prompt if user denied before
+        !isPowerOptimizationRequestInProgress()
+
+    /**
+     * Request is considered to be in progress if either a rationale or deny confirm dialog is showing
+     * or play service permission dialog activity was started
+     */
+    private fun isPowerOptimizationRequestInProgress() =
+        powerOptimizationDialog?.isShowing == true || resolutionViewModel.requestActivityInProgress
+
+    private fun showPowerOptimizationDisableRationale() {
+        powerOptimizationDialog = MaterialAlertDialogBuilder(this)
+            .setTitle(R.string.power_rationale_title)
+            .setMessage(R.string.power_rationale_message)
+            .setPositiveButton(R.string.all_allow) { _, _ ->
+                showPowerOptimizationDisablePrompt()
+            }
+            .setNegativeButton(R.string.all_deny) { _, _ ->
+                showPowerOptimizationDisableDenyConfirm()
+            }
+            .setCancelable(false) // dont close on back or when clicking outside dialog
+            .show()
+    }
+
+    @SuppressLint("BatteryLife")
+    private fun showPowerOptimizationDisablePrompt() {
+        val intent = Intent(ACTION_REQUEST_IGNORE_BATTERY_OPTIMIZATIONS)
+            .setData(Uri.parse("package:$packageName"))
+
+        resolutionViewModel.requestActivityInProgress = true
+        startActivityForResult(intent, REQUEST_CODE_POWER_OPTIMIZATION_DISABLE)
+    }
+
+    private fun showPowerOptimizationDisableDenyConfirm() {
+        powerOptimizationDialog = MaterialAlertDialogBuilder(this)
+            .setTitle(R.string.power_deny_confirm_title)
+            .setMessage(R.string.power_deny_confirm_message)
+            .setPositiveButton(R.string.all_close) { _, _ ->
+                userPreferences.powerOptimizationDisableAllowed = false
+            }
+            .setNegativeButton(R.string.power_allow_retry) { _, _ ->
+                showPowerOptimizationDisablePrompt()  // ask again
+            }
+            .setCancelable(false)
+            .show()
+    }
+
     override fun onResume() {
         super.onResume()
+
         // EN enabled status needs to be queried when returning to the app since there
         // is no listener mechanism, and user could have disabled it in device settings
-
         lifecycleScope.launch { exposureNotificationService.refreshEnabledFlow() }
     }
 
@@ -127,7 +203,21 @@ class MainActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        resolutionViewModel.handleActivityResult(requestCode, resultCode)
+
+        when (requestCode) {
+            REQUEST_CODE_POWER_OPTIMIZATION_DISABLE -> {
+                resolutionViewModel.requestActivityInProgress = false
+                if (resultCode == RESULT_OK) {
+                    userPreferences.powerOptimizationDisableAllowed = true
+                }
+                else {
+                    showPowerOptimizationDisableDenyConfirm()
+                }
+            }
+            else -> {
+                resolutionViewModel.handleActivityResult(requestCode, resultCode)
+            }
+        }
     }
 
     private fun setupServices() {
@@ -139,5 +229,9 @@ class MainActivity : AppCompatActivity() {
         else {
             workDispatcher.scheduleWorkers()
         }
+    }
+
+    companion object {
+        const val REQUEST_CODE_POWER_OPTIMIZATION_DISABLE = 42
     }
 }

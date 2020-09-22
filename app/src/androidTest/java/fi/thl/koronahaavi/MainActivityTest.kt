@@ -24,6 +24,7 @@ import fi.thl.koronahaavi.di.DatabaseModule
 import fi.thl.koronahaavi.di.ExposureNotificationModule
 import fi.thl.koronahaavi.di.NetworkModule
 import fi.thl.koronahaavi.service.ExposureNotificationService
+import fi.thl.koronahaavi.settings.UserPreferences
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Rule
@@ -46,6 +47,9 @@ class MainActivityTest {
     @Inject
     lateinit var exposureNotificationService: ExposureNotificationService
 
+    @Inject
+    lateinit var userPreferences: UserPreferences
+
     @Before
     fun setup() {
         hiltRule.inject()
@@ -54,6 +58,9 @@ class MainActivityTest {
             InstrumentationRegistry.getInstrumentation().targetContext,
             Configuration.Builder().setExecutor(SynchronousExecutor()).build()
         )
+
+        // disable power disable prompts
+        userPreferences.powerOptimizationDisableAllowed = false
     }
 
     @Test
