@@ -23,18 +23,18 @@
             android:id="@+id/link_item_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constrainedWidth="true"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/link_item_link"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toStartOf="@id/link_item_value"
-            app:layout_constraintHorizontal_chainStyle="spread_inside"
-            app:layout_constraintHorizontal_bias="0"
             android:layout_marginEnd="10dp"
+            android:hyphenationFrequency="normal"
             android:text="@{label}"
             android:textAppearance="?attr/textAppearanceBody2"
-            tools:text="@tools:sample/lorem"
-            />
+            app:layout_constrainedWidth="true"
+            app:layout_constraintBottom_toTopOf="@id/link_item_link"
+            app:layout_constraintEnd_toStartOf="@id/link_item_value"
+            app:layout_constraintHorizontal_bias="0"
+            app:layout_constraintHorizontal_chainStyle="spread_inside"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="@tools:sample/lorem" />
 
         <TextView
             android:id="@+id/link_item_value"

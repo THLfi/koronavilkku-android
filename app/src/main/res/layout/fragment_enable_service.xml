@@ -20,11 +20,12 @@
                 android:layout_marginHorizontal="20dp">
 
                 <TextView
+                    style="@style/Widget.Vilkku.TextView.Critical"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
+                    android:hyphenationFrequency="normal"
                     android:text="@string/enable_title"
-                    style="@style/Widget.Vilkku.TextView.Critical"
                     android:textAppearance="?attr/textAppearanceHeadline2" />
 
                 <TextView
@@ -49,11 +50,12 @@
                 </com.google.android.material.card.MaterialCardView>
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="60dp"
+                    android:gravity="center_horizontal"
+                    android:hyphenationFrequency="normal"
                     android:text="@string/enable_note"
-                    android:layout_gravity="center_horizontal"
                     android:textAppearance="?attr/textAppearanceHeadline5" />
 
                 <com.google.android.material.button.MaterialButton

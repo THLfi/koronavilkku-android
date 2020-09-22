@@ -60,9 +60,9 @@
                             android:id="@+id/text_contact_evaluation_title"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:hyphenationFrequency="normal"
                             android:text="@string/contact_evaluation_title"
-                            android:textAppearance="?attr/textAppearanceHeadline2"
-                            />
+                            android:textAppearance="?attr/textAppearanceHeadline2" />
                         <TextView
                             android:id="@+id/text_contact_evaluation_body"
                             android:layout_width="0dp"

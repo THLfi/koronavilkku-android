@@ -62,13 +62,13 @@
 
     <string name="symptoms_title">Koronavirustaudin oirearvio</string>
     <string name="symptoms_info">Tee oirearvio Omaolo-palvelussa, jos epäilet saaneesi koronavirustartunnan. Saat vastaustesi perusteella lisäohjeita. Vastaaminen kestää noin 10 minuuttia.</string>
-    <string name="symptoms_link_title">Tee oirearvio Omaolo-\u200Bpalvelussa</string>
+    <string name="symptoms_link_title">Tee oirearvio Omaolo-palvelussa</string>
     <string name="symptoms_link">https://www.omaolo.fi/palvelut/oirearviot/649?lang=fi</string>
     <string name="symptoms_link_name">omaolo.fi</string>
 
     <string name="settings_title">Asetukset</string>
     <string name="settings_about_subtitle">Tietoa sovelluksesta</string>
-    <string name="settings_status_item">Altistumis\u200Bilmoitukset</string>
+    <string name="settings_status_item">Altistumis\u00ADilmoitukset</string>
     <string name="settings_status_on">Käytössä</string>
     <string name="settings_status_off">Ei käytössä</string>
     <string name="settings_status_locked">Lukittu</string>
@@ -94,7 +94,7 @@
     <string name="exposure_detail_message">Olet ollut viimeisten 14 vuorokauden aikana lähellä henkilöä, joka on ilmoittanut koronatartunnasta Koronavilkun kautta.</string>
     <string name="exposure_detail_disclaimer">Arvio altistumisesta perustuu Koronavilkun keräämiin kohtaamistietoihin viimeisten 14 vuorokauden ajalta. Altistumisen voimakkuutta ei voida täsmällisesti arvioida.</string>
 
-    <string name="exposure_detail_contact_title">Ota yhteyttä terveydenhuoltoon</string>
+    <string name="exposure_detail_contact_title">Ota yhteyttä terveyden\u00ADhuoltoon</string>
     <string name="exposure_detail_contact_subtitle">Tieto mahdollisesta altistumisestasi välittyy terveydenhuoltoon vain, jos otat itse yhteyttä.</string>
     <string name="exposure_detail_contact_start">Ota yhteyttä</string>
 
@@ -141,23 +141,23 @@
 
     <string name="guide_button_back">Palaa takaisin</string>
 
-    <string name="disable_title">COVID-19-\u200Baltistumis\u200Bilmoitukset käytössä</string>
+    <string name="disable_title">COVID-19-altistumis\u00ADilmoitukset käytössä</string>
     <string name="disable_subtitle">Pitääkö sinun poistaa altistumisilmoitukset käytöstä?</string>
     <string name="disable_body">Joissakin tilanteissa voi olla tarpeen väliaikaisesti poistaa altistumisilmoitukset käytöstä. Näin voi olla esimerkiksi silloin, jos olet terveydenhuollon ammattilainen etkä halua käyttää sovellusta työpaikallasi.\n\nJos otat altistumisilmoitukset pois käytöstä, sovellus ei toimi.</string>
     <string name="disable_note">Terveydestäsi ja läheistesi terveydestä huolehtimiseksi on suositeltavaa, että otat altistumisilmoitukset pois käytöstä vain silloin, jos se on todella tarpeellista. Muistathan ottaa ne uudelleen käyttöön heti kun mahdollista.</string>
-    <string name="disable_turn_off_note">Poista COVID-19-\u200Baltistumisilmoitukset käytöstä</string>
+    <string name="disable_turn_off_note">Poista COVID-19-altistumis\u00ADilmoitukset käytöstä</string>
     <string name="disable_button_turn_off">Poista käytöstä</string>
 
     <string name="disable_confirm_title">Oletko varma, että haluat poistaa käytöstä?</string>
     <string name="disable_confirm_message">Jos poistat altistusilmoitukset käytöstä, Koronavilkku ei voi ilmoittaa sinulle mahdollisesta altistumisesta koronavirukselle.</string>
 
-    <string name="enable_title">COVID-19-\u200Baltistumis\u200Bilmoitukset eivät ole käytössä</string>
+    <string name="enable_title">COVID-19-altistumis\u00ADilmoitukset eivät ole käytössä</string>
 
     <string name="enable_body">Koska altistumisilmoitukset eivät ole käytössä, Koronavilkku ei tällä hetkellä seuraa lähelläsi olevia puhelimia.</string>
     <string name="enable_alert">"Terveydestäsi ja läheistesi terveydestä huolehtimiseksi on suositeltavaa, että otat altistumisilmoitukset käyttöön heti kun mahdollista. "</string>
-    <string name="enable_note">Ota COVID-19-altistumisilmoitukset käyttöön</string>
+    <string name="enable_note">Ota COVID-19-altistumis\u00ADilmoitukset käyttöön</string>
 
-    <string name="enable_err_title">Altistumisilmoitusten käynnistys epäonnistui</string>
+    <string name="enable_err_title">Altistumis\u00ADilmoitusten käynnistys epäonnistui</string>
     <string name="enable_err_missing_capability">Laitteesi ei ole tuettu</string>
     <string name="enable_err_api_not_supported">Valitettavasti Google Play Palveluiden altistumisilmoitukset eivät ole saatavilla laitteessasi.\n\n%s</string>
     <string name="enable_err_not_owner">Olet kirjautunut laitteeseen käyttäjäprofiililla, joka ei ole laitteen omistaja. Koronavilkku toimii vain laitteen omistajan käyttäjäprofiililla.\n\nVoit vaihtaa profiilia pyyhkäisemällä kahdella sormella aloitusnäytön yläreunasta. Paina sitten Vaihda käyttäjää -painiketta.</string>
@@ -191,7 +191,7 @@
     <string name="accept_terms_button_enable">Aloita käyttö</string>
     <string name="accept_terms_scroll">Vieritä alas</string>
 
-    <string name="en_blocked_title">Altistumis\u200Bilmoitukset eivät ole käytössä</string>
+    <string name="en_blocked_title">Altistumis\u00ADilmoitukset eivät ole käytössä</string>
     <string name="en_blocked_body">Koronavilkku ei toimi, jos et ota käyttöön puhelimesi käyttöjärjestelmän altistumisilmoituksia. Ota ilmoitukset käyttöön alla olevasta painikkeesta ja hyväksy käyttöönotto.</string>
     <string name="en_blocked_location">Joissakin Android-puhelimissa altistumisilmoitukset vaativat lisäksi sijaintiasetuksen käyttöönoton. Sijaintiasi ei kuitenkaan tallenneta.</string>
     <string name="en_blocked_button_label">Ota käyttöön</string>
@@ -210,9 +210,9 @@
     <string name="info_icon">Info</string>
 
     <string name="pre_web_contact_title_evaluation">Omaolon oirearvio</string>
-    <string name="pre_web_contact_title_no_evaluation">Lähetä yhteydenottopyyntö</string>
+    <string name="pre_web_contact_title_no_evaluation">Lähetä yhteydenotto\u00ADpyyntö</string>
     <string name="pre_web_contact_body_evaluation">Voit tehdä oirearvion alla olevilla kielillä. Valitse kieli. Tämän jälkeen siirryt Omaolo.fi-verkkopalveluun. Oirearvion tekemiseen kuluu noin 5–10 minuuttia.</string>
-    <string name="pre_web_contact_body_no_evaluation">Jos olet oireeton, voit lähettää yhteydenottopyynnön Omaolo.fi-verkkopalvelussa. Valitse asiointikieli. Tämän jälkeen siirryt Omaolo.fi-verkkopalveluun.</string>
+    <string name="pre_web_contact_body_no_evaluation">Jos olet oireeton, voit lähettää yhteydenotto\u00ADpyynnön Omaolo.fi-verkkopalvelussa. Valitse asiointikieli. Tämän jälkeen siirryt Omaolo.fi-verkkopalveluun.</string>
     <string name="pre_web_contact_title">Valitse asiointikieli</string>
 
     <string name="omaolo_link_failed_title">Omaoloa ei voida avata</string>
