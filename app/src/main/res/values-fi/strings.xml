@@ -15,7 +15,7 @@
     <string name="diagnosis_body2">Syötä avauskoodi sillä puhelimella, jota yleensä pidät mukanasi.</string>
     <string name="diagnosis_page_title">Ilmoita tartunnastasi</string>
     <string name="diagnosis_start">Ilmoita tartunnasta</string>
-    <string name="diagnosis_en_disabled">Altistumisilmoitusten tulee olla päällä jotta voit ilmoittaa tartunnasta. Palaa koti-näkymään jossa voit laittaa ne päälle.</string>
+    <string name="diagnosis_en_disabled">Altistumisilmoitusten täytyy olla päällä, jotta voit ilmoittaa tartunnasta. Palaa Koti-näkymään, jossa voit laittaa ne päälle.</string>
 
     <string name="diagnosis_locked_title">Olet jo ilmoittanut tartunnasta</string>
     <string name="diagnosis_locked_body1">Ilmoittamasi tiedot auttavat koronavirusepidemian taltuttamisessa. Sovellus on nyt lukittu eikä enää kerää tietoja kohtaamisista. Pikaista paranemista!</string>
@@ -54,7 +54,7 @@
     <string name="home_status_system_locked">Koronavilkku lukittu</string>
 
     <string name="home_symptom_sub_label">Tee koronavirustaudin oirearvio</string>
-    <string name="home_app_guide">Näin sovellus toimii</string>
+    <string name="home_app_guide">Tietoa sovelluksesta</string>
 
     <string name="home_status_disabled_explained">Ota altistumisilmoitukset uudelleen käyttöön.</string>
     <string name="home_status_enabled_explained">Sovellus toimii, vaikka suljet sen.</string>
@@ -103,7 +103,7 @@
     <string name="exposure_detail_message_none">Koronavilkku ei ole havainnut altistumista koronavirukselle viimeisten 14 päivän aikana.</string>
     <string name="exposure_detail_disclaimer_none">Sovellus ei kuitenkaan tunnista kaikkia mahdollisia altistumistilanteita.</string>
     <string name="exposure_detail_last_check">Tarkistettu viimeksi %1$s klo %2$s</string>
-    <string name="exposure_detail_no_last_check">Tarkistusta ei vielä tehty</string>
+    <string name="exposure_detail_no_last_check">Altistumistietoja ei ole vielä tarkistettu</string>
 
     <string name="exposure_detail_instructions_title">Noudata näitä ohjeita huolellisesti seuraavan kahden viikon ajan:</string>
     <string name="exposure_detail_instructions_1">Ota mahdollisimman pian yhteyttä kuntasi terveydenhuoltoon ja hakeudu testiin, jos sinulla ilmenee yksikin näistä koronavirustautiin sopivista oireista:</string>
@@ -185,9 +185,9 @@
     <string name="accept_terms_voluntary_title">Käyttö on vapaaehtoista</string>
     <string name="accept_terms_voluntary_text">Koronavilkun käyttö ei ole pakollista. Voit milloin tahansa lopettaa käytön poistamalla sovelluksen puhelimestasi.</string>
 
-    <string name="accept_terms_tos_text">Olen lukenut ja hyväksynyt palvelun käyttöehdot</string>
+    <string name="accept_terms_tos_text">Olen lukenut ja hyväksynyt palvelun käyttöehdot.</string>
     <string name="accept_terms_tos_link_text">Lue käyttöehdot</string>
-    <string name="accept_terms_activation_text">Otan sovelluksen vapaaehtoisesti käyttööni</string>
+    <string name="accept_terms_activation_text">Otan sovelluksen vapaaehtoisesti käyttööni.</string>
     <string name="accept_terms_button_enable">Aloita käyttö</string>
     <string name="accept_terms_scroll">Vieritä alas</string>
 
@@ -218,7 +218,7 @@
     <string name="omaolo_link_failed_title">Omaoloa ei voida avata</string>
     <string name="omaolo_link_failed_message">Koronavilkku ei voi ohjata sinua Omaolo-palveluun, koska puhelimessasi ei ole selainta tai sen käyttö on estetty. Ole hyvä ja ota yhteys terveydenhuoltoon puhelimitse.</string>
 
-    <string name="municipality_load_failed">Kuntatietojen lataus epäonnistui. Tarkista verkkoyhteys ja yritä uudelleen.</string>
+    <string name="municipality_load_failed">Kuntatietojen lataaminen ei onnistunut. Tarkista verkkoyhteys ja yritä uudelleen.</string>
     <string name="municipality_retry_load">Yritä uudelleen</string>
 
     <string name="select_language_title">Vaihda sovelluksen kieli</string>
