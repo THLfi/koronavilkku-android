@@ -15,6 +15,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - Show specific error messages during onboarding if user is not the device owner
+- Retry encrypted shared preferences operations in case of decryption failures 
+- UI text updates
 
 ### Fixed
 - Show an error message if device does not have a web browser app
