@@ -9,13 +9,14 @@ import javax.inject.Singleton
 
 // Wrapper for accessing user preferences. Uses a standard non-encrypted SharedPreferences as
 // the encrypted version can be problematic in some cases.
-@Singleton
-class UserPreferences @Inject constructor (@ApplicationContext context: Context) {
-
+class UserPreferences(
+    context: Context,
+    preferencesName: String = "fi.thl.koronavilkku.user_prefs"
+) {
     private val keyLanguage = "language"
     private val keyPowerOptimizationDisabled = "power_optimization_disabled"
 
-    private val prefs = context.getSharedPreferences("fi.thl.koronavilkku.user_prefs", Context.MODE_PRIVATE)
+    private val prefs = context.getSharedPreferences(preferencesName, Context.MODE_PRIVATE)
 
     var language: String?
         get() = prefs.getString(keyLanguage, null)

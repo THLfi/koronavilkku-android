@@ -18,6 +18,7 @@ import fi.thl.koronahaavi.data.ExposureDao
 import fi.thl.koronahaavi.data.ExposureRepository
 import fi.thl.koronahaavi.data.KeyGroupTokenDao
 import fi.thl.koronahaavi.service.UserAgentInterceptor
+import fi.thl.koronahaavi.settings.UserPreferences
 import okhttp3.CertificatePinner
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -35,6 +36,12 @@ annotation class DatabaseName
 object AppModule {
 
     const val SHARED_PREFERENCES_NAME = "fi.thl.koronavilkku.prefs"
+
+    @Singleton
+    @Provides
+    fun provideUserPreferences(@ApplicationContext context: Context): UserPreferences {
+        return UserPreferences(context)
+    }
 
     @Singleton
     @Provides
