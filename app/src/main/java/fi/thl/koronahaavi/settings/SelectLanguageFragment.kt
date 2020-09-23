@@ -11,13 +11,16 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint
 import fi.thl.koronahaavi.R
-import fi.thl.koronahaavi.common.getSavedLanguage
-import fi.thl.koronahaavi.common.setSavedLanguage
+import fi.thl.koronahaavi.common.changeLanguage
 import fi.thl.koronahaavi.databinding.FragmentSelectLanguageBinding
 import fi.thl.koronahaavi.onboarding.OnboardingActivity
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class SelectLanguageFragment: Fragment() {
+
+    @Inject
+    lateinit var userPreferences: UserPreferences
 
     private lateinit var binding: FragmentSelectLanguageBinding
 
@@ -42,7 +45,7 @@ class SelectLanguageFragment: Fragment() {
             Pair(null, binding.selectLanguageItemSystemDefault)
         )
 
-        val currentlySelected = requireContext().getSavedLanguage()
+        val currentlySelected = userPreferences.language
 
         supportedLanguages.forEach { pair ->
             val indicator = pair.second.linkItemCard.findViewById<ImageView>(R.id.link_item_indicator)
@@ -64,7 +67,7 @@ class SelectLanguageFragment: Fragment() {
 
     private fun selectLanguage(language: String?) {
         activity?.apply {
-            setSavedLanguage(language)
+            userPreferences.changeLanguage(language)
 
             if (activity is OnboardingActivity) {
                 findNavController().popBackStack()

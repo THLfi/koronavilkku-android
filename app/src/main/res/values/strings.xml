@@ -12,6 +12,9 @@
     <string name="all_app_additional_info">More information about Koronavilkku</string>
     <string name="all_system_enable">Enable</string>
     <string name="all_ok">OK</string>
+    <string name="all_allow">Allow</string>
+    <string name="all_deny">Deny</string>
+    <string name="all_close">Close</string>
 
     <string name="diagnosis_title">Report your infection</string>
     <string name="diagnosis_body1">If you are diagnosed with COVID-19 disease, you will receive a key code from a healthcare professional or a text message from the Finnish Institute for Health and Welfare. You can use the key code to anonymously share information about your infection.</string>
@@ -228,7 +231,7 @@
 
     <string name="pre_web_contact_title_evaluation">Omaolo symptom assessment</string>
     <string name="pre_web_contact_title_no_evaluation">Send a contact request</string>
-    <string name="pre_web_contact_body_evaluation">You can take the symptom assessment in the following languages. Select a language. You will then be taken to the Omaolo.fi web service. It takes approximately 5-10 minutes to take a symptom assessment.</string>
+    <string name="pre_web_contact_body_evaluation">You can take the symptom assessment in the following languages. Select a language. You will then be taken to the Omaolo.fi web service. It takes approximately 5–10 minutes to take a symptom assessment.</string>
     <string name="pre_web_contact_body_no_evaluation">If you don\'t have symptoms, you can send a contact request via the Omaolo.fi web service. Select the language for the service. You will then be taken to the Omaolo.fi web service.</string>
     <string name="pre_web_contact_title">Select language</string>
 
@@ -248,5 +251,12 @@
 
     <string name="open_link_failed_title">Web page cannot be opened</string>
     <string name="open_link_failed_message">Web page cannot be opened because your phone does not have an internet browser or its use has been blocked.</string>
+
+    <string name="power_rationale_title">Let Koronavilkku always run in the background?</string>
+    <string name="power_rationale_message">Koronavilkku can check if you have been exposed to COVID-19 even while the app is closed. This requires disabling battery life optimisation for Koronavilkku.\n\nThe impact on your phone\'s battery life is minimal.</string>
+
+    <string name="power_deny_confirm_title">Prioritised background activity disabled</string>
+    <string name="power_deny_confirm_message">If you don\'t allow Koronavilkku to always run in the background, we recommend opening Koronavilkku manually at least once a day.\n\nYou can change this setting at any time in your phone\'s Settings.</string>
+    <string name="power_allow_retry">Allow after all</string>
 
 </resources>

@@ -1,16 +1,17 @@
 package fi.thl.koronahaavi.common
 
 import android.content.Context
-import android.content.SharedPreferences
 import android.content.res.Resources
 import android.os.Build
+import fi.thl.koronahaavi.settings.UserPreferences
 import java.util.*
 
-private const val PREF_KEY_LANGUAGE = "language"
-private const val SHARED_PREFERENCES_NAME = "fi.thl.koronavilkku.language_prefs"
-
+/**
+ * Use this function from attachBaseContext(). Injection doesn't seem to work in
+ * attachBaseContext so create a separate instance to access the language setting.
+ */
 fun Context.withSavedLanguage(): Context {
-    return withLanguage(getSavedLanguage())
+    return withLanguage(UserPreferences(this).language)
 }
 
 fun Context.withLanguage(language: String?): Context {
@@ -29,11 +30,7 @@ fun Context.withLanguage(language: String?): Context {
     return createConfigurationContext(cfg)
 }
 
-fun Context.getSavedLanguage(): String? {
-    return languagePreferences().getString(PREF_KEY_LANGUAGE, null)
-}
-
-fun Context.setSavedLanguage(language: String?) {
+fun UserPreferences.changeLanguage(language: String?) {
 
     if (language == null) {
         // Restore system primary locale as Context.withSavedLanguage() doesn't do anything
@@ -42,15 +39,7 @@ fun Context.setSavedLanguage(language: String?) {
         Locale.setDefault(Resources.getSystem().primaryLocale())
     }
 
-    languagePreferences().edit()
-        .putString(PREF_KEY_LANGUAGE, language)
-        .apply()
-}
-
-private fun Context.languagePreferences(): SharedPreferences {
-    // No encryption is needed for language preference, and not sure if SettingsRepository could
-    // be accessed early enough (attachBaseContext) => use a separate SharedPreferences.
-    return getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE)
+    this.language = language
 }
 
 fun Resources.primaryLocale(): Locale {
