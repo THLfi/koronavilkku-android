@@ -3,6 +3,7 @@ package fi.thl.koronahaavi.data
 import kotlinx.coroutines.flow.Flow
 
 interface ExposureRepository {
+    suspend fun getAllKeyGroupTokens(): List<KeyGroupToken>
     suspend fun saveKeyGroupToken(token: KeyGroupToken)
     fun flowHandledKeyGroupTokens(): Flow<List<KeyGroupToken>>
     suspend fun deleteKeyGroupToken(token: KeyGroupToken)

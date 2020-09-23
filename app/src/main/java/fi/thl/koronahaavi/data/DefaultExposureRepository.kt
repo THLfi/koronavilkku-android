@@ -8,6 +8,9 @@ class DefaultExposureRepository (
     private val exposureDao: ExposureDao
 ) : ExposureRepository {
 
+    override suspend fun getAllKeyGroupTokens(): List<KeyGroupToken>
+            = keyGroupTokenDao.getAll()
+
     override suspend fun saveKeyGroupToken(token: KeyGroupToken)
             = keyGroupTokenDao.insert(token)
 

@@ -6,6 +6,9 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface KeyGroupTokenDao {
 
+    @Query("SELECT * FROM key_group_token")
+    suspend fun getAll(): List<KeyGroupToken>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insert(token: KeyGroupToken)
 
