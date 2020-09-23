@@ -48,8 +48,6 @@
                     android:hyphenationFrequency="normal"
                     android:text="@{model.startEvaluation ? @string/pre_web_contact_title_evaluation : @string/pre_web_contact_title_no_evaluation}"
                     android:textAppearance="?attr/textAppearanceHeadline2"
-                    tools:layout_editor_absoluteX="20dp"
-                    tools:layout_editor_absoluteY="20dp"
                     tools:text="@string/pre_web_contact_title_evaluation" />
 
                 <TextView
@@ -60,8 +58,6 @@
                     android:paddingBottom="10dp"
                     android:text="@{model.startEvaluation ? @string/pre_web_contact_body_evaluation : @string/pre_web_contact_body_no_evaluation}"
                     android:textAppearance="?attr/textAppearanceBody1"
-                    tools:layout_editor_absoluteX="20dp"
-                    tools:layout_editor_absoluteY="74dp"
                     tools:text="@string/pre_web_contact_body_evaluation" />
 
                 <include
