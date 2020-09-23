@@ -130,8 +130,9 @@
                             android:id="@+id/text_exposure_detail_contact_title"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:hyphenationFrequency="normal"
                             android:text="@string/exposure_detail_contact_title"
-                            android:textAppearance="?attr/textAppearanceHeadline2"/>
+                            android:textAppearance="?attr/textAppearanceHeadline2" />
 
                         <TextView
                             android:id="@+id/text_exposure_detail_contact_subtitle"

@@ -24,6 +24,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
+                    android:hyphenationFrequency="normal"
                     android:text="@string/disable_title"
                     android:textAppearance="?attr/textAppearanceHeadline2" />
 
@@ -31,6 +32,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
+                    android:hyphenationFrequency="normal"
                     android:text="@string/disable_subtitle"
                     android:textAppearance="?attr/textAppearanceHeadline4" />
 
@@ -59,8 +61,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="30dp"
-                    android:text="@string/disable_turn_off_note"
                     android:gravity="center_horizontal"
+                    android:hyphenationFrequency="normal"
+                    android:text="@string/disable_turn_off_note"
                     android:textAppearance="?attr/textAppearanceHeadline5" />
 
                 <com.google.android.material.button.MaterialButton

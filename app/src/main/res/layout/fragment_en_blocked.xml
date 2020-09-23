@@ -35,8 +35,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/view_margin_top"
-                    android:textAppearance="?attr/textAppearanceHeadline1"
-                    android:text="@string/en_blocked_title"/>
+                    android:hyphenationFrequency="normal"
+                    android:text="@string/en_blocked_title"
+                    android:textAppearance="?attr/textAppearanceHeadline1" />
 
                 <TextView
                     android:layout_width="match_parent"
