@@ -17,7 +17,7 @@
     <string name="all_close">Close</string>
 
     <string name="diagnosis_title">Report your infection</string>
-    <string name="diagnosis_body1">If you are diagnosed with COVID-19 disease, you will receive a key code from a healthcare professional or a text message from the Finnish Institute for Health and Welfare. You can use the key code to anonymously share information about your infection.</string>
+    <string name="diagnosis_body1">If you are diagnosed with COVID-19, you will receive a key code from a healthcare professional or a text message from the Finnish Institute for Health and Welfare. You can use the key code to anonymously share information about your infection.</string>
     <string name="diagnosis_body2">Enter the key code on the phone you usually carry with you.</string>
     <string name="diagnosis_page_title">Report your infection</string>
     <string name="diagnosis_start">Report infection</string>
@@ -33,7 +33,7 @@
 
     <string name="code_entry_title">Enter key code</string>
     <string name="code_entry_invalid">The key code is invalid or has expired. Please check that you have entered the exact code you received.</string>
-    <string name="code_entry_submit_failed">Failed to report infection because the server cannot be accessed. Please check your internet connection and try again.</string>
+    <string name="code_entry_submit_failed">Failed to report infection because the server cannot be reached. Please check your internet connection and try again.</string>
     <string name="code_entry_en_disabled">Exposure notifications must be turned on in order to report an infection. Return to the Home view and enable them there.</string>
     <string name="code_entry_info">The key code does not reveal your identity.</string>
 
@@ -66,7 +66,7 @@
     <string name="home_status_enabled_explained">The app works even if you close it.</string>
     <string name="home_status_locked_explained">Thank you for reporting your infection. The app will no longer collect information about encounters. We wish you a quick recovery!</string>
 
-    <string name="symptoms_title">COVID-19 disease symptom assessment</string>
+    <string name="symptoms_title">COVID-19 symptom assessment</string>
     <string name="symptoms_info">If you suspect that you have COVID-19, take an online COVID-19 symptom assessment in the Omaolo service. You will receive additional instructions based on your answers. It takes approximately 10 minutes to complete the assessment.</string>
     <string name="symptoms_link_title">Take a symptom assessment in the Omaolo service</string>
     <string name="symptoms_link">https://www.omaolo.fi/palvelut/oirearviot/649?lang=en</string>
@@ -111,7 +111,8 @@
     <string name="exposure_detail_no_last_check">No checks yet</string>
 
     <string name="exposure_detail_instructions_title">Follow these instructions carefully during the next two weeks:</string>
-    <string name="exposure_detail_instructions_1">If you develop any of the following symptoms consistent with COVID-19 disease, contact your municipal healthcare services and get tested as soon as possible:</string>
+    <string name="exposure_detail_instructions_1">If you develop any of the following symptoms consistent with COVID-19, contact your municipal healthcare services and get tested as soon as possible:</string>
+    <string name="exposure_detail_contact_instructions_1">Contact your municipal healthcare services as soon as possible and get tested if you experience any of the following symptoms consistent with COVID-19:</string>
     <string name="exposure_detail_instructions_1_sublist">- change in sense of smell or taste\n- shortness of breath\n- cough, sore throat or runny nose\n- fever\n- headaches or muscle pain\n- unexplained diarrhoea or abdominal pain.</string>
     <string name="exposure_detail_instructions_2">Avoid meeting other people.</string>
     <string name="exposure_detail_instructions_3">Maintain good hand hygiene.</string>
@@ -121,7 +122,7 @@
     <string name="exposure_detail_instructions_7">Work remotely if possible.</string>
 
     <string name="guide_title">"About Koronavilkku "</string>
-    <string name="guide_p1_text">Koronavilkku is an application produced by the Finnish Institute for Health and Welfare that informs you if it estimates that you may have been exposed to the coronavirus. If you are diagnosed with COVID-19 disease, you can report this anonymously using the app. Your privacy is strongly protected.</string>
+    <string name="guide_p1_text">Koronavilkku is an application produced by the Finnish Institute for Health and Welfare that informs you if it estimates that you may have been exposed to the coronavirus. If you are diagnosed with COVID-19, you can report this anonymously using the app. Your privacy is strongly protected.</string>
 
     <string name="guide_code_title">Each phone receives a random code</string>
     <string name="guide_code_text">The application generates an ID code for each phone. The code is random and changes several times an hour to ensure your privacy. The ID code does not contain information about you or your phone.</string>

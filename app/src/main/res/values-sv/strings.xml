@@ -57,7 +57,7 @@
     <string name="home_status_system_locked">Coronablinkern är låst</string>
 
     <string name="home_symptom_sub_label">Gör en symtombedömning</string>
-    <string name="home_app_guide">Så här fungerar appen</string>
+    <string name="home_app_guide">Om Coronablinkern</string>
 
     <string name="home_status_disabled_explained">Koppla på exponeringsmeddelandena på nytt.</string>
     <string name="home_status_enabled_explained">Appen fungerar även om du stänger den.</string>
@@ -109,6 +109,7 @@
 
     <string name="exposure_detail_instructions_title">Iaktta dessa anvisningar noggrant i två veckors tid:</string>
     <string name="exposure_detail_instructions_1">Ta så snabbt som möjligt kontakt med hälso- och sjukvården i din kommun och ta ett test, även om du bara har ett av dessa symtom som passar in på coronavirusinfektionen:</string>
+    <string name="exposure_detail_contact_instructions_1">Ta så snabbt som möjligt kontakt med hälso- och sjukvården i din kommun och ta ett test, även om du bara har ett av dessa symtom som passar in på coronavirusinfektionen:</string>
     <string name="exposure_detail_instructions_1_sublist">- nedsatt lukt- och smaksinne\n- andningssvårighet\n- hosta, halsont eller snuva\n- feber\n- huvudvärk eller muskelvärk\n- diarré eller magont utan annan uppenbar orsak.</string>
     <string name="exposure_detail_instructions_2">Undvik att träffa människor.</string>
     <string name="exposure_detail_instructions_3">Var noggrann med din handhygien.</string>
@@ -217,8 +218,8 @@
     <string name="pre_web_contact_body_no_evaluation">Om du är symtomfri, kan du skicka en begäran till nättjänsten Omaolo.fi att du vill bli kontaktad. Välj kontaktspråk. Efter det här överförs du till nättjänsten Omaolo.fi.</string>
     <string name="pre_web_contact_title">Välj kontaktspråk</string>
 
-    <string name="omaolo_link_failed_title">Omaoloa ei voitu avata</string>
-    <string name="omaolo_link_failed_message">Koronavilkku ei voinut ohjata sinua Omaolo-palveluun, sillä verkkoselainta ei voitu käynnistää. Laitteellasi ei ole selainohjelmaa tai sen käyttö on estetty. Ole hyvä ja ota yhteys terveydenhuoltoon puhelimitse.</string>
+    <string name="omaolo_link_failed_title">Omaolo kan inte öppnas</string>
+    <string name="omaolo_link_failed_message">Coronablinkern kan inte öppna Omaolo-tjänsten eftersom din telefon inte har en webbläsare eller webbläsaren är blockerad. Kontakta din vårdgivare per telefon.</string>
 
     <string name="municipality_load_failed">Det gick inte att ladda kommunuppgifterna. Kontrollera anslutningen och försök på nytt.</string>
     <string name="municipality_retry_load">Försök på nytt</string>
@@ -227,14 +228,14 @@
     <string name="select_language_item_system_default">Enhetens standard</string>
     <string name="select_language_item_selected_description">Vald</string>
 
-    <string name="open_link_failed_title">Länken kunde inte öppnas</string>
-    <string name="open_link_failed_message">Länken kunde inte öppnas</string>
+    <string name="open_link_failed_title">Webbsidan kan inte öppnas</string>
+    <string name="open_link_failed_message">Webbsidan kan inte öppnas eftersom din telefon inte har en webbläsare eller om webbläsaren är blockerad.</string>
 
     <string name="power_rationale_title">Vill du att Coronablinkern alltid körs i bakgrunden?</string>
-    <string name="power_rationale_message">Detta gör det möjligt för Coronablinkern, även när den är stängd, att kontrollera eventuell exponering för coronavirus. För att göra detta måste batterioptimering vara inaktiverad.\n\nEffekten på telefonens batteritid är inte signifikant.</string>
+    <string name="power_rationale_message">Detta gör det möjligt för Coronablinkern att kontrollera eventuell exponering för coronavirus även när den är stängd. Detta kräver att batterioptimering är inaktiverad för appen.\n\nEffekten på telefonens batteritid är obetydlig.</string>
 
     <string name="power_deny_confirm_title">Du förbjöd att köra Coronablinkern i bakgrunden</string>
-    <string name="power_deny_confirm_message">Om du inte tillåter att Coronablinkern körs i bakgrunden rekommenderar vi att du öppnar appen minst en gång om dagen.\n\nDu kan ändra ditt val när som helst i Inställningar på din telefon.</string>
+    <string name="power_deny_confirm_message">Om du inte tillåter att Coronablinkern körs i bakgrunden rekommenderar vi att du öppnar appen minst en gång om dagen.\n\nDu kan ändra ditt val när som helst i telefonens inställningar.</string>
     <string name="power_allow_retry">Tillåt</string>
 
 </resources>
