@@ -17,7 +17,7 @@
     <string name="diagnosis_body1">Om du har testats och konstaterats ha coronavirusinfektion får du en startkod från hälso- och sjukvården eller med ett textmeddelande från THL. Med startkoden kan du anonymt förmedla information om din smitta.</string>
     <string name="diagnosis_body2">Ange startkoden med den telefon som du vanligtvis har med dig.</string>
     <string name="diagnosis_page_title">Meddela om din smitta</string>
-    <string name="diagnosis_start">Meddela om smitta</string>
+    <string name="diagnosis_code_entry">Ange startkod</string>
     <string name="diagnosis_en_disabled">Exponeringsmeddelandena ska vara påkopplade för att du ska kunna meddela att du bär smitta. Gå tillbaka till hemsidan där du kan koppla på dem.</string>
 
     <string name="diagnosis_locked_title">Du har redan meddelat att du blivit smittad</string>
@@ -29,6 +29,7 @@
     <string name="diagnosis_instructions_3">Informationen uppmanar mottagarna att undvika kontakter, att i tid lägga märke till symtom som passar in på infektionen och att vid behov ta ett test. På det här sättet kan smittospridning undvikas.</string>
 
     <string name="code_entry_title">Ange din startkod</string>
+    <string name="code_entry_submit">Meddela om smitta</string>
     <string name="code_entry_invalid">Startkoden är ogiltig eller inte i kraft. Kontrollera att du har angett koden korrekt.</string>
     <string name="code_entry_submit_failed">Det gick inte att meddela om din smitta eftersom servern inte kunde nås. Försök igen om ett ögonblick.</string>
     <string name="code_entry_en_disabled">Exponeringsmeddelandena ska vara påkopplade för att du ska kunna meddela att du bär smitta. Gå tillbaka till hemsidan där du kan koppla på dem.</string>
@@ -104,16 +105,16 @@
 
     <string name="exposure_detail_message_none">Coronablinkern har inte observerat någon exponering för coronaviruset under de senaste 14 dagarna.</string>
     <string name="exposure_detail_disclaimer_none">Appen kan emellertid inte identifiera alla eventuella exponeringar.</string>
-    <string name="exposure_detail_last_check">Senast granskad %1$s kl. %2$s</string>
+    <string name="exposure_detail_last_check">Senast granskad %1$s kl %2$s</string>
     <string name="exposure_detail_no_last_check">Ingen kontroll ännu</string>
 
     <string name="exposure_detail_instructions_title">Iaktta dessa anvisningar noggrant i två veckors tid:</string>
     <string name="exposure_detail_instructions_1">Ta så snabbt som möjligt kontakt med hälso- och sjukvården i din kommun och ta ett test, även om du bara har ett av dessa symtom som passar in på coronavirusinfektionen:</string>
-    <string name="exposure_detail_contact_instructions_1">Ta så snabbt som möjligt kontakt med hälso- och sjukvården i din kommun och ta ett test, även om du bara har ett av dessa symtom som passar in på coronavirusinfektionen:</string>
+    <string name="exposure_detail_contact_instructions_1">Ta genast kontakt, om du har symtom som passar in på coronavirusinfektionen:</string>
     <string name="exposure_detail_instructions_1_sublist">- nedsatt lukt- och smaksinne\n- andningssvårighet\n- hosta, halsont eller snuva\n- feber\n- huvudvärk eller muskelvärk\n- diarré eller magont utan annan uppenbar orsak.</string>
     <string name="exposure_detail_instructions_2">Undvik att träffa människor.</string>
     <string name="exposure_detail_instructions_3">Var noggrann med din handhygien.</string>
-    <string name="exposure_detail_instructions_4">Undvik offentliga platser och kollektivtrafik. Om du är tvungen att vistas på offentliga platser ska du iaktta ett avstånd på minst två meter till andra människor. Om du inte kan hålla tillräckligt långt avstånd ska du använda mun- och nässkydd.</string>
+    <string name="exposure_detail_instructions_4">Undvik offentliga platser och kollektivtrafik. Om du är tvungen att vistas på offentliga platser ska du iaktta ett avstånd på minst två meter till andra människor. Om du inte kan hålla tillräckligt långt avstånd ska du använda ansiktsmask.</string>
     <string name="exposure_detail_instructions_5">Låt en annan person sköta dina matinköp och andra ärenden utanför hemmet, om möjligt.</string>
     <string name="exposure_detail_instructions_6">Om du hostar eller nyser ska du skydda din mun och näsa med en engångsnäsduk. Kasta den använda näsduken i soporna och tvätta dina händer med tvål och vatten eller använd handdesinficeringsmedel. Om du inte har en näsduk ska du hosta och nysa i ärmen.</string>
     <string name="exposure_detail_instructions_7">Arbeta på distans, om möjligt.</string>
@@ -185,13 +186,13 @@
     <string name="accept_terms_personal_text">Coronablinkern lagrar inte ditt namn, din födelsetid eller dina kontaktuppgifter. Den kan inte avslöja din identitet eller identiteten på personer du möter.\n\nAppen samlar inte in platsuppgifter.</string>
     <string name="accept_terms_usage_title">Användningsuppgifter som gäller appen</string>
     <string name="accept_terms_usage_text">Appen meddelar till en server att appen är påkopplad. Om du kontaktar hälso- och sjukvården via appen, förmedlar den dessutom information om huruvida du eventuellt blivit utsatt för viruset.\n\nAll datatrafik mellan Coronablinkern och servern är sekretessbelagda.\n\nInformationen lagras anonymt på en server som är belägen i Finland. Servern underhålls av myndigheter inom den offentliga förvaltningen. Uppgifterna avlägsnas då de inte längre behövs. Uppgifterna avlägsnas senast 31.3.2021.</string>
-    <string name="accept_terms_voluntary_title">Appen är inte oblikatorisk</string>
+    <string name="accept_terms_voluntary_title">Appen är inte obligatorisk</string>
     <string name="accept_terms_voluntary_text">Det är frivilligt att använda Coronablinkern. Du kan när som helst sluta använda appen genom att avlägsna den från telefonen.</string>
 
-    <string name="accept_terms_tos_text">Jag har läst och godkänner användningsvillkoren för tjänsten</string>
+    <string name="accept_terms_tos_text">Jag har läst och godkänner användningsvillkoren för tjänsten.</string>
     <string name="accept_terms_tos_link_text">Läs användningsvillkoren</string>
-    <string name="accept_terms_activation_text">Jag börjar frivilligt använda appen</string>
-    <string name="accept_terms_button_enable">Börja använd</string>
+    <string name="accept_terms_activation_text">Jag börjar frivilligt använda appen.</string>
+    <string name="accept_terms_button_enable">Börja använda</string>
     <string name="accept_terms_scroll">Scrolla ner</string>
 
     <string name="en_blocked_title">Exponerings\u00ADmeddelandena är bortkopplade</string>

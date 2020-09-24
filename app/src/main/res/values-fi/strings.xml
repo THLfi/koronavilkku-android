@@ -17,7 +17,7 @@
     <string name="diagnosis_body1">Jos sinulla todetaan tartunta koronavirustestillä, saat avauskoodin terveydenhuollon ammattilaiselta tai tekstiviestillä THL:ltä. Avauskoodilla voit jakaa nimettömästi tiedon tartunnastasi.</string>
     <string name="diagnosis_body2">Syötä avauskoodi sillä puhelimella, jota yleensä pidät mukanasi.</string>
     <string name="diagnosis_page_title">Ilmoita tartunnastasi</string>
-    <string name="diagnosis_start">Ilmoita tartunnasta</string>
+    <string name="diagnosis_code_entry">Syötä avauskoodisi</string>
     <string name="diagnosis_en_disabled">Altistumisilmoitusten täytyy olla päällä, jotta voit ilmoittaa tartunnasta. Palaa Koti-näkymään, jossa voit laittaa ne päälle.</string>
 
     <string name="diagnosis_locked_title">Olet jo ilmoittanut tartunnasta</string>
@@ -29,6 +29,7 @@
     <string name="diagnosis_instructions_3">Tieto mahdollisesta altistumisesta kannustaa ilmoituksen saaneita pitämään etäisyyttä muihin, havaitsemaan tartuntaan sopivat oireet ajoissa ja tarvittaessa hakeutumaan testiin. Näin voidaan välttää uusia tartuntoja.</string>
 
     <string name="code_entry_title">Syötä avauskoodisi</string>
+    <string name="code_entry_submit">Ilmoita tartunnasta</string>
     <string name="code_entry_invalid">Avauskoodi on virheellinen tai sen voimassaolo on päättynyt. Tarkistathan, että olet syöttänyt koodin täsmälleen oikein.</string>
     <string name="code_entry_submit_failed">Tartunnasta ilmoittaminen epäonnistui, koska palvelimeen ei saada yhteyttä. Ole hyvä ja yritä hetken kuluttua uudelleen.</string>
     <string name="code_entry_en_disabled">Altistumisilmoitukset ovat pois päältä. Palaa koti-näkymään jossa voit laittaa ne päälle</string>

@@ -101,7 +101,7 @@
                 android:id="@+id/button_diagnosis_start"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:text="@string/code_entry_title"
+                android:text="@string/diagnosis_code_entry"
                 android:visibility="@{model.allowStart ? View.VISIBLE : View.GONE}"
                 />
             <fi.thl.koronahaavi.widget.BulletTextView
