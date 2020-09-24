@@ -2,7 +2,7 @@
     <string name="app_name">Coronablinkern</string>
 
     <string name="all_next">Nästa</string>
-    <string name="all_cancel">Ångra</string>
+    <string name="all_cancel">Avbryt</string>
     <string name="all_thl_image_description">Institutet för hälsa och välfärd</string>
     <string name="all_today">idag</string>
     <string name="all_yesterday">igår</string>
