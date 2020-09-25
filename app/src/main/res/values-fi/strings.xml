@@ -162,15 +162,15 @@
     <string name="enable_alert">"Terveydestäsi ja läheistesi terveydestä huolehtimiseksi on suositeltavaa, että otat altistumisilmoitukset käyttöön heti kun mahdollista. "</string>
     <string name="enable_note">Ota COVID-19-altistumis\u00ADilmoitukset käyttöön</string>
 
-    <string name="enable_err_title">Altistumis\u00ADilmoitusten käynnistys epäonnistui</string>
-    <string name="enable_err_missing_capability">Laitteesi ei ole tuettu</string>
-    <string name="enable_err_api_not_supported">Valitettavasti Google Play Palveluiden altistumisilmoitukset eivät ole saatavilla laitteessasi.\n\n%s</string>
-    <string name="enable_err_not_owner">Olet kirjautunut laitteeseen käyttäjäprofiililla, joka ei ole laitteen omistaja. Koronavilkku toimii vain laitteen omistajan käyttäjäprofiililla.\n\nVoit vaihtaa profiilia pyyhkäisemällä kahdella sormella aloitusnäytön yläreunasta. Paina sitten Vaihda käyttäjää -painiketta.</string>
-    <string name="enable_err_api_connection_device">Virhe: Laitteesi ei ole tuettu</string>
-    <string name="enable_err_api_connection_unauthorized">Virhe: Altistumisilmoitukset eivät ole sallittu sovellukselle</string>
+    <string name="enable_err_title">Altistumis\u00ADilmoituksia ei voitu ottaa käyttöön</string>
+    <string name="enable_err_missing_capability">Altistumisilmoitukset eivät toimi laitteessasi.</string>
+    <string name="enable_err_api_not_supported">Valitettavasti altistumisilmoitukset eivät ole saatavilla laitteeseesi.\n\n%s</string>
+    <string name="enable_err_not_owner">Olet kirjautunut laitteeseen jonkun muun kuin laitteen omistajan käyttäjäprofiililla. Koronavilkku toimii vain laitteen omistajan käyttäjäprofiililla.\n\nVoit vaihtaa profiilia pyyhkäisemällä kahdella sormella puhelimen aloitusnäytön yläreunasta. Paina sitten Vaihda käyttäjää -painiketta.</string>
+    <string name="enable_err_api_connection_device">Virhe: Altistumisilmoitukset eivät toimi laitteessasi.</string>
+    <string name="enable_err_api_connection_unauthorized">Virhe: Sovellus on asennettu poikkeavasti. Altistumisilmoituksia ei voida ottaa käyttöön.</string>
     <string name="enable_err_api_connection_generic">Virhe: %d</string>
-    <string name="enable_err_generic">Tuntematon virhe</string>
-    <string name="enable_error_api_code">Tapahtui odottamaton virhe, koodi: %1$d (%2$d)</string>
+    <string name="enable_err_generic">Tapahtui tuntematon virhe.</string>
+    <string name="enable_error_api_code">Tapahtui odottamaton virhe.\n\nVirhe: %1$d (%2$d)</string>
     <string name="enable_err_dismiss">Sulje</string>
 
     <string name="onboarding_done">Käyttöönotto valmis!</string>
