@@ -31,6 +31,14 @@ class ClearExpiredExposuresWorker @WorkerInject constructor(
                 exposureRepository.deleteExposure(it.id)
             }
         }
+
+        exposureRepository.getAllKeyGroupTokens().forEach {
+            if (it.updatedDate.isBefore(expireTime)) {
+                Timber.d("Deleting key group updated ${it.updatedDate}")
+                exposureRepository.deleteKeyGroupToken(it)
+            }
+        }
+
         return Result.success()
     }
 

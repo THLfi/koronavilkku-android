@@ -10,10 +10,7 @@ import androidx.work.ListenableWorker.Result
 import androidx.work.WorkerFactory
 import androidx.work.WorkerParameters
 import androidx.work.testing.TestListenableWorkerBuilder
-import fi.thl.koronahaavi.data.AppStateRepository
-import fi.thl.koronahaavi.data.Exposure
-import fi.thl.koronahaavi.data.ExposureRepository
-import fi.thl.koronahaavi.data.SettingsRepository
+import fi.thl.koronahaavi.data.*
 import fi.thl.koronahaavi.service.ExposureNotificationService
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -47,7 +44,7 @@ class ClearExpiredExposuresWorkerTest {
     }
 
     @Test
-    fun deletesExpired() {
+    fun deletesExpiredExposures() {
         val now = ZonedDateTime.now()
         val ttlDays = ClearExpiredExposuresWorker.EXPOSURE_TTL_SINCE_DETECTION_DAYS
 
@@ -56,6 +53,8 @@ class ClearExpiredExposuresWorkerTest {
             Exposure(2, now.minusDays(ttlDays - 1L), now, 0),
             Exposure(3, now.minusDays(15).minusHours(1), now, 0)
         )
+
+        coEvery { exposureRepository.getAllKeyGroupTokens() } returns listOf()
 
         runBlocking {
             val result = worker.startWork().get()
@@ -66,6 +65,28 @@ class ClearExpiredExposuresWorkerTest {
         }
     }
 
+    @Test
+    fun deletesExpiredTokens() {
+        val now = ZonedDateTime.now()
+        val ttlDays = ClearExpiredExposuresWorker.EXPOSURE_TTL_SINCE_DETECTION_DAYS
+
+        coEvery { exposureRepository.getAllExposures() } returns listOf()
+
+        val tokenA = KeyGroupToken("a", now.minusDays(ttlDays - 10L))
+        val tokenB = KeyGroupToken("b", now.minusDays(ttlDays - 1L))
+        val tokenC = KeyGroupToken("c", now.minusDays(15).minusHours(1))
+
+        coEvery { exposureRepository.getAllKeyGroupTokens() } returns
+                listOf(tokenA, tokenB, tokenC)
+
+        runBlocking {
+            val result = worker.startWork().get()
+            Assert.assertEquals(Result.success(), result)
+            coVerify(exactly = 0) { exposureRepository.deleteKeyGroupToken(tokenA) }
+            coVerify(exactly = 0) { exposureRepository.deleteKeyGroupToken(tokenB) }
+            coVerify(exactly = 1) { exposureRepository.deleteKeyGroupToken(tokenC) }
+        }
+    }
 
     private val fakeFactory = object : WorkerFactory() {
         override fun createWorker(

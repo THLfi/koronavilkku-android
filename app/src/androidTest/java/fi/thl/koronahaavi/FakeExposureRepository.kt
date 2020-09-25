@@ -8,6 +8,9 @@ import kotlinx.coroutines.flow.flowOf
 import javax.inject.Inject
 
 class FakeExposureRepository : ExposureRepository {
+    override suspend fun getAllKeyGroupTokens(): List<KeyGroupToken>
+            = listOf()
+
     override suspend fun saveKeyGroupToken(token: KeyGroupToken) {
     }
 
