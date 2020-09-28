@@ -96,6 +96,7 @@ class SettingsFragment : Fragment() {
         }
 
         binding.settingsOpenSourceNotices.linkItemContainer.setOnClickListener {
+            OssLicensesMenuActivity.setActivityTitle(getString(R.string.settings_open_source_notices));
             startActivity(Intent(requireContext(), OssLicensesMenuActivity::class.java))
         }
 
