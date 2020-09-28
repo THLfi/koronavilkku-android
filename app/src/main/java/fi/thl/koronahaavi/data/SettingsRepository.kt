@@ -61,6 +61,9 @@ class SettingsRepository @Inject constructor (
         const val DB_PASSWORD_KEY = "db_password"
     }
 
+    // could be called from main thread or workmanager worker init thread, depending on
+    // which creates exposure repository and it's dao dependencies first
+    @Synchronized
     fun getOrCreateDatabasePassword(): ByteArray =
         getDatabasePassword() ?: createDatabasePassword()
 
