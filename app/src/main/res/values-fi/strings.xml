@@ -146,21 +146,21 @@
 
     <string name="guide_button_back">Palaa takaisin</string>
 
-    <string name="disable_title">COVID-19-altistumis\u00ADilmoitukset käytössä</string>
+    <string name="disable_title">Altistumis\u00ADilmoitukset käytössä</string>
     <string name="disable_subtitle">Pitääkö sinun poistaa altistumisilmoitukset käytöstä?</string>
     <string name="disable_body">Joissakin tilanteissa voi olla tarpeen väliaikaisesti poistaa altistumisilmoitukset käytöstä. Näin voi olla esimerkiksi silloin, jos olet terveydenhuollon ammattilainen etkä halua käyttää sovellusta työpaikallasi.\n\nJos otat altistumisilmoitukset pois käytöstä, sovellus ei toimi.</string>
     <string name="disable_note">Terveydestäsi ja läheistesi terveydestä huolehtimiseksi on suositeltavaa, että otat altistumisilmoitukset pois käytöstä vain silloin, jos se on todella tarpeellista. Muistathan ottaa ne uudelleen käyttöön heti kun mahdollista.</string>
-    <string name="disable_turn_off_note">Poista COVID-19-altistumis\u00ADilmoitukset käytöstä</string>
+    <string name="disable_turn_off_note">Poista altistumis\u00ADilmoitukset käytöstä</string>
     <string name="disable_button_turn_off">Poista käytöstä</string>
 
     <string name="disable_confirm_title">Oletko varma, että haluat poistaa käytöstä?</string>
-    <string name="disable_confirm_message">Jos poistat altistusilmoitukset käytöstä, Koronavilkku ei voi ilmoittaa sinulle mahdollisesta altistumisesta koronavirukselle.</string>
+    <string name="disable_confirm_message">Jos poistat altistumisilmoitukset käytöstä, Koronavilkku ei voi ilmoittaa sinulle mahdollisesta altistumisesta koronavirukselle.</string>
 
-    <string name="enable_title">COVID-19-altistumis\u00ADilmoitukset eivät ole käytössä</string>
+    <string name="enable_title">Altistumis\u00ADilmoitukset eivät ole käytössä</string>
 
-    <string name="enable_body">Koska altistumisilmoitukset eivät ole käytössä, Koronavilkku ei tällä hetkellä seuraa lähelläsi olevia puhelimia.</string>
-    <string name="enable_alert">"Terveydestäsi ja läheistesi terveydestä huolehtimiseksi on suositeltavaa, että otat altistumisilmoitukset käyttöön heti kun mahdollista. "</string>
-    <string name="enable_note">Ota COVID-19-altistumis\u00ADilmoitukset käyttöön</string>
+    <string name="enable_body">Koska altistumisilmoitukset eivät ole käytössä, Koronavilkku ei seuraa lähelläsi olevia puhelimia.</string>
+    <string name="enable_alert">Terveydestäsi ja läheistesi terveydestä huolehtimiseksi on suositeltavaa, että otat altistumisilmoitukset käyttöön heti kun mahdollista.</string>
+    <string name="enable_note">Ota altistumis\u00ADilmoitukset käyttöön</string>
 
     <string name="enable_err_title">Altistumis\u00ADilmoituksia ei voitu ottaa käyttöön</string>
     <string name="enable_err_missing_capability">Altistumisilmoitukset eivät toimi laitteessasi.</string>
@@ -227,17 +227,17 @@
     <string name="municipality_retry_load">Yritä uudelleen</string>
 
     <string name="select_language_title">Vaihda sovelluksen kieli</string>
-    <string name="select_language_item_system_default">Laitteen kieli</string>
+    <string name="select_language_item_system_default">Sama kuin laitteen kieli (suomi, ruotsi tai englanti)</string>
     <string name="select_language_item_selected_description">Valittu</string>
 
     <string name="open_link_failed_title">Verkkosivua ei voida avata</string>
     <string name="open_link_failed_message">Verkkosivua ei voida avata, koska puhelimessasi ei ole selainta tai sen käyttö on estetty.</string>
 
-    <string name="power_rationale_title">Saako Koronavilkku toimia aina taustalla?</string>
-    <string name="power_rationale_message">Näin Koronavilkku voi suljettunakin tarkistaa, oletko mahdollisesti altistunut koronavirukselle. Tätä varten akun käytön optimointi on otettava pois käytöstä.\n\nVaikutus puhelimesi akunkestoon on pieni.</string>
+    <string name="power_rationale_title">Anna Koronavilkun toimia aina taustalla</string>
+    <string name="power_rationale_message">Jos annat Koronavilkulle luvan toimia aina taustalla, sovellus voi suljettunakin tarkistaa, oletko mahdollisesti altistunut koronavirukselle. Tätä varten Koronavilkusta otetaan pois päältä akun käytön optimointi.\n\nVaikutus puhelimesi akunkestoon on pieni.</string>
 
-    <string name="power_deny_confirm_title">Et sallinut Koronavilkun toimia aina taustalla</string>
-    <string name="power_deny_confirm_message">Jos et salli Koronavilkun toimia aina taustalla, suosittelemme avaamaan sovelluksen ainakin kerran päivässä.\n\nVoit muuttaa valintaasi myöhemmin kohdassa Asetukset > Sovellukset ja ilmoitukset.</string>
-    <string name="power_allow_retry">Salli sittenkin</string>
+    <string name="power_deny_confirm_title">Etkö anna Koronavilkulle lupaa toimia taustalla?</string>
+    <string name="power_deny_confirm_message">Jos et anna Koronavilkulle lupaa toimia aina taustalla, sovellus ei välttämättä voi hakea palvelimelta tietoja mahdollisesta altistumisesta. Siinä tapauksessa suosittelemme, että avaat sovelluksen ainakin kerran päivässä.\n\nVoit muuttaa valintaasi myöhemmin puhelimesi asetuksissa.</string>
+    <string name="power_allow_retry">Anna lupa</string>
 
 </resources>
