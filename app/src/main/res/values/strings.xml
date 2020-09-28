@@ -56,8 +56,8 @@
     <string name="home_statistics_url">https://thl.fi/en/web/infectious-diseases-and-vaccinations/what-s-new/coronavirus-covid-19-latest-updates/situation-update-on-coronavirus</string>
     <string name="home_thl_url">https://thl.fi/en/web/thlfi-en</string>
 
-    <string name="home_status_system_enabled">Koronavilkku is in use</string>
-    <string name="home_status_system_disabled">Koronavilkku is not in use</string>
+    <string name="home_status_system_enabled">Koronavilkku is active</string>
+    <string name="home_status_system_disabled">Koronavilkku is disabled</string>
     <string name="home_status_system_locked">Koronavilkku is locked</string>
 
     <string name="home_symptom_sub_label">Take an online medical COVID-19 symptom check-up</string>
@@ -211,7 +211,7 @@
     <string name="contact_evaluation_title">Take a symptom assessment</string>
     <string name="contact_evaluation_body">We recommend that you contact healthcare services by taking a symptom assessment. This helps the healthcare professionals in their work and saves you effort when handling the matter.</string>
     <string name="contact_evaluation_start">Take assessment</string>
-    <string name="contact_evaluation_footer">It takes approximately 5-10 minutes to take the symptom assessment. Children under the age of 16 must contact healthcare services by telephone.</string>
+    <string name="contact_evaluation_footer">It takes approximately 5–10 minutes to take the symptom assessment. Children under the age of 16 must contact healthcare services by telephone.</string>
     <string name="contact_evaluation_other_title">Or contact your municipal healthcare services in another way:</string>
     <string name="card_contact_request_title">Send a contact request</string>
     <string name="card_contact_request_link_name">Only for people without symptoms (not for children under 16)</string>
