@@ -8,8 +8,8 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
 import fi.thl.koronahaavi.data.AppDatabase
+import fi.thl.koronahaavi.data.DatabaseOpenHelperFactory
 import fi.thl.koronahaavi.data.SettingsRepository
-import net.sqlcipher.database.SupportFactory
 import javax.inject.Singleton
 
 @Module
@@ -24,7 +24,7 @@ object DatabaseModule {
 
         return Room.databaseBuilder(context.applicationContext, AppDatabase::class.java, databaseName)
             .fallbackToDestructiveMigration()
-            .openHelperFactory(SupportFactory(settingsRepository.getOrCreateDatabasePassword()))
+            .openHelperFactory(DatabaseOpenHelperFactory(settingsRepository.getOrCreateDatabasePassword()))
             .build()
     }
 
