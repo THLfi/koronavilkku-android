@@ -64,9 +64,9 @@
     <string name="home_status_enabled_explained">Appen fungerar även om du stänger den.</string>
     <string name="home_status_locked_explained">Tack för att du meddelade om din smitta. Appen samlar inte längre någon information från andra personer du träffat. Krya på dig!</string>
 
-    <string name="symptoms_title">Bedömning av coronasymptom</string>
+    <string name="symptoms_title">Bedömning av coronasymtom</string>
     <string name="symptoms_info">Gör en bedömning av dina symtom i Omaolo, om du misstänker att du smittats av coronaviruset. Du får ytterligare anvisningar på basen av dina svar. Det räcker cirka 5–10 minuter att fylla i bedömningen.</string>
-    <string name="symptoms_link_title">Gör en bedömning av dina symptom i tjänsten Omaolo</string>
+    <string name="symptoms_link_title">Gör en bedömning av dina symtom i tjänsten Omaolo</string>
     <string name="symptoms_link">https://www.omaolo.fi/palvelut/oirearviot/649?lang=sv</string>
     <string name="symptoms_link_name">omaolo.fi</string>
 
@@ -87,8 +87,8 @@
     <string name="settings_version">%1$s %2$s</string>
     <string name="settings_privacy_link_name">koronavilkku.fi</string>
     <string name="settings_terms_link_name">koronavilkku.fi</string>
-    <string name="settings_language_item">Ändra applikationsspråk</string>
-    <string name="settings_open_source_notices">Öppen källkod</string>
+    <string name="settings_language_item">Byt appens språk</string>
+    <string name="settings_open_source_notices">Licenser för öppen källkod</string>
 
     <string name="terms_url">https://koronavilkku.fi/sv/anvandningsvillkor/</string>
 
@@ -178,16 +178,16 @@
     <string name="intro_header_body">Coronablinkern är en applikation (app) som Institutet för hälsa och välfärd ansvarar för. Med appen strävar man till att förebygga spridningen av coronaviruset. Appen skyddar effektivt din identitet.</string>
 
     <string name="concept_header_title">Så här fungerar appen</string>
-    <string name="concept_header_body">Coronablinkern följer med de telefoner i din närhet, på vilka appen är installerad. Om en person som du tidigare mött meddelar om coronavirusinfektion via Coronablinkern får du ett meddelande om at du blivit utsatt (exponerad) för smitta. Om ett test visar att du bär smitta, kan du meddela om det här anonymt med appen.</string>
+    <string name="concept_header_body">Coronablinkern följer med de telefoner i din närhet, på vilka appen är installerad. Om en person som du tidigare mött meddelar om coronavirusinfektion via Coronablinkern får du ett meddelande om att du blivit utsatt (exponerad) för smitta. Om du med ett coronavirustest konstateras ha fått smittan, kan du meddela om det här anonymt med appen.</string>
 
     <string name="accept_terms_header_title">Din identitet är skyddad</string>
     <string name="accept_terms_header_body">Coronablinkern skyddar dina personuppgifter och din identitet på flera sätt.</string>
     <string name="accept_terms_personal_title">Personuppgifter</string>
-    <string name="accept_terms_personal_text">Coronablinkern lagrar inte ditt namn, din födelsetid eller dina kontaktuppgifter. Den kan inte avslöja din identitet eller identiteten på personer du möter.\n\nAppen samlar inte in platsuppgifter.</string>
+    <string name="accept_terms_personal_text">Coronablinkern lagrar inte ditt namn, ditt födelsedatum eller dina kontaktuppgifter. Den kan inte avslöja din identitet eller identiteten på personer du möter.\n\nAppen samlar inte in platsuppgifter.</string>
     <string name="accept_terms_usage_title">Användningsuppgifter som gäller appen</string>
-    <string name="accept_terms_usage_text">Appen meddelar till en server att appen är påkopplad. Om du kontaktar hälso- och sjukvården via appen, förmedlar den dessutom information om huruvida du eventuellt blivit utsatt för viruset.\n\nAll datatrafik mellan Coronablinkern och servern är sekretessbelagda.\n\nInformationen lagras anonymt på en server som är belägen i Finland. Servern underhålls av myndigheter inom den offentliga förvaltningen. Uppgifterna avlägsnas då de inte längre behövs. Uppgifterna avlägsnas senast 31.3.2021.</string>
+    <string name="accept_terms_usage_text">Appen meddelar till en servern att appen är påkopplad. Om du kontaktar hälso- och sjukvården via appen, förmedlar den dessutom information om att du eventuellt blivit utsatt för viruset.\n\nAll datatrafik mellan Coronablinkern och servern är krypterad.\n\nInformationen lagras anonymt på en server som är belägen i Finland. Servern underhålls av myndigheter inom den offentliga förvaltningen. Uppgifterna raderas då de inte längre behövs. Uppgifterna raderas senast 31.3.2021.</string>
     <string name="accept_terms_voluntary_title">Appen är inte obligatorisk</string>
-    <string name="accept_terms_voluntary_text">Det är frivilligt att använda Coronablinkern. Du kan när som helst sluta använda appen genom att avlägsna den från telefonen.</string>
+    <string name="accept_terms_voluntary_text">Det är frivilligt att använda Coronablinkern. Du kan när som helst sluta använda appen genom att avlägsna den från din telefon.</string>
 
     <string name="accept_terms_tos_text">Jag har läst och godkänner användningsvillkoren för tjänsten.</string>
     <string name="accept_terms_tos_link_text">Läs användningsvillkoren</string>
@@ -210,7 +210,7 @@
     <string name="contact_evaluation_footer">Det räcker cirka 5–10 minuter att göra en symtombedömning. Personer under 16 år ska kontakta hälso- och sjukvården per telefon.</string>
     <string name="contact_evaluation_other_title">Eller kontakta hälso- och sjukvården i din kommun på följande sätt:</string>
     <string name="card_contact_request_title">Lämna en begäran att hälsovården kontaktar dig</string>
-    <string name="card_contact_request_link_name">Avsätt ändast för 16 år fyllda, symptomfria personer</string>
+    <string name="card_contact_request_link_name">Avsett endast för 16 år fyllda, symtomfria personer</string>
     <string name="info_icon">Info</string>
 
     <string name="pre_web_contact_title_evaluation">Symtom\u00ADbedömning i Omaolo</string>
@@ -225,8 +225,8 @@
     <string name="municipality_load_failed">Det gick inte att ladda kommunuppgifterna. Kontrollera anslutningen och försök på nytt.</string>
     <string name="municipality_retry_load">Försök på nytt</string>
 
-    <string name="select_language_title">Ändra applikationsspråk</string>
-    <string name="select_language_item_system_default">Enhetens standard</string>
+    <string name="select_language_title">Byt appens språk</string>
+    <string name="select_language_item_system_default">Enhetens språk</string>
     <string name="select_language_item_selected_description">Vald</string>
 
     <string name="open_link_failed_title">Webbsidan kan inte öppnas</string>
