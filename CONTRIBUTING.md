@@ -4,7 +4,7 @@ We welcome contributions from the public.
 
 ## Contribution license
 
-__By sending a pull request, you agree and acknowledge that your contribution will be licensed under the main license of the project ([EUPL-1.2](https://spdx.org/licenses/EUPL-1.2.html)). Notwithstanding the foregoing, you further agree that THL (Finnish Institute for Health and Welfare) may also redistribute the application, along with your contribution, via an application store under their separate Terms of Use (Käyttöehdot) as available (in Finnish) at https://koronavilkku.fi/kayttoehdot/ and as amended from time to time at THL's sole discretion.__
+__By sending a pull request, you agree and acknowledge that your contribution will be licensed under the main license of the project ([EUPL-1.2](https://spdx.org/licenses/EUPL-1.2.html)). Notwithstanding the foregoing, you further agree that THL (Finnish Institute for Health and Welfare) may also redistribute the application, along with your contribution, via an application store under their separate Terms of Use as available at https://koronavilkku.fi/en/terms/ and as amended from time to time at THL's sole discretion.__
 
 ## Issues
 
