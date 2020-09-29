@@ -11,6 +11,10 @@
 4. **Wait for main contributors** of the repository to handle the issue and clear it for implementation
 5. Embrace the feedback and be patient. We are working as fast as we can to improve Koronavilkku and community's help is much appreciated
 
+## Contribution license
+
+__By sending a pull request, you agree and acknowledge that your contribution will be licensed under the main license of the project ([EUPL-1.2](https://spdx.org/licenses/EUPL-1.2.html)). Notwithstanding the foregoing, you further agree that THL (Finnish Institute for Health and Welfare) may also redistribute the application, along with your contribution, via an application store under their separate Terms of Use as available at https://koronavilkku.fi/en/terms/ and as amended from time to time at THL's sole discretion.__
+
 ## Issues
 
 The issue tracker is the preferred channel for reports and queries.
