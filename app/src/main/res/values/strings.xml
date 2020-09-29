@@ -4,8 +4,8 @@
     <string name="all_next">Next</string>
     <string name="all_cancel">Cancel</string>
     <string name="all_thl_image_description">Finnish Institute for Health and Welfare</string>
-    <string name="all_today">Today</string>
-    <string name="all_yesterday">Yesterday</string>
+    <string name="all_today">today</string>
+    <string name="all_yesterday">yesterday</string>
     <string name="all_finnish" translatable="false">Suomi</string>
     <string name="all_swedish" translatable="false">Svenska</string>
     <string name="all_english" translatable="false">English</string>
@@ -108,7 +108,7 @@
 
     <string name="exposure_detail_message_none">Koronavilkku has not detected exposures to the coronavirus in the last 14 days.</string>
     <string name="exposure_detail_disclaimer_none">However, the application is not able to identify every situation where exposure may occur.</string>
-    <string name="exposure_detail_last_check">Last check %1$s at %2$s</string>
+    <string name="exposure_detail_last_check">Last checked %1$s at %2$s</string>
     <string name="exposure_detail_no_last_check">No checks yet</string>
 
     <string name="exposure_detail_instructions_title">Follow these instructions carefully during the next two weeks:</string>
