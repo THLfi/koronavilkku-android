@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKeys
+import java.security.KeyStoreException
 
 /**
  * Forwards all calls to an instance of EncryptedSharedPreferences
@@ -15,7 +16,23 @@ class EncryptedSharedPreferencesWrapper(
     private val context: Context
 ) : SharedPreferences {
 
-    private var prefs = createPreferences()
+    private var prefs = createPreferencesWithRetry()
+
+    private fun createPreferencesWithRetry(retryDelay: Long = 100): SharedPreferences =
+        try {
+            createPreferences()
+        }
+        catch (e: KeyStoreException) {
+            // This occurs very rarely and is possibly caused by android keystore being busy, but exact reason unclear
+            // See https://issuetracker.google.com/issues/158234058
+            // Attempt to recover few times by recreating shared preferences as suggested in issue
+
+            if (retryDelay > 800) {
+                throw EncryptedSharedPreferencesException(e)
+            }
+            Thread.sleep(retryDelay)
+            createPreferencesWithRetry(retryDelay * 2)
+        }
 
     private fun createPreferences() = EncryptedSharedPreferences.create(
         SHARED_PREFERENCES_NAME,
@@ -84,7 +101,7 @@ class EncryptedSharedPreferencesWrapper(
                 throw EncryptedSharedPreferencesException(exception)
             } else {
                 Thread.sleep(retryDelay)
-                prefs = createPreferences()
+                prefs = createPreferencesWithRetry()
                 callWithRetry(retryDelay * 2, block)
             }
         }
