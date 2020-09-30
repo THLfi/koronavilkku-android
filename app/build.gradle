@@ -40,7 +40,7 @@ android {
         buildConfigField "String", "PIN_BACKEND_KEY_HASH", "\"$pinBackendKeyHash\""
         buildConfigField "String", "PIN_BACKEND_KEY_BACKUP_HASH", "\"$pinBackendKeyBackupHash\""
 
-        resConfigs "fi", "sv"
+        resConfigs "en", "fi", "sv"
 
         testInstrumentationRunner "fi.thl.koronahaavi.HaaviTestRunner"
     }
@@ -84,6 +84,20 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
         freeCompilerArgs += ["-Xuse-experimental=kotlinx.coroutines.ExperimentalCoroutinesApi"]
+    }
+
+    bundle {
+        language {
+            // disable different configuration APKs for language resources
+            // because we need all supported languages for in-app language selector
+            enableSplit = false
+        }
+        density {
+            enableSplit = true
+        }
+        abi {
+            enableSplit = true
+        }
     }
 
     testOptions.unitTests.includeAndroidResources = true
