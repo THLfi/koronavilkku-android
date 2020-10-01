@@ -86,7 +86,7 @@
     <string name="settings_faq_link_name">koronavilkku.fi</string>
 
     <string name="settings_privacy_item">Privacy policy</string>
-    <string name="settings_privacy_link_url">https://www.omaolo.fi/tietosuojaseloste</string>
+    <string name="settings_privacy_link_url">https://koronavilkku.fi/en/privacy/</string>
     <string name="settings_version">%1$s %2$s</string>
     <string name="settings_privacy_link_name">koronavilkku.fi</string>
     <string name="settings_terms_link_name">koronavilkku.fi</string>
