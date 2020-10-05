@@ -14,6 +14,7 @@ import com.google.android.gms.nearby.exposurenotification.ExposureInformation
 import com.google.android.gms.nearby.exposurenotification.ExposureNotificationStatusCodes
 import com.google.android.gms.nearby.exposurenotification.ExposureSummary
 import fi.thl.koronahaavi.BuildConfig
+import fi.thl.koronahaavi.data.Exposure
 import fi.thl.koronahaavi.service.ExposureNotificationService.ConnectionError
 import fi.thl.koronahaavi.service.ExposureNotificationService.ResolvableResult
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -21,6 +22,9 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.tasks.await
 import timber.log.Timber
 import java.io.File
+import java.time.Instant
+import java.time.ZoneOffset
+import java.time.ZonedDateTime
 
 class GoogleExposureNotificationService(
     private val context: Context
@@ -60,9 +64,10 @@ class GoogleExposureNotificationService(
         return client.getExposureSummary(token).await()
     }
 
-    override suspend fun getExposureDetails(token: String): List<ExposureInformation> {
+    override suspend fun getExposureDetails(token: String): List<Exposure> {
         // this call will show a system notification to user
         return client.getExposureInformation(token).await()
+            .map(ExposureInformation::toExposure)
     }
 
     override suspend fun provideDiagnosisKeyFiles(token: String, files: List<File>, config: ExposureConfigurationData)
@@ -156,6 +161,16 @@ class GoogleExposureNotificationService(
             .setDurationAtAttenuationThresholds(*durationAtAttenuationThresholds.toIntArray())
             .build()
     }
+}
+
+private fun ExposureInformation.toExposure(): Exposure {
+    Timber.d(this.toString())
+
+    return Exposure(
+        detectedDate = ZonedDateTime.ofInstant(Instant.ofEpochMilli(this.dateMillisSinceEpoch), ZoneOffset.UTC),
+        totalRiskScore = this.totalRiskScore,
+        createdDate = ZonedDateTime.now()
+    )
 }
 
 /* EN api error codes for reference.. currently only handling not_supported 39501

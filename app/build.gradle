@@ -167,6 +167,8 @@ dependencies {
     kapt "com.squareup.moshi:moshi-kotlin-codegen:1.6.0"
     implementation "com.squareup.okhttp3:logging-interceptor:4.7.2"
 
+    implementation 'com.huawei.hms:contactshield:5.0.3.300'
+
     // Testing
     testImplementation "junit:junit:$junitVersion"
     testImplementation 'androidx.arch.core:core-testing:2.1.0'

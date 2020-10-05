@@ -6,13 +6,11 @@ import android.content.Context
 import androidx.hilt.Assisted
 import androidx.hilt.work.WorkerInject
 import androidx.work.*
-import com.google.android.gms.nearby.exposurenotification.ExposureInformation
 import fi.thl.koronahaavi.data.AppStateRepository
 import fi.thl.koronahaavi.data.ExposureRepository
 import fi.thl.koronahaavi.data.KeyGroupToken
 import fi.thl.koronahaavi.data.SettingsRepository
 import fi.thl.koronahaavi.service.ExposureNotificationService
-import fi.thl.koronahaavi.service.toExposure
 import timber.log.Timber
 
 class ExposureUpdateWorker @WorkerInject constructor(
@@ -50,7 +48,6 @@ class ExposureUpdateWorker @WorkerInject constructor(
 
                 // this call will trigger EN system notifications (only on real use)
                 exposureNotificationService.getExposureDetails(token)
-                    .map(ExposureInformation::toExposure)
                     .forEach { exposureRepository.saveExposure(it) }
             }
             else {

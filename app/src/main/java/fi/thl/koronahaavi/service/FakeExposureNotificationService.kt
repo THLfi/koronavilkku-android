@@ -11,6 +11,7 @@ import com.google.android.gms.nearby.exposurenotification.ExposureNotificationCl
 import com.google.android.gms.nearby.exposurenotification.ExposureSummary
 import com.google.android.gms.nearby.exposurenotification.TemporaryExposureKey
 import com.google.android.gms.nearby.exposurenotification.TemporaryExposureKey.TemporaryExposureKeyBuilder
+import fi.thl.koronahaavi.data.Exposure
 import fi.thl.koronahaavi.exposure.ExposureStateUpdatedReceiver
 import fi.thl.koronahaavi.service.ExposureNotificationService.ResolvableResult
 import kotlinx.coroutines.delay
@@ -19,6 +20,7 @@ import kotlinx.coroutines.flow.StateFlow
 import timber.log.Timber
 import java.io.File
 import java.time.Instant
+import java.time.ZoneOffset
 import java.time.ZonedDateTime
 import kotlin.random.Random
 
@@ -65,11 +67,13 @@ class FakeExposureNotificationService(
             .build()
     }
 
-    override suspend fun getExposureDetails(token: String): List<ExposureInformation> {
+    override suspend fun getExposureDetails(token: String): List<Exposure> {
         return listOf(
-            ExposureInformation.ExposureInformationBuilder()
-                .setDateMillisSinceEpoch(ZonedDateTime.now().minusDays(2).toInstant().toEpochMilli())
-                .build()
+            Exposure(
+                detectedDate = ZonedDateTime.now().minusDays(2),
+                totalRiskScore = 200,
+                createdDate = ZonedDateTime.now()
+            )
         )
     }
 
