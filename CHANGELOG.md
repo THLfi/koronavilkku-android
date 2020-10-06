@@ -6,6 +6,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## [1.1.0](https://github.com/THLfi/koronavilkku-android/compare/v1.0.2...v1.1.0) - 2020-10-06
+
 ### Added
 - English localization
 - User can change app language to override device language
