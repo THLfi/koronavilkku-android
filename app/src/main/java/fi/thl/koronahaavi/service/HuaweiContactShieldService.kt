@@ -1,12 +1,13 @@
+@file:Suppress("DEPRECATION")
+
 package fi.thl.koronahaavi.service
 
 import android.app.IntentService
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
-import com.google.android.gms.nearby.exposurenotification.ExposureConfiguration
-import com.google.android.gms.nearby.exposurenotification.ExposureInformation
 import com.google.android.gms.nearby.exposurenotification.ExposureSummary
+import com.google.android.gms.nearby.exposurenotification.ExposureSummary.ExposureSummaryBuilder
 import com.google.android.gms.nearby.exposurenotification.TemporaryExposureKey
 import fi.thl.koronahaavi.service.ExposureNotificationService.ResolvableResult
 import com.huawei.hms.contactshield.ContactShield
@@ -45,32 +46,44 @@ class HuaweiContactShieldService(
 
     override suspend fun enable() = resultFromRunning {
         // todo how is user consent obtained? is there an equivalent to google ApiException
-        if (!isEnabled()) {
-            engine.startContactShield(ContactShieldSetting.DEFAULT).await()
-        }
+
+        val intent = PendingIntent.getService(
+            context,
+            0,
+            Intent(context, BackgroundContactCheckingIntentService::class.java),
+            PendingIntent.FLAG_UPDATE_CURRENT
+        )
+
+        Timber.d("startContactShield")
+        engine.startContactShield(intent, ContactShieldSetting.DEFAULT).await()
+
         isEnabledFlow.value = true
     }
 
     override suspend fun disable() = resultFromRunning {
-        if (isEnabled()) {
-            engine.stopContactShield().await()
-        }
+        engine.stopContactShield().await()
         isEnabledFlow.value = false
     }
 
     override suspend fun isEnabled(): Boolean =
         engine.isContactShieldRunning.await()
 
-    override suspend fun getExposureSummary(token: String): ExposureSummary {
-        TODO("Not yet implemented")
-    }
+    override suspend fun getExposureSummary(token: String): ExposureSummary =
+        engine.getContactSketch(token).await().let {
+            ExposureSummaryBuilder()
+                .setDaysSinceLastExposure(it.daysSinceLastHit)
+                .setMatchedKeyCount(it.numberOfHits)
+                .setMaximumRiskScore(it.maxRiskValue)
+                .setSummationRiskScore(it.summationRiskValue)
+                .setAttenuationDurations(it.attenuationDurations)
+                .build()
+        }
 
     override suspend fun getExposureDetails(token: String) =
         engine.getContactDetail(token).await()
             .map {
                 Exposure(
-                    // todo temp detectedDate value, update when dayNumber has been clarified
-                    detectedDate = ZonedDateTime.now().minusDays(it.dayNumber),
+                    detectedDate = ZonedDateTime.ofInstant(Instant.ofEpochMilli(it.dayNumber), ZoneOffset.UTC),
                     totalRiskScore = it.totalRiskValue,
                     createdDate = ZonedDateTime.now()
                 )
@@ -82,16 +95,8 @@ class HuaweiContactShieldService(
         config: ExposureConfigurationData
     ): ResolvableResult<Unit> {
 
-        // todo intent service is used instead of broadcast receiver?
-        val intent = PendingIntent.getService(
-            context,
-            0,
-            Intent(context, BackgroundContactCheckingIntentService::class.java),
-            PendingIntent.FLAG_UPDATE_CURRENT
-        )
-
         return resultFromRunning<Unit> {
-            engine.putSharedKeyFiles(intent, files, config.toDiagnosisConfiguration(), token).await()
+            engine.putSharedKeyFiles(files, config.toDiagnosisConfiguration(), token).await()
         }
     }
 
@@ -118,13 +123,12 @@ class HuaweiContactShieldService(
         // from EN api, otherwise it is zeroed out and test UI is not useful
         val minRiskScore = if (BuildConfig.ENABLE_TEST_UI) 1 else minimumRiskScore
 
-        // todo confirm these since using different names than google api
         return DiagnosisConfiguration.Builder()
             .setMinimumRiskValueThreshold(minRiskScore)
             .setAttenuationRiskValues(*attenuationScores.toIntArray())
             .setDaysAfterContactedRiskValues(*daysSinceLastExposureScores.toIntArray())
             .setDurationRiskValues(*durationScores.toIntArray())
-            .setInitialRiskLevelRiskValues(*transmissionRiskScoresAndroid.toIntArray())  // todo is this correct?
+            .setInitialRiskLevelRiskValues(*transmissionRiskScoresAndroid.toIntArray())
             .setAttenuationDurationThresholds(*durationAtAttenuationThresholds.toIntArray())
             .build()
     }

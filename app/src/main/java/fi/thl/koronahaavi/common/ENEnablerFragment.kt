@@ -12,6 +12,7 @@ import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.ConnectionResult.SERVICE_INVALID
 import com.google.android.gms.common.GoogleApiAvailability
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.huawei.hms.api.HuaweiApiAvailability
 import dagger.hilt.android.AndroidEntryPoint
 import fi.thl.koronahaavi.R
 import fi.thl.koronahaavi.common.RequestResolutionViewModel.Companion.REQUEST_CODE_PLAY_SERVICES_ERROR_DIALOG
@@ -97,7 +98,13 @@ open class ENEnablerFragment : Fragment() {
             Timber.v("Play services up-to-date")
             enableSystem()
 
-        } else {
+        }
+        // todo need a better structure for this
+        else if (HuaweiApiAvailability.getInstance().isHuaweiMobileServicesAvailable(context) == ConnectionResult.SUCCESS) {
+            Timber.d("Skip play services check, using Huawei")
+            enableSystem()
+        }
+        else {
             Timber.i("Play services needs updating ($result)")
             // The shown dialog displays something informative and the action button can for example
             // take the user to Play store to update Play services, or open device's Play services
