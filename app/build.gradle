@@ -192,4 +192,5 @@ dependencies {
     androidTestImplementation "androidx.navigation:navigation-testing:$navigationVersion"
 }
 
-apply plugin: 'com.huawei.agconnect'
+// todo this requires agconnect-services.json
+//apply plugin: 'com.huawei.agconnect'
