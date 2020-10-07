@@ -10,9 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.ConnectionResult.SERVICE_INVALID
-import com.google.android.gms.common.GoogleApiAvailability
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.huawei.hms.api.HuaweiApiAvailability
 import dagger.hilt.android.AndroidEntryPoint
 import fi.thl.koronahaavi.R
 import fi.thl.koronahaavi.common.RequestResolutionViewModel.Companion.REQUEST_CODE_PLAY_SERVICES_ERROR_DIALOG
@@ -91,25 +89,19 @@ open class ENEnablerFragment : Fragment() {
      * enabling EN API.
      */
     protected fun startEnablingSystem() {
-        val gaa = GoogleApiAvailability.getInstance()
-        val result = gaa.isGooglePlayServicesAvailable(requireContext(), MIN_GOOGLE_PLAY_VERSION)
+        val resolver = statusViewModel.getSystemAvailability()
+        val result = resolver.isSystemAvailable(requireContext())
 
         if (result == ConnectionResult.SUCCESS) {
-            Timber.v("Play services up-to-date")
-            enableSystem()
-
-        }
-        // todo need a better structure for this
-        else if (HuaweiApiAvailability.getInstance().isHuaweiMobileServicesAvailable(context) == ConnectionResult.SUCCESS) {
-            Timber.d("Skip play services check, using Huawei")
+            Timber.v("Exposure notification system services available")
             enableSystem()
         }
         else {
-            Timber.i("Play services needs updating ($result)")
+            Timber.i("Exposure notification system needs updating ($result)")
             // The shown dialog displays something informative and the action button can for example
             // take the user to Play store to update Play services, or open device's Play services
             // app settings to enable it.
-            val shown = gaa.showErrorDialogFragment(activity, result, REQUEST_CODE_PLAY_SERVICES_ERROR_DIALOG) {
+            val shown = resolver.showErrorDialogFragment(requireActivity(), result, REQUEST_CODE_PLAY_SERVICES_ERROR_DIALOG) {
                 // callback if user backs out of or cancels the dialog
                 onEnableCanceled()
             }
@@ -117,9 +109,9 @@ open class ENEnablerFragment : Fragment() {
             if (!shown) {
                 enableSystem()
             } else {
-                Timber.d("Play services error dialog shown, result=$result, resolvable=${gaa.isUserResolvableError(result)}")
+                Timber.d("Play services error dialog shown, result=$result, resolvable=${resolver.isUserResolvableError(result)}")
 
-                if (result == SERVICE_INVALID || !gaa.isUserResolvableError(result)) {
+                if (result == SERVICE_INVALID || !resolver.isUserResolvableError(result)) {
                     // these unresolvable errors show a message dialog but will not post result
                     // codes to activity, so we need to invoke cancel callback to clear in-progress state
                     onEnableCanceled()
@@ -128,10 +120,6 @@ open class ENEnablerFragment : Fragment() {
                 // -> play dialog result is posted to playServicesResolvedEvent
             }
         }
-    }
-
-    companion object {
-        const val MIN_GOOGLE_PLAY_VERSION = 201813000   // v20.18.13
     }
 }
 

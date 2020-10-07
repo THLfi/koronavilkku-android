@@ -58,7 +58,7 @@ android {
         }
     }
 
-    flavorDimensions "mode"
+    flavorDimensions "mode", "system"
     productFlavors {
         sim {
             dimension "mode"
@@ -67,6 +67,21 @@ android {
         }
         live {
             dimension "mode"
+        }
+        google {
+            dimension "system"
+        }
+        huawei {
+            dimension "system"
+            apply plugin: 'com.huawei.agconnect'
+        }
+    }
+
+    // ignore simHuawei builds because we only need one simulated build
+    variantFilter { variant ->
+        def names = variant.flavors*.name
+        if (names.contains("sim") && names.contains("huawei")) {
+            setIgnore(true)
         }
     }
 
@@ -167,7 +182,8 @@ dependencies {
     kapt "com.squareup.moshi:moshi-kotlin-codegen:1.6.0"
     implementation "com.squareup.okhttp3:logging-interceptor:4.7.2"
 
-    implementation 'com.huawei.hms:contactshield:5.0.3.300'
+    // Huawei bluetooth tracing
+    huaweiImplementation 'com.huawei.hms:contactshield:5.0.3.300'
 
     // Testing
     testImplementation "junit:junit:$junitVersion"
@@ -191,6 +207,3 @@ dependencies {
     androidTestImplementation "androidx.work:work-testing:$workVersion"
     androidTestImplementation "androidx.navigation:navigation-testing:$navigationVersion"
 }
-
-// todo this requires agconnect-services.json
-//apply plugin: 'com.huawei.agconnect'

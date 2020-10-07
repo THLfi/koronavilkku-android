@@ -34,6 +34,9 @@ class EnableSystemViewModel @ViewModelInject constructor(
         requiredServices.value = isBluetoothOn.value==true && isLocationOn.value==true
     }
 
+    fun getSystemAvailability(): ExposureNotificationService.AvailabilityResolver =
+        exposureNotificationService.getAvailabilityResolver()
+
     suspend fun enableSystem(): Boolean {
         // we cannot directly enable bluetooth/location, but disabling/enabling EN will also enable
         // bluetooth/location.. this has no effect if EN was already disabled

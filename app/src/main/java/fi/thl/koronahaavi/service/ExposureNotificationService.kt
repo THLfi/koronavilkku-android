@@ -2,6 +2,9 @@
 
 package fi.thl.koronahaavi.service
 
+import android.app.Activity
+import android.content.Context
+import android.content.DialogInterface
 import com.google.android.gms.common.api.Status
 import com.google.android.gms.nearby.exposurenotification.ExposureSummary
 import com.google.android.gms.nearby.exposurenotification.TemporaryExposureKey
@@ -18,6 +21,7 @@ interface ExposureNotificationService {
     suspend fun provideDiagnosisKeyFiles(token: String, files: List<File>, config: ExposureConfigurationData): ResolvableResult<Unit>
     suspend fun getTemporaryExposureKeys(): ResolvableResult<List<TemporaryExposureKey>>
     fun deviceSupportsLocationlessScanning(): Boolean
+    fun getAvailabilityResolver(): AvailabilityResolver
 
     fun isEnabledFlow() : StateFlow<Boolean?>
     suspend fun refreshEnabledFlow()
@@ -38,5 +42,12 @@ interface ExposureNotificationService {
         object UserIsNotOwner: ConnectionError()      // special case for 39501
         object ClientNotAuthorized: ConnectionError()  // 39507
         data class Failed(val errorCode: Int?): ConnectionError()
+    }
+
+    // Provides methods to check and resolve exposure system availability in the UI
+    interface AvailabilityResolver {
+        fun isSystemAvailable(context: Context): Int
+        fun isUserResolvableError(errorCode: Int): Boolean
+        fun showErrorDialogFragment(activity: Activity, errorCode: Int, requestCode: Int, cancelListener: (dialog: DialogInterface) -> Unit): Boolean
     }
 }

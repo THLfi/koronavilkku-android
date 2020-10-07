@@ -2,13 +2,16 @@
 
 package fi.thl.koronahaavi.service
 
+import android.app.Activity
 import android.app.IntentService
 import android.app.PendingIntent
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import com.google.android.gms.nearby.exposurenotification.ExposureSummary
 import com.google.android.gms.nearby.exposurenotification.ExposureSummary.ExposureSummaryBuilder
 import com.google.android.gms.nearby.exposurenotification.TemporaryExposureKey
+import com.huawei.hms.api.HuaweiApiAvailability
 import fi.thl.koronahaavi.service.ExposureNotificationService.ResolvableResult
 import com.huawei.hms.contactshield.ContactShield
 import com.huawei.hms.contactshield.ContactShieldCallback
@@ -107,6 +110,8 @@ class HuaweiContactShieldService(
     // todo is location required?
     override fun deviceSupportsLocationlessScanning() = true
 
+    override fun getAvailabilityResolver() = HuaweiAvailabilityResolver()
+
     private suspend fun <T> resultFromRunning(block: suspend () -> T): ResolvableResult<T> {
         return try {
             ResolvableResult.Success(block())
@@ -192,4 +197,19 @@ class BackgroundContactCheckingIntentService : IntentService("ContactShield_Back
             })
         }
     }
+}
+
+class HuaweiAvailabilityResolver : ExposureNotificationService.AvailabilityResolver {
+    private val apiAvailability = HuaweiApiAvailability.getInstance()
+
+    override fun isSystemAvailable(context: Context): Int =
+        apiAvailability.isHuaweiMobileServicesAvailable(context)
+
+    override fun isUserResolvableError(errorCode: Int) =
+        apiAvailability.isUserResolvableError(errorCode)
+
+    override fun showErrorDialogFragment(activity: Activity, errorCode: Int, requestCode: Int,
+                                         cancelListener: (dialog: DialogInterface) -> Unit) =
+        apiAvailability.showErrorDialogFragment(activity, errorCode, requestCode, cancelListener)
+
 }

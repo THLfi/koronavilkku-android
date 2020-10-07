@@ -2,10 +2,13 @@
 
 package fi.thl.koronahaavi.service
 
+import android.app.Activity
 import android.content.ComponentName
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
+import android.content.DialogInterface
 import android.content.Intent
+import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.nearby.exposurenotification.ExposureInformation
 import com.google.android.gms.nearby.exposurenotification.ExposureNotificationClient
 import com.google.android.gms.nearby.exposurenotification.ExposureSummary
@@ -102,6 +105,8 @@ class FakeExposureNotificationService(
 
     override fun deviceSupportsLocationlessScanning() = false
 
+    override fun getAvailabilityResolver() = FakeAvailabilityResolver()
+
     private fun fakeExposureKey() = TemporaryExposureKeyBuilder()
         .setKeyData(Random.nextBytes(16))
         .setRollingPeriod(144)
@@ -111,4 +116,13 @@ class FakeExposureNotificationService(
     companion object {
         const val EN_ENABLED_KEY = "en_enabled"
     }
+}
+
+class FakeAvailabilityResolver : ExposureNotificationService.AvailabilityResolver {
+    override fun isSystemAvailable(context: Context): Int = ConnectionResult.SUCCESS
+
+    override fun isUserResolvableError(errorCode: Int) = false
+
+    override fun showErrorDialogFragment(activity: Activity, errorCode: Int, requestCode: Int,
+                                         cancelListener: (dialog: DialogInterface) -> Unit) = false
 }
