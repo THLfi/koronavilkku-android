@@ -73,7 +73,6 @@ android {
         }
         huawei {
             dimension "system"
-            apply plugin: 'com.huawei.agconnect'
         }
     }
 
@@ -206,4 +205,11 @@ dependencies {
     kaptAndroidTest "com.google.dagger:hilt-android-compiler:$hiltVersion"
     androidTestImplementation "androidx.work:work-testing:$workVersion"
     androidTestImplementation "androidx.navigation:navigation-testing:$navigationVersion"
+}
+
+if (gradle.getStartParameter().getTaskRequests().toString().toLowerCase().contains("huawei")) {
+    println "Huawei App Gallery Connect plugin applied"
+
+    // this plugin looks for agconnect-services.json from app flavor specific source folders
+    apply plugin: 'com.huawei.agconnect'
 }
