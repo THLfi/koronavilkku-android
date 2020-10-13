@@ -8,15 +8,15 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import com.google.android.gms.nearby.exposurenotification.ExposureNotificationStatusCodes
 import com.google.android.gms.nearby.exposurenotification.ExposureSummary
 import com.google.android.gms.nearby.exposurenotification.ExposureSummary.ExposureSummaryBuilder
 import com.google.android.gms.nearby.exposurenotification.TemporaryExposureKey
 import com.huawei.hms.api.HuaweiApiAvailability
+import com.huawei.hms.common.ApiException
+import com.huawei.hms.contactshield.*
+import com.huawei.hms.support.api.entity.core.CommonCode
 import fi.thl.koronahaavi.service.ExposureNotificationService.ResolvableResult
-import com.huawei.hms.contactshield.ContactShield
-import com.huawei.hms.contactshield.ContactShieldCallback
-import com.huawei.hms.contactshield.ContactShieldSetting
-import com.huawei.hms.contactshield.DiagnosisConfiguration
 import fi.thl.koronahaavi.BuildConfig
 import fi.thl.koronahaavi.data.Exposure
 import kotlinx.coroutines.CancellationException
@@ -48,18 +48,7 @@ class HuaweiContactShieldService(
     }
 
     override suspend fun enable() = resultFromRunning {
-        // todo how is user consent obtained? is there an equivalent to google ApiException
-
-        val intent = PendingIntent.getService(
-            context,
-            0,
-            Intent(context, BackgroundContactCheckingIntentService::class.java),
-            PendingIntent.FLAG_UPDATE_CURRENT
-        )
-
-        Timber.d("startContactShield")
-        engine.startContactShield(intent, ContactShieldSetting.DEFAULT).await()
-
+        engine.startContactShield(ContactShieldSetting.DEFAULT).await()
         isEnabledFlow.value = true
     }
 
@@ -98,8 +87,15 @@ class HuaweiContactShieldService(
         config: ExposureConfigurationData
     ): ResolvableResult<Unit> {
 
+        val intent = PendingIntent.getService(
+            context,
+            0,
+            Intent(context, BackgroundContactCheckingIntentService::class.java),
+            PendingIntent.FLAG_UPDATE_CURRENT
+        )
+
         return resultFromRunning<Unit> {
-            engine.putSharedKeyFiles(files, config.toDiagnosisConfiguration(), token).await()
+            engine.putSharedKeyFiles(intent, files, config.toDiagnosisConfiguration(), token).await()
         }
     }
 
@@ -115,7 +111,23 @@ class HuaweiContactShieldService(
     private suspend fun <T> resultFromRunning(block: suspend () -> T): ResolvableResult<T> {
         return try {
             ResolvableResult.Success(block())
-        } catch (exception: Exception) {
+        }
+        catch (exception: ApiException) {
+            Timber.e(exception, "Exposure notification API call failed")
+            if (exception.statusCode == ExposureNotificationStatusCodes.FAILED_NOT_SUPPORTED) {
+                ResolvableResult.MissingCapability(
+                    exception.localizedMessage
+                )
+            }
+            else {
+                ResolvableResult.Failed(
+                    apiErrorCode = exception.statusCode,
+                    connectionErrorCode = 0,
+                    error = exception.localizedMessage
+                )
+            }
+        }
+        catch (exception: Exception) {
             Timber.e(exception, "Contact shield API call failed")
             ResolvableResult.Failed(error = exception.localizedMessage)
         }

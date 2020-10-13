@@ -21,6 +21,13 @@ def pinBackendHost = localProperties.get("pinBackendHost", "$PIN_BACKEND_HOST")
 def pinBackendKeyHash = localProperties.get("pinBackendKeyHash", "$PIN_BACKEND_KEY_HASH")
 def pinBackendKeyBackupHash = localProperties.get("pinBackendKeyBackupHash", "$PIN_BACKEND_KEY_BACKUP_HASH")
 
+// setup app signing keystore for huawei debug builds
+def keystoreProperties = new Properties()
+def keystorePropertiesFile = rootProject.file("keystore.properties")
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+}
+
 android {
     compileSdkVersion rootProject.compileSdkVersion
     buildToolsVersion "29.0.3"
@@ -45,16 +52,13 @@ android {
         testInstrumentationRunner "fi.thl.koronahaavi.HaaviTestRunner"
     }
 
-    buildTypes {
+    signingConfigs {
+        // this config is only used if a keystore.properties file is present
         debug {
-            applicationIdSuffix ".debug"
-            versionNameSuffix "-debug"
-            debuggable true
-            manifestPlaceholders = [allowCleartext:"true"]
-        }
-        release {
-            minifyEnabled false
-            manifestPlaceholders = [allowCleartext:"false"]
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+            storeFile file(keystoreProperties['storeFile'] ?: 'undefined')
+            storePassword keystoreProperties['storePassword']
         }
     }
 
@@ -83,6 +87,24 @@ android {
             setIgnore(true)
         }
     }
+
+    buildTypes {
+        debug {
+            applicationIdSuffix ".debug"
+            versionNameSuffix "-debug"
+            debuggable true
+            manifestPlaceholders = [allowCleartext:"true"]
+
+            if (keystorePropertiesFile.exists()) {
+                signingConfig signingConfigs.debug
+            }
+        }
+        release {
+            minifyEnabled false
+            manifestPlaceholders = [allowCleartext:"false"]
+        }
+    }
+
 
     buildFeatures {
         dataBinding = true
