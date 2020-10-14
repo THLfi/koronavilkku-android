@@ -100,8 +100,15 @@ class HuaweiContactShieldService(
         }
     }
 
-    override suspend fun getTemporaryExposureKeys(): ResolvableResult<List<TemporaryExposureKey>> {
-        TODO("Not yet implemented")
+    override suspend fun getTemporaryExposureKeys() = resultFromRunning {
+        engine.periodicKey.await().map {
+            TemporaryExposureKey.TemporaryExposureKeyBuilder()
+                .setKeyData(it.content)
+                .setRollingStartIntervalNumber(it.periodicKeyValidTime.toInt())
+                .setRollingPeriod(it.periodicKeyLifeTime.toInt())
+                .setTransmissionRiskLevel(it.initialRiskLevel)
+                .build()
+        }
     }
 
     // todo is location required?
