@@ -94,8 +94,8 @@
 
     <string name="exposure_detail_title">Eventuell exponering</string>
 
-    <string name="exposure_detail_message">Du har under de senaste 14 dygnen varit nära en person som meddelat om coronasmitta via Coronablinkern.</string>
-    <string name="exposure_detail_disclaimer">Bedömningen om exponeringen bygger på den information om möten som Coronablinkern har samlat in under de senaste 14 dygnen. Coronablinkern ger ingen exakt bedömning av hur kraftig smittofaran är.</string>
+    <string name="exposure_detail_message">Du har under de senaste 10 dygnen varit nära en person som meddelat om coronasmitta via Coronablinkern.</string>
+    <string name="exposure_detail_disclaimer">Bedömningen om exponeringen bygger på den information om möten som Coronablinkern har samlat in under de senaste 10 dygnen. Coronablinkern ger ingen exakt bedömning av hur kraftig smittofaran är.</string>
 
     <string name="exposure_detail_contact_title">Kontakta hälsovården</string>
     <string name="exposure_detail_contact_subtitle">Information om en eventuell exponering förmedlas till hälsovården endast om du själv tar kontakt.</string>
@@ -103,12 +103,12 @@
 
     <string name="exposure_detail_title_none">Ingen exponering har upptäckts</string>
 
-    <string name="exposure_detail_message_none">Coronablinkern har inte observerat någon exponering för coronaviruset under de senaste 14 dagarna.</string>
+    <string name="exposure_detail_message_none">Coronablinkern har inte observerat någon exponering för coronaviruset under de senaste 10 dagarna.</string>
     <string name="exposure_detail_disclaimer_none">Appen kan emellertid inte identifiera alla eventuella exponeringar.</string>
     <string name="exposure_detail_last_check">Senast granskad %1$s kl %2$s</string>
     <string name="exposure_detail_no_last_check">Ingen kontroll ännu</string>
 
-    <string name="exposure_detail_instructions_title">Följ dessa anvisningar noggrant i två veckors tid:</string>
+    <string name="exposure_detail_instructions_title">Följ dessa anvisningar noggrant i 10 dagars tid:</string>
     <string name="exposure_detail_instructions_1">Om du har ens ett av följande symtom, ta så snabbt som möjligt kontakt med hälsovården i din kommun för att bli testad för coronavirus:</string>
     <string name="exposure_detail_contact_instructions_1">Ta genast kontakt, om du har symtom som passar in på coronavirusinfektionen:</string>
     <string name="exposure_detail_instructions_1_sublist">- nedsatt lukt- och smaksinne\n- andningssvårighet\n- hosta, halsont eller snuva\n- feber\n- huvudvärk eller muskelvärk\n- diarré eller magont utan annan uppenbar orsak.</string>

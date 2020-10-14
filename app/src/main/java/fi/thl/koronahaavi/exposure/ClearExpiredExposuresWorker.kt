@@ -43,9 +43,9 @@ class ClearExpiredExposuresWorker @WorkerInject constructor(
     }
 
     companion object {
-        // 15 day ttl gives the user 24hrs to access the app in case notification is
-        // received for a 14 day old exposure
-        const val EXPOSURE_TTL_SINCE_DETECTION_DAYS = 15
+        // 11 day ttl gives the user 24hrs to access the app in case notification is
+        // received for a 10 day old exposure
+        const val EXPOSURE_TTL_SINCE_DETECTION_DAYS = 11
         const val CLEAR_EXPIRED_WORKER_NAME = "ClearExpiredExposuresWorker"
 
         fun schedule(context: Context) {

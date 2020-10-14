@@ -97,8 +97,8 @@
 
     <string name="exposure_detail_title">Potential exposure</string>
 
-    <string name="exposure_detail_message">In the past 14 days, you have been close to a person who has reported a COVID-19 infection via Koronavilkku.</string>
-    <string name="exposure_detail_disclaimer">The assessment of your exposure is based on encounters that Koronavilkku has collected during the last 14 days. The intensity of exposure cannot be accurately assessed.</string>
+    <string name="exposure_detail_message">In the past 10 days, you have been close to a person who has reported a COVID-19 infection via Koronavilkku.</string>
+    <string name="exposure_detail_disclaimer">The assessment of your exposure is based on encounters that Koronavilkku has collected during the last 10 days. The intensity of exposure cannot be accurately assessed.</string>
 
     <string name="exposure_detail_contact_title">Contact healthcare services</string>
     <string name="exposure_detail_contact_subtitle">Information about your potential exposure will only be communicated to healthcare services if you contact them yourself.</string>
@@ -106,12 +106,12 @@
 
     <string name="exposure_detail_title_none">No observed exposures</string>
 
-    <string name="exposure_detail_message_none">Koronavilkku has not detected exposures to the coronavirus in the last 14 days.</string>
+    <string name="exposure_detail_message_none">Koronavilkku has not detected exposures to the coronavirus in the last 10 days.</string>
     <string name="exposure_detail_disclaimer_none">However, the application is not able to identify every situation where exposure may occur.</string>
     <string name="exposure_detail_last_check">Last checked %1$s at %2$s</string>
     <string name="exposure_detail_no_last_check">No checks yet</string>
 
-    <string name="exposure_detail_instructions_title">Follow these instructions carefully during the next two weeks:</string>
+    <string name="exposure_detail_instructions_title">Follow these instructions carefully during the next 10 days:</string>
     <string name="exposure_detail_instructions_1">If you develop any of the following symptoms consistent with COVID-19, contact your municipal healthcare services and get tested as soon as possible:</string>
     <string name="exposure_detail_contact_instructions_1">Contact your municipal healthcare services as soon as possible and get tested if you experience any of the following symptoms consistent with COVID-19:</string>
     <string name="exposure_detail_instructions_1_sublist">- change in sense of smell or taste\n- shortness of breath\n- cough, sore throat or runny nose\n- fever\n- headaches or muscle pain\n- unexplained diarrhoea or abdominal pain.</string>
