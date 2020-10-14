@@ -19,6 +19,7 @@ import com.huawei.hms.support.api.entity.core.CommonCode
 import fi.thl.koronahaavi.service.ExposureNotificationService.ResolvableResult
 import fi.thl.koronahaavi.BuildConfig
 import fi.thl.koronahaavi.data.Exposure
+import fi.thl.koronahaavi.exposure.ExposureUpdateWorker
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -90,7 +91,7 @@ class HuaweiContactShieldService(
         val intent = PendingIntent.getService(
             context,
             0,
-            Intent(context, BackgroundContactCheckingIntentService::class.java),
+            Intent(context, ContactShieldIntentService::class.java),
             PendingIntent.FLAG_UPDATE_CURRENT
         )
 
@@ -185,28 +186,6 @@ suspend fun <T> com.huawei.hmf.tasks.Task<T>.await(): T {
             } else {
                 cont.resumeWithException(e)
             }
-        }
-    }
-}
-
-class BackgroundContactCheckingIntentService : IntentService("ContactShield_BackgroundContactCheckingIntentService") {
-    private val engine by lazy {
-        ContactShield.getContactShieldEngine(this)
-    }
-
-    override fun onHandleIntent(intent: Intent?) {
-        Timber.d("onHandleIntent $intent")
-
-        intent?.let {
-            engine.handleIntent(it, object : ContactShieldCallback {
-                override fun onHasContact(p0: String?) {
-                    Timber.d("onHasContact")
-                }
-
-                override fun onNoContact(p0: String?) {
-                    Timber.d("onNoContact")
-                }
-            })
         }
     }
 }
