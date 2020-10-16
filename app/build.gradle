@@ -30,7 +30,7 @@ android {
         minSdkVersion rootProject.minSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
         versionCode 10
-        versionName "1.1.0"
+        versionName "1.2.0"
 
         buildConfigField "String", "BASE_URL", "\"$backendUrl\""
         buildConfigField "String", "MUNICIPALITY_URL", "\"$municipalityUrl\""
