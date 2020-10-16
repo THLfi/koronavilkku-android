@@ -9,6 +9,7 @@ import fi.thl.koronahaavi.data.AppStateRepository
 import fi.thl.koronahaavi.service.WorkDispatcher
 import timber.log.Timber
 import timber.log.Timber.DebugTree
+import java.time.ZonedDateTime
 import javax.inject.Inject
 
 @HiltAndroidApp
@@ -36,7 +37,12 @@ class VilkkuApplication : Application() {
         // This is an additional check to make sure workers are scheduled in case
         // app was force-stopped from background and woken up by EN api service.
         if (appStateRepository.isOnboardingComplete()) {
-            workDispatcher.scheduleWorkers()
+            workDispatcher.scheduleWorkers(reconfigure = isLastExposureCheckOld())
         }
+    }
+
+    private fun isLastExposureCheckOld(): Boolean {
+        val limit = ZonedDateTime.now().minusHours(4)
+        return appStateRepository.lastExposureCheckTimeLatest()?.isBefore(limit) != false
     }
 }

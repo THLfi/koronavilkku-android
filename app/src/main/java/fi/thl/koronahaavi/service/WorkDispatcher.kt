@@ -24,8 +24,10 @@ class WorkDispatcher @Inject constructor(
         }
     }
 
-    fun scheduleWorkers() {
-        DiagnosisKeyUpdateWorker.schedule(context, settingsRepository.appConfiguration)
+    fun scheduleWorkers(reconfigure: Boolean = false) {
+        // Attempting to trigger worker to execute by reconfiguring at app startup
+        DiagnosisKeyUpdateWorker.schedule(context, settingsRepository.appConfiguration, reconfigure)
+
         MunicipalityUpdateWorker.schedule(context)
         DiagnosisKeySendTrafficCoverWorker.schedule(context)
         ClearExpiredExposuresWorker.schedule(context)
