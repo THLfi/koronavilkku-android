@@ -149,10 +149,12 @@ data class ServiceLanguages (
 @JsonClass(generateAdapter = true)
 data class LocaleString(
     val fi: String,
-    val sv: String?
+    val sv: String?,
+    val en: String?
 ) {
     fun getLocal(): String = when (Locale.getDefault().language) {
+        Locale("fi").language -> fi
         Locale("sv").language -> sv ?: fi
-        else -> fi
+        else -> en ?: fi
     }
 }
