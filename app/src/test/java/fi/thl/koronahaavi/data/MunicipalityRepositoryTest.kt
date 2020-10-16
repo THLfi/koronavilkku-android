@@ -54,12 +54,22 @@ class MunicipalityRepositoryTest {
     }
 
     @Test
-    fun usesLocaleName() {
+    fun usesSwedish() {
         Locale.setDefault(Locale("sv"))
         runBlocking {
             val list = repository.loadAll()
             assertEquals(2, list?.size)
             assertTrue(list?.any { it.code == "837" && it.name == "Tammerfors" } == true)
+        }
+    }
+
+    @Test
+    fun usesEnglish() {
+        Locale.setDefault(Locale("en"))
+        runBlocking {
+            val list = repository.loadAll()
+            assertEquals(2, list?.size)
+            assertTrue(list?.any { it.code == "091" && it.contacts[0].title == "Meilahti Hospital" } == true)
         }
     }
 
