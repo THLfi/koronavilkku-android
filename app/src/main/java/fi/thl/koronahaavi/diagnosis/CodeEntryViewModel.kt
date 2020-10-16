@@ -16,6 +16,7 @@ class CodeEntryViewModel @ViewModelInject constructor(
     private val exposureNotificationService: ExposureNotificationService,
     private val diagnosisKeyService: DiagnosisKeyService,
     private val appStateRepository: AppStateRepository,
+    private val workDispatcher: WorkDispatcher,
     settingsRepository: SettingsRepository
 ) : ViewModel() {
 
@@ -107,7 +108,8 @@ class CodeEntryViewModel @ViewModelInject constructor(
                 codeEntryError.removeSource(lockedAfterDiagnosis)
                 codeEntryError.removeSource(enEnabled)
 
-                appStateRepository.setDiagnosisKeysSubmitted(true) // also stops the update worker
+                appStateRepository.setDiagnosisKeysSubmitted(true)
+                workDispatcher.cancelWorkersAfterLock()
                 exposureNotificationService.disable()
                 keysSubmittedEvent.postValue(Event(true))
             }

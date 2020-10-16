@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import fi.thl.koronahaavi.service.BackendService
 import fi.thl.koronahaavi.service.BatchId
-import fi.thl.koronahaavi.service.WorkDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import java.time.Instant
@@ -17,8 +16,7 @@ import javax.inject.Singleton
 @Singleton
 class AppStateRepository @Inject constructor (
     private val prefs: SharedPreferences,
-    private val backendService: BackendService,
-    private val workDispatcher: WorkDispatcher
+    private val backendService: BackendService
 ) {
     private val onBoardingCompleteKey = "onboarding_complete"
     private val lastBatchIdKey = "last_batch_id"
@@ -50,10 +48,6 @@ class AppStateRepository @Inject constructor (
     fun setDiagnosisKeysSubmitted(submitted: Boolean) {
         keysSubmitted.value = submitted
         prefs.edit().putBoolean(diagnosisKeysSubmittedKey, submitted).apply()
-
-        if (submitted) {
-            workDispatcher.cancelWorkersAfterLock()
-        }
     }
 
      private fun updateLastExposureCheckTime() {

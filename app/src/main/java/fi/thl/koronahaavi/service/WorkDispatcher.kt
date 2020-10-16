@@ -3,16 +3,19 @@ package fi.thl.koronahaavi.service
 import android.content.Context
 import androidx.work.*
 import dagger.hilt.android.qualifiers.ApplicationContext
+import fi.thl.koronahaavi.data.AppStateRepository
 import fi.thl.koronahaavi.data.SettingsRepository
 import fi.thl.koronahaavi.exposure.ClearExpiredExposuresWorker
 import fi.thl.koronahaavi.exposure.MunicipalityUpdateWorker
+import java.time.ZonedDateTime
 import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class WorkDispatcher @Inject constructor(
     @ApplicationContext private val context: Context,
-    private val settingsRepository: SettingsRepository
+    private val settingsRepository: SettingsRepository,
+    private val appStateRepository: AppStateRepository
 )  {
     fun cancelWorkersAfterLock() {
         with (WorkManager.getInstance(context)) {
@@ -24,12 +27,20 @@ class WorkDispatcher @Inject constructor(
         }
     }
 
-    fun scheduleWorkers(reconfigure: Boolean = false) {
+    fun scheduleWorkers(reconfigureStale: Boolean = false) {
         // Attempting to trigger worker to execute by reconfiguring at app startup
+        val reconfigure = reconfigureStale && isLastExposureCheckOld()
         DiagnosisKeyUpdateWorker.schedule(context, settingsRepository.appConfiguration, reconfigure)
 
         MunicipalityUpdateWorker.schedule(context)
         DiagnosisKeySendTrafficCoverWorker.schedule(context)
         ClearExpiredExposuresWorker.schedule(context)
+    }
+
+    private fun isLastExposureCheckOld(): Boolean {
+        val intervalMinutes = settingsRepository.appConfiguration.pollingIntervalMinutes
+        val limit = ZonedDateTime.now().minusMinutes(intervalMinutes)
+
+        return appStateRepository.lastExposureCheckTimeLatest()?.isBefore(limit) != false
     }
 }

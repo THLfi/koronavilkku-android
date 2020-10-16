@@ -37,12 +37,7 @@ class VilkkuApplication : Application() {
         // This is an additional check to make sure workers are scheduled in case
         // app was force-stopped from background and woken up by EN api service.
         if (appStateRepository.isOnboardingComplete()) {
-            workDispatcher.scheduleWorkers(reconfigure = isLastExposureCheckOld())
+            workDispatcher.scheduleWorkers(reconfigureStale = true)
         }
-    }
-
-    private fun isLastExposureCheckOld(): Boolean {
-        val limit = ZonedDateTime.now().minusHours(4)
-        return appStateRepository.lastExposureCheckTimeLatest()?.isBefore(limit) != false
     }
 }
