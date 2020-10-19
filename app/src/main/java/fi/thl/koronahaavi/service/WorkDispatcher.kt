@@ -38,8 +38,11 @@ class WorkDispatcher @Inject constructor(
     }
 
     private fun isLastExposureCheckOld(): Boolean {
+        // last check is considered old if it's been longer than two update intervals, because
+        // work manager execution is not exact, and we do not want to always update on process start
+        // since that would give the impression that updates never work on the background
         val intervalMinutes = settingsRepository.appConfiguration.pollingIntervalMinutes
-        val limit = ZonedDateTime.now().minusMinutes(intervalMinutes)
+        val limit = ZonedDateTime.now().minusMinutes(2 * intervalMinutes)
 
         return appStateRepository.lastExposureCheckTimeLatest()?.isBefore(limit) != false
     }
