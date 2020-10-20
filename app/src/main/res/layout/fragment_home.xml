@@ -128,7 +128,6 @@
                                 android:id="@+id/text_home_exposure_label"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="@{model.hasExposures==true ? @string/home_exposure_label : @string/home_no_exposure_label}"
                                 android:textAppearance="?attr/textAppearanceHeadline4"
                                 tools:text="@string/home_exposure_label"
                                 />
@@ -138,7 +137,6 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="10dp"
                                 android:textAppearance="?attr/textAppearanceCaption"
-                                android:text="@{model.hasExposures==true ? @string/home_exposure_sub_label : @string/home_no_exposure_sub_label}"
                                 tools:text="@string/home_exposure_sub_label"
                                 />
                         </LinearLayout>
@@ -152,8 +150,8 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             android:layout_marginEnd="10dp"
                             style="@style/Widget.Vilkku.ImageView.Exposure"
-                            android:src="@{model.hasExposures==true ? @drawable/ic_alert : @drawable/ic_check}"
-                            android:backgroundTint="@{model.hasExposures==true ? @color/mainRed : @color/lightBlue}"
+                            android:src="@{model.hasExposures()==true ? @drawable/ic_alert : @drawable/ic_check}"
+                            android:backgroundTint="@{model.hasExposures()==true ? @color/mainRed : @color/lightBlue}"
                             android:contentDescription="@null"
                             tools:src="@drawable/ic_alert"
                             tools:backgroundTint="@color/mainRed"
@@ -167,10 +165,10 @@
                             app:layout_constraintTop_toBottomOf="@+id/layout_home_exposure_labels"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            android:visibility="@{model.hasExposures==true ? View.VISIBLE : View.GONE}"
+                            android:visibility="@{model.hasExposures() ? View.VISIBLE : View.GONE}"
                             android:text="@string/home_exposure_instructions"
                             android:theme="@style/ThemeOverlay.Vilkku.Button.Critical"
-                            tools:visibility="gone"/>
+                            tools:visibility="visible"/>
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 

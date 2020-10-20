@@ -15,6 +15,7 @@ import fi.thl.koronahaavi.R
 import fi.thl.koronahaavi.common.*
 import fi.thl.koronahaavi.databinding.FragmentHomeBinding
 import fi.thl.koronahaavi.device.SystemState
+import fi.thl.koronahaavi.exposure.ExposureState
 import timber.log.Timber
 
 @AndroidEntryPoint
@@ -107,9 +108,10 @@ class HomeFragment : Fragment() {
             }
         })
 
-        viewModel.hasExposures.observe(viewLifecycleOwner, Observer {
+        viewModel.exposureState().observe(viewLifecycleOwner, Observer {
             it?.let { state ->
                 updateExposureLabel(state)
+                updateExposureSubLabel(state)
             }
         })
     }
@@ -129,9 +131,29 @@ class HomeFragment : Fragment() {
 
     private fun navigateToExposureDetail() = findNavController().navigateSafe(HomeFragmentDirections.toExposureDetail())
 
-    private fun updateExposureLabel(hasExposures: Boolean) {
+    private fun updateExposureLabel(state: ExposureState) {
         binding.textHomeExposureLabel.setTextColor(requireContext().themeColor(
-            if (hasExposures) R.attr.colorError else android.R.attr.textColorPrimary)
+            when (state) {
+                ExposureState.HasExposures -> R.attr.colorError
+                else -> android.R.attr.textColorPrimary
+            }
+        ))
+
+        binding.textHomeExposureLabel.text = requireContext().getString(
+            when (state) {
+                ExposureState.HasExposures -> R.string.home_exposure_label
+                else -> R.string.home_no_exposure_label
+            }
+        )
+    }
+
+    private fun updateExposureSubLabel(state: ExposureState) {
+        binding.textHomeExposureSubLabel.text = requireContext().getString(
+            when (state) {
+                is ExposureState.HasExposures -> R.string.home_exposure_sub_label
+                is ExposureState.Clear -> R.string.home_no_exposure_sub_label
+                is ExposureState.Pending -> R.string.home_pending_check_label
+            }
         )
     }
 

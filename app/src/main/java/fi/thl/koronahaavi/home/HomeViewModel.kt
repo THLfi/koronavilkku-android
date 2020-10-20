@@ -12,11 +12,14 @@ import fi.thl.koronahaavi.data.ExposureRepository
 import fi.thl.koronahaavi.device.DeviceStateRepository
 import fi.thl.koronahaavi.device.SystemState
 import fi.thl.koronahaavi.device.SystemStateLiveData
+import fi.thl.koronahaavi.exposure.ExposureState
+import fi.thl.koronahaavi.exposure.ExposureStateLiveData
 import fi.thl.koronahaavi.service.ExposureNotificationService
 import fi.thl.koronahaavi.service.ExposureNotificationService.ResolvableResult
 import fi.thl.koronahaavi.settings.EnableENError
 import fi.thl.koronahaavi.settings.toENApiError
 import kotlinx.coroutines.launch
+import java.time.ZonedDateTime
 
 class HomeViewModel @ViewModelInject constructor(
     exposureRepository: ExposureRepository,
@@ -33,7 +36,12 @@ class HomeViewModel @ViewModelInject constructor(
     private val enableENErrorEvent = MutableLiveData<Event<EnableENError>>()
     fun enableErrorEvent(): LiveData<Event<EnableENError>> = enableENErrorEvent
 
-    val hasExposures = exposureRepository.flowHasExposures().asLiveData()
+    private val hasExposures = exposureRepository.flowHasExposures().asLiveData()
+    private val lastCheckTime = appStateRepository.lastExposureCheckTime()
+
+    private val exposureState = ExposureStateLiveData(hasExposures, lastCheckTime)
+    fun exposureState(): LiveData<ExposureState> = exposureState.distinctUntilChanged()
+    fun hasExposures() = exposureState.map { it == ExposureState.HasExposures }
 
     private val isENEnabled = exposureNotificationService.isEnabledFlow().asLiveData()
     private val isBluetoothOn = deviceStateRepository.bluetoothOn()

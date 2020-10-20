@@ -42,6 +42,7 @@
     <string name="home_title">Hem</string>
     <string name="home_exposure_label">Eventuell exponering</string>
     <string name="home_no_exposure_label">Ingen exponering har upptäckts</string>
+    <string name="home_pending_check_label">Exposure check is pending</string>
     <string name="home_exposure_sub_label">Du kan ha exponerats för viruset</string>
     <string name="home_no_exposure_sub_label">Du har inte varit i närheten av en person som meddelat om smitta</string>
     <string name="home_exposure_instructions">Se anvisningar</string>

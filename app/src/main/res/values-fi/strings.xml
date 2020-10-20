@@ -42,6 +42,7 @@
     <string name="home_title">Koti</string>
     <string name="home_exposure_label">Mahdollinen altistuminen</string>
     <string name="home_no_exposure_label">Ei havaittuja altistumisia</string>
+    <string name="home_pending_check_label">Altistumisten tarkistus on häiriintynyt</string>
     <string name="home_exposure_sub_label">Olet saattanut altistua virukselle</string>
     <string name="home_no_exposure_sub_label">Et ole ollut tartunnasta ilmoittaneen henkilön lähellä</string>
     <string name="home_exposure_instructions">Katso toimintaohjeet</string>
