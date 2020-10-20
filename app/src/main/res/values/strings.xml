@@ -48,6 +48,8 @@
     <string name="home_pending_check_label">Exposure check is pending</string>
     <string name="home_exposure_sub_label">You may have been exposed to the coronavirus</string>
     <string name="home_no_exposure_sub_label">You have not been near a person who has reported an infection</string>
+    <string name="home_exposure_check_label">Last checked %1$s at %2$s</string>
+    <string name="home_exposure_no_check_label">No checks yet</string>
     <string name="home_exposure_instructions">See instructions</string>
 
     <string name="home_symptom_label">Do you think you may have COVID-19?</string>

@@ -139,6 +139,15 @@
                                 android:textAppearance="?attr/textAppearanceCaption"
                                 tools:text="@string/home_exposure_sub_label"
                                 />
+                            <TextView
+                                android:id="@+id/text_home_exposure_check_label"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:visibility="@{model.hasExposures() ? View.GONE : View.VISIBLE}"
+                                android:textAppearance="?attr/textAppearanceCaption"
+                                tools:text="@string/home_exposure_check_label"
+                                />
                         </LinearLayout>
 
                         <ImageView

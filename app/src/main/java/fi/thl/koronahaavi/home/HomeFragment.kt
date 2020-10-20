@@ -13,10 +13,13 @@ import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import fi.thl.koronahaavi.R
 import fi.thl.koronahaavi.common.*
+import fi.thl.koronahaavi.common.FormatExtensions.formatRelativeDate
 import fi.thl.koronahaavi.databinding.FragmentHomeBinding
 import fi.thl.koronahaavi.device.SystemState
 import fi.thl.koronahaavi.exposure.ExposureState
 import timber.log.Timber
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
@@ -110,8 +113,7 @@ class HomeFragment : Fragment() {
 
         viewModel.exposureState().observe(viewLifecycleOwner, Observer {
             it?.let { state ->
-                updateExposureLabel(state)
-                updateExposureSubLabel(state)
+                updateExposureLabels(state)
             }
         })
     }
@@ -131,7 +133,7 @@ class HomeFragment : Fragment() {
 
     private fun navigateToExposureDetail() = findNavController().navigateSafe(HomeFragmentDirections.toExposureDetail())
 
-    private fun updateExposureLabel(state: ExposureState) {
+    private fun updateExposureLabels(state: ExposureState) {
         binding.textHomeExposureLabel.setTextColor(requireContext().themeColor(
             when (state) {
                 ExposureState.HasExposures -> R.attr.colorError
@@ -145,9 +147,7 @@ class HomeFragment : Fragment() {
                 else -> R.string.home_no_exposure_label
             }
         )
-    }
 
-    private fun updateExposureSubLabel(state: ExposureState) {
         binding.textHomeExposureSubLabel.text = requireContext().getString(
             when (state) {
                 is ExposureState.HasExposures -> R.string.home_exposure_sub_label
@@ -155,7 +155,24 @@ class HomeFragment : Fragment() {
                 is ExposureState.Pending -> R.string.home_pending_check_label
             }
         )
+
+        binding.textHomeExposureCheckLabel.text = when (state) {
+            is ExposureState.Pending -> getExposureCheckText(state.lastCheck)
+            is ExposureState.Clear -> getExposureCheckText(state.lastCheck)
+            ExposureState.HasExposures -> null // view is hidden in layout xml
+        }
+
     }
+
+    private fun getExposureCheckText(dateTime: ZonedDateTime?) =
+        if (dateTime != null) {
+            getString(R.string.home_exposure_check_label,
+                dateTime.formatRelativeDate(requireContext()),
+                TIME_FORMATTER.format(dateTime)
+            )
+        } else {
+            getString(R.string.home_exposure_no_check_label)
+        }
 
     private fun updateStatusText(state: SystemState) {
         binding.textHomeAppStatus.text = requireContext().getString(
@@ -202,5 +219,9 @@ class HomeFragment : Fragment() {
 
     private fun enableSystem() {
         viewModel.enableSystem()
+    }
+
+    companion object {
+        val TIME_FORMATTER: DateTimeFormatter = DateTimeFormatter.ofPattern("H.mm")
     }
 }

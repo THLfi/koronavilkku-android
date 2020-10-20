@@ -45,6 +45,8 @@
     <string name="home_pending_check_label">Exposure check is pending</string>
     <string name="home_exposure_sub_label">Du kan ha exponerats för viruset</string>
     <string name="home_no_exposure_sub_label">Du har inte varit i närheten av en person som meddelat om smitta</string>
+    <string name="home_exposure_check_label">Senast granskad %1$s kl %2$s</string>
+    <string name="home_exposure_no_check_label">Ingen kontroll ännu</string>
     <string name="home_exposure_instructions">Se anvisningar</string>
 
     <string name="home_symptom_label">Misstänker du smitta?</string>

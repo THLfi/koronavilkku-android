@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint
 import fi.thl.koronahaavi.R
+import fi.thl.koronahaavi.common.FormatExtensions.formatRelativeDate
 import fi.thl.koronahaavi.common.navigateSafe
 import fi.thl.koronahaavi.common.openGuide
 import fi.thl.koronahaavi.common.themeColor
@@ -74,18 +75,12 @@ class ExposureDetailFragment : Fragment() {
     private fun updateLastCheckTimeLabel(dateTime: ZonedDateTime?) {
         binding.textExposureDetailLastCheck.text = if (dateTime != null) {
             getString(R.string.exposure_detail_last_check,
-                formatDatePart(dateTime),
+                dateTime.formatRelativeDate(requireContext()),
                 TIME_FORMATTER.format(dateTime)
             )
         } else {
             getString(R.string.exposure_detail_no_last_check)
         }
-    }
-
-    private fun formatDatePart(d: ZonedDateTime) = when {
-        d.toLocalDate() == LocalDate.now() -> getString(R.string.all_today)
-        d.plusDays(1).toLocalDate() == LocalDate.now() -> getString(R.string.all_yesterday)
-        else -> DATE_FORMATTER.format(d)
     }
 
     private fun updateToolbar(exposed: Boolean) {
@@ -118,7 +113,6 @@ class ExposureDetailFragment : Fragment() {
 
     companion object {
         val TIME_FORMATTER: DateTimeFormatter = DateTimeFormatter.ofPattern("H.mm")
-        val DATE_FORMATTER: DateTimeFormatter = DateTimeFormatter.ofPattern("d.M.yyyy")
     }
 }
 
