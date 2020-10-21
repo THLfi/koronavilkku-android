@@ -29,14 +29,14 @@ class AppStateRepository @Inject constructor (
     fun lockedAfterDiagnosis(): StateFlow<Boolean> = keysSubmitted
 
     private val lastExposureCheckTime = MutableLiveData<ZonedDateTime?>(null)
-    fun lastExposureCheckTime(): LiveData<ZonedDateTime?> {
+    fun getLastExposureCheckTimeLive(): LiveData<ZonedDateTime?> {
         if (lastExposureCheckTime.value == null) {
             updateLastExposureCheckTime() // initial value set when livedata used
         }
         return lastExposureCheckTime
     }
 
-    fun lastExposureCheckTimeLatest(): ZonedDateTime? =
+    fun getLastExposureCheckTime(): ZonedDateTime? =
         if (prefs.contains(lastExposureCheckTimeKey)) {
             val epochSec = prefs.getLong(lastExposureCheckTimeKey, 0)
             ZonedDateTime.ofInstant(Instant.ofEpochSecond(epochSec), ZoneId.systemDefault())
@@ -51,7 +51,7 @@ class AppStateRepository @Inject constructor (
     }
 
      private fun updateLastExposureCheckTime() {
-        lastExposureCheckTime.postValue(lastExposureCheckTimeLatest())
+        lastExposureCheckTime.postValue(getLastExposureCheckTime())
     }
 
     fun setLastExposureCheckTime(time: ZonedDateTime) {

@@ -44,6 +44,6 @@ class WorkDispatcher @Inject constructor(
         val intervalMinutes = settingsRepository.appConfiguration.pollingIntervalMinutes
         val limit = ZonedDateTime.now().minusMinutes(2 * intervalMinutes)
 
-        return appStateRepository.lastExposureCheckTimeLatest()?.isBefore(limit) != false
+        return appStateRepository.getLastExposureCheckTime()?.isBefore(limit) != false
     }
 }
