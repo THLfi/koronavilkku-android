@@ -79,6 +79,15 @@ class HomeFragment : Fragment() {
             buttonHomeAppGuide.setOnClickListener {
                 activity?.openGuide()
             }
+
+            buttonHomeExposureCheck.setOnClickListener {
+                viewModel.startExposureCheck().observe(viewLifecycleOwner, Observer {
+                    viewModel.checkInProgress.postValue(false)
+
+                    Timber.d("Got result $it")
+                    // todo show success/failure
+                })
+            }
         }
 
         viewModel.enableResolutionRequired().observe(viewLifecycleOwner, Observer {

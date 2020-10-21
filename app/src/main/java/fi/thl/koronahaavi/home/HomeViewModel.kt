@@ -4,6 +4,7 @@ import androidx.lifecycle.*
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
+import androidx.work.Operation
 import com.google.android.gms.common.api.Status
 import fi.thl.koronahaavi.BuildConfig
 import fi.thl.koronahaavi.common.Event
@@ -16,16 +17,17 @@ import fi.thl.koronahaavi.exposure.ExposureState
 import fi.thl.koronahaavi.exposure.ExposureStateLiveData
 import fi.thl.koronahaavi.service.ExposureNotificationService
 import fi.thl.koronahaavi.service.ExposureNotificationService.ResolvableResult
+import fi.thl.koronahaavi.service.WorkDispatcher
 import fi.thl.koronahaavi.settings.EnableENError
 import fi.thl.koronahaavi.settings.toENApiError
 import kotlinx.coroutines.launch
-import java.time.ZonedDateTime
 
 class HomeViewModel @ViewModelInject constructor(
     exposureRepository: ExposureRepository,
     deviceStateRepository: DeviceStateRepository,
     appStateRepository: AppStateRepository,
-    private val exposureNotificationService: ExposureNotificationService
+    private val exposureNotificationService: ExposureNotificationService,
+    private val workDispatcher: WorkDispatcher
 ) : ViewModel() {
 
     private val isLocked = appStateRepository.lockedAfterDiagnosis().asLiveData()
@@ -51,6 +53,8 @@ class HomeViewModel @ViewModelInject constructor(
     fun systemState(): LiveData<SystemState?> = systemState.distinctUntilChanged()
 
     val showTestButton = BuildConfig.ENABLE_TEST_UI
+
+    val checkInProgress = MutableLiveData<Boolean>(false)
 
     fun enableSystem() {
         viewModelScope.launch {
@@ -83,4 +87,21 @@ class HomeViewModel @ViewModelInject constructor(
             }
         }
     }
+
+    fun startExposureCheck(): LiveData<CheckState> {
+        checkInProgress.postValue(false)
+        return workDispatcher.runUpdateWorker().state.map {
+            when (it) {
+                is Operation.State.SUCCESS -> CheckState.Success
+                is Operation.State.FAILURE -> CheckState.Failed
+                else -> CheckState.InProgress
+            }
+        }
+    }
+}
+
+sealed class CheckState {
+    object InProgress: CheckState()
+    object Success: CheckState()
+    object Failed: CheckState()
 }

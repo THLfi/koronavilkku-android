@@ -48,6 +48,7 @@
     <string name="home_exposure_check_label">Senast granskad %1$s kl %2$s</string>
     <string name="home_exposure_no_check_label">Ingen kontroll ännu</string>
     <string name="home_exposure_instructions">Se anvisningar</string>
+    <string name="home_exposure_check">Tarkista nyt</string>
 
     <string name="home_symptom_label">Misstänker du smitta?</string>
     <string name="home_prevention_label">Skydda dig mot smitta</string>

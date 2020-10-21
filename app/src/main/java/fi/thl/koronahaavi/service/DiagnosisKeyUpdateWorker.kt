@@ -191,5 +191,12 @@ class DiagnosisKeyUpdateWorker @WorkerInject constructor(
             )
         }
 
+        fun runOnce(context: Context): Operation =
+            WorkManager.getInstance(context).enqueue(
+                OneTimeWorkRequestBuilder<DiagnosisKeyUpdateWorker>()
+                    .setConstraints(Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build())
+                    .build()
+            )
+
     }
 }

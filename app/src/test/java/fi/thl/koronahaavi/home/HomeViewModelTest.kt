@@ -9,6 +9,7 @@ import fi.thl.koronahaavi.data.ExposureRepository
 import fi.thl.koronahaavi.device.DeviceStateRepository
 import fi.thl.koronahaavi.device.SystemState
 import fi.thl.koronahaavi.service.ExposureNotificationService
+import fi.thl.koronahaavi.service.WorkDispatcher
 import fi.thl.koronahaavi.utils.MainCoroutineScopeRule
 import io.mockk.every
 import io.mockk.mockk
@@ -29,6 +30,7 @@ class HomeViewModelTest {
     private lateinit var deviceStateRepository: DeviceStateRepository
     private lateinit var exposureNotificationService: ExposureNotificationService
     private lateinit var appStateRepository: AppStateRepository
+    private lateinit var workDispatcher: WorkDispatcher
 
     val bluetoothOn = MutableLiveData<Boolean>()
     val locationOn = MutableLiveData<Boolean>()
@@ -40,12 +42,13 @@ class HomeViewModelTest {
         deviceStateRepository = mockk(relaxed = true)
         exposureNotificationService = mockk(relaxed = true)
         appStateRepository = mockk(relaxed = true)
+        workDispatcher = mockk(relaxed = true)
 
         every { deviceStateRepository.bluetoothOn() } returns bluetoothOn
         every { deviceStateRepository.locationOn() } returns locationOn
         every { exposureNotificationService.isEnabledFlow() } returns enEnabledFlow
 
-        viewModel = HomeViewModel(exposureRepository, deviceStateRepository, appStateRepository, exposureNotificationService)
+        viewModel = HomeViewModel(exposureRepository, deviceStateRepository, appStateRepository, exposureNotificationService, workDispatcher)
     }
 
     @Test

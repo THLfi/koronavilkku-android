@@ -30,4 +30,6 @@ class WorkDispatcher @Inject constructor(
         DiagnosisKeySendTrafficCoverWorker.schedule(context)
         ClearExpiredExposuresWorker.schedule(context)
     }
+
+    fun runUpdateWorker(): Operation = DiagnosisKeyUpdateWorker.runOnce(context)
 }
