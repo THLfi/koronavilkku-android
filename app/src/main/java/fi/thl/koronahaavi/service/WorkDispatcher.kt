@@ -31,10 +31,10 @@ class WorkDispatcher @Inject constructor(
         // Attempting to trigger worker to execute by reconfiguring at app startup
         val reconfigure = reconfigureStale && isLastExposureCheckOld()
         DiagnosisKeyUpdateWorker.schedule(context, settingsRepository.appConfiguration, reconfigure)
+        ClearExpiredExposuresWorker.schedule(context, reconfigure)
 
         MunicipalityUpdateWorker.schedule(context)
         DiagnosisKeySendTrafficCoverWorker.schedule(context)
-        ClearExpiredExposuresWorker.schedule(context)
     }
 
     private fun isLastExposureCheckOld(): Boolean {
