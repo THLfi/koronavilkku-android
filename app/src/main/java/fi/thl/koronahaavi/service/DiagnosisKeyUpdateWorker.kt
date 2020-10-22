@@ -3,6 +3,7 @@ package fi.thl.koronahaavi.service
 import android.content.Context
 import androidx.hilt.Assisted
 import androidx.hilt.work.WorkerInject
+import androidx.lifecycle.LiveData
 import androidx.work.*
 import fi.thl.koronahaavi.data.AppStateRepository
 import fi.thl.koronahaavi.data.ExposureRepository
@@ -191,12 +192,15 @@ class DiagnosisKeyUpdateWorker @WorkerInject constructor(
             )
         }
 
-        fun runOnce(context: Context): Operation =
-            WorkManager.getInstance(context).enqueue(
-                OneTimeWorkRequestBuilder<DiagnosisKeyUpdateWorker>()
-                    .setConstraints(Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build())
-                    .build()
-            )
+        fun runOnce(context: Context): LiveData<WorkInfo> {
+            val request = OneTimeWorkRequestBuilder<DiagnosisKeyUpdateWorker>()
+                .setConstraints(Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build())
+                .build()
 
+            with (WorkManager.getInstance(context)) {
+                enqueue(request)
+                return getWorkInfoByIdLiveData(request.id)
+            }
+        }
     }
 }

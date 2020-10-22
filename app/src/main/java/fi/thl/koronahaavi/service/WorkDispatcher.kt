@@ -1,11 +1,13 @@
 package fi.thl.koronahaavi.service
 
 import android.content.Context
+import androidx.lifecycle.LiveData
 import androidx.work.*
 import dagger.hilt.android.qualifiers.ApplicationContext
 import fi.thl.koronahaavi.data.SettingsRepository
 import fi.thl.koronahaavi.exposure.ClearExpiredExposuresWorker
 import fi.thl.koronahaavi.exposure.MunicipalityUpdateWorker
+import java.util.*
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -31,5 +33,5 @@ class WorkDispatcher @Inject constructor(
         ClearExpiredExposuresWorker.schedule(context)
     }
 
-    fun runUpdateWorker(): Operation = DiagnosisKeyUpdateWorker.runOnce(context)
+    fun runUpdateWorker(): LiveData<WorkInfo> = DiagnosisKeyUpdateWorker.runOnce(context)
 }

@@ -5,6 +5,7 @@ import androidx.lifecycle.*
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
 import androidx.work.Operation
+import androidx.work.WorkInfo
 import com.google.android.gms.common.api.Status
 import fi.thl.koronahaavi.BuildConfig
 import fi.thl.koronahaavi.common.Event
@@ -21,6 +22,7 @@ import fi.thl.koronahaavi.service.WorkDispatcher
 import fi.thl.koronahaavi.settings.EnableENError
 import fi.thl.koronahaavi.settings.toENApiError
 import kotlinx.coroutines.launch
+import timber.log.Timber
 
 class HomeViewModel @ViewModelInject constructor(
     exposureRepository: ExposureRepository,
@@ -38,23 +40,24 @@ class HomeViewModel @ViewModelInject constructor(
     private val enableENErrorEvent = MutableLiveData<Event<EnableENError>>()
     fun enableErrorEvent(): LiveData<Event<EnableENError>> = enableENErrorEvent
 
-    private val hasExposures = exposureRepository.flowHasExposures().asLiveData()
-    private val lastCheckTime = appStateRepository.lastExposureCheckTime()
-
-    private val exposureState = ExposureStateLiveData(hasExposures, lastCheckTime)
+    fun systemState(): LiveData<SystemState?> = systemState.distinctUntilChanged()
     fun exposureState(): LiveData<ExposureState> = exposureState.distinctUntilChanged()
     fun hasExposures() = exposureState.map { it == ExposureState.HasExposures }
+
+    // todo prevent if EN disabled or app locked, using systemState
+    fun manualCheckAllowed() = exposureState.map { it is ExposureState.Pending }
+
+    val showTestButton = BuildConfig.ENABLE_TEST_UI
+    val checkInProgress = MutableLiveData<Boolean>(false)
+
+    private val hasExposures = exposureRepository.flowHasExposures().asLiveData()
+    private val lastCheckTime = appStateRepository.lastExposureCheckTime()
 
     private val isENEnabled = exposureNotificationService.isEnabledFlow().asLiveData()
     private val isBluetoothOn = deviceStateRepository.bluetoothOn()
     private val isLocationOn = deviceStateRepository.locationOn()
-
     private val systemState = SystemStateLiveData(isENEnabled, isBluetoothOn, isLocationOn, isLocked)
-    fun systemState(): LiveData<SystemState?> = systemState.distinctUntilChanged()
-
-    val showTestButton = BuildConfig.ENABLE_TEST_UI
-
-    val checkInProgress = MutableLiveData<Boolean>(false)
+    private val exposureState = ExposureStateLiveData(hasExposures, lastCheckTime)
 
     fun enableSystem() {
         viewModelScope.launch {
@@ -89,12 +92,15 @@ class HomeViewModel @ViewModelInject constructor(
     }
 
     fun startExposureCheck(): LiveData<CheckState> {
-        checkInProgress.postValue(false)
-        return workDispatcher.runUpdateWorker().state.map {
-            when (it) {
-                is Operation.State.SUCCESS -> CheckState.Success
-                is Operation.State.FAILURE -> CheckState.Failed
-                else -> CheckState.InProgress
+        Timber.d("startExposureCheck")
+        checkInProgress.postValue(true)
+
+        // todo prevent worker retry with params
+        return workDispatcher.runUpdateWorker().map {
+            when (it.state) {
+                WorkInfo.State.ENQUEUED, WorkInfo.State.RUNNING -> CheckState.InProgress
+                WorkInfo.State.SUCCEEDED -> CheckState.Success
+                else -> CheckState.Failed
             }
         }
     }

@@ -38,6 +38,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import timber.log.Timber
+import java.time.ZonedDateTime
 import javax.inject.Inject
 
 @SuppressLint("SetTextI18n")
@@ -116,6 +117,10 @@ class TestFragment : Fragment() {
 
         binding.buttonTestUnlock.setOnClickListener {
             appStateRepository.setDiagnosisKeysSubmitted(false)
+        }
+
+        binding.buttonTestSetOldUpdate.setOnClickListener {
+            appStateRepository.setLastExposureCheckTime(ZonedDateTime.now().minusDays(2))
         }
 
         binding.buttonTestOpenEnSettings.setOnClickListener {

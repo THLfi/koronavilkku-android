@@ -10,6 +10,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import fi.thl.koronahaavi.R
 import fi.thl.koronahaavi.common.*
@@ -82,10 +83,15 @@ class HomeFragment : Fragment() {
 
             buttonHomeExposureCheck.setOnClickListener {
                 viewModel.startExposureCheck().observe(viewLifecycleOwner, Observer {
-                    viewModel.checkInProgress.postValue(false)
-
-                    Timber.d("Got result $it")
-                    // todo show success/failure
+                    when (it) {
+                        CheckState.Failed -> {
+                            viewModel.checkInProgress.value = false
+                            Timber.d("exposure check failed")
+                        }
+                        CheckState.Success -> {
+                            viewModel.checkInProgress.value = false
+                        }
+                    }
                 })
             }
         }
