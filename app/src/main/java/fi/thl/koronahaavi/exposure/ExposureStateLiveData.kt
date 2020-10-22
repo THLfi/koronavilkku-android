@@ -24,8 +24,8 @@ class ExposureStateLiveData(
 
     private fun isLastCheckOld(): Boolean {
         // null value returns false here, so its considered as ExposureState.Clear,
-        // because thats the state right after onboarding until worker executed
-        val limit = ZonedDateTime.now().minusHours(8)
+        // because that is the state right after onboarding until worker executed
+        val limit = ZonedDateTime.now().minusDays(1)
         return lastCheck.value?.isBefore(limit) == true
     }
 }

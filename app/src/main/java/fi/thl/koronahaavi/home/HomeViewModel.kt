@@ -4,7 +4,6 @@ import androidx.lifecycle.*
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
-import androidx.work.Operation
 import androidx.work.WorkInfo
 import com.google.android.gms.common.api.Status
 import fi.thl.koronahaavi.BuildConfig
@@ -40,24 +39,33 @@ class HomeViewModel @ViewModelInject constructor(
     private val enableENErrorEvent = MutableLiveData<Event<EnableENError>>()
     fun enableErrorEvent(): LiveData<Event<EnableENError>> = enableENErrorEvent
 
-    fun systemState(): LiveData<SystemState?> = systemState.distinctUntilChanged()
-    fun exposureState(): LiveData<ExposureState> = exposureState.distinctUntilChanged()
-    fun hasExposures() = exposureState.map { it == ExposureState.HasExposures }
-
-    // todo prevent if EN disabled or app locked, using systemState
-    fun manualCheckAllowed() = exposureState.map { it is ExposureState.Pending }
-
-    val showTestButton = BuildConfig.ENABLE_TEST_UI
-    val checkInProgress = MutableLiveData<Boolean>(false)
-
     private val hasExposures = exposureRepository.flowHasExposures().asLiveData()
     private val lastCheckTime = appStateRepository.lastExposureCheckTime()
-
     private val isENEnabled = exposureNotificationService.isEnabledFlow().asLiveData()
     private val isBluetoothOn = deviceStateRepository.bluetoothOn()
     private val isLocationOn = deviceStateRepository.locationOn()
     private val systemState = SystemStateLiveData(isENEnabled, isBluetoothOn, isLocationOn, isLocked)
     private val exposureState = ExposureStateLiveData(hasExposures, lastCheckTime)
+
+    fun systemState(): LiveData<SystemState?> = systemState.distinctUntilChanged()
+    fun exposureState(): LiveData<ExposureState> = exposureState.distinctUntilChanged()
+    fun hasExposures() = exposureState.map { it == ExposureState.HasExposures }
+    fun showManualCheck(): LiveData<Boolean> = showManualCheck.distinctUntilChanged()
+
+    val showTestButton = BuildConfig.ENABLE_TEST_UI
+    val checkInProgress = MutableLiveData<Boolean>(false)
+
+    private val showManualCheck = MediatorLiveData<Boolean>().apply {
+        addSource(exposureState) { updateManualCheckAllowed() }
+        addSource(systemState) { updateManualCheckAllowed() }
+        addSource(checkInProgress) { updateManualCheckAllowed() }
+    }
+
+    private fun updateManualCheckAllowed() {
+        // sync showManualCheck value with checkInProgress so that button and progress indicator disappear at the same time
+        showManualCheck.value = (checkInProgress.value == true) ||
+                (exposureState.value is ExposureState.Pending) && (systemState.value == SystemState.On)
+    }
 
     fun enableSystem() {
         viewModelScope.launch {
