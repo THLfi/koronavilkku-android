@@ -5,7 +5,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import fi.thl.koronahaavi.service.BackendService
 import fi.thl.koronahaavi.service.BatchId
-import fi.thl.koronahaavi.service.WorkDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import java.time.Instant
@@ -17,8 +16,7 @@ import javax.inject.Singleton
 @Singleton
 class AppStateRepository @Inject constructor (
     private val prefs: SharedPreferences,
-    private val backendService: BackendService,
-    private val workDispatcher: WorkDispatcher
+    private val backendService: BackendService
 ) {
     private val onBoardingCompleteKey = "onboarding_complete"
     private val lastBatchIdKey = "last_batch_id"
@@ -31,31 +29,29 @@ class AppStateRepository @Inject constructor (
     fun lockedAfterDiagnosis(): StateFlow<Boolean> = keysSubmitted
 
     private val lastExposureCheckTime = MutableLiveData<ZonedDateTime?>(null)
-    fun lastExposureCheckTime(): LiveData<ZonedDateTime?> = lastExposureCheckTime
-
-    init {
-        updateLastExposureCheckTime()
+    fun getLastExposureCheckTimeLive(): LiveData<ZonedDateTime?> {
+        if (lastExposureCheckTime.value == null) {
+            updateLastExposureCheckTime() // initial value set when livedata used
+        }
+        return lastExposureCheckTime
     }
+
+    fun getLastExposureCheckTime(): ZonedDateTime? =
+        if (prefs.contains(lastExposureCheckTimeKey)) {
+            val epochSec = prefs.getLong(lastExposureCheckTimeKey, 0)
+            ZonedDateTime.ofInstant(Instant.ofEpochSecond(epochSec), ZoneId.systemDefault())
+        }
+        else {
+            null
+        }
 
     fun setDiagnosisKeysSubmitted(submitted: Boolean) {
         keysSubmitted.value = submitted
         prefs.edit().putBoolean(diagnosisKeysSubmittedKey, submitted).apply()
-
-        if (submitted) {
-            workDispatcher.cancelWorkersAfterLock()
-        }
     }
 
      private fun updateLastExposureCheckTime() {
-        lastExposureCheckTime.postValue(
-            if (prefs.contains(lastExposureCheckTimeKey)) {
-                val epochSec = prefs.getLong(lastExposureCheckTimeKey, 0)
-                ZonedDateTime.ofInstant(Instant.ofEpochSecond(epochSec), ZoneId.systemDefault())
-            }
-            else {
-                null
-            }
-        )
+        lastExposureCheckTime.postValue(getLastExposureCheckTime())
     }
 
     fun setLastExposureCheckTime(time: ZonedDateTime) {

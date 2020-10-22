@@ -10,6 +10,6 @@ class ExposureDetailViewModel @ViewModelInject constructor(
     appStateRepository: AppStateRepository
 ) : ViewModel() {
     val hasExposures = exposureRepository.flowHasExposures().asLiveData()
-    val lastCheckTime = appStateRepository.lastExposureCheckTime()
+    val lastCheckTime = appStateRepository.getLastExposureCheckTimeLive()
 }
 

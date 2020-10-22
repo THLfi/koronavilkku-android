@@ -11,6 +11,7 @@ import fi.thl.koronahaavi.service.ExposureNotificationService
 import fi.thl.koronahaavi.service.ExposureNotificationService.ResolvableResult.ResolutionRequired
 import fi.thl.koronahaavi.service.ExposureNotificationService.ResolvableResult.Success
 import fi.thl.koronahaavi.service.SendKeysResult
+import fi.thl.koronahaavi.service.WorkDispatcher
 import fi.thl.koronahaavi.utils.MainCoroutineScopeRule
 import io.mockk.coEvery
 import io.mockk.coVerify
@@ -33,6 +34,7 @@ class CodeEntryViewModelTest {
     private lateinit var exposureNotificationService: ExposureNotificationService
     private lateinit var appStateRepository: AppStateRepository
     private lateinit var settingsRepository: SettingsRepository
+    private lateinit var workDispatcher: WorkDispatcher
 
     val enEnabledFlow = MutableStateFlow(false)
 
@@ -42,12 +44,13 @@ class CodeEntryViewModelTest {
         exposureNotificationService = mockk(relaxed = true)
         appStateRepository = mockk(relaxed = true)
         settingsRepository = mockk(relaxed = true)
+        workDispatcher = mockk(relaxed = true)
 
         coEvery { exposureNotificationService.isEnabledFlow() } returns enEnabledFlow
         coEvery { exposureNotificationService.getTemporaryExposureKeys() } returns Success(listOf())
         coEvery { diagnosisKeyService.sendExposureKeys(any(), any()) } returns SendKeysResult.Success
 
-        viewModel = CodeEntryViewModel(exposureNotificationService, diagnosisKeyService, appStateRepository, settingsRepository)
+        viewModel = CodeEntryViewModel(exposureNotificationService, diagnosisKeyService, appStateRepository, workDispatcher, settingsRepository)
     }
 
     @Test
