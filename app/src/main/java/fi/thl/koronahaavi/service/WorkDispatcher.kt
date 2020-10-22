@@ -29,6 +29,9 @@ class WorkDispatcher @Inject constructor(
 
     fun scheduleWorkers(reconfigureStale: Boolean = false) {
         // Attempting to trigger worker to execute by reconfiguring at app startup
+        // This seems to be required on some android models, like Xiaomi, to execute worker
+        // when Google services periodically restart the app process using WakeUpService
+
         val reconfigure = reconfigureStale && isLastExposureCheckOld()
         DiagnosisKeyUpdateWorker.schedule(context, settingsRepository.appConfiguration, reconfigure)
         ClearExpiredExposuresWorker.schedule(context, reconfigure)
