@@ -266,4 +266,6 @@
     <string name="power_deny_confirm_message">If you don\'t allow Koronavilkku to always run in the background, we recommend opening Koronavilkku manually at least once a day.\n\nYou can change this setting at any time in your phone\'s Settings.</string>
     <string name="power_allow_retry">Allow after all</string>
 
+    <string name="exposure_check_error_title">Check failed</string>
+    <string name="exposure_check_error_message">Check failed, please check network connection</string>
 </resources>

@@ -141,13 +141,21 @@ class HomeFragment : Fragment() {
             when (it) {
                 CheckState.Failed -> {
                     viewModel.checkInProgress.value = false
-                    Timber.d("exposure check failed")
+                    showManualExposureCheckError()
                 }
                 CheckState.Success -> {
                     viewModel.checkInProgress.value = false
                 }
             }
         })
+    }
+
+    private fun showManualExposureCheckError() {
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle(R.string.exposure_check_error_title)
+            .setMessage(R.string.exposure_check_error_message)
+            .setPositiveButton(R.string.all_ok, null)
+            .show()
     }
 
     private fun navigateToExposureDetail() = findNavController().navigateSafe(HomeFragmentDirections.toExposureDetail())
