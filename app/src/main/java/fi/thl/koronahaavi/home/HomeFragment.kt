@@ -137,25 +137,10 @@ class HomeFragment : Fragment() {
     }
 
     private fun startManualExposureCheck() {
-        viewModel.startExposureCheck().observe(viewLifecycleOwner, Observer {
-            when (it) {
-                CheckState.Failed -> {
-                    viewModel.checkInProgress.value = false
-                    showManualExposureCheckError()
-                }
-                CheckState.Success -> {
-                    viewModel.checkInProgress.value = false
-                }
-            }
-        })
-    }
-
-    private fun showManualExposureCheckError() {
-        MaterialAlertDialogBuilder(requireContext())
-            .setTitle(R.string.exposure_check_error_title)
-            .setMessage(R.string.exposure_check_error_message)
-            .setPositiveButton(R.string.all_ok, null)
-            .show()
+        viewModel.startExposureCheck().observe(
+            viewLifecycleOwner,
+            ExposureCheckObserver(requireContext(), viewModel.checkInProgress)
+        )
     }
 
     private fun navigateToExposureDetail() = findNavController().navigateSafe(HomeFragmentDirections.toExposureDetail())

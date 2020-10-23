@@ -244,7 +244,7 @@
     <string name="power_deny_confirm_message">Jos et anna Koronavilkulle lupaa toimia aina taustalla, sovellus ei välttämättä voi hakea palvelimelta tietoja mahdollisesta altistumisesta. Siinä tapauksessa suosittelemme, että avaat sovelluksen ainakin kerran päivässä.\n\nVoit muuttaa valintaasi myöhemmin puhelimesi asetuksissa.</string>
     <string name="power_allow_retry">Anna lupa</string>
 
-    <string name="exposure_check_error_title">Virhe</string>
-    <string name="exposure_check_error_message">Tarkistus ei onnistunut, tarkista verkkoyhteys</string>
+    <string name="exposure_check_error_title">Virhe altistumistietojen lataamisessa</string>
+    <string name="exposure_check_error_message">Altistumistietojen lataaminen ei onnistunut. Tarkista verkkoyhteys ja yritä uudelleen.</string>
 
 </resources>

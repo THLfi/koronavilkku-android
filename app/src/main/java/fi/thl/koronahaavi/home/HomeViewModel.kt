@@ -15,13 +15,14 @@ import fi.thl.koronahaavi.device.SystemState
 import fi.thl.koronahaavi.device.SystemStateLiveData
 import fi.thl.koronahaavi.exposure.ExposureState
 import fi.thl.koronahaavi.exposure.ExposureStateLiveData
+import fi.thl.koronahaavi.exposure.ManualCheckAllowedLiveData
 import fi.thl.koronahaavi.service.ExposureNotificationService
 import fi.thl.koronahaavi.service.ExposureNotificationService.ResolvableResult
 import fi.thl.koronahaavi.service.WorkDispatcher
+import fi.thl.koronahaavi.service.WorkState
 import fi.thl.koronahaavi.settings.EnableENError
 import fi.thl.koronahaavi.settings.toENApiError
 import kotlinx.coroutines.launch
-import timber.log.Timber
 
 class HomeViewModel @ViewModelInject constructor(
     exposureRepository: ExposureRepository,
@@ -39,6 +40,8 @@ class HomeViewModel @ViewModelInject constructor(
     private val enableENErrorEvent = MutableLiveData<Event<EnableENError>>()
     fun enableErrorEvent(): LiveData<Event<EnableENError>> = enableENErrorEvent
 
+    val checkInProgress = MutableLiveData<Boolean>(false)
+
     private val hasExposures = exposureRepository.flowHasExposures().asLiveData()
     private val lastCheckTime = appStateRepository.lastExposureCheckTime()
     private val isENEnabled = exposureNotificationService.isEnabledFlow().asLiveData()
@@ -46,6 +49,7 @@ class HomeViewModel @ViewModelInject constructor(
     private val isLocationOn = deviceStateRepository.locationOn()
     private val systemState = SystemStateLiveData(isENEnabled, isBluetoothOn, isLocationOn, isLocked)
     private val exposureState = ExposureStateLiveData(hasExposures, lastCheckTime)
+    private val showManualCheck = ManualCheckAllowedLiveData(systemState, exposureState, checkInProgress)
 
     fun systemState(): LiveData<SystemState?> = systemState.distinctUntilChanged()
     fun exposureState(): LiveData<ExposureState> = exposureState.distinctUntilChanged()
@@ -53,19 +57,7 @@ class HomeViewModel @ViewModelInject constructor(
     fun showManualCheck(): LiveData<Boolean> = showManualCheck.distinctUntilChanged()
 
     val showTestButton = BuildConfig.ENABLE_TEST_UI
-    val checkInProgress = MutableLiveData<Boolean>(false)
 
-    private val showManualCheck = MediatorLiveData<Boolean>().apply {
-        addSource(exposureState) { updateManualCheckAllowed() }
-        addSource(systemState) { updateManualCheckAllowed() }
-        addSource(checkInProgress) { updateManualCheckAllowed() }
-    }
-
-    private fun updateManualCheckAllowed() {
-        // sync showManualCheck value with checkInProgress so that button and progress indicator disappear at the same time
-        showManualCheck.value = (checkInProgress.value == true) ||
-                (exposureState.value is ExposureState.Pending) && (systemState.value == SystemState.On)
-    }
 
     fun enableSystem() {
         viewModelScope.launch {
@@ -99,21 +91,8 @@ class HomeViewModel @ViewModelInject constructor(
         }
     }
 
-    fun startExposureCheck(): LiveData<CheckState> {
+    fun startExposureCheck(): LiveData<WorkState> {
         checkInProgress.postValue(true)
-
-        return workDispatcher.runUpdateWorker().map {
-            when (it.state) {
-                WorkInfo.State.ENQUEUED, WorkInfo.State.RUNNING -> CheckState.InProgress
-                WorkInfo.State.SUCCEEDED -> CheckState.Success
-                else -> CheckState.Failed
-            }
-        }
+        return workDispatcher.runUpdateWorker()
     }
-}
-
-sealed class CheckState {
-    object InProgress: CheckState()
-    object Success: CheckState()
-    object Failed: CheckState()
 }

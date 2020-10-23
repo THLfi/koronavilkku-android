@@ -243,7 +243,7 @@
     <string name="power_deny_confirm_message">Om du inte tillåter att Coronablinkern körs i bakgrunden rekommenderar vi att du öppnar appen minst en gång om dagen.\n\nDu kan ändra ditt val när som helst i din telefons inställningar.</string>
     <string name="power_allow_retry">Tillåt</string>
 
-    <string name="exposure_check_error_title">Virhe</string>
-    <string name="exposure_check_error_message">Tarkistus ei onnistunut, tarkista verkkoyhteys</string>
+    <string name="exposure_check_error_title">Det gick inte att ladda exponeringsdata</string>
+    <string name="exposure_check_error_message">Kontrollera din nätverksanslutning och försök på nytt.</string>
 
 </resources>

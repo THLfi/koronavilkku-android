@@ -195,12 +195,9 @@ class DiagnosisKeyUpdateWorker @WorkerInject constructor(
         }
 
         fun runOnce(context: Context): LiveData<WorkInfo> {
+            // just run once, no constraints or retries
             val request = OneTimeWorkRequestBuilder<DiagnosisKeyUpdateWorker>()
-                .setConstraints(
-                    Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build()
-                )
                 .setInputData(
-                    // just run once, no retries
                     Data.Builder().putBoolean(RETRY_DISABLED_KEY, true).build()
                 )
                 .build()

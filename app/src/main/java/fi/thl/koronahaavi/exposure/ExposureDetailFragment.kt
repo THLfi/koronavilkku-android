@@ -12,12 +12,12 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint
 import fi.thl.koronahaavi.R
+import fi.thl.koronahaavi.common.ExposureCheckObserver
 import fi.thl.koronahaavi.common.FormatExtensions.formatRelativeDate
 import fi.thl.koronahaavi.common.navigateSafe
 import fi.thl.koronahaavi.common.openGuide
 import fi.thl.koronahaavi.common.themeColor
 import fi.thl.koronahaavi.databinding.FragmentExposureDetailBinding
-import java.time.LocalDate
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 
@@ -53,14 +53,20 @@ class ExposureDetailFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.toolbar.setupWithNavController(findNavController())
+        with (binding) {
+            toolbar.setupWithNavController(findNavController())
 
-        binding.buttonExposureDetailContactStart.setOnClickListener {
-            findNavController().navigateSafe(ExposureDetailFragmentDirections.toSelectMunicipality())
-        }
+            buttonExposureDetailContactStart.setOnClickListener {
+                findNavController().navigateSafe(ExposureDetailFragmentDirections.toSelectMunicipality())
+            }
 
-        binding.buttonExposureDetailAppInfo.setOnClickListener {
-            activity?.openGuide()
+            buttonExposureDetailAppInfo.setOnClickListener {
+                activity?.openGuide()
+            }
+
+            buttonExposureDetailStartCheck.setOnClickListener {
+                startManualExposureCheck()
+            }
         }
 
         viewModel.hasExposures.observe(viewLifecycleOwner, Observer { exposed ->
@@ -111,8 +117,14 @@ class ExposureDetailFragment : Fragment() {
         requireActivity().window.clearFlags(LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
     }
 
+    private fun startManualExposureCheck() {
+        viewModel.startExposureCheck().observe(
+            viewLifecycleOwner,
+            ExposureCheckObserver(requireContext(), viewModel.checkInProgress)
+        )
+    }
+
     companion object {
         val TIME_FORMATTER: DateTimeFormatter = DateTimeFormatter.ofPattern("H.mm")
     }
 }
-

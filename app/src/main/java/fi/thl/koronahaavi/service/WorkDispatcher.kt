@@ -2,6 +2,7 @@ package fi.thl.koronahaavi.service
 
 import android.content.Context
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.map
 import androidx.work.*
 import dagger.hilt.android.qualifiers.ApplicationContext
 import fi.thl.koronahaavi.data.SettingsRepository
@@ -15,9 +16,9 @@ import javax.inject.Singleton
 class WorkDispatcher @Inject constructor(
     @ApplicationContext private val context: Context,
     private val settingsRepository: SettingsRepository
-)  {
+) {
     fun cancelWorkersAfterLock() {
-        with (WorkManager.getInstance(context)) {
+        with(WorkManager.getInstance(context)) {
             cancelUniqueWork(DiagnosisKeyUpdateWorker.KEY_UPDATER_NAME)
             cancelUniqueWork(MunicipalityUpdateWorker.MUNICIPALITY_UPDATER_NAME)
             cancelUniqueWork(DiagnosisKeySendTrafficCoverWorker.SEND_TRAFFIC_COVER_WORKER_NAME)
@@ -33,5 +34,18 @@ class WorkDispatcher @Inject constructor(
         ClearExpiredExposuresWorker.schedule(context)
     }
 
-    fun runUpdateWorker(): LiveData<WorkInfo> = DiagnosisKeyUpdateWorker.runOnce(context)
+    fun runUpdateWorker(): LiveData<WorkState> =
+        DiagnosisKeyUpdateWorker.runOnce(context).map {
+            when (it.state) {
+                WorkInfo.State.ENQUEUED, WorkInfo.State.RUNNING -> WorkState.InProgress
+                WorkInfo.State.SUCCEEDED -> WorkState.Success
+                else -> WorkState.Failed
+            }
+        }
+}
+
+sealed class WorkState {
+    object InProgress: WorkState()
+    object Success: WorkState()
+    object Failed: WorkState()
 }
