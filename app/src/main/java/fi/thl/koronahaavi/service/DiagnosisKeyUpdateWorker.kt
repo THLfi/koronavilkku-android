@@ -122,8 +122,7 @@ class DiagnosisKeyUpdateWorker @WorkerInject constructor(
     }
 
     private fun resultForError(e: Exception): Result {
-
-        if (hasRunAttemptsLeft()) {
+        if (allowedToRetry()) {
             // OkHttp by default silently retries in case of certain errors (see OkHttpClient.Builder.retryOnConnectionFailure).
             if (e is IOException) {
                 return Result.retry()
@@ -136,7 +135,9 @@ class DiagnosisKeyUpdateWorker @WorkerInject constructor(
         return Result.failure()
     }
 
-    private fun hasRunAttemptsLeft(): Boolean = runAttemptCount < (MAX_RETRIES - 1)
+    // manual one-time update disables retries
+    private fun allowedToRetry(): Boolean =
+        (runAttemptCount < (MAX_RETRIES - 1)) && !inputData.getBoolean(RETRY_DISABLED_KEY, false)
 
     private fun HttpException.shouldRetry(): Boolean {
 
@@ -166,6 +167,7 @@ class DiagnosisKeyUpdateWorker @WorkerInject constructor(
     companion object {
         const val MAX_RETRIES = 3
         const val KEY_UPDATER_NAME = "DiagnosisKeyUpdate"
+        const val RETRY_DISABLED_KEY = "retry_disabled"
 
         fun schedule(context: Context, cfg: AppConfiguration, reconfigure: Boolean = false) {
             // start polling for backend diagnosis keys
@@ -194,7 +196,13 @@ class DiagnosisKeyUpdateWorker @WorkerInject constructor(
 
         fun runOnce(context: Context): LiveData<WorkInfo> {
             val request = OneTimeWorkRequestBuilder<DiagnosisKeyUpdateWorker>()
-                .setConstraints(Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build())
+                .setConstraints(
+                    Constraints.Builder().setRequiredNetworkType(NetworkType.CONNECTED).build()
+                )
+                .setInputData(
+                    // just run once, no retries
+                    Data.Builder().putBoolean(RETRY_DISABLED_KEY, true).build()
+                )
                 .build()
 
             with (WorkManager.getInstance(context)) {

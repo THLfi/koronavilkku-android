@@ -82,17 +82,7 @@ class HomeFragment : Fragment() {
             }
 
             buttonHomeExposureCheck.setOnClickListener {
-                viewModel.startExposureCheck().observe(viewLifecycleOwner, Observer {
-                    when (it) {
-                        CheckState.Failed -> {
-                            viewModel.checkInProgress.value = false
-                            Timber.d("exposure check failed")
-                        }
-                        CheckState.Success -> {
-                            viewModel.checkInProgress.value = false
-                        }
-                    }
-                })
+                startManualExposureCheck()
             }
         }
 
@@ -144,6 +134,20 @@ class HomeFragment : Fragment() {
         // done in onStop instead of onPause, because stopping in onPause shows
         // a flicker in vector while its stopped/reset
         (binding.imageHomeAppStatus.drawable as? AnimatedVectorDrawable)?.stop()
+    }
+
+    private fun startManualExposureCheck() {
+        viewModel.startExposureCheck().observe(viewLifecycleOwner, Observer {
+            when (it) {
+                CheckState.Failed -> {
+                    viewModel.checkInProgress.value = false
+                    Timber.d("exposure check failed")
+                }
+                CheckState.Success -> {
+                    viewModel.checkInProgress.value = false
+                }
+            }
+        })
     }
 
     private fun navigateToExposureDetail() = findNavController().navigateSafe(HomeFragmentDirections.toExposureDetail())

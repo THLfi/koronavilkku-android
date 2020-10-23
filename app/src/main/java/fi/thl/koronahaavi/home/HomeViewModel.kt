@@ -100,10 +100,8 @@ class HomeViewModel @ViewModelInject constructor(
     }
 
     fun startExposureCheck(): LiveData<CheckState> {
-        Timber.d("startExposureCheck")
         checkInProgress.postValue(true)
 
-        // todo prevent worker retry with params
         return workDispatcher.runUpdateWorker().map {
             when (it.state) {
                 WorkInfo.State.ENQUEUED, WorkInfo.State.RUNNING -> CheckState.InProgress

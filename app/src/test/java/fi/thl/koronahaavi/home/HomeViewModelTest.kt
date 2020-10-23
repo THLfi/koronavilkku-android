@@ -18,6 +18,7 @@ import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import java.time.ZonedDateTime
 
 class HomeViewModelTest {
     @get:Rule
@@ -35,6 +36,7 @@ class HomeViewModelTest {
     val bluetoothOn = MutableLiveData<Boolean>()
     val locationOn = MutableLiveData<Boolean>()
     val enEnabledFlow = MutableStateFlow<Boolean?>(null)
+    val lastCheckTime = MutableLiveData<ZonedDateTime?>()
 
     @Before
     fun init() {
@@ -47,6 +49,7 @@ class HomeViewModelTest {
         every { deviceStateRepository.bluetoothOn() } returns bluetoothOn
         every { deviceStateRepository.locationOn() } returns locationOn
         every { exposureNotificationService.isEnabledFlow() } returns enEnabledFlow
+        every { appStateRepository.lastExposureCheckTime() } returns lastCheckTime
 
         viewModel = HomeViewModel(exposureRepository, deviceStateRepository, appStateRepository, exposureNotificationService, workDispatcher)
     }
@@ -64,14 +67,40 @@ class HomeViewModelTest {
 
     @Test
     fun systemEnabled() {
-        enEnabledFlow.value = true
-        bluetoothOn.value = true
-        locationOn.value = true
+        setSystemOn()
         viewModel.systemState().test().assertValue(SystemState.On)
     }
 
     @Test
     fun systemEnabledNullAtFirst() {
         viewModel.systemState().test().assertNullValue()
+    }
+
+    @Test
+    fun manualCheckShownWhenOld() {
+        setSystemOn()
+        lastCheckTime.value = ZonedDateTime.now().minusDays(2)
+
+        viewModel.showManualCheck().test().assertValue(true)
+    }
+
+    @Test
+    fun manualCheckHiddenWhenUpToDate() {
+        setSystemOn()
+        lastCheckTime.value = ZonedDateTime.now().minusHours(4)
+
+        viewModel.showManualCheck().test().assertValue(false)
+    }
+
+    @Test
+    fun manualCheckShownAlwaysWhenInProgress() {
+        viewModel.checkInProgress.value = true
+        viewModel.showManualCheck().test().assertValue(true)
+    }
+
+    private fun setSystemOn() {
+        enEnabledFlow.value = true
+        bluetoothOn.value = true
+        locationOn.value = true
     }
 }
