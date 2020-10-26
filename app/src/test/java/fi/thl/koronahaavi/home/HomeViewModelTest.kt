@@ -49,7 +49,7 @@ class HomeViewModelTest {
         every { deviceStateRepository.bluetoothOn() } returns bluetoothOn
         every { deviceStateRepository.locationOn() } returns locationOn
         every { exposureNotificationService.isEnabledFlow() } returns enEnabledFlow
-        every { appStateRepository.lastExposureCheckTime() } returns lastCheckTime
+        every { appStateRepository.getLastExposureCheckTimeLive() } returns lastCheckTime
 
         viewModel = HomeViewModel(exposureRepository, deviceStateRepository, appStateRepository, exposureNotificationService, workDispatcher)
     }
