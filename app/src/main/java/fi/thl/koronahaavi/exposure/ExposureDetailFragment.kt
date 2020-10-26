@@ -76,6 +76,10 @@ class ExposureDetailFragment : Fragment() {
         viewModel.lastCheckTime.observe(viewLifecycleOwner, Observer {
             updateLastCheckTimeLabel(it)
         })
+
+        viewModel.exposureCheckState.observe(viewLifecycleOwner,
+            ExposureCheckObserver(requireContext(), viewModel.checkInProgress)
+        )
     }
 
     private fun updateLastCheckTimeLabel(dateTime: ZonedDateTime?) {
@@ -117,12 +121,7 @@ class ExposureDetailFragment : Fragment() {
         requireActivity().window.clearFlags(LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
     }
 
-    private fun startManualExposureCheck() {
-        viewModel.startExposureCheck().observe(
-            viewLifecycleOwner,
-            ExposureCheckObserver(requireContext(), viewModel.checkInProgress)
-        )
-    }
+    private fun startManualExposureCheck() = viewModel.startExposureCheck()
 
     companion object {
         val TIME_FORMATTER: DateTimeFormatter = DateTimeFormatter.ofPattern("H.mm")

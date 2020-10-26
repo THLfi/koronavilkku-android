@@ -2,6 +2,7 @@ package fi.thl.koronahaavi.exposure
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
+import fi.thl.koronahaavi.common.Event
 import fi.thl.koronahaavi.data.AppStateRepository
 import fi.thl.koronahaavi.data.ExposureRepository
 import fi.thl.koronahaavi.device.SystemStateProvider
@@ -25,9 +26,15 @@ class ExposureDetailViewModel @ViewModelInject constructor(
     private val showManualCheck = ManualCheckAllowedLiveData(systemState, exposureState, checkInProgress)
     fun showManualCheck(): LiveData<Boolean> = showManualCheck.distinctUntilChanged()
 
-    fun startExposureCheck(): LiveData<WorkState> {
+    private val newExposureCheckEvent = MutableLiveData<Event<Any>>()
+
+    val exposureCheckState: LiveData<WorkState> = newExposureCheckEvent.switchMap {
+        workDispatcher.runUpdateWorker()
+    }
+
+    fun startExposureCheck() {
         checkInProgress.postValue(true)
-        return workDispatcher.runUpdateWorker()
+        newExposureCheckEvent.postValue(Event(Unit))
     }
 }
 
