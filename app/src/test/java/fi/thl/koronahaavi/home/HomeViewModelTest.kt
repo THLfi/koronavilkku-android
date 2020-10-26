@@ -10,6 +10,7 @@ import fi.thl.koronahaavi.device.DeviceStateRepository
 import fi.thl.koronahaavi.device.SystemState
 import fi.thl.koronahaavi.service.ExposureNotificationService
 import fi.thl.koronahaavi.service.WorkDispatcher
+import fi.thl.koronahaavi.service.WorkState
 import fi.thl.koronahaavi.utils.MainCoroutineScopeRule
 import io.mockk.every
 import io.mockk.mockk
@@ -96,6 +97,13 @@ class HomeViewModelTest {
     fun manualCheckShownAlwaysWhenInProgress() {
         viewModel.checkInProgress.value = true
         viewModel.showManualCheck().test().assertValue(true)
+    }
+
+    @Test
+    fun manualCheckRunsWorker() {
+        every { workDispatcher.runUpdateWorker() } returns MutableLiveData<WorkState>(WorkState.InProgress)
+        viewModel.startExposureCheck()
+        viewModel.exposureCheckState.test().assertValue(WorkState.InProgress)
     }
 
     private fun setSystemOn() {

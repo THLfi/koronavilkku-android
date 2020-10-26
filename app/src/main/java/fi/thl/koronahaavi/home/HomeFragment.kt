@@ -121,6 +121,10 @@ class HomeFragment : Fragment() {
                 updateExposureLabels(state)
             }
         })
+
+        viewModel.exposureCheckState.observe(viewLifecycleOwner,
+            ExposureCheckObserver(requireContext(), viewModel.checkInProgress)
+        )
     }
 
     override fun onStart() {
@@ -136,12 +140,7 @@ class HomeFragment : Fragment() {
         (binding.imageHomeAppStatus.drawable as? AnimatedVectorDrawable)?.stop()
     }
 
-    private fun startManualExposureCheck() {
-        viewModel.startExposureCheck().observe(
-            viewLifecycleOwner,
-            ExposureCheckObserver(requireContext(), viewModel.checkInProgress)
-        )
-    }
+    private fun startManualExposureCheck() = viewModel.startExposureCheck()
 
     private fun navigateToExposureDetail() = findNavController().navigateSafe(HomeFragmentDirections.toExposureDetail())
 

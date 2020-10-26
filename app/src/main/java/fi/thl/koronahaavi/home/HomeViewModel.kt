@@ -50,11 +50,16 @@ class HomeViewModel @ViewModelInject constructor(
     private val systemState = SystemStateLiveData(isENEnabled, isBluetoothOn, isLocationOn, isLocked)
     private val exposureState = ExposureStateLiveData(hasExposures, lastCheckTime)
     private val showManualCheck = ManualCheckAllowedLiveData(systemState, exposureState, checkInProgress)
+    private val newExposureCheckEvent = MutableLiveData<Event<Any>>()
 
     fun systemState(): LiveData<SystemState?> = systemState.distinctUntilChanged()
     fun exposureState(): LiveData<ExposureState> = exposureState.distinctUntilChanged()
     fun hasExposures() = exposureState.map { it == ExposureState.HasExposures }
     fun showManualCheck(): LiveData<Boolean> = showManualCheck.distinctUntilChanged()
+
+    val exposureCheckState: LiveData<WorkState> = newExposureCheckEvent.switchMap {
+        workDispatcher.runUpdateWorker()
+    }
 
     val showTestButton = BuildConfig.ENABLE_TEST_UI
 
@@ -91,8 +96,8 @@ class HomeViewModel @ViewModelInject constructor(
         }
     }
 
-    fun startExposureCheck(): LiveData<WorkState> {
+    fun startExposureCheck() {
         checkInProgress.postValue(true)
-        return workDispatcher.runUpdateWorker()
+        newExposureCheckEvent.postValue(Event(Unit))  // triggers switchmap
     }
 }
