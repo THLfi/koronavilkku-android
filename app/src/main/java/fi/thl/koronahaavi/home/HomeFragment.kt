@@ -14,13 +14,12 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import fi.thl.koronahaavi.R
 import fi.thl.koronahaavi.common.*
-import fi.thl.koronahaavi.common.FormatExtensions.formatRelativeDate
+import fi.thl.koronahaavi.common.FormatExtensions.formatRelativeDateTime
 import fi.thl.koronahaavi.databinding.FragmentHomeBinding
 import fi.thl.koronahaavi.device.SystemState
 import fi.thl.koronahaavi.exposure.ExposureState
 import timber.log.Timber
 import java.time.ZonedDateTime
-import java.time.format.DateTimeFormatter
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
@@ -177,12 +176,11 @@ class HomeFragment : Fragment() {
 
     private fun getExposureCheckText(dateTime: ZonedDateTime?) =
         if (dateTime != null) {
-            getString(R.string.home_exposure_check_label,
-                dateTime.formatRelativeDate(requireContext()),
-                TIME_FORMATTER.format(dateTime)
+            getString(R.string.exposure_detail_last_check,
+                dateTime.formatRelativeDateTime(requireContext())
             )
         } else {
-            getString(R.string.home_exposure_no_check_label)
+            getString(R.string.exposure_detail_no_last_check)
         }
 
     private fun updateStatusText(state: SystemState) {
@@ -230,9 +228,5 @@ class HomeFragment : Fragment() {
 
     private fun enableSystem() {
         viewModel.enableSystem()
-    }
-
-    companion object {
-        val TIME_FORMATTER: DateTimeFormatter = DateTimeFormatter.ofPattern("H.mm")
     }
 }

@@ -6,6 +6,7 @@
     <string name="all_thl_image_description">Finnish Institute for Health and Welfare</string>
     <string name="all_today">today</string>
     <string name="all_yesterday">yesterday</string>
+    <string name="all_date_and_time">%1$s at %2$s</string>
     <string name="all_finnish" translatable="false">Suomi</string>
     <string name="all_swedish" translatable="false">Svenska</string>
     <string name="all_english" translatable="false">English</string>
@@ -48,8 +49,6 @@
     <string name="home_pending_check_label">Checking for potential exposures has been interrupted. The app will try again later.</string>
     <string name="home_exposure_sub_label">You may have been exposed to the coronavirus</string>
     <string name="home_no_exposure_sub_label">You have not been near a person who has reported an infection</string>
-    <string name="home_exposure_check_label">Last checked %1$s at %2$s</string>
-    <string name="home_exposure_no_check_label">No checks yet</string>
     <string name="home_exposure_instructions">See instructions</string>
     <string name="home_exposure_check">Check now</string>
 
@@ -112,7 +111,7 @@
 
     <string name="exposure_detail_message_none">Koronavilkku has not detected exposures to the coronavirus in the last 10 days.</string>
     <string name="exposure_detail_disclaimer_none">However, the application is not able to identify every situation where exposure may occur.</string>
-    <string name="exposure_detail_last_check">Last checked %1$s at %2$s</string>
+    <string name="exposure_detail_last_check">Last checked %s</string>
     <string name="exposure_detail_no_last_check">No checks yet</string>
 
     <string name="exposure_detail_instructions_title">Follow these instructions carefully during the next 10 days:</string>

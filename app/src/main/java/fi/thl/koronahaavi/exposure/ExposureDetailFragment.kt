@@ -13,13 +13,12 @@ import androidx.navigation.ui.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint
 import fi.thl.koronahaavi.R
 import fi.thl.koronahaavi.common.ExposureCheckObserver
-import fi.thl.koronahaavi.common.FormatExtensions.formatRelativeDate
+import fi.thl.koronahaavi.common.FormatExtensions.formatRelativeDateTime
 import fi.thl.koronahaavi.common.navigateSafe
 import fi.thl.koronahaavi.common.openGuide
 import fi.thl.koronahaavi.common.themeColor
 import fi.thl.koronahaavi.databinding.FragmentExposureDetailBinding
 import java.time.ZonedDateTime
-import java.time.format.DateTimeFormatter
 
 @AndroidEntryPoint
 class ExposureDetailFragment : Fragment() {
@@ -85,8 +84,7 @@ class ExposureDetailFragment : Fragment() {
     private fun updateLastCheckTimeLabel(dateTime: ZonedDateTime?) {
         binding.textExposureDetailLastCheck.text = if (dateTime != null) {
             getString(R.string.exposure_detail_last_check,
-                dateTime.formatRelativeDate(requireContext()),
-                TIME_FORMATTER.format(dateTime)
+                dateTime.formatRelativeDateTime(requireContext())
             )
         } else {
             getString(R.string.exposure_detail_no_last_check)
@@ -122,8 +120,4 @@ class ExposureDetailFragment : Fragment() {
     }
 
     private fun startManualExposureCheck() = viewModel.startExposureCheck()
-
-    companion object {
-        val TIME_FORMATTER: DateTimeFormatter = DateTimeFormatter.ofPattern("H.mm")
-    }
 }
