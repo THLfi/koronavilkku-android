@@ -111,8 +111,7 @@ class HuaweiContactShieldService(
         }
     }
 
-    // todo is location required?
-    override fun deviceSupportsLocationlessScanning() = true
+    override fun deviceSupportsLocationlessScanning() = false
 
     override fun getAvailabilityResolver() = HuaweiAvailabilityResolver()
 
