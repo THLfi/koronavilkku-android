@@ -37,9 +37,9 @@ class WorkDispatcher @Inject constructor(
     fun runUpdateWorker(): LiveData<WorkState> =
         DiagnosisKeyUpdateWorker.runOnce(context).map {
             when (it.state) {
-                WorkInfo.State.ENQUEUED, WorkInfo.State.RUNNING -> WorkState.InProgress
                 WorkInfo.State.SUCCEEDED -> WorkState.Success
-                else -> WorkState.Failed
+                WorkInfo.State.FAILED, WorkInfo.State.CANCELLED -> WorkState.Failed
+                else -> WorkState.InProgress
             }
         }
 }
