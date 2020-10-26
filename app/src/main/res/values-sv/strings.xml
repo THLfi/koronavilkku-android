@@ -42,13 +42,13 @@
     <string name="home_title">Hem</string>
     <string name="home_exposure_label">Eventuell exponering</string>
     <string name="home_no_exposure_label">Ingen exponering har upptäckts</string>
-    <string name="home_pending_check_label">Exposure check is pending</string>
+    <string name="home_pending_check_label">Kontrollen av eventuella exponeringar har avbrutits. Den kommer att prövas igen senare.</string>
     <string name="home_exposure_sub_label">Du kan ha exponerats för viruset</string>
     <string name="home_no_exposure_sub_label">Du har inte varit i närheten av en person som meddelat om smitta</string>
     <string name="home_exposure_check_label">Senast granskad %1$s kl %2$s</string>
     <string name="home_exposure_no_check_label">Ingen kontroll ännu</string>
     <string name="home_exposure_instructions">Se anvisningar</string>
-    <string name="home_exposure_check">Tarkista nyt</string>
+    <string name="home_exposure_check">Kontrollera nu</string>
 
     <string name="home_symptom_label">Misstänker du smitta?</string>
     <string name="home_prevention_label">Skydda dig mot smitta</string>
