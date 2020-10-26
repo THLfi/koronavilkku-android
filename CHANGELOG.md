@@ -6,6 +6,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### Added
+- English support for municipality data
+
+### Changed
+- Attempt to improve background execution by rescheduling delayed workers on app startup
+
+## [1.2.0](https://github.com/THLfi/koronavilkku-android/compare/v1.1.0...v1.2.0) - 2020-10-22
+
+### Changed
+- UI text and background functionality updates related to quarantine time changing from 14 to 10 days
+
 ## [1.1.0](https://github.com/THLfi/koronavilkku-android/compare/v1.0.2...v1.1.0) - 2020-10-06
 
 ### Added

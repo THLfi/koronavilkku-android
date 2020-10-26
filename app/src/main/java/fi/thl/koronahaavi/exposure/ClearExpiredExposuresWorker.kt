@@ -48,12 +48,14 @@ class ClearExpiredExposuresWorker @WorkerInject constructor(
         const val EXPOSURE_TTL_SINCE_DETECTION_DAYS = 11
         const val CLEAR_EXPIRED_WORKER_NAME = "ClearExpiredExposuresWorker"
 
-        fun schedule(context: Context) {
+        fun schedule(context: Context, reconfigure: Boolean = false) {
             val request = PeriodicWorkRequestBuilder<ClearExpiredExposuresWorker>(12, TimeUnit.HOURS)
                 .build()
 
+            val policy = if (reconfigure) ExistingPeriodicWorkPolicy.REPLACE else ExistingPeriodicWorkPolicy.KEEP
+
             WorkManager.getInstance(context).enqueueUniquePeriodicWork(
-                CLEAR_EXPIRED_WORKER_NAME, ExistingPeriodicWorkPolicy.KEEP, request
+                CLEAR_EXPIRED_WORKER_NAME, policy, request
             )
         }
     }

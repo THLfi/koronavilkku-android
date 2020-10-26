@@ -15,7 +15,7 @@ class ExposureDetailViewModel @ViewModelInject constructor(
     private val workDispatcher: WorkDispatcher
 ) : ViewModel() {
     val hasExposures = exposureRepository.flowHasExposures().asLiveData()
-    val lastCheckTime = appStateRepository.lastExposureCheckTime()
+    val lastCheckTime = appStateRepository.getLastExposureCheckTimeLive()
 
     val checkInProgress = MutableLiveData<Boolean>(false)
 
