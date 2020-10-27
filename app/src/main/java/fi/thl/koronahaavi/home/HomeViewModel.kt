@@ -48,7 +48,7 @@ class HomeViewModel @ViewModelInject constructor(
     private val isBluetoothOn = deviceStateRepository.bluetoothOn()
     private val isLocationOn = deviceStateRepository.locationOn()
     private val systemState = SystemStateLiveData(isENEnabled, isBluetoothOn, isLocationOn, isLocked)
-    private val exposureState = ExposureStateLiveData(hasExposures, lastCheckTime)
+    private val exposureState = ExposureStateLiveData(hasExposures, lastCheckTime, isLocked)
     private val showManualCheck = ManualCheckAllowedLiveData(systemState, exposureState, checkInProgress)
     private val newExposureCheckEvent = MutableLiveData<Event<Any>>()
 
