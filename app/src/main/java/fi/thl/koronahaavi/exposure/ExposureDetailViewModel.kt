@@ -24,7 +24,7 @@ class ExposureDetailViewModel @ViewModelInject constructor(
     private val exposureState = ExposureStateLiveData(hasExposures, lastCheckTime, isLocked)
     private val systemState = systemStateProvider.systemState()
 
-    private val showManualCheck = ManualCheckAllowedLiveData(systemState, exposureState, checkInProgress)
+    private val showManualCheck = ManualCheckShownLiveData(systemState, exposureState, checkInProgress)
     fun showManualCheck(): LiveData<Boolean> = showManualCheck.distinctUntilChanged()
 
     private val newExposureCheckEvent = MutableLiveData<Event<Any>>()

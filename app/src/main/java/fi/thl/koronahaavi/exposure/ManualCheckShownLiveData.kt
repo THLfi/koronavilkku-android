@@ -4,20 +4,24 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import fi.thl.koronahaavi.device.SystemState
 
-class ManualCheckAllowedLiveData(
+/**
+ * True when manual exposure check function should be shown in UI
+ */
+class ManualCheckShownLiveData(
     private val systemState: LiveData<SystemState?>,
     private val exposureState: LiveData<ExposureState>,
     private val checkInProgress: LiveData<Boolean>
 ) : MediatorLiveData<Boolean>() {
 
     init {
-        addSource(systemState) { updateManualCheckAllowed() }
-        addSource(exposureState) { updateManualCheckAllowed() }
-        addSource(checkInProgress) { updateManualCheckAllowed() }
+        addSource(systemState) { updateValue() }
+        addSource(exposureState) { updateValue() }
+        addSource(checkInProgress) { updateValue() }
     }
 
-    private fun updateManualCheckAllowed() {
-        // sync showManualCheck value with checkInProgress so that button and progress indicator disappear at the same time
+    private fun updateValue() {
+        // Always show while check is in progress, so button disappears only when check is done
+        // Button is disabled through other live data while in progress
         value = (checkInProgress.value == true) ||
                 (exposureState.value is ExposureState.Pending) && (systemState.value == SystemState.On)
     }

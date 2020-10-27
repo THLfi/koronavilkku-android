@@ -4,7 +4,6 @@ import androidx.lifecycle.*
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
-import androidx.work.WorkInfo
 import com.google.android.gms.common.api.Status
 import fi.thl.koronahaavi.BuildConfig
 import fi.thl.koronahaavi.common.Event
@@ -15,7 +14,7 @@ import fi.thl.koronahaavi.device.SystemState
 import fi.thl.koronahaavi.device.SystemStateLiveData
 import fi.thl.koronahaavi.exposure.ExposureState
 import fi.thl.koronahaavi.exposure.ExposureStateLiveData
-import fi.thl.koronahaavi.exposure.ManualCheckAllowedLiveData
+import fi.thl.koronahaavi.exposure.ManualCheckShownLiveData
 import fi.thl.koronahaavi.service.ExposureNotificationService
 import fi.thl.koronahaavi.service.ExposureNotificationService.ResolvableResult
 import fi.thl.koronahaavi.service.WorkDispatcher
@@ -49,7 +48,7 @@ class HomeViewModel @ViewModelInject constructor(
     private val isLocationOn = deviceStateRepository.locationOn()
     private val systemState = SystemStateLiveData(isENEnabled, isBluetoothOn, isLocationOn, isLocked)
     private val exposureState = ExposureStateLiveData(hasExposures, lastCheckTime, isLocked)
-    private val showManualCheck = ManualCheckAllowedLiveData(systemState, exposureState, checkInProgress)
+    private val showManualCheck = ManualCheckShownLiveData(systemState, exposureState, checkInProgress)
     private val newExposureCheckEvent = MutableLiveData<Event<Any>>()
 
     fun systemState(): LiveData<SystemState?> = systemState.distinctUntilChanged()
