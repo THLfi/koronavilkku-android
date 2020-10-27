@@ -1,5 +1,6 @@
 package fi.thl.koronahaavi.home
 
+import android.content.res.ColorStateList
 import android.graphics.drawable.AnimatedVectorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -118,6 +119,7 @@ class HomeFragment : Fragment() {
         viewModel.exposureState().observe(viewLifecycleOwner, Observer {
             it?.let { state ->
                 updateExposureLabels(state)
+                updateExposureIcon(state)
             }
         })
 
@@ -171,7 +173,27 @@ class HomeFragment : Fragment() {
             is ExposureState.Clear -> getExposureCheckText(state.lastCheck)
             ExposureState.HasExposures -> null // view is hidden in layout xml
         }
+    }
 
+    private fun updateExposureIcon(state: ExposureState) {
+        with (binding.imageHomeExposureStatus) {
+            setImageDrawable(getDrawable(when (state) {
+                ExposureState.HasExposures -> R.drawable.ic_alert
+                is ExposureState.Clear -> R.drawable.ic_check
+                is ExposureState.Pending -> R.drawable.ic_alert_triangle
+            }))
+
+            imageTintList = ColorStateList.valueOf(when (state) {
+                is ExposureState.Pending -> resources.getColor(R.color.lightGrey, null)
+                else -> requireContext().themeColor(R.attr.colorOnPrimary)
+            })
+
+            backgroundTintList = ColorStateList.valueOf(resources.getColor(when (state) {
+                ExposureState.HasExposures -> R.color.mainRed
+                is ExposureState.Clear -> R.color.lightBlue
+                is ExposureState.Pending -> R.color.veryLightGrey
+            }, null))
+        }
     }
 
     private fun getExposureCheckText(dateTime: ZonedDateTime?) =
