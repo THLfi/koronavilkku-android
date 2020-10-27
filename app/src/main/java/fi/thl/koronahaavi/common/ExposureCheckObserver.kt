@@ -10,16 +10,18 @@ import fi.thl.koronahaavi.service.WorkState
 class ExposureCheckObserver(
     private val context: Context,
     private val inProgressLiveData: MutableLiveData<Boolean>
-) : Observer<WorkState> {
+) : Observer<Event<WorkState>> {
 
-    override fun onChanged(t: WorkState?) {
-        when (t) {
-            WorkState.Failed -> {
-                inProgressLiveData.value = false
-                showManualExposureCheckError()
-            }
-            WorkState.Success -> {
-                inProgressLiveData.value = false
+    override fun onChanged(t: Event<WorkState>?) {
+        t?.getContentIfNotHandled().let {
+            when (it) {
+                WorkState.Failed -> {
+                    inProgressLiveData.value = false
+                    showManualExposureCheckError()
+                }
+                WorkState.Success -> {
+                    inProgressLiveData.value = false
+                }
             }
         }
     }

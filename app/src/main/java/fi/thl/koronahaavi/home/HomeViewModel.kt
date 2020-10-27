@@ -57,7 +57,7 @@ class HomeViewModel @ViewModelInject constructor(
     fun hasExposures() = exposureState.map { it == ExposureState.HasExposures }
     fun showManualCheck(): LiveData<Boolean> = showManualCheck.distinctUntilChanged()
 
-    val exposureCheckState: LiveData<WorkState> = newExposureCheckEvent.switchMap {
+    val exposureCheckState: LiveData<Event<WorkState>> = newExposureCheckEvent.switchMap {
         workDispatcher.runUpdateWorker()
     }
 

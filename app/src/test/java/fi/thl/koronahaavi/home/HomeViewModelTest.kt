@@ -4,6 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.common.internal.constants.ListAppsActivityContract
 import com.jraska.livedata.test
+import fi.thl.koronahaavi.common.Event
 import fi.thl.koronahaavi.data.AppStateRepository
 import fi.thl.koronahaavi.data.ExposureRepository
 import fi.thl.koronahaavi.device.DeviceStateRepository
@@ -101,9 +102,9 @@ class HomeViewModelTest {
 
     @Test
     fun manualCheckRunsWorker() {
-        every { workDispatcher.runUpdateWorker() } returns MutableLiveData<WorkState>(WorkState.InProgress)
+        every { workDispatcher.runUpdateWorker() } returns MutableLiveData(Event(WorkState.InProgress))
         viewModel.startExposureCheck()
-        viewModel.exposureCheckState.test().assertValue(WorkState.InProgress)
+        viewModel.exposureCheckState.test().assertValue() { it.getContentIfNotHandled() == WorkState.InProgress }
     }
 
     private fun setSystemOn() {

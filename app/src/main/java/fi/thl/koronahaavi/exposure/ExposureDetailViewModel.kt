@@ -29,7 +29,7 @@ class ExposureDetailViewModel @ViewModelInject constructor(
 
     private val newExposureCheckEvent = MutableLiveData<Event<Any>>()
 
-    val exposureCheckState: LiveData<WorkState> = newExposureCheckEvent.switchMap {
+    val exposureCheckState: LiveData<Event<WorkState>> = newExposureCheckEvent.switchMap {
         workDispatcher.runUpdateWorker()
     }
 
