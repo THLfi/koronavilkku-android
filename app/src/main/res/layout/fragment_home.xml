@@ -146,7 +146,7 @@
                                 android:layout_marginTop="10dp"
                                 android:visibility="@{model.hasExposures() ? View.GONE : View.VISIBLE}"
                                 android:textAppearance="?attr/textAppearanceCaption"
-                                tools:text="@string/home_exposure_check_label"
+                                tools:text="@string/exposure_detail_last_check"
                                 />
                         </LinearLayout>
 
@@ -195,9 +195,9 @@
                             />
 
                         <ProgressBar
-                            android:layout_width="26dp"
-                            android:layout_height="26dp"
-                            android:layout_marginStart="20dp"
+                            android:layout_width="@dimen/button_progress_bar_size"
+                            android:layout_height="@dimen/button_progress_bar_size"
+                            android:layout_marginStart="@dimen/button_progress_bar_margin"
                             app:layout_constraintTop_toTopOf="@id/button_home_exposure_check"
                             app:layout_constraintBottom_toBottomOf="@id/button_home_exposure_check"
                             app:layout_constraintStart_toStartOf="@id/button_home_exposure_check"
