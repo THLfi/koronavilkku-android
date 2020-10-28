@@ -63,7 +63,7 @@ class ExposureDetailFragment : Fragment() {
                 activity?.openGuide()
             }
 
-            buttonExposureDetailStartCheck.setOnClickListener {
+            layoutButtonExposureDetailCheck.button.setOnClickListener {
                 startManualExposureCheck()
             }
         }

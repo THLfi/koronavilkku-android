@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View" />
+        <variable name="inProgress" type="Boolean"/>
+        <variable name="buttonText" type="String"/>
+    </data>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:text="@{buttonText}"
+            android:enabled="@{!inProgress}"
+            tools:enabled="false"
+            tools:text="@string/home_exposure_check"
+            />
+
+        <ProgressBar
+            android:id="@+id/progress"
+            android:layout_width="@dimen/button_progress_bar_size"
+            android:layout_height="@dimen/button_progress_bar_size"
+            android:layout_marginStart="@dimen/button_progress_bar_margin"
+            android:layout_centerVertical="true"
+            android:visibility="@{inProgress==true ? View.VISIBLE : View.GONE}"
+            android:theme="@style/ThemeOverlay.Vilkku.ProgressBar"
+            tools:visibility="visible"
+            />
+
+    </RelativeLayout>
+</layout>

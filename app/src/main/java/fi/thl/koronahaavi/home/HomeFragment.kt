@@ -81,7 +81,7 @@ class HomeFragment : Fragment() {
                 activity?.openGuide()
             }
 
-            buttonHomeExposureCheck.setOnClickListener {
+            layoutButtonHomeExposureCheck.button.setOnClickListener {
                 startManualExposureCheck()
             }
         }

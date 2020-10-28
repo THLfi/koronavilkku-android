@@ -48,7 +48,7 @@ class HomeViewModel @ViewModelInject constructor(
     private val isLocationOn = deviceStateRepository.locationOn()
     private val systemState = SystemStateLiveData(isENEnabled, isBluetoothOn, isLocationOn, isLocked)
     private val exposureState = ExposureStateLiveData(hasExposures, lastCheckTime, isLocked)
-    private val showManualCheck = ManualCheckShownLiveData(systemState, exposureState, checkInProgress)
+    private val showManualCheck = ManualCheckShownLiveData(isENEnabled, exposureState, checkInProgress)
     private val newExposureCheckEvent = MutableLiveData<Event<Any>>()
 
     fun systemState(): LiveData<SystemState?> = systemState.distinctUntilChanged()
