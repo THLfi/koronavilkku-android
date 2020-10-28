@@ -41,7 +41,8 @@ class HomeViewModel @ViewModelInject constructor(
 
     val checkInProgress = MutableLiveData<Boolean>(false)
 
-    private val hasExposures = exposureRepository.flowHasExposures().asLiveData()
+    private val exposureNotifications = exposureRepository.flowExposureNotifications().asLiveData()
+    private val hasExposures = exposureNotifications.map { it.isNotEmpty() }
     private val lastCheckTime = appStateRepository.getLastExposureCheckTimeLive()
     private val isENEnabled = exposureNotificationService.isEnabledFlow().asLiveData()
     private val isBluetoothOn = deviceStateRepository.bluetoothOn()
@@ -55,6 +56,8 @@ class HomeViewModel @ViewModelInject constructor(
     fun exposureState(): LiveData<ExposureState> = exposureState.distinctUntilChanged()
     fun hasExposures() = exposureState.map { it == ExposureState.HasExposures }
     fun showManualCheck(): LiveData<Boolean> = showManualCheck.distinctUntilChanged()
+
+    val notificationCount = exposureNotifications.map { it.size }
 
     val exposureCheckState: LiveData<Event<WorkState>> = newExposureCheckEvent.switchMap {
         workDispatcher.runUpdateWorker()

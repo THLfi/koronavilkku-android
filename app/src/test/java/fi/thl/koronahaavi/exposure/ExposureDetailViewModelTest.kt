@@ -3,6 +3,7 @@ package fi.thl.koronahaavi.exposure
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.jraska.livedata.test
 import fi.thl.koronahaavi.data.AppStateRepository
+import fi.thl.koronahaavi.data.ExposureNotification
 import fi.thl.koronahaavi.data.ExposureRepository
 import fi.thl.koronahaavi.service.ExposureNotificationService
 import fi.thl.koronahaavi.service.WorkDispatcher
@@ -13,6 +14,7 @@ import kotlinx.coroutines.flow.flowOf
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import java.time.ZonedDateTime
 
 class ExposureDetailViewModelTest {
     @get:Rule
@@ -32,7 +34,9 @@ class ExposureDetailViewModelTest {
         appStateRepository = mockk(relaxed = true)
         exposureNotificationService = mockk(relaxed = true)
         workDispatcher = mockk(relaxed = true)
-        every { exposureRepository.flowHasExposures() } returns flowOf(true)
+        every { exposureRepository.flowExposureNotifications() } returns flowOf(listOf(
+            ExposureNotification(ZonedDateTime.now(), listOf())
+        ))
 
         viewModel = ExposureDetailViewModel(exposureRepository, appStateRepository, exposureNotificationService, workDispatcher)
     }

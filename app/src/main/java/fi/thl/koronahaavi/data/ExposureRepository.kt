@@ -11,7 +11,8 @@ interface ExposureRepository {
     suspend fun getExposure(id: Long): Exposure?
     suspend fun getAllExposures(): List<Exposure>
     suspend fun deleteAllExposures()
+    suspend fun deleteExpiredExposuresAndTokens()
     suspend fun deleteExposure(id: Long)
     fun flowAllExposures(): Flow<List<Exposure>>
-    fun flowHasExposures(): Flow<Boolean>
+    fun flowExposureNotifications(): Flow<List<ExposureNotification>>
 }
