@@ -1,8 +1,11 @@
 package fi.thl.koronahaavi.service
 
 import android.content.Context
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.map
 import androidx.work.*
 import dagger.hilt.android.qualifiers.ApplicationContext
+import fi.thl.koronahaavi.common.Event
 import fi.thl.koronahaavi.data.AppStateRepository
 import fi.thl.koronahaavi.data.SettingsRepository
 import fi.thl.koronahaavi.exposure.ClearExpiredExposuresWorker
@@ -49,4 +52,19 @@ class WorkDispatcher @Inject constructor(
 
         return appStateRepository.getLastExposureCheckTime()?.isBefore(limit) != false
     }
+
+    fun runUpdateWorker(): LiveData<Event<WorkState>> =
+        DiagnosisKeyUpdateWorker.runOnce(context).map {
+            Event(when (it.state) {
+                WorkInfo.State.SUCCEEDED -> WorkState.Success
+                WorkInfo.State.FAILED, WorkInfo.State.CANCELLED -> WorkState.Failed
+                else -> WorkState.InProgress
+            })
+        }
+}
+
+sealed class WorkState {
+    object InProgress: WorkState()
+    object Success: WorkState()
+    object Failed: WorkState()
 }

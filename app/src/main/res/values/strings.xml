@@ -6,6 +6,7 @@
     <string name="all_thl_image_description">Finnish Institute for Health and Welfare</string>
     <string name="all_today">today</string>
     <string name="all_yesterday">yesterday</string>
+    <string name="all_date_and_time">%1$s at %2$s</string>
     <string name="all_finnish" translatable="false">Suomi</string>
     <string name="all_swedish" translatable="false">Svenska</string>
     <string name="all_english" translatable="false">English</string>
@@ -45,9 +46,11 @@
     <string name="home_title">Home</string>
     <string name="home_exposure_label">Potential exposure</string>
     <string name="home_no_exposure_label">No observed exposures</string>
+    <string name="home_pending_check_label">Checking for potential exposures has been interrupted. The app will try again later.</string>
     <string name="home_exposure_sub_label">You may have been exposed to the coronavirus</string>
     <string name="home_no_exposure_sub_label">You have not been near a person who has reported an infection</string>
     <string name="home_exposure_instructions">See instructions</string>
+    <string name="home_exposure_check">Check now</string>
 
     <string name="home_symptom_label">Do you think you may have COVID-19?</string>
     <string name="home_prevention_label">Protect yourself</string>
@@ -108,7 +111,7 @@
 
     <string name="exposure_detail_message_none">Koronavilkku has not detected exposures to the coronavirus in the last 10 days.</string>
     <string name="exposure_detail_disclaimer_none">However, the application is not able to identify every situation where exposure may occur.</string>
-    <string name="exposure_detail_last_check">Last checked %1$s at %2$s</string>
+    <string name="exposure_detail_last_check">Last checked %s</string>
     <string name="exposure_detail_no_last_check">No checks yet</string>
 
     <string name="exposure_detail_instructions_title">Follow these instructions carefully during the next 10 days:</string>
@@ -227,6 +230,7 @@
     <string name="test_batch_id_hint" translatable="false">Batch id</string>
     <string name="test_clear_exposures" translatable="false">Poista altistukset</string>
     <string name="test_unlock" translatable="false">Poista lukitustila</string>
+    <string name="test_set_old_update" translatable="false">Aseta päivitys vanhaksi</string>
     <string name="test_open_en_settings" translatable="false">EN asetukset</string>
     <string name="test_check_play_services" translatable="false">Play services tarkistus</string>
     <string name="test_update_municipalities" translatable="false">Päivitä kuntalista</string>
@@ -261,4 +265,6 @@
     <string name="power_deny_confirm_message">If you don\'t allow Koronavilkku to always run in the background, we recommend opening Koronavilkku manually at least once a day.\n\nYou can change this setting at any time in your phone\'s Settings.</string>
     <string name="power_allow_retry">Allow after all</string>
 
+    <string name="exposure_check_error_title">Error loading exposure data</string>
+    <string name="exposure_check_error_message">Exposure data could not be loaded. Please check your internet connection and try again.</string>
 </resources>
