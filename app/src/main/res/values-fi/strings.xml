@@ -6,6 +6,7 @@
     <string name="all_thl_image_description">Terveyden ja hyvinvoinnin laitos</string>
     <string name="all_today">tänään</string>
     <string name="all_yesterday">eilen</string>
+    <string name="all_date_and_time">%1$s klo %2$s</string>
     <string name="all_app_additional_info">Katso lisätietoa Koronavilkusta</string>
     <string name="all_system_enable">Ota käyttöön</string>
     <string name="all_ok">OK</string>
@@ -42,9 +43,11 @@
     <string name="home_title">Koti</string>
     <string name="home_exposure_label">Mahdollinen altistuminen</string>
     <string name="home_no_exposure_label">Ei havaittuja altistumisia</string>
+    <string name="home_pending_check_label">Mahdollisten altistumisten tarkistus on häiriintynyt. Tarkistusta yritetään uudelleen myöhemmin.</string>
     <string name="home_exposure_sub_label">Olet saattanut altistua virukselle</string>
     <string name="home_no_exposure_sub_label">Et ole ollut tartunnasta ilmoittaneen henkilön lähellä</string>
     <string name="home_exposure_instructions">Katso toimintaohjeet</string>
+    <string name="home_exposure_check">Tarkista nyt</string>
 
     <string name="home_symptom_label">Epäiletkö tartuntaa?</string>
     <string name="home_prevention_label">Näin suojaudut</string>
@@ -95,8 +98,8 @@
 
     <string name="exposure_detail_title">Mahdollinen altistuminen</string>
 
-    <string name="exposure_detail_message">Olet ollut viimeisten 14 vuorokauden aikana lähellä henkilöä, joka on ilmoittanut koronatartunnasta Koronavilkun kautta.</string>
-    <string name="exposure_detail_disclaimer">Arvio altistumisesta perustuu Koronavilkun keräämiin kohtaamistietoihin viimeisten 14 vuorokauden ajalta. Altistumisen voimakkuutta ei voida täsmällisesti arvioida.</string>
+    <string name="exposure_detail_message">Olet ollut viimeisten 10 vuorokauden aikana lähellä henkilöä, joka on ilmoittanut koronatartunnasta Koronavilkun kautta.</string>
+    <string name="exposure_detail_disclaimer">Arvio altistumisesta perustuu Koronavilkun keräämiin kohtaamistietoihin viimeisten 10 vuorokauden ajalta. Altistumisen voimakkuutta ei voida täsmällisesti arvioida.</string>
 
     <string name="exposure_detail_contact_title">Ota yhteyttä terveyden\u00ADhuoltoon</string>
     <string name="exposure_detail_contact_subtitle">Tieto mahdollisesta altistumisestasi välittyy terveydenhuoltoon vain, jos otat itse yhteyttä.</string>
@@ -104,12 +107,12 @@
 
     <string name="exposure_detail_title_none">Ei havaittuja altistumisia</string>
 
-    <string name="exposure_detail_message_none">Koronavilkku ei ole havainnut altistumista koronavirukselle viimeisten 14 päivän aikana.</string>
+    <string name="exposure_detail_message_none">Koronavilkku ei ole havainnut altistumista koronavirukselle viimeisten 10 päivän aikana.</string>
     <string name="exposure_detail_disclaimer_none">Sovellus ei kuitenkaan tunnista kaikkia mahdollisia altistumistilanteita.</string>
-    <string name="exposure_detail_last_check">Tarkistettu viimeksi %1$s klo %2$s</string>
+    <string name="exposure_detail_last_check">Tarkistettu viimeksi %s</string>
     <string name="exposure_detail_no_last_check">Altistumistietoja ei ole vielä tarkistettu</string>
 
-    <string name="exposure_detail_instructions_title">Noudata näitä ohjeita huolellisesti seuraavan kahden viikon ajan:</string>
+    <string name="exposure_detail_instructions_title">Noudata näitä ohjeita huolellisesti seuraavien 10 päivän ajan:</string>
     <string name="exposure_detail_instructions_1">Jos sinulla ilmenee yksikin näistä koronavirustautiin sopivista oireista, ota mahdollisimman pian yhteyttä kuntasi terveydenhuoltoon ja hakeudu testiin:</string>
     <string name="exposure_detail_contact_instructions_1">Ota mahdollisimman pian yhteyttä kuntasi terveydenhuoltoon ja hakeudu testiin, jos sinulla ilmenee yksikin näistä koronavirustautiin sopivista oireista:</string>
     <string name="exposure_detail_instructions_1_sublist">- haju- tai makuaistin muutos\n- hengitysvaikeus\n- yskä, kurkkukipu tai nuha\n- kuume\n- päänsärky tai lihaskipuja\n- ripuli tai vatsakipu ilman muuta ilmeistä syytä.</string>
@@ -239,5 +242,8 @@
     <string name="power_deny_confirm_title">Etkö anna Koronavilkulle lupaa toimia taustalla?</string>
     <string name="power_deny_confirm_message">Jos et anna Koronavilkulle lupaa toimia aina taustalla, sovellus ei välttämättä voi hakea palvelimelta tietoja mahdollisesta altistumisesta. Siinä tapauksessa suosittelemme, että avaat sovelluksen ainakin kerran päivässä.\n\nVoit muuttaa valintaasi myöhemmin puhelimesi asetuksissa.</string>
     <string name="power_allow_retry">Anna lupa</string>
+
+    <string name="exposure_check_error_title">Virhe altistumistietojen lataamisessa</string>
+    <string name="exposure_check_error_message">Altistumistietojen lataaminen ei onnistunut. Tarkista verkkoyhteys ja yritä uudelleen.</string>
 
 </resources>

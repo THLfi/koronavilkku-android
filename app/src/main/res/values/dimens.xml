@@ -23,4 +23,7 @@
     <dimen name="onboarding_check_box_margin">20dp</dimen>
     <dimen name="home_status_area_elevation">4dp</dimen>
 
+    <dimen name="button_progress_bar_size">20dp</dimen>
+    <dimen name="button_progress_bar_margin">12dp</dimen>
+
 </resources>

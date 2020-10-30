@@ -6,6 +6,7 @@
     <string name="all_thl_image_description">Institutet för hälsa och välfärd</string>
     <string name="all_today">idag</string>
     <string name="all_yesterday">igår</string>
+    <string name="all_date_and_time">%1$s kl %2$s</string>
     <string name="all_app_additional_info">Se mer information om Coronablinkern</string>
     <string name="all_system_enable">Koppla på</string>
     <string name="all_ok">OK</string>
@@ -42,9 +43,11 @@
     <string name="home_title">Hem</string>
     <string name="home_exposure_label">Eventuell exponering</string>
     <string name="home_no_exposure_label">Ingen exponering har upptäckts</string>
+    <string name="home_pending_check_label">Kontrollen av eventuella exponeringar har mislyckades. Den kommer att försökas igen senare.</string>
     <string name="home_exposure_sub_label">Du kan ha exponerats för viruset</string>
     <string name="home_no_exposure_sub_label">Du har inte varit i närheten av en person som meddelat om smitta</string>
     <string name="home_exposure_instructions">Se anvisningar</string>
+    <string name="home_exposure_check">Kontrollera nu</string>
 
     <string name="home_symptom_label">Misstänker du smitta?</string>
     <string name="home_prevention_label">Skydda dig mot smitta</string>
@@ -94,8 +97,8 @@
 
     <string name="exposure_detail_title">Eventuell exponering</string>
 
-    <string name="exposure_detail_message">Du har under de senaste 14 dygnen varit nära en person som meddelat om coronasmitta via Coronablinkern.</string>
-    <string name="exposure_detail_disclaimer">Bedömningen om exponeringen bygger på den information om möten som Coronablinkern har samlat in under de senaste 14 dygnen. Coronablinkern ger ingen exakt bedömning av hur kraftig smittofaran är.</string>
+    <string name="exposure_detail_message">Du har under de senaste 10 dygnen varit nära en person som meddelat om coronasmitta via Coronablinkern.</string>
+    <string name="exposure_detail_disclaimer">Bedömningen om exponeringen bygger på den information om möten som Coronablinkern har samlat in under de senaste 10 dygnen. Coronablinkern ger ingen exakt bedömning av hur kraftig smittofaran är.</string>
 
     <string name="exposure_detail_contact_title">Kontakta hälsovården</string>
     <string name="exposure_detail_contact_subtitle">Information om en eventuell exponering förmedlas till hälsovården endast om du själv tar kontakt.</string>
@@ -103,12 +106,12 @@
 
     <string name="exposure_detail_title_none">Ingen exponering har upptäckts</string>
 
-    <string name="exposure_detail_message_none">Coronablinkern har inte observerat någon exponering för coronaviruset under de senaste 14 dagarna.</string>
+    <string name="exposure_detail_message_none">Coronablinkern har inte observerat någon exponering för coronaviruset under de senaste 10 dagarna.</string>
     <string name="exposure_detail_disclaimer_none">Appen kan emellertid inte identifiera alla eventuella exponeringar.</string>
-    <string name="exposure_detail_last_check">Senast granskad %1$s kl %2$s</string>
+    <string name="exposure_detail_last_check">Senast granskad %s</string>
     <string name="exposure_detail_no_last_check">Ingen kontroll ännu</string>
 
-    <string name="exposure_detail_instructions_title">Följ dessa anvisningar noggrant i två veckors tid:</string>
+    <string name="exposure_detail_instructions_title">Följ dessa anvisningar noggrant i 10 dagars tid:</string>
     <string name="exposure_detail_instructions_1">Om du har ens ett av följande symtom, ta så snabbt som möjligt kontakt med hälsovården i din kommun för att bli testad för coronavirus:</string>
     <string name="exposure_detail_contact_instructions_1">Ta genast kontakt, om du har symtom som passar in på coronavirusinfektionen:</string>
     <string name="exposure_detail_instructions_1_sublist">- nedsatt lukt- och smaksinne\n- andningssvårighet\n- hosta, halsont eller snuva\n- feber\n- huvudvärk eller muskelvärk\n- diarré eller magont utan annan uppenbar orsak.</string>
@@ -238,5 +241,8 @@
     <string name="power_deny_confirm_title">Du förbjöd att Coronablinkern körs i bakgrunden</string>
     <string name="power_deny_confirm_message">Om du inte tillåter att Coronablinkern körs i bakgrunden rekommenderar vi att du öppnar appen minst en gång om dagen.\n\nDu kan ändra ditt val när som helst i din telefons inställningar.</string>
     <string name="power_allow_retry">Tillåt</string>
+
+    <string name="exposure_check_error_title">Det gick inte att ladda exponeringsdata</string>
+    <string name="exposure_check_error_message">Kontrollera din nätverksanslutning och försök på nytt.</string>
 
 </resources>

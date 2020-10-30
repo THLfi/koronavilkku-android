@@ -111,7 +111,7 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingVertical="30dp"
+                        android:paddingVertical="25dp"
                         android:paddingHorizontal="20dp">
 
                         <LinearLayout
@@ -128,7 +128,6 @@
                                 android:id="@+id/text_home_exposure_label"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="@{model.hasExposures==true ? @string/home_exposure_label : @string/home_no_exposure_label}"
                                 android:textAppearance="?attr/textAppearanceHeadline4"
                                 tools:text="@string/home_exposure_label"
                                 />
@@ -138,8 +137,16 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="10dp"
                                 android:textAppearance="?attr/textAppearanceCaption"
-                                android:text="@{model.hasExposures==true ? @string/home_exposure_sub_label : @string/home_no_exposure_sub_label}"
                                 tools:text="@string/home_exposure_sub_label"
+                                />
+                            <TextView
+                                android:id="@+id/text_home_exposure_check_label"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:visibility="@{model.hasExposures() ? View.GONE : View.VISIBLE}"
+                                android:textAppearance="?attr/textAppearanceCaption"
+                                tools:text="@string/exposure_detail_last_check"
                                 />
                         </LinearLayout>
 
@@ -152,8 +159,6 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             android:layout_marginEnd="10dp"
                             style="@style/Widget.Vilkku.ImageView.Exposure"
-                            android:src="@{model.hasExposures==true ? @drawable/ic_alert : @drawable/ic_check}"
-                            android:backgroundTint="@{model.hasExposures==true ? @color/mainRed : @color/lightBlue}"
                             android:contentDescription="@null"
                             tools:src="@drawable/ic_alert"
                             tools:backgroundTint="@color/mainRed"
@@ -167,10 +172,24 @@
                             app:layout_constraintTop_toBottomOf="@+id/layout_home_exposure_labels"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            android:visibility="@{model.hasExposures==true ? View.VISIBLE : View.GONE}"
+                            android:visibility="@{model.hasExposures()==true ? View.VISIBLE : View.GONE}"
                             android:text="@string/home_exposure_instructions"
                             android:theme="@style/ThemeOverlay.Vilkku.Button.Critical"
                             tools:visibility="gone"/>
+
+                        <include
+                            android:id="@+id/layout_button_home_exposure_check"
+                            layout="@layout/layout_button_progress"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintTop_toBottomOf="@+id/layout_home_exposure_labels"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            android:layout_marginTop="20dp"
+                            android:visibility="@{model.showManualCheck()==true ? View.VISIBLE : View.GONE}"
+                            app:buttonText="@{@string/home_exposure_check}"
+                            app:inProgress="@{model.checkInProgress}"
+                            />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -199,7 +218,7 @@
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintEnd_toStartOf="@+id/image_home_symptom"
-                            android:layout_marginVertical="30dp"
+                            android:layout_marginVertical="25dp"
                             android:layout_marginStart="20dp"
                             android:layout_marginEnd="8dp">
 

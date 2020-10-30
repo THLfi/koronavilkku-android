@@ -3,6 +3,7 @@ package fi.thl.koronahaavi.service
 import android.content.Context
 import androidx.hilt.Assisted
 import androidx.hilt.work.WorkerInject
+import androidx.lifecycle.LiveData
 import androidx.work.*
 import fi.thl.koronahaavi.data.AppStateRepository
 import fi.thl.koronahaavi.data.ExposureRepository
@@ -121,8 +122,7 @@ class DiagnosisKeyUpdateWorker @WorkerInject constructor(
     }
 
     private fun resultForError(e: Exception): Result {
-
-        if (hasRunAttemptsLeft()) {
+        if (allowedToRetry()) {
             // OkHttp by default silently retries in case of certain errors (see OkHttpClient.Builder.retryOnConnectionFailure).
             if (e is IOException) {
                 return Result.retry()
@@ -135,7 +135,9 @@ class DiagnosisKeyUpdateWorker @WorkerInject constructor(
         return Result.failure()
     }
 
-    private fun hasRunAttemptsLeft(): Boolean = runAttemptCount < (MAX_RETRIES - 1)
+    // manual one-time update disables retries
+    private fun allowedToRetry(): Boolean =
+        (runAttemptCount < (MAX_RETRIES - 1)) && !inputData.getBoolean(RETRY_DISABLED_KEY, false)
 
     private fun HttpException.shouldRetry(): Boolean {
 
@@ -165,6 +167,7 @@ class DiagnosisKeyUpdateWorker @WorkerInject constructor(
     companion object {
         const val MAX_RETRIES = 3
         const val KEY_UPDATER_NAME = "DiagnosisKeyUpdate"
+        const val RETRY_DISABLED_KEY = "retry_disabled"
 
         fun schedule(context: Context, cfg: AppConfiguration, reconfigure: Boolean = false) {
             // start polling for backend diagnosis keys
@@ -191,5 +194,18 @@ class DiagnosisKeyUpdateWorker @WorkerInject constructor(
             )
         }
 
+        fun runOnce(context: Context): LiveData<WorkInfo> {
+            // just run once, no constraints or retries
+            val request = OneTimeWorkRequestBuilder<DiagnosisKeyUpdateWorker>()
+                .setInputData(
+                    Data.Builder().putBoolean(RETRY_DISABLED_KEY, true).build()
+                )
+                .build()
+
+            with (WorkManager.getInstance(context)) {
+                enqueue(request)
+                return getWorkInfoByIdLiveData(request.id)
+            }
+        }
     }
 }

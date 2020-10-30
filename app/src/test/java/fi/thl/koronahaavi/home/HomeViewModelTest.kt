@@ -4,11 +4,14 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
 import com.google.android.gms.common.internal.constants.ListAppsActivityContract
 import com.jraska.livedata.test
+import fi.thl.koronahaavi.common.Event
 import fi.thl.koronahaavi.data.AppStateRepository
 import fi.thl.koronahaavi.data.ExposureRepository
 import fi.thl.koronahaavi.device.DeviceStateRepository
 import fi.thl.koronahaavi.device.SystemState
 import fi.thl.koronahaavi.service.ExposureNotificationService
+import fi.thl.koronahaavi.service.WorkDispatcher
+import fi.thl.koronahaavi.service.WorkState
 import fi.thl.koronahaavi.utils.MainCoroutineScopeRule
 import io.mockk.every
 import io.mockk.mockk
@@ -17,6 +20,7 @@ import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import java.time.ZonedDateTime
 
 class HomeViewModelTest {
     @get:Rule
@@ -29,10 +33,12 @@ class HomeViewModelTest {
     private lateinit var deviceStateRepository: DeviceStateRepository
     private lateinit var exposureNotificationService: ExposureNotificationService
     private lateinit var appStateRepository: AppStateRepository
+    private lateinit var workDispatcher: WorkDispatcher
 
     val bluetoothOn = MutableLiveData<Boolean>()
     val locationOn = MutableLiveData<Boolean>()
     val enEnabledFlow = MutableStateFlow<Boolean?>(null)
+    val lastCheckTime = MutableLiveData<ZonedDateTime?>()
 
     @Before
     fun init() {
@@ -40,12 +46,14 @@ class HomeViewModelTest {
         deviceStateRepository = mockk(relaxed = true)
         exposureNotificationService = mockk(relaxed = true)
         appStateRepository = mockk(relaxed = true)
+        workDispatcher = mockk(relaxed = true)
 
         every { deviceStateRepository.bluetoothOn() } returns bluetoothOn
         every { deviceStateRepository.locationOn() } returns locationOn
         every { exposureNotificationService.isEnabledFlow() } returns enEnabledFlow
+        every { appStateRepository.getLastExposureCheckTimeLive() } returns lastCheckTime
 
-        viewModel = HomeViewModel(exposureRepository, deviceStateRepository, appStateRepository, exposureNotificationService)
+        viewModel = HomeViewModel(exposureRepository, deviceStateRepository, appStateRepository, exposureNotificationService, workDispatcher)
     }
 
     @Test
@@ -61,14 +69,47 @@ class HomeViewModelTest {
 
     @Test
     fun systemEnabled() {
-        enEnabledFlow.value = true
-        bluetoothOn.value = true
-        locationOn.value = true
+        setSystemOn()
         viewModel.systemState().test().assertValue(SystemState.On)
     }
 
     @Test
     fun systemEnabledNullAtFirst() {
         viewModel.systemState().test().assertNullValue()
+    }
+
+    @Test
+    fun manualCheckShownWhenOld() {
+        setSystemOn()
+        lastCheckTime.value = ZonedDateTime.now().minusDays(2)
+
+        viewModel.showManualCheck().test().assertValue(true)
+    }
+
+    @Test
+    fun manualCheckHiddenWhenUpToDate() {
+        setSystemOn()
+        lastCheckTime.value = ZonedDateTime.now().minusHours(4)
+
+        viewModel.showManualCheck().test().assertValue(false)
+    }
+
+    @Test
+    fun manualCheckShownAlwaysWhenInProgress() {
+        viewModel.checkInProgress.value = true
+        viewModel.showManualCheck().test().assertValue(true)
+    }
+
+    @Test
+    fun manualCheckRunsWorker() {
+        every { workDispatcher.runUpdateWorker() } returns MutableLiveData(Event(WorkState.InProgress))
+        viewModel.startExposureCheck()
+        viewModel.exposureCheckState.test().assertValue() { it.getContentIfNotHandled() == WorkState.InProgress }
+    }
+
+    private fun setSystemOn() {
+        enEnabledFlow.value = true
+        bluetoothOn.value = true
+        locationOn.value = true
     }
 }

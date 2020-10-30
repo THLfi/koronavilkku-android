@@ -1,5 +1,6 @@
 package fi.thl.koronahaavi.home
 
+import android.content.res.ColorStateList
 import android.graphics.drawable.AnimatedVectorDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,12 +11,16 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import fi.thl.koronahaavi.R
 import fi.thl.koronahaavi.common.*
+import fi.thl.koronahaavi.common.FormatExtensions.formatRelativeDateTime
 import fi.thl.koronahaavi.databinding.FragmentHomeBinding
 import fi.thl.koronahaavi.device.SystemState
+import fi.thl.koronahaavi.exposure.ExposureState
 import timber.log.Timber
+import java.time.ZonedDateTime
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
@@ -75,6 +80,10 @@ class HomeFragment : Fragment() {
             buttonHomeAppGuide.setOnClickListener {
                 activity?.openGuide()
             }
+
+            layoutButtonHomeExposureCheck.button.setOnClickListener {
+                startManualExposureCheck()
+            }
         }
 
         viewModel.enableResolutionRequired().observe(viewLifecycleOwner, Observer {
@@ -107,11 +116,16 @@ class HomeFragment : Fragment() {
             }
         })
 
-        viewModel.hasExposures.observe(viewLifecycleOwner, Observer {
+        viewModel.exposureState().observe(viewLifecycleOwner, Observer {
             it?.let { state ->
-                updateExposureLabel(state)
+                updateExposureLabels(state)
+                updateExposureIcon(state)
             }
         })
+
+        viewModel.exposureCheckState.observe(viewLifecycleOwner,
+            ExposureCheckObserver(requireContext(), viewModel.checkInProgress)
+        )
     }
 
     override fun onStart() {
@@ -127,13 +141,69 @@ class HomeFragment : Fragment() {
         (binding.imageHomeAppStatus.drawable as? AnimatedVectorDrawable)?.stop()
     }
 
+    private fun startManualExposureCheck() = viewModel.startExposureCheck()
+
     private fun navigateToExposureDetail() = findNavController().navigateSafe(HomeFragmentDirections.toExposureDetail())
 
-    private fun updateExposureLabel(hasExposures: Boolean) {
+    private fun updateExposureLabels(state: ExposureState) {
         binding.textHomeExposureLabel.setTextColor(requireContext().themeColor(
-            if (hasExposures) R.attr.colorError else android.R.attr.textColorPrimary)
+            when (state) {
+                ExposureState.HasExposures -> R.attr.colorError
+                else -> android.R.attr.textColorPrimary
+            }
+        ))
+
+        binding.textHomeExposureLabel.text = requireContext().getString(
+            when (state) {
+                ExposureState.HasExposures -> R.string.home_exposure_label
+                else -> R.string.home_no_exposure_label
+            }
         )
+
+        binding.textHomeExposureSubLabel.text = requireContext().getString(
+            when (state) {
+                is ExposureState.HasExposures -> R.string.home_exposure_sub_label
+                is ExposureState.Clear -> R.string.home_no_exposure_sub_label
+                is ExposureState.Pending -> R.string.home_pending_check_label
+            }
+        )
+
+        binding.textHomeExposureCheckLabel.text = when (state) {
+            is ExposureState.Pending -> getExposureCheckText(state.lastCheck)
+            is ExposureState.Clear -> getExposureCheckText(state.lastCheck)
+            ExposureState.HasExposures -> null // view is hidden in layout xml
+        }
     }
+
+    private fun updateExposureIcon(state: ExposureState) {
+        with (binding.imageHomeExposureStatus) {
+            setImageDrawable(getDrawable(when (state) {
+                ExposureState.HasExposures -> R.drawable.ic_alert
+                is ExposureState.Clear -> R.drawable.ic_check
+                is ExposureState.Pending -> R.drawable.ic_alert_triangle
+            }))
+
+            imageTintList = ColorStateList.valueOf(when (state) {
+                is ExposureState.Pending -> resources.getColor(R.color.lightGrey, null)
+                else -> requireContext().themeColor(R.attr.colorOnPrimary)
+            })
+
+            backgroundTintList = ColorStateList.valueOf(resources.getColor(when (state) {
+                ExposureState.HasExposures -> R.color.mainRed
+                is ExposureState.Clear -> R.color.lightBlue
+                is ExposureState.Pending -> R.color.veryLightGrey
+            }, null))
+        }
+    }
+
+    private fun getExposureCheckText(dateTime: ZonedDateTime?) =
+        if (dateTime != null) {
+            getString(R.string.exposure_detail_last_check,
+                dateTime.formatRelativeDateTime(requireContext())
+            )
+        } else {
+            getString(R.string.exposure_detail_no_last_check)
+        }
 
     private fun updateStatusText(state: SystemState) {
         binding.textHomeAppStatus.text = requireContext().getString(

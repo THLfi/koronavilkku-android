@@ -233,6 +233,11 @@
         <item name="colorOnPrimary">@color/mediumGrey</item>
     </style>
 
+    <!-- progress bar uses colorSecondary, so this overrides the parent theme color when applied to theme attribute -->
+    <style name="ThemeOverlay.Vilkku.ProgressBar" parent="">
+        <item name="colorSecondary">@color/mainBlue</item>
+    </style>
+
     <style name="Widget.Vilkku.BottomSheetDialog" parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/Widget.Vilkku.BottomSheet</item>
     </style>
