@@ -97,12 +97,10 @@
     <string name="terms_url">https://koronavilkku.fi/kayttoehdot/</string>
 
     <string name="exposure_detail_title">Mahdollinen altistuminen</string>
-
     <string name="exposure_detail_message">Olet ollut viimeisten 10 vuorokauden aikana lähellä henkilöä, joka on ilmoittanut koronatartunnasta Koronavilkun kautta.</string>
-    <string name="exposure_detail_disclaimer">Arvio altistumisesta perustuu Koronavilkun keräämiin kohtaamistietoihin viimeisten 10 vuorokauden ajalta. Altistumisen voimakkuutta ei voida täsmällisesti arvioida.</string>
 
     <string name="exposure_detail_contact_title">Ota yhteyttä terveyden\u00ADhuoltoon</string>
-    <string name="exposure_detail_contact_subtitle">Tieto mahdollisesta altistumisestasi välittyy terveydenhuoltoon vain, jos otat itse yhteyttä.</string>
+    <string name="exposure_detail_contact_subtitle">Tieto mahdollisesta altistumisestasi ei välity terveydenhuoltoon, jollet itse ota yhteyttä.</string>
     <string name="exposure_detail_contact_start">Ota yhteyttä</string>
 
     <string name="exposure_detail_title_none">Ei havaittuja altistumisia</string>
@@ -112,16 +110,25 @@
     <string name="exposure_detail_last_check">Tarkistettu viimeksi %s</string>
     <string name="exposure_detail_no_last_check">Altistumistietoja ei ole vielä tarkistettu</string>
 
-    <string name="exposure_detail_instructions_title">Noudata näitä ohjeita huolellisesti seuraavien 10 päivän ajan:</string>
-    <string name="exposure_detail_instructions_1">Jos sinulla ilmenee yksikin näistä koronavirustautiin sopivista oireista, ota mahdollisimman pian yhteyttä kuntasi terveydenhuoltoon ja hakeudu testiin:</string>
-    <string name="exposure_detail_contact_instructions_1">Ota mahdollisimman pian yhteyttä kuntasi terveydenhuoltoon ja hakeudu testiin, jos sinulla ilmenee yksikin näistä koronavirustautiin sopivista oireista:</string>
-    <string name="exposure_detail_instructions_1_sublist">- haju- tai makuaistin muutos\n- hengitysvaikeus\n- yskä, kurkkukipu tai nuha\n- kuume\n- päänsärky tai lihaskipuja\n- ripuli tai vatsakipu ilman muuta ilmeistä syytä.</string>
+    <string name="exposure_detail_notifications_title">Näytä altistumisilmoitukset</string>
+
+    <string name="exposure_detail_instructions_title">Toimi näin</string>
+    <string name="exposure_detail_instructions_subtitle">Noudata näitä ohjeita 10 päivän ajan:</string>
+    <string name="exposure_detail_instructions_1">Tarkkaile vointiasi. Jos sinulla ilmenee yksikin koronavirustautiin sopiva oire, ota mahdollisimman pian yhteyttä kuntasi terveydenhuoltoon ja hakeudu testiin. Koronavirustautiin sopivia oireita ovat haju- tai makuaistin muutos, hengitysvaikeus, yskä, kurkkukipu, nuha, kuume, päänsärky, lihaskivut, ripuli tai vatsakipu ilman muuta ilmeistä syytä.</string>
+    <string name="exposure_detail_contact_instructions_1">Jos sinulla ilmenee oireita, hakeudu testiin</string>
     <string name="exposure_detail_instructions_2">Vältä tapaamasta muita ihmisiä.</string>
     <string name="exposure_detail_instructions_3">Huolehdi käsihygieniastasi.</string>
     <string name="exposure_detail_instructions_4">Vältä julkisia paikkoja ja liikennevälineitä. Jos joudut liikkumaan julkisilla paikoilla, pidä muihin ihmisiin etäisyyttä vähintään kaksi metriä. Jos et pysty pitämään riittävästi etäisyyttä, käytä kasvomaskia.</string>
     <string name="exposure_detail_instructions_5">Anna toisen henkilön hoitaa ruokaostokset ja muu asiointi kodin ulkopuolella, jos mahdollista.</string>
     <string name="exposure_detail_instructions_6">Jos yskit tai aivastat, suojaa suusi ja nenäsi kertakäyttönenäliinalla. Laita käytetty nenäliina jäteastiaan ja pese kätesi vedellä ja saippualla tai käytä käsihuuhdetta. Jos sinulla ei ole nenäliinaa, yski tai aivasta hihaan.</string>
     <string name="exposure_detail_instructions_7">Tee etätyötä, jos mahdollista.</string>
+
+    <string name="notification_list_title">Altistumisilmoitukset</string>
+    <string name="notification_list_disclaimer">Arvio altistumisesta perustuu Koronavilkun keräämiin kohtaamistietoihin viimeisten 10 vuorokauden ajalta. Altistumisen voimakkuutta ei voida täsmällisesti arvioida.</string>
+
+    <string name="notification_item_title">Altistumisilmoitus %s</string>
+    <string name="notification_item_count_label">Mahdollisia altistumisia</string>
+    <string name="notification_item_time_range_label">Aikavälillä</string>
 
     <string name="guide_title">Tietoa Koronavilkusta</string>
     <string name="guide_p1_text">Koronavilkku on Terveyden ja hyvinvoinnin laitoksen tuottama sovellus, jonka avulla saat tiedon, jos olet sovelluksen arvion mukaan altistunut koronavirukselle. Jos sinulla todetaan tartunta, voit ilmoittaa siitä sovelluksella nimettömästi. Sovelluksessa yksityisyytesi on vahvasti suojattu.</string>
@@ -245,5 +252,15 @@
 
     <string name="exposure_check_error_title">Virhe altistumistietojen lataamisessa</string>
     <string name="exposure_check_error_message">Altistumistietojen lataaminen ei onnistunut. Tarkista verkkoyhteys ja yritä uudelleen.</string>
+
+    <plurals name="exposure_notification_count">
+        <item quantity="one">%d ilmoitus</item>
+        <item quantity="other">%d ilmoitusta</item>
+    </plurals>
+
+    <plurals name="all_count">
+        <item quantity="one">%d kpl</item>
+        <item quantity="other">%d kpl</item>
+    </plurals>
 
 </resources>

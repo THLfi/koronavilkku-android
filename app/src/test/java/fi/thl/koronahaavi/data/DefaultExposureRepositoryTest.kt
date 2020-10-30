@@ -1,20 +1,20 @@
 package fi.thl.koronahaavi.data
 
-import androidx.work.ListenableWorker
-import fi.thl.koronahaavi.exposure.ClearExpiredExposuresWorker
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.every
 import io.mockk.mockk
-import junit.framework.Assert.assertEquals
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.flow.toList
 import kotlinx.coroutines.runBlocking
-import org.junit.Assert
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
+import java.time.Duration
+import java.time.ZoneId
 import java.time.ZonedDateTime
+import java.time.temporal.TemporalAmount
 
 class DefaultExposureRepositoryTest {
     private lateinit var repository: DefaultExposureRepository
@@ -32,13 +32,20 @@ class DefaultExposureRepositoryTest {
     @Test
     fun flowExposureNotifications() {
         every { exposureDao.flowAll() } returns flowOf(listOf(
-            Exposure(1, ZonedDateTime.now().minusDays(3), ZonedDateTime.now().minusDays(2), 0),
-            Exposure(2, ZonedDateTime.now().minusDays(4), ZonedDateTime.now().minusDays(2).minusSeconds(1), 0)
+            createExposure(Duration.ofDays(2)),
+            createExposure(Duration.ofDays(2).plusSeconds(1)),
+            createExposure(Duration.ofDays(2).minusSeconds(1)),
+            createExposure(Duration.ofDays(3)),
+            createExposure(Duration.ofDays(3)),
+            createExposure(Duration.ofDays(4))
         ))
 
         runBlocking {
             repository.flowExposureNotifications().collectLatest {
-                assertEquals(1, it.size)
+                assertEquals(3, it.size)
+                assertTrue(it.any { n -> n.createdDate == baseCreatedDate.minus(Duration.ofDays(2)) })
+                assertTrue(it.any { n -> n.createdDate == baseCreatedDate.minus(Duration.ofDays(3)) })
+                assertTrue(it.any { n -> n.createdDate == baseCreatedDate.minus(Duration.ofDays(4)) })
             }
         }
     }
@@ -88,4 +95,8 @@ class DefaultExposureRepositoryTest {
         }
     }
 
+    private val baseCreatedDate = ZonedDateTime.of(2020, 1, 1, 1, 1, 1, 0, ZoneId.of("Z"))
+
+    private fun createExposure(age: TemporalAmount)
+            = Exposure(1, ZonedDateTime.now(), baseCreatedDate.minus(age), 0)
 }

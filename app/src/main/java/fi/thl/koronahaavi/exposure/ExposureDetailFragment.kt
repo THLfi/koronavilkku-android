@@ -1,22 +1,21 @@
 package fi.thl.koronahaavi.exposure
 
+import android.content.res.ColorStateList
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.os.Bundle
 import android.view.*
 import android.view.WindowManager.LayoutParams
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.navGraphViewModels
 import androidx.navigation.ui.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint
 import fi.thl.koronahaavi.R
-import fi.thl.koronahaavi.common.ExposureCheckObserver
-import fi.thl.koronahaavi.common.FormatExtensions.formatRelativeDateTime
-import fi.thl.koronahaavi.common.navigateSafe
-import fi.thl.koronahaavi.common.openGuide
-import fi.thl.koronahaavi.common.themeColor
+import fi.thl.koronahaavi.common.*
+import fi.thl.koronahaavi.common.FormatExtensions.formatLastCheckTime
 import fi.thl.koronahaavi.databinding.FragmentExposureDetailBinding
 import java.time.ZonedDateTime
 
@@ -24,7 +23,9 @@ import java.time.ZonedDateTime
 class ExposureDetailFragment : Fragment() {
     private lateinit var binding: FragmentExposureDetailBinding
 
-    private val viewModel by viewModels<ExposureDetailViewModel>()
+    private val viewModel: ExposureDetailViewModel by navGraphViewModels(R.id.exposure_navigation) {
+        defaultViewModelProviderFactory
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -59,12 +60,15 @@ class ExposureDetailFragment : Fragment() {
                 findNavController().navigateSafe(ExposureDetailFragmentDirections.toSelectMunicipality())
             }
 
-            buttonExposureDetailAppInfo.setOnClickListener {
-                activity?.openGuide()
-            }
-
             layoutButtonExposureDetailCheck.button.setOnClickListener {
                 startManualExposureCheck()
+            }
+
+            layoutExposureDetailNotifications.linkItemCard.findViewById<ImageView>(R.id.link_item_indicator)?.imageTintList =
+                ColorStateList.valueOf(resources.getColor(R.color.mainBlue, null))
+
+            layoutExposureDetailNotifications.linkItemCard.setOnClickListener {
+                findNavController().navigateSafe(ExposureDetailFragmentDirections.toNotificationList())
             }
         }
 
@@ -82,13 +86,7 @@ class ExposureDetailFragment : Fragment() {
     }
 
     private fun updateLastCheckTimeLabel(dateTime: ZonedDateTime?) {
-        binding.textExposureDetailLastCheck.text = if (dateTime != null) {
-            getString(R.string.exposure_detail_last_check,
-                dateTime.formatRelativeDateTime(requireContext())
-            )
-        } else {
-            getString(R.string.exposure_detail_no_last_check)
-        }
+        binding.textExposureDetailLastCheck.text = requireContext().formatLastCheckTime(dateTime)
     }
 
     private fun updateToolbar(exposed: Boolean) {

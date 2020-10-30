@@ -53,7 +53,7 @@ class HomeViewModel @ViewModelInject constructor(
     private val newExposureCheckEvent = MutableLiveData<Event<Any>>()
 
     fun systemState(): LiveData<SystemState?> = systemState.distinctUntilChanged()
-    fun exposureState(): LiveData<ExposureState> = exposureState.distinctUntilChanged()
+    fun exposureState(): LiveData<ExposureState?> = exposureState.distinctUntilChanged()
     fun hasExposures() = exposureState.map { it == ExposureState.HasExposures }
     fun showManualCheck(): LiveData<Boolean> = showManualCheck.distinctUntilChanged()
 

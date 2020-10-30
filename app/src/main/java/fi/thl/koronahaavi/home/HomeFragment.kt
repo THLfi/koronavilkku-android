@@ -15,7 +15,7 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import fi.thl.koronahaavi.R
 import fi.thl.koronahaavi.common.*
-import fi.thl.koronahaavi.common.FormatExtensions.formatRelativeDateTime
+import fi.thl.koronahaavi.common.FormatExtensions.formatLastCheckTime
 import fi.thl.koronahaavi.databinding.FragmentHomeBinding
 import fi.thl.koronahaavi.device.SystemState
 import fi.thl.koronahaavi.exposure.ExposureState
@@ -169,41 +169,33 @@ class HomeFragment : Fragment() {
         )
 
         binding.textHomeExposureCheckLabel.text = when (state) {
-            is ExposureState.Pending -> getExposureCheckText(state.lastCheck)
-            is ExposureState.Clear -> getExposureCheckText(state.lastCheck)
+            is ExposureState.Pending -> requireContext().formatLastCheckTime(state.lastCheck)
+            is ExposureState.Clear -> requireContext().formatLastCheckTime(state.lastCheck)
             ExposureState.HasExposures -> null // view is hidden in layout xml
         }
     }
 
     private fun updateExposureIcon(state: ExposureState) {
         with (binding.imageHomeExposureStatus) {
-            setImageDrawable(getDrawable(when (state) {
-                ExposureState.HasExposures -> R.drawable.ic_alert
-                is ExposureState.Clear -> R.drawable.ic_check
-                is ExposureState.Pending -> R.drawable.ic_alert_triangle
-            }))
-
-            imageTintList = ColorStateList.valueOf(when (state) {
-                is ExposureState.Pending -> resources.getColor(R.color.lightGrey, null)
-                else -> requireContext().themeColor(R.attr.colorOnPrimary)
-            })
-
-            backgroundTintList = ColorStateList.valueOf(resources.getColor(when (state) {
-                ExposureState.HasExposures -> R.color.mainRed
-                is ExposureState.Clear -> R.color.lightBlue
-                is ExposureState.Pending -> R.color.veryLightGrey
-            }, null))
+            when (state) {
+                is ExposureState.Clear -> {
+                    setImageDrawable(getDrawable(R.drawable.ic_check))
+                    imageTintList = ColorStateList.valueOf(requireContext().themeColor(R.attr.colorOnPrimary))
+                    backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.lightBlue, null))
+                    visibility = View.VISIBLE
+                }
+                is ExposureState.Pending -> {
+                    setImageDrawable(getDrawable(R.drawable.ic_alert_triangle))
+                    imageTintList = ColorStateList.valueOf(resources.getColor(R.color.lightGrey, null))
+                    backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.veryLightGrey, null))
+                    visibility = View.VISIBLE
+                }
+                else -> {
+                    visibility = View.GONE
+                }
+            }
         }
     }
-
-    private fun getExposureCheckText(dateTime: ZonedDateTime?) =
-        if (dateTime != null) {
-            getString(R.string.exposure_detail_last_check,
-                dateTime.formatRelativeDateTime(requireContext())
-            )
-        } else {
-            getString(R.string.exposure_detail_no_last_check)
-        }
 
     private fun updateStatusText(state: SystemState) {
         binding.textHomeAppStatus.text = requireContext().getString(

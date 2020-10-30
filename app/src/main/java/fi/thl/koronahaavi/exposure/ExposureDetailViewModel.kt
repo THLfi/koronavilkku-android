@@ -8,6 +8,7 @@ import fi.thl.koronahaavi.data.ExposureRepository
 import fi.thl.koronahaavi.service.ExposureNotificationService
 import fi.thl.koronahaavi.service.WorkDispatcher
 import fi.thl.koronahaavi.service.WorkState
+import java.time.ZonedDateTime
 
 class ExposureDetailViewModel @ViewModelInject constructor(
     exposureRepository: ExposureRepository,
@@ -17,6 +18,10 @@ class ExposureDetailViewModel @ViewModelInject constructor(
 ) : ViewModel() {
     private val exposureNotifications = exposureRepository.flowExposureNotifications().asLiveData()
     val hasExposures = exposureNotifications.map { it.isNotEmpty() }
+    val notificationCount = exposureNotifications.map { it.size }
+    val notifications = exposureNotifications.map { it.map { n ->
+        NotificationData(n.createdDate, n.exposures.size)
+    } }
 
     val lastCheckTime = appStateRepository.getLastExposureCheckTimeLive()
 
@@ -41,3 +46,7 @@ class ExposureDetailViewModel @ViewModelInject constructor(
     }
 }
 
+data class NotificationData(
+    val dateTime: ZonedDateTime,
+    val notificationCount: Int
+)

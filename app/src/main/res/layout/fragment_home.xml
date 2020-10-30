@@ -96,6 +96,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clipToPadding="false"
+                android:visibility="@{model.hasExposures() == null ? View.GONE : View.VISIBLE}"
                 android:padding="20dp">
 
                 <com.google.android.material.card.MaterialCardView
@@ -166,6 +167,7 @@
                             tools:text="16"
                             tools:visibility="visible"/>
 
+                        <!-- visibility updated in code only if needed to prevent icon background flicker -->
                         <ImageView
                             android:id="@+id/image_home_exposure_status"
                             android:layout_width="@dimen/home_exposure_status_icon_size"
@@ -174,13 +176,12 @@
                             app:layout_constraintBottom_toBottomOf="@+id/layout_home_exposure_labels"
                             app:layout_constraintEnd_toEndOf="parent"
                             android:layout_marginEnd="10dp"
-                            android:visibility="@{model.hasExposures()==true ? View.GONE : View.VISIBLE}"
+                            android:visibility="gone"
                             style="@style/Widget.Vilkku.ImageView.Exposure"
                             android:contentDescription="@null"
-                            tools:src="@drawable/ic_alert"
-                            tools:backgroundTint="@color/mainRed"
-                            tools:tint="?attr/colorOnPrimary"
-                            tools:visibility="gone"/>
+                            tools:src="@drawable/ic_check"
+                            tools:backgroundTint="@color/lightBlue"
+                            tools:tint="?attr/colorOnPrimary" />
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/button_home_exposure_instructions"

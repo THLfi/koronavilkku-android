@@ -16,6 +16,7 @@ import fi.thl.koronahaavi.utils.MainCoroutineScopeRule
 import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Rule
@@ -51,6 +52,7 @@ class HomeViewModelTest {
         every { deviceStateRepository.bluetoothOn() } returns bluetoothOn
         every { deviceStateRepository.locationOn() } returns locationOn
         every { exposureNotificationService.isEnabledFlow() } returns enEnabledFlow
+        every { exposureRepository.flowExposureNotifications() } returns flowOf(listOf())
         every { appStateRepository.getLastExposureCheckTimeLive() } returns lastCheckTime
 
         viewModel = HomeViewModel(exposureRepository, deviceStateRepository, appStateRepository, exposureNotificationService, workDispatcher)
