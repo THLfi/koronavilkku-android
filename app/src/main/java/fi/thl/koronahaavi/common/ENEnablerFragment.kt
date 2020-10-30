@@ -17,6 +17,7 @@ import fi.thl.koronahaavi.common.RequestResolutionViewModel.Companion.REQUEST_CO
 import fi.thl.koronahaavi.settings.ENApiError
 import fi.thl.koronahaavi.settings.EnableENError
 import fi.thl.koronahaavi.settings.EnableSystemViewModel
+import fi.thl.koronahaavi.settings.UserEnableStep
 import kotlinx.coroutines.launch
 import timber.log.Timber
 
@@ -37,8 +38,14 @@ open class ENEnablerFragment : Fragment() {
 
         statusViewModel.enableErrorEvent().observe(viewLifecycleOwner, Observer {
             it.getContentIfNotHandled()?.let { reason ->
-                context?.showEnableFailureReasonDialog(reason)
-                onEnableCanceled()
+                if (reason is EnableENError.UserCanceled && reason.step is UserEnableStep.UserConsent) {
+                    // huawei contact shield reports cancel here instead of activity result through request resolution
+                    onUserRejectedEnable()
+                }
+                else {
+                    context?.showEnableFailureReasonDialog(reason)
+                    onEnableCanceled()
+                }
             }
         })
 
@@ -149,6 +156,18 @@ fun Context.showEnableFailureReasonDialog(error: EnableENError) {
                 else
                     getString(R.string.enable_err_api_not_supported, apiError)
             )
+        }
+
+        is EnableENError.UserCanceled -> {
+            // Huawei only
+            when (error.step) {
+                is UserEnableStep.LocationPermission -> {
+                    builder.setMessage(getString(R.string.enable_err_hms_location_permission))
+                }
+                else -> {
+                    return // should not get here, but handle anyway by skipping dialog
+                }
+            }
         }
 
         is EnableENError.Failed -> {

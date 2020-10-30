@@ -9,8 +9,8 @@ import com.google.android.gms.common.api.Status
 import fi.thl.koronahaavi.common.Event
 import fi.thl.koronahaavi.device.DeviceStateRepository
 import fi.thl.koronahaavi.service.ExposureNotificationService
-import fi.thl.koronahaavi.service.ExposureNotificationService.ConnectionError
-import fi.thl.koronahaavi.service.ExposureNotificationService.ResolvableResult
+import fi.thl.koronahaavi.service.ExposureNotificationService.*
+import timber.log.Timber
 
 class EnableSystemViewModel @ViewModelInject constructor(
     private val exposureNotificationService: ExposureNotificationService,
@@ -71,6 +71,13 @@ class EnableSystemViewModel @ViewModelInject constructor(
                 ))
                 false
             }
+            is ResolvableResult.HmsCanceled -> {
+                Timber.d("got ResolvableResult.Canceled")
+                enableENErrorEvent.postValue(Event(
+                    EnableENError.UserCanceled(result.step.toUserEnableStep())
+                ))
+                false
+            }
         }
     }
 
@@ -87,7 +94,8 @@ fun ConnectionError.toENApiError(): ENApiError =
         is ConnectionError.Failed -> ENApiError.Failed(errorCode)
     }
 
-sealed class EnableENError {
+sealed class EnableENError() {
+    data class UserCanceled(val step: UserEnableStep) : EnableENError()
     object MissingCapability : EnableENError()
     data class ApiNotSupported(val enApiError: ENApiError? = null): EnableENError()
     data class Failed(val code: Int? = null, val connectionErrorCode: Int? = null, val error: String? = null): EnableENError()
@@ -99,3 +107,14 @@ sealed class ENApiError {
     object AppNotAuthorized: ENApiError()
     data class Failed(val errorCode: Int?): ENApiError()
 }
+
+sealed class UserEnableStep() {
+    object UserConsent: UserEnableStep()
+    object LocationPermission: UserEnableStep()
+}
+
+fun EnableStep.toUserEnableStep(): UserEnableStep =
+    when(this) {
+        is EnableStep.UserConsent -> UserEnableStep.UserConsent
+        is EnableStep.LocationPermission -> UserEnableStep.LocationPermission
+    }

@@ -21,6 +21,7 @@ import fi.thl.koronahaavi.service.WorkDispatcher
 import fi.thl.koronahaavi.service.WorkState
 import fi.thl.koronahaavi.settings.EnableENError
 import fi.thl.koronahaavi.settings.toENApiError
+import fi.thl.koronahaavi.settings.toUserEnableStep
 import kotlinx.coroutines.launch
 
 class HomeViewModel @ViewModelInject constructor(
@@ -89,6 +90,11 @@ class HomeViewModel @ViewModelInject constructor(
                 is ResolvableResult.ApiNotSupported -> {
                     enableENErrorEvent.postValue(Event(
                         EnableENError.ApiNotSupported(result.connectionError?.toENApiError())
+                    ))
+                }
+                is ResolvableResult.HmsCanceled -> {
+                    enableENErrorEvent.postValue(Event(
+                        EnableENError.UserCanceled(result.step.toUserEnableStep())
                     ))
                 }
             }

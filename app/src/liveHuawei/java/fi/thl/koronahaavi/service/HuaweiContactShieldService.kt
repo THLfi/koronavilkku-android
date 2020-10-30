@@ -3,7 +3,6 @@
 package fi.thl.koronahaavi.service
 
 import android.app.Activity
-import android.app.IntentService
 import android.app.PendingIntent
 import android.content.Context
 import android.content.DialogInterface
@@ -15,11 +14,10 @@ import com.google.android.gms.nearby.exposurenotification.TemporaryExposureKey
 import com.huawei.hms.api.HuaweiApiAvailability
 import com.huawei.hms.common.ApiException
 import com.huawei.hms.contactshield.*
-import com.huawei.hms.support.api.entity.core.CommonCode
 import fi.thl.koronahaavi.service.ExposureNotificationService.ResolvableResult
 import fi.thl.koronahaavi.BuildConfig
 import fi.thl.koronahaavi.data.Exposure
-import fi.thl.koronahaavi.exposure.ExposureUpdateWorker
+import fi.thl.koronahaavi.service.ExposureNotificationService.EnableStep
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -120,18 +118,22 @@ class HuaweiContactShieldService(
             ResolvableResult.Success(block())
         }
         catch (exception: ApiException) {
-            Timber.e(exception, "Exposure notification API call failed")
-            if (exception.statusCode == ExposureNotificationStatusCodes.FAILED_NOT_SUPPORTED) {
-                ResolvableResult.MissingCapability(
-                    exception.localizedMessage
-                )
-            }
-            else {
-                ResolvableResult.Failed(
-                    apiErrorCode = exception.statusCode,
-                    connectionErrorCode = 0,
-                    error = exception.localizedMessage
-                )
+            Timber.e(exception, "HMS API call failed")
+            when (exception.statusCode) {
+                ExposureNotificationStatusCodes.FAILED_NOT_SUPPORTED -> {
+                    ResolvableResult.MissingCapability(
+                        exception.localizedMessage
+                    )
+                }
+                StatusCode.STATUS_INTERNAL_ERROR -> ResolvableResult.HmsCanceled(EnableStep.LocationPermission)
+                StatusCode.STATUS_FAILURE -> ResolvableResult.HmsCanceled(EnableStep.UserConsent)
+                else -> {
+                    ResolvableResult.Failed(
+                        apiErrorCode = exception.statusCode,
+                        connectionErrorCode = 0,
+                        error = exception.localizedMessage
+                    )
+                }
             }
         }
         catch (exception: Exception) {

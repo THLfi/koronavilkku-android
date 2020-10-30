@@ -166,6 +166,7 @@
     <string name="enable_note">Ota altistumis\u00ADilmoitukset käyttöön</string>
 
     <string name="enable_err_title">Altistumis\u00ADilmoituksia ei voitu ottaa käyttöön</string>
+    <string name="enable_err_hms_location_permission">HMS Core tarvitsee luvan käyttää laitteen sijaintia. Voit antaa luvan laitteesi asetuksissa.</string>
     <string name="enable_err_missing_capability">Altistumisilmoitukset eivät toimi laitteessasi.</string>
     <string name="enable_err_api_not_supported">Valitettavasti altistumisilmoitukset eivät ole saatavilla laitteeseesi.\n\n%s</string>
     <string name="enable_err_not_owner">Olet kirjautunut laitteeseen jonkun muun kuin laitteen omistajan käyttäjäprofiililla. Koronavilkku toimii vain laitteen omistajan käyttäjäprofiililla.\n\nVoit vaihtaa profiilia pyyhkäisemällä kahdella sormella puhelimen aloitusnäytön yläreunasta. Paina sitten Vaihda käyttäjää -painiketta.</string>
