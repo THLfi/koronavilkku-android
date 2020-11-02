@@ -52,9 +52,9 @@ class DefaultExposureRepository (
 
     override fun flowExposureNotifications(): Flow<List<ExposureNotification>> =
         exposureDao.flowAll().map { all ->
-            // first filter out expired exposures, then group by created date, but because
+            // First filter out expired exposures, then group by created date, but because
             // created date could theoretically be on a different second, group manually
-            // instead of using created date directly as a map key
+            // instead of using created date directly as a map key.
 
             val result = mutableMapOf<ZonedDateTime, List<Exposure>>()
             val expireTime = getExpireTime()
@@ -64,7 +64,7 @@ class DefaultExposureRepository (
             }.forEach { e ->
                 // find existing key that is close enough, or create new key
                 val key = result.keys.find {
-                    Duration.between(it, e.createdDate).abs().seconds < 2
+                    Duration.between(it, e.createdDate).abs().seconds < EXPOSURE_GROUPING_THRESHOLD_SECONDS
                 } ?: e.createdDate
 
                 // append to existing, or create a new entry
@@ -80,5 +80,10 @@ class DefaultExposureRepository (
         // Exposure detection timestamp is rounded by EN to beginning of day in UTC, so in order to keep
         // exposure valid for 10 days, we keep it for 11 days from detection timestamp
         const val EXPOSURE_VALID_SINCE_DETECTION_DAYS = 11
+
+        // Exposures created during same notification in earlier versions might have a very small difference
+        // in creation time, so we're allowing few seconds for that. Since v1.3 we use the same timestamp
+        // for all exposures within a notification, so this threshold is only for legacy support
+        const val EXPOSURE_GROUPING_THRESHOLD_SECONDS = 5
     }
 }
