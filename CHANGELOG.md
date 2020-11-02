@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Unreleased
 
 ### Added
+- Manual exposure check allowed when checks have been delayed 24h
+
+## [1.2.1](https://github.com/THLfi/koronavilkku-android/compare/v1.2.0...v1.2.1) - 2020-10-29
+
+### Added
 - English support for municipality data
 
 ### Changed

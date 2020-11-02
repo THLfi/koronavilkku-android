@@ -290,4 +290,11 @@
         <packageUrl regex="true">^pkg:maven/org\.codehaus\.plexus/plexus\-utils@.*$</packageUrl>
         <vulnerabilityName>Possible XML Injection</vulnerabilityName>
     </suppress>
+    <suppress>
+        <notes><![CDATA[
+   file name: tink-android-1.4.0.jar
+   ]]></notes>
+        <packageUrl regex="true">^pkg:maven/com\.google\.crypto\.tink/tink\-android@.*$</packageUrl>
+        <cve>CVE-2020-8929</cve>
+    </suppress>
 </suppressions>
