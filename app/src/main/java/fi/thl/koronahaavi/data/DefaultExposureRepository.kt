@@ -50,8 +50,6 @@ class DefaultExposureRepository (
 
     override fun flowAllExposures(): Flow<List<Exposure>> = exposureDao.flowAll()
 
-    //override fun flowHasExposures(): Flow<Boolean> = exposureDao.flowCount().map { it > 0 }
-
     override fun flowExposureNotifications(): Flow<List<ExposureNotification>> =
         exposureDao.flowAll().map { all ->
             // first filter out expired exposures, then group by created date, but because

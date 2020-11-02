@@ -283,8 +283,8 @@
     </plurals>
 
     <plurals name="all_count">
-        <item quantity="one">%d</item>
-        <item quantity="other">%d</item>
+        <item quantity="one">%d pc.</item>
+        <item quantity="other">%d pcs.</item>
     </plurals>
 
 </resources>
