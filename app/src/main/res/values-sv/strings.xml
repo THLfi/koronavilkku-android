@@ -123,7 +123,7 @@
     <string name="exposure_detail_instructions_6">Om du hostar eller nyser ska du skydda din mun och näsa med en engångsnäsduk. Kasta den använda näsduken i soporna och tvätta dina händer med tvål och vatten eller använd handdesinfektionsmedel. Om du inte har någon näsduk ska du hosta och nysa i ärmen.</string>
     <string name="exposure_detail_instructions_7">Arbeta på distans, om möjligt.</string>
 
-    <string name="notification_list_title">Exponeringsmeddelandena</string>
+    <string name="notification_list_title">Exponerings\u00ADmeddelandena</string>
     <string name="notification_list_disclaimer">Bedömningen om exponeringen bygger på den information om möten som Coronablinkern har samlat in under de senaste 10 dygnen. Coronablinkern ger ingen exakt bedömning av hur kraftig smittofaran är.</string>
 
     <string name="notification_item_title">Meddelande om eventuell exponering %s</string>

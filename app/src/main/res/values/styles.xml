@@ -27,7 +27,7 @@
         <item name="textAppearanceBody1">@style/TextAppearance.Vilkku.BodyLarge</item>
         <item name="textAppearanceBody2">@style/TextAppearance.Vilkku.BodySmall</item>
 
-        <item name="bottomSheetDialogTheme">@style/Widget.Vilkku.BottomSheetDialog</item>
+        <item name="bottomSheetDialogTheme">@style/ThemeOverlay.Vilkku.BottomSheetDialog</item>
     </style>
 
     <style name="Theme.Vilkku.Launcher">
@@ -247,17 +247,30 @@
         <item name="colorOnPrimary">@color/mediumGrey</item>
     </style>
 
+    <style name="ThemeOverlay.Vilkku.Button.Background" parent="">
+        <item name="colorPrimary">@color/veryLightBlue</item>
+        <item name="colorOnPrimary">@color/mediumGrey</item>
+    </style>
+
     <!-- progress bar uses colorSecondary, so this overrides the parent theme color when applied to theme attribute -->
     <style name="ThemeOverlay.Vilkku.ProgressBar" parent="">
         <item name="colorSecondary">@color/mainBlue</item>
     </style>
 
-    <style name="Widget.Vilkku.BottomSheetDialog" parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
+    <style name="ThemeOverlay.Vilkku.BottomSheetDialog" parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
         <item name="bottomSheetStyle">@style/Widget.Vilkku.BottomSheet</item>
+    </style>
+
+    <style name="ThemeOverlay.Vilkku.BottomSheetDialog.WithBackground" parent="@style/ThemeOverlay.MaterialComponents.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/Widget.Vilkku.BottomSheet.WithBackground</item>
     </style>
 
     <style name="Widget.Vilkku.BottomSheet" parent="Widget.MaterialComponents.BottomSheet">
         <item name="shapeAppearanceOverlay">@style/Widget.Vilkku.BottomSheet.Shape</item>
+    </style>
+
+    <style name="Widget.Vilkku.BottomSheet.WithBackground">
+        <item name="backgroundTint">@color/veryLightBlue</item>
     </style>
 
     <style name="Widget.Vilkku.BottomSheet.Shape" parent="">

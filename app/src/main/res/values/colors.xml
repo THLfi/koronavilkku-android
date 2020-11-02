@@ -17,4 +17,6 @@
     <color name="textBlack">#de000000</color>
     <color name="textDarkGrey">#99000000</color>
 
+    <color name="dividerGrey">#C4C4C4</color>
+
 </resources>

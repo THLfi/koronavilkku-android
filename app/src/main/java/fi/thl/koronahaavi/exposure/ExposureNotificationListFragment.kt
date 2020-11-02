@@ -1,11 +1,10 @@
 package fi.thl.koronahaavi.exposure
 
 import android.os.Bundle
-import android.text.format.DateUtils
-import android.text.format.DateUtils.FORMAT_NUMERIC_DATE
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.Observer
 import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.DiffUtil
@@ -16,10 +15,10 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import dagger.hilt.android.AndroidEntryPoint
 import fi.thl.koronahaavi.R
 import fi.thl.koronahaavi.common.FormatExtensions
+import fi.thl.koronahaavi.common.FormatExtensions.formatDateRange
 import fi.thl.koronahaavi.common.FormatExtensions.formatLastCheckTime
 import fi.thl.koronahaavi.databinding.FragmentExposureNotificationListBinding
 import fi.thl.koronahaavi.databinding.ItemNotificationInfoBinding
-import timber.log.Timber
 
 @AndroidEntryPoint
 class ExposureNotificationListFragment : BottomSheetDialogFragment() {
@@ -30,14 +29,19 @@ class ExposureNotificationListFragment : BottomSheetDialogFragment() {
     }
     private val listAdapter by lazy { NotificationAdapter() }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        // custom theme to set background color
+        setStyle(DialogFragment.STYLE_NORMAL, R.style.ThemeOverlay_Vilkku_BottomSheetDialog_WithBackground)
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Using activity.layoutInflater instead of inflater because otherwise the button style
-        // isn't the one defined in styles - https://issuetracker.google.com/issues/37042151
-        val root = requireActivity().layoutInflater.inflate(R.layout.fragment_exposure_notification_list, container, false)
+        val root = inflater.inflate(R.layout.fragment_exposure_notification_list, container, false)
         binding = FragmentExposureNotificationListBinding.bind(root).apply {
             this.model = viewModel
         }
@@ -92,17 +96,13 @@ class NotificationAdapter : ListAdapter<NotificationData, NotificationViewHolder
 class NotificationViewHolder(val binding: ItemNotificationInfoBinding)
     : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(notification: NotificationData) {
-        val dateString = FormatExtensions.formatDate(notification.dateTime)
+    fun bind(data: NotificationData) {
+        val dateString = FormatExtensions.formatDate(data.dateTime)
 
         binding.apply {
             title = itemView.context.getString(R.string.notification_item_title, dateString)
-            count = notification.notificationCount
-            range = DateUtils.formatDateRange(itemView.context,
-                notification.dateTime.minusDays(10).toInstant().toEpochMilli(),
-                notification.dateTime.toInstant().toEpochMilli(),
-                FORMAT_NUMERIC_DATE
-            )
+            count = data.exposureCount
+            range = itemView.context.formatDateRange(data.exposureRangeStart, data.exposureRangeEnd)
         }
     }
 }

@@ -10,14 +10,13 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="20dp"
-        android:clipToPadding="false"
-        android:background="?android:attr/colorBackground">
+        android:layout_height="match_parent">
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:padding="20dp"
+            android:clipToPadding="false">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -29,7 +28,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
                     android:text="@string/notification_list_title"
-                    android:textAppearance="?attr/textAppearanceHeadline2" />
+                    android:textAppearance="?attr/textAppearanceHeadline2"
+                    android:hyphenationFrequency="normal" />
 
                 <TextView
                     android:id="@+id/text_notification_list_last_check"
@@ -63,12 +63,13 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button_notification_list_close"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            android:layout_margin="14dp"
             style="@style/Widget.Vilkku.Button.IconOnly"
-            android:theme="@style/ThemeOverlay.Vilkku.Button.Surface"
+            android:theme="@style/ThemeOverlay.Vilkku.Button.Background"
             app:icon="@drawable/ic_x"
             app:iconSize="24dp"
             android:contentDescription="@string/guide_button_back"/>

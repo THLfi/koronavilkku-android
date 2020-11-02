@@ -20,7 +20,8 @@ class SettingsRepository @Inject constructor (
         version = 0,
         diagnosisKeysPerSubmit = 14,
         pollingIntervalMinutes = 240,
-        tokenLength = 12
+        tokenLength = 12,
+        exposureValidDays = 10
     )
 
     var appConfiguration: AppConfiguration

@@ -2,12 +2,11 @@ package fi.thl.koronahaavi.exposure
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.jraska.livedata.test
-import fi.thl.koronahaavi.data.AppStateRepository
-import fi.thl.koronahaavi.data.ExposureNotification
-import fi.thl.koronahaavi.data.ExposureRepository
+import fi.thl.koronahaavi.data.*
 import fi.thl.koronahaavi.service.ExposureNotificationService
 import fi.thl.koronahaavi.service.WorkDispatcher
 import fi.thl.koronahaavi.utils.MainCoroutineScopeRule
+import fi.thl.koronahaavi.utils.TestData
 import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.flow.flowOf
@@ -27,22 +26,40 @@ class ExposureDetailViewModelTest {
     private lateinit var appStateRepository: AppStateRepository
     private lateinit var exposureNotificationService: ExposureNotificationService
     private lateinit var workDispatcher: WorkDispatcher
+    private lateinit var settingsRepository: SettingsRepository
 
+    private val notificationCreatedDate = ZonedDateTime.now()
     @Before
     fun init() {
         exposureRepository = mockk(relaxed = true)
         appStateRepository = mockk(relaxed = true)
         exposureNotificationService = mockk(relaxed = true)
         workDispatcher = mockk(relaxed = true)
+        settingsRepository = mockk(relaxed = true)
+
+        every { settingsRepository.appConfiguration } returns TestData.appConfig
+
         every { exposureRepository.flowExposureNotifications() } returns flowOf(listOf(
-            ExposureNotification(ZonedDateTime.now(), listOf())
+            ExposureNotification(notificationCreatedDate, listOf(
+                TestData.exposure(),
+                TestData.exposure()
+            ))
         ))
 
-        viewModel = ExposureDetailViewModel(exposureRepository, appStateRepository, exposureNotificationService, workDispatcher)
+        viewModel = ExposureDetailViewModel(
+            exposureRepository, appStateRepository, exposureNotificationService, workDispatcher, settingsRepository
+        )
     }
 
     @Test
     fun test() {
         viewModel.hasExposures.test().assertValue(true)
+    }
+
+    @Test
+    fun notificationData() {
+        viewModel.notifications.test().assertValue {
+            it.size == 1 && it[0].exposureCount == 2 && it[0].dateTime == notificationCreatedDate
+        }
     }
 }

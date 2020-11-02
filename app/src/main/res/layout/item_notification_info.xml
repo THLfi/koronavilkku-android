@@ -38,7 +38,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginTop="10dp"
-                android:background="?android:attr/listDivider"
+                android:background="@color/dividerGrey"
                 />
 
             <TextView
@@ -49,6 +49,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/text_notification_item_count_value"
                 android:layout_marginTop="10dp"
+                android:textAppearance="?attr/textAppearanceBody2"
                 android:text="@string/notification_item_count_label"
                 />
 
@@ -59,6 +60,7 @@
                 app:layout_constraintTop_toTopOf="@+id/text_notification_item_count_label"
                 app:layout_constraintStart_toEndOf="@+id/text_notification_item_count_label"
                 app:layout_constraintEnd_toEndOf="parent"
+                android:textAppearance="?attr/textAppearanceBody2"
                 android:text="@{@plurals/all_count(count, count)}"
                 tools:text="1 kpl"
                 />
@@ -71,6 +73,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/text_notification_item_time_range_value"
                 android:layout_marginTop="10dp"
+                android:textAppearance="?attr/textAppearanceBody2"
                 android:text="@string/notification_item_time_range_label"
                 />
 
@@ -81,8 +84,9 @@
                 app:layout_constraintTop_toTopOf="@+id/text_notification_item_time_range_label"
                 app:layout_constraintStart_toEndOf="@+id/text_notification_item_time_range_label"
                 app:layout_constraintEnd_toEndOf="parent"
+                android:textAppearance="?attr/textAppearanceBody2"
                 android:text="@{range}"
-                tools:text="15.9.-25.9.2020"
+                tools:text="23.10.-1.11.2020"
                 />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

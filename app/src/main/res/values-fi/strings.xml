@@ -123,7 +123,7 @@
     <string name="exposure_detail_instructions_6">Jos yskit tai aivastat, suojaa suusi ja nenäsi kertakäyttönenäliinalla. Laita käytetty nenäliina jäteastiaan ja pese kätesi vedellä ja saippualla tai käytä käsihuuhdetta. Jos sinulla ei ole nenäliinaa, yski tai aivasta hihaan.</string>
     <string name="exposure_detail_instructions_7">Tee etätyötä, jos mahdollista.</string>
 
-    <string name="notification_list_title">Altistumisilmoitukset</string>
+    <string name="notification_list_title">Altistumis\u00ADilmoitukset</string>
     <string name="notification_list_disclaimer">Arvio altistumisesta perustuu Koronavilkun keräämiin kohtaamistietoihin viimeisten 10 vuorokauden ajalta. Altistumisen voimakkuutta ei voida täsmällisesti arvioida.</string>
 
     <string name="notification_item_title">Altistumisilmoitus %s</string>

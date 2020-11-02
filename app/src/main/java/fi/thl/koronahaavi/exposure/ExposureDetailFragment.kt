@@ -64,6 +64,7 @@ class ExposureDetailFragment : Fragment() {
                 startManualExposureCheck()
             }
 
+            // icon color in included layout is not parameterized, so set it directly
             layoutExposureDetailNotifications.linkItemCard.findViewById<ImageView>(R.id.link_item_indicator)?.imageTintList =
                 ColorStateList.valueOf(resources.getColor(R.color.mainBlue, null))
 

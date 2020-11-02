@@ -7,6 +7,7 @@
     <string name="all_today">today</string>
     <string name="all_yesterday">yesterday</string>
     <string name="all_date_and_time">%1$s at %2$s</string>
+    <string name="all_date_range" translatable="false">%1$s\u2013%2$s</string>
     <string name="all_finnish" translatable="false">Suomi</string>
     <string name="all_swedish" translatable="false">Svenska</string>
     <string name="all_english" translatable="false">English</string>
