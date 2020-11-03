@@ -8,7 +8,7 @@ class ExposureStateLiveData(
     private val hasExposures: LiveData<Boolean>,
     private val lastCheck: LiveData<ZonedDateTime?>,
     private val isLocked: LiveData<Boolean>
-) : MediatorLiveData<ExposureState>() {
+) : MediatorLiveData<ExposureState?>() {
 
     init {
         addSource(hasExposures) { updateExposureState() }
@@ -18,6 +18,7 @@ class ExposureStateLiveData(
 
     private fun updateExposureState() {
         value = when {
+            (hasExposures.value == null) -> null  // need to know this to get state
             (hasExposures.value == true) -> ExposureState.HasExposures
             (isLastCheckOld()) -> ExposureState.Pending(lastCheck.value)
             else -> ExposureState.Clear(lastCheck.value)

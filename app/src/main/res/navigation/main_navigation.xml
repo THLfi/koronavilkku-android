@@ -37,7 +37,7 @@
             app:popExitAnim="@anim/fragment_fade_exit" />
         <action
             android:id="@+id/to_exposure_detail"
-            app:destination="@id/exposure_detail"
+            app:destination="@id/exposure_navigation"
             app:enterAnim="@anim/fragment_fade_enter"
             app:exitAnim="@anim/fragment_fade_exit"
             app:popEnterAnim="@anim/fragment_fade_enter"
@@ -73,54 +73,6 @@
             app:argType="string"
             app:nullable="true"
             android:defaultValue="@null" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/exposure_detail"
-        android:name="fi.thl.koronahaavi.exposure.ExposureDetailFragment"
-        tools:layout="@layout/fragment_exposure_detail">
-        <action
-            android:id="@+id/to_select_municipality"
-            app:destination="@id/municipality_list" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/municipality_list"
-        android:name="fi.thl.koronahaavi.exposure.MunicipalityListFragment"
-        android:label="@string/municipality_list_title"
-        tools:layout="@layout/fragment_municipality_list">
-        <action
-            android:id="@+id/to_contact"
-            app:destination="@id/contact" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/contact"
-        android:name="fi.thl.koronahaavi.exposure.ContactFragment"
-        android:label="{titleName}"
-        tools:layout="@layout/fragment_contact">
-        <argument
-            android:name="titleName"
-            app:argType="string" />
-        <argument
-            android:name="code"
-            app:argType="string" />
-        <action
-            android:id="@+id/to_pre_web_contact"
-            app:destination="@id/pre_web_contact" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/pre_web_contact"
-        android:name="fi.thl.koronahaavi.exposure.PreWebContactFragment"
-        android:label="@string/pre_web_contact_title"
-        tools:layout="@layout/fragment_pre_web_contact">
-        <argument
-            android:name="startEvaluation"
-            app:argType="boolean" />
-        <argument
-            android:name="municipalityCode"
-            app:argType="string" />
     </fragment>
 
 
@@ -194,5 +146,66 @@
     <activity
         android:id="@+id/onboarding"
         android:name="fi.thl.koronahaavi.onboarding.OnboardingActivity" />
+
+    <!-- nested graph so we can scope view model to graph instead of activity -->
+    <navigation
+        android:id="@+id/exposure_navigation"
+        app:startDestination="@id/exposure_detail">
+
+        <fragment
+            android:id="@+id/exposure_detail"
+            android:name="fi.thl.koronahaavi.exposure.ExposureDetailFragment"
+            tools:layout="@layout/fragment_exposure_detail">
+            <action
+                android:id="@+id/to_select_municipality"
+                app:destination="@id/municipality_list" />
+            <action
+                android:id="@+id/to_notification_list"
+                app:destination="@id/notification_list" />
+        </fragment>
+
+        <dialog
+            android:id="@+id/notification_list"
+            android:name="fi.thl.koronahaavi.exposure.ExposureNotificationListFragment" />
+
+        <fragment
+            android:id="@+id/municipality_list"
+            android:name="fi.thl.koronahaavi.exposure.MunicipalityListFragment"
+            android:label="@string/municipality_list_title"
+            tools:layout="@layout/fragment_municipality_list">
+            <action
+                android:id="@+id/to_contact"
+                app:destination="@id/contact" />
+        </fragment>
+
+        <fragment
+            android:id="@+id/contact"
+            android:name="fi.thl.koronahaavi.exposure.ContactFragment"
+            android:label="{titleName}"
+            tools:layout="@layout/fragment_contact">
+            <argument
+                android:name="titleName"
+                app:argType="string" />
+            <argument
+                android:name="code"
+                app:argType="string" />
+            <action
+                android:id="@+id/to_pre_web_contact"
+                app:destination="@id/pre_web_contact" />
+        </fragment>
+
+        <fragment
+            android:id="@+id/pre_web_contact"
+            android:name="fi.thl.koronahaavi.exposure.PreWebContactFragment"
+            android:label="@string/pre_web_contact_title"
+            tools:layout="@layout/fragment_pre_web_contact">
+            <argument
+                android:name="startEvaluation"
+                app:argType="boolean" />
+            <argument
+                android:name="municipalityCode"
+                app:argType="string" />
+        </fragment>
+    </navigation>
 
 </navigation>

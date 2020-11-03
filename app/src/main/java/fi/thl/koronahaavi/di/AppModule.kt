@@ -77,8 +77,9 @@ object AppModule {
     @Singleton
     @Provides
     fun provideExposureRepository(keyGroupTokenDao: KeyGroupTokenDao,
-                                  exposureDao: ExposureDao
+                                  exposureDao: ExposureDao,
+                                  settingsRepository: SettingsRepository
     ) : ExposureRepository {
-        return DefaultExposureRepository(keyGroupTokenDao, exposureDao)
+        return DefaultExposureRepository(keyGroupTokenDao, exposureDao, settingsRepository)
     }
 }

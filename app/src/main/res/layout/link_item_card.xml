@@ -3,9 +3,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <variable name="label" type="java.lang.String"/>
-        <variable name="value" type="java.lang.String"/>
-        <variable name="link" type="java.lang.String"/>
+        <import type="android.graphics.drawable.Drawable"/>
+        <variable name="label" type="String"/>
+        <variable name="value" type="String"/>
+        <variable name="link" type="String"/>
+        <variable name="noLinkColor" type="Boolean"/>
+        <variable name="icon" type="Drawable"/>
     </data>
 
     <com.google.android.material.card.MaterialCardView
@@ -16,10 +19,13 @@
         >
 
         <include
+            android:id="@+id/layout_content"
             layout="@layout/link_item_content"
             app:label="@{label}"
             app:value="@{value}"
-            app:link="@{link}" />
+            app:link="@{link}"
+            app:noLinkColor="@{noLinkColor}"
+            app:icon="@{icon ?? @drawable/ic_chevron_right}" />
 
     </com.google.android.material.card.MaterialCardView>
 </layout>

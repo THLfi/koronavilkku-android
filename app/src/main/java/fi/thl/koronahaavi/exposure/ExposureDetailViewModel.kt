@@ -4,18 +4,29 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import fi.thl.koronahaavi.common.Event
 import fi.thl.koronahaavi.data.AppStateRepository
+import fi.thl.koronahaavi.data.ExposureNotification
 import fi.thl.koronahaavi.data.ExposureRepository
+import fi.thl.koronahaavi.data.SettingsRepository
 import fi.thl.koronahaavi.service.ExposureNotificationService
 import fi.thl.koronahaavi.service.WorkDispatcher
 import fi.thl.koronahaavi.service.WorkState
+import java.time.ZonedDateTime
 
 class ExposureDetailViewModel @ViewModelInject constructor(
     exposureRepository: ExposureRepository,
     appStateRepository: AppStateRepository,
     exposureNotificationService: ExposureNotificationService,
-    private val workDispatcher: WorkDispatcher
+    private val workDispatcher: WorkDispatcher,
+    private val settingsRepository: SettingsRepository
 ) : ViewModel() {
-    val hasExposures = exposureRepository.flowHasExposures().asLiveData()
+    private val exposureNotifications = exposureRepository.flowExposureNotifications().asLiveData()
+    val hasExposures = exposureNotifications.map { it.isNotEmpty() }
+    val notificationCount = exposureNotifications.map { it.size }
+
+    val notifications = exposureNotifications.map {
+        it.map(this::createNotificationData)
+    }
+
     val lastCheckTime = appStateRepository.getLastExposureCheckTimeLive()
 
     val checkInProgress = MutableLiveData<Boolean>(false)
@@ -37,5 +48,22 @@ class ExposureDetailViewModel @ViewModelInject constructor(
         checkInProgress.postValue(true)
         newExposureCheckEvent.postValue(Event(Unit))
     }
+
+    private fun createNotificationData(notification: ExposureNotification): NotificationData {
+        val rangeDays = settingsRepository.appConfiguration.exposureValidDays.toLong()
+
+        return NotificationData(
+            dateTime = notification.createdDate,
+            exposureRangeStart = notification.createdDate.minusDays(rangeDays),
+            exposureRangeEnd = notification.createdDate.minusDays(1),
+            exposureCount = notification.exposures.size
+        )
+    }
 }
 
+data class NotificationData(
+    val dateTime: ZonedDateTime,
+    val exposureRangeStart: ZonedDateTime,
+    val exposureRangeEnd: ZonedDateTime,
+    val exposureCount: Int
+)

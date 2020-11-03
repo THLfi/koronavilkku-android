@@ -4,10 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.graphics.drawable.Drawable"/>
         <import type="android.view.View" />
-        <variable name="label" type="java.lang.String"/>
-        <variable name="value" type="java.lang.String"/>
-        <variable name="link" type="java.lang.String"/>
+        <variable name="label" type="String"/>
+        <variable name="value" type="String"/>
+        <variable name="link" type="String"/>
+        <variable name="noLinkColor" type="Boolean"/>
+        <variable name="icon" type="Drawable"/>
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -47,7 +50,7 @@
             android:layout_marginEnd="10dp"
             android:text="@{value}"
             android:visibility="@{value == null ? View.GONE : View.VISIBLE}"
-            style="@style/LinkItemContentValue"
+            android:textAppearance="?attr/textAppearanceBody2"
             tools:text="@tools:sample/lorem"
             />
 
@@ -63,7 +66,8 @@
             android:layout_marginTop="2dp"
             android:text="@{link}"
             android:visibility="@{link == null ? View.GONE : View.VISIBLE}"
-            style="@style/LinkItemContentLink"
+            android:textAppearance="?attr/textAppearanceCaption"
+            android:textColor="@{noLinkColor ? @color/textDarkGrey : @color/mainBlue}"
             tools:text="@tools:sample/lorem"
             />
 
@@ -75,8 +79,9 @@
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:src="@drawable/ic_chevron_right"
+            android:src="@{icon}"
             android:contentDescription="@null"
+            tools:src="@drawable/ic_chevron_right"
             />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -26,4 +26,8 @@
     <dimen name="button_progress_bar_size">20dp</dimen>
     <dimen name="button_progress_bar_margin">12dp</dimen>
 
+    <dimen name="bottom_sheet_close_button_size">40dp</dimen>
+    <dimen name="bottom_sheet_close_button_icon_size">24dp</dimen>
+    <dimen name="bottom_sheet_close_button_margin">14dp</dimen>
+
 </resources>

@@ -82,7 +82,8 @@ data class AppConfiguration(
     val version: Int,
     val diagnosisKeysPerSubmit: Int,
     val pollingIntervalMinutes: Long,
-    val tokenLength: Int
+    val tokenLength: Int,
+    val exposureValidDays: Int
 )
 
 data class InitialBatchId(val current: BatchId)

@@ -149,7 +149,7 @@
                     android:layout_marginHorizontal="20dp"
                     android:layout_marginTop="10dp"
                     android:paddingBottom="30dp"
-                    android:text="@string/exposure_detail_instructions_1_sublist"
+                    android:text="@string/exposure_detail_instructions_1"
                     android:textAppearance="?attr/textAppearanceBody2"
                     />
 
