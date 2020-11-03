@@ -188,7 +188,8 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:paddingBottom="10dp"
-                            android:text="@string/exposure_detail_contact_subtitle"/>
+                            android:text="@string/exposure_detail_contact_subtitle"
+                            android:textAppearance="?attr/textAppearanceBody2"/>
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/button_exposure_detail_contact_start"
