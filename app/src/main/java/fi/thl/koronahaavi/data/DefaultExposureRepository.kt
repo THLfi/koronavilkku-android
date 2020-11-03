@@ -9,7 +9,8 @@ import java.time.ZonedDateTime
 
 class DefaultExposureRepository (
     private val keyGroupTokenDao: KeyGroupTokenDao,
-    private val exposureDao: ExposureDao
+    private val exposureDao: ExposureDao,
+    private val settingsRepository: SettingsRepository
 ) : ExposureRepository {
 
     override suspend fun getAllKeyGroupTokens(): List<KeyGroupToken> = keyGroupTokenDao.getAll()
@@ -74,13 +75,15 @@ class DefaultExposureRepository (
             result.map { ExposureNotification(it.key, it.value) }
         }
 
-    private fun getExpireTime() = ZonedDateTime.now().minusDays(EXPOSURE_VALID_SINCE_DETECTION_DAYS.toLong())
+    private fun getExpireTime(): ZonedDateTime {
+        // Exposure detection timestamp is rounded by EN to beginning of day in UTC, so in order to keep
+        // exposure valid for configured number of days, we need to keep it a day longer from detection timestamp
+        val validSinceDetectionDays = settingsRepository.appConfiguration.exposureValidDays + 1
+
+        return ZonedDateTime.now().minusDays(validSinceDetectionDays.toLong())
+    }
 
     companion object {
-        // Exposure detection timestamp is rounded by EN to beginning of day in UTC, so in order to keep
-        // exposure valid for 10 days, we keep it for 11 days from detection timestamp
-        const val EXPOSURE_VALID_SINCE_DETECTION_DAYS = 11
-
         // Exposures created during same notification in earlier versions might have a very small difference
         // in creation time, so we're allowing few seconds for that. Since v1.3 we use the same timestamp
         // for all exposures within a notification, so this threshold is only for legacy support

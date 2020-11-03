@@ -35,6 +35,5 @@ class FakeExposureRepository : ExposureRepository {
     }
 
     override fun flowAllExposures(): Flow<List<Exposure>> = flowOf(listOf())
-    //override fun flowHasExposures(): Flow<Boolean> = flowOf(false)
     override fun flowExposureNotifications(): Flow<List<ExposureNotification>> = flowOf(listOf())
 }

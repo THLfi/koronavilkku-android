@@ -1,5 +1,6 @@
 package fi.thl.koronahaavi.data
 
+import fi.thl.koronahaavi.utils.TestData
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.every
@@ -20,13 +21,17 @@ class DefaultExposureRepositoryTest {
     private lateinit var repository: DefaultExposureRepository
     private lateinit var keyGroupTokenDao: KeyGroupTokenDao
     private lateinit var exposureDao: ExposureDao
+    private lateinit var settingsRepository: SettingsRepository
 
     @Before
     fun init() {
         keyGroupTokenDao = mockk(relaxed = true)
         exposureDao = mockk(relaxed = true)
+        settingsRepository = mockk(relaxed = true)
 
-        repository = DefaultExposureRepository(keyGroupTokenDao, exposureDao)
+        every { settingsRepository.appConfiguration } returns TestData.appConfig
+
+        repository = DefaultExposureRepository(keyGroupTokenDao, exposureDao, settingsRepository)
     }
 
     @Test
@@ -53,7 +58,7 @@ class DefaultExposureRepositoryTest {
     @Test
     fun deletesExpiredExposures() {
         val now = ZonedDateTime.now()
-        val ttlDays = DefaultExposureRepository.EXPOSURE_VALID_SINCE_DETECTION_DAYS
+        val ttlDays = TestData.appConfig.exposureValidDays + 1
 
         coEvery { exposureDao.getAll() } returns listOf(
             Exposure(1, now.minusDays(ttlDays - 10L), now, 0),
@@ -75,7 +80,7 @@ class DefaultExposureRepositoryTest {
     @Test
     fun deletesExpiredTokens() {
         val now = ZonedDateTime.now()
-        val ttlDays = DefaultExposureRepository.EXPOSURE_VALID_SINCE_DETECTION_DAYS
+        val ttlDays = TestData.appConfig.exposureValidDays + 1
 
         coEvery { exposureDao.getAll() } returns listOf()
 
