@@ -96,7 +96,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clipToPadding="false"
-                android:visibility="@{model.hasExposures() == null ? View.GONE : View.VISIBLE}"
                 android:padding="20dp">
 
                 <com.google.android.material.card.MaterialCardView
@@ -130,23 +129,28 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:textAppearance="?attr/textAppearanceHeadline4"
-                                tools:text="@tools:sample/lorem/random"
-                                tools:lines="2"
+                                android:text="@{model.hasExposures ? @string/home_exposure_label : @string/home_no_exposure_label}"
+                                tools:text="@string/home_exposure_label"
                                 />
+
+                            <!-- text here is an initial layout placeholder for the most common case
+                                 to reduce UI flicker, and text is then updated dynamically from code -->
                             <TextView
                                 android:id="@+id/text_home_exposure_sub_label"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="10dp"
                                 android:textAppearance="?attr/textAppearanceCaption"
+                                android:text="@string/home_no_exposure_sub_label"
                                 tools:text="@string/home_exposure_sub_label"
                                 />
+
                             <TextView
                                 android:id="@+id/text_home_exposure_check_label"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="10dp"
-                                android:visibility="@{model.hasExposures() ? View.GONE : View.VISIBLE}"
+                                android:visibility="@{model.hasExposures ? View.GONE : View.VISIBLE}"
                                 android:textAppearance="?attr/textAppearanceCaption"
                                 tools:text="@string/exposure_detail_last_check"
                                 tools:visibility="gone"
@@ -161,7 +165,7 @@
                             app:layout_constraintEnd_toStartOf="@+id/image_home_exposure_status"
                             android:layout_marginEnd="8dp"
                             android:text="@{model.notificationCount.toString()}"
-                            android:visibility="@{model.hasExposures()==true ? View.VISIBLE : View.GONE}"
+                            android:visibility="@{model.hasExposures==true ? View.VISIBLE : View.GONE}"
                             style="@style/Widget.Vilkku.TextView.Badge"
                             android:backgroundTint="?attr/colorError"
                             tools:text="16"
@@ -191,7 +195,7 @@
                             app:layout_constraintTop_toBottomOf="@+id/layout_home_exposure_labels"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            android:visibility="@{model.hasExposures()==true ? View.VISIBLE : View.GONE}"
+                            android:visibility="@{model.hasExposures==true ? View.VISIBLE : View.GONE}"
                             android:text="@string/home_exposure_instructions"
                             android:theme="@style/ThemeOverlay.Vilkku.Button.Critical"
                             tools:visibility="visible"/>

@@ -153,13 +153,6 @@ class HomeFragment : Fragment() {
             }
         ))
 
-        binding.textHomeExposureLabel.text = requireContext().getString(
-            when (state) {
-                ExposureState.HasExposures -> R.string.home_exposure_label
-                else -> R.string.home_no_exposure_label
-            }
-        )
-
         binding.textHomeExposureSubLabel.text = requireContext().getString(
             when (state) {
                 is ExposureState.HasExposures -> R.string.home_exposure_sub_label
@@ -176,6 +169,8 @@ class HomeFragment : Fragment() {
     }
 
     private fun updateExposureIcon(state: ExposureState) {
+        // icon is hidden by default and shown only if needed since hiding it dynamically flickers badly
+
         with (binding.imageHomeExposureStatus) {
             when (state) {
                 is ExposureState.Clear -> {
