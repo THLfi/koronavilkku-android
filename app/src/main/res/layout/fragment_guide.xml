@@ -195,15 +195,15 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button_guide_close"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
+            android:layout_width="@dimen/bottom_sheet_close_button_size"
+            android:layout_height="@dimen/bottom_sheet_close_button_size"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            android:layout_margin="10dp"
+            android:layout_margin="@dimen/bottom_sheet_close_button_margin"
             style="@style/Widget.Vilkku.Button.IconOnly"
             android:theme="@style/ThemeOverlay.Vilkku.Button.Surface"
             app:icon="@drawable/ic_x"
-            app:iconSize="24dp"
+            app:iconSize="@dimen/bottom_sheet_close_button_icon_size"
             android:contentDescription="@string/guide_button_back"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
