@@ -74,7 +74,9 @@ data class ExposureConfigurationData (
     val daysSinceLastExposureScores: List<Int>,
     val durationScores: List<Int>,
     val transmissionRiskScoresAndroid: List<Int>, // <- note specific to android
-    val durationAtAttenuationThresholds: List<Int>
+    val durationAtAttenuationThresholds: List<Int>,
+    val durationAtAttenuationWeights: List<Float>, // decimal weights for attenuation buckets in summary
+    val exposureRiskDuration: Int
 )
 
 @JsonClass(generateAdapter = true)

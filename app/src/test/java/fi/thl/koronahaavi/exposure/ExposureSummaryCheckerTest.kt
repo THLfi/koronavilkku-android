@@ -1,7 +1,6 @@
 @file:Suppress("DEPRECATION")
 package fi.thl.koronahaavi.exposure
 
-import com.google.android.gms.nearby.exposurenotification.ExposureInformation
 import com.google.android.gms.nearby.exposurenotification.ExposureInformation.ExposureInformationBuilder
 import com.google.android.gms.nearby.exposurenotification.ExposureSummary
 import fi.thl.koronahaavi.service.ExposureConfigurationData
@@ -23,7 +22,7 @@ class ExposureSummaryCheckerTest {
     @Test
     fun lowRisk() {
         val checker = ExposureSummaryChecker(
-            summary().setMaximumRiskScore(10).setAttenuationDurations(intArrayOf(1,1,1)).build(),
+            summary().setMaximumRiskScore(10).setAttenuationDurations(intArrayOf(9,11,10)).build(),
             configuration
         )
         assertFalse(checker.hasHighRisk())
@@ -51,6 +50,15 @@ class ExposureSummaryCheckerTest {
     fun longDurationSecond() {
         val checker = ExposureSummaryChecker(
             summary().setMaximumRiskScore(10).setAttenuationDurations(intArrayOf(0,30,0)).build(),
+            configuration
+        )
+        assertTrue(checker.hasHighRisk())
+    }
+
+    @Test
+    fun longDurationThreshold() {
+        val checker = ExposureSummaryChecker(
+            summary().setMaximumRiskScore(10).setAttenuationDurations(intArrayOf(10,10,0)).build(),
             configuration
         )
         assertTrue(checker.hasHighRisk())
@@ -88,6 +96,8 @@ class ExposureSummaryCheckerTest {
         daysSinceLastExposureScores = listOf(),
         durationScores = listOf(),
         transmissionRiskScoresAndroid = listOf(),
-        durationAtAttenuationThresholds = listOf()
+        durationAtAttenuationThresholds = listOf(),
+        durationAtAttenuationWeights = listOf(1.0f, 0.5f, 0.0f),
+        exposureRiskDuration = 15
     )
 }
