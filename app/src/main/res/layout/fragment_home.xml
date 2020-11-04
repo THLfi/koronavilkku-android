@@ -152,6 +152,7 @@
                                 android:layout_marginTop="10dp"
                                 android:visibility="@{model.hasExposures ? View.GONE : View.VISIBLE}"
                                 android:textAppearance="?attr/textAppearanceCaption"
+                                android:textColor="@color/textDarkGrey"
                                 tools:text="@string/exposure_detail_last_check"
                                 tools:visibility="gone"
                                 />

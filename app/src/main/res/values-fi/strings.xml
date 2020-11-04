@@ -43,11 +43,11 @@
     <string name="home_title">Koti</string>
     <string name="home_exposure_label">Mahdollinen altistuminen</string>
     <string name="home_no_exposure_label">Ei havaittuja altistumisia</string>
-    <string name="home_pending_check_label">Mahdollisten altistumisten tarkistus on häiriintynyt. Tarkistusta yritetään uudelleen myöhemmin.</string>
+    <string name="home_pending_check_label">Altistumistietojen tarkistus ei ole onnistunut yli 24 tuntiin. Sovellus yrittää tarkistaa tiedot myöhemmin. Voit myös käynnistää tarkistuksen nyt.</string>
     <string name="home_exposure_sub_label">Olet saattanut altistua virukselle</string>
     <string name="home_no_exposure_sub_label">Et ole ollut tartunnasta ilmoittaneen henkilön lähellä</string>
     <string name="home_exposure_instructions">Katso toimintaohjeet</string>
-    <string name="home_exposure_check">Tarkista nyt</string>
+    <string name="home_exposure_check">Käynnistä tarkistus</string>
 
     <string name="home_symptom_label">Epäiletkö tartuntaa?</string>
     <string name="home_prevention_label">Näin suojaudut</string>
@@ -110,7 +110,7 @@
     <string name="exposure_detail_last_check">Tarkistettu viimeksi %s</string>
     <string name="exposure_detail_no_last_check">Altistumistietoja ei ole vielä tarkistettu</string>
 
-    <string name="exposure_detail_notifications_title">Näytä altistumis\u00ADilmoitukset</string>
+    <string name="exposure_detail_notifications_title">Katso altistumis\u00ADilmoitukset</string>
 
     <string name="exposure_detail_instructions_title">Toimi näin</string>
     <string name="exposure_detail_instructions_subtitle">Noudata näitä ohjeita 10 päivän ajan:</string>
@@ -250,7 +250,7 @@
     <string name="power_deny_confirm_message">Jos et anna Koronavilkulle lupaa toimia aina taustalla, sovellus ei välttämättä voi hakea palvelimelta tietoja mahdollisesta altistumisesta. Siinä tapauksessa suosittelemme, että avaat sovelluksen ainakin kerran päivässä.\n\nVoit muuttaa valintaasi myöhemmin puhelimesi asetuksissa.</string>
     <string name="power_allow_retry">Anna lupa</string>
 
-    <string name="exposure_check_error_title">Virhe altistumistietojen lataamisessa</string>
+    <string name="exposure_check_error_title">Altistumistietoja ei voitu ladata</string>
     <string name="exposure_check_error_message">Altistumistietojen lataaminen ei onnistunut. Tarkista verkkoyhteys ja yritä uudelleen.</string>
 
     <plurals name="exposure_notification_count">
