@@ -110,7 +110,7 @@
     <string name="exposure_detail_last_check">Tarkistettu viimeksi %s</string>
     <string name="exposure_detail_no_last_check">Altistumistietoja ei ole vielä tarkistettu</string>
 
-    <string name="exposure_detail_notifications_title">Näytä altistumisilmoitukset</string>
+    <string name="exposure_detail_notifications_title">Näytä altistumis\u00ADilmoitukset</string>
 
     <string name="exposure_detail_instructions_title">Toimi näin</string>
     <string name="exposure_detail_instructions_subtitle">Noudata näitä ohjeita 10 päivän ajan:</string>
@@ -128,7 +128,7 @@
 
     <string name="notification_item_title">Altistumisilmoitus %s</string>
     <string name="notification_item_count_label">Mahdollisia altistumisia</string>
-    <string name="notification_item_time_range_label">Aikavälillä</string>
+    <string name="notification_item_time_range_label">Aika\u00ADvälillä</string>
 
     <string name="guide_title">Tietoa Koronavilkusta</string>
     <string name="guide_p1_text">Koronavilkku on Terveyden ja hyvinvoinnin laitoksen tuottama sovellus, jonka avulla saat tiedon, jos olet sovelluksen arvion mukaan altistunut koronavirukselle. Jos sinulla todetaan tartunta, voit ilmoittaa siitä sovelluksella nimettömästi. Sovelluksessa yksityisyytesi on vahvasti suojattu.</string>

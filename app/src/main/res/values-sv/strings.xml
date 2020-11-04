@@ -110,7 +110,7 @@
     <string name="exposure_detail_last_check">Senast granskad %s</string>
     <string name="exposure_detail_no_last_check">Ingen kontroll ännu</string>
 
-    <string name="exposure_detail_notifications_title">Visa exponeringsmeddelandena</string>
+    <string name="exposure_detail_notifications_title">Visa exponerings\u00ADmeddelandena</string>
 
     <string name="exposure_detail_instructions_title">Har du symtom?</string>
     <string name="exposure_detail_instructions_subtitle">Följ dessa anvisningar noggrant i 10 dagars tid:</string>
@@ -128,7 +128,7 @@
 
     <string name="notification_item_title">Meddelande om eventuell exponering %s</string>
     <string name="notification_item_count_label">Eventuella exponeringar</string>
-    <string name="notification_item_time_range_label">Tidsperiod</string>
+    <string name="notification_item_time_range_label">Tids\u00ADperiod</string>
 
     <string name="guide_title">Om Coronablinkern</string>
     <string name="guide_p1_text">Coronablinkern är en applikation (app) som Institutet för hälsa och välfärd ansvarar för. Appen analyserar om du eventuellt har blivit utsatt för coronaviruset. Om du har konstaterats ha en coronavirusinfektion, kan du meddela om det här anonymt via appen. Appen skyddar effektivt din identitet.</string>

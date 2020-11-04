@@ -49,6 +49,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/text_notification_item_count_value"
                 android:layout_marginTop="10dp"
+                android:layout_marginEnd="6dp"
                 android:textAppearance="?attr/textAppearanceBody2"
                 android:text="@string/notification_item_count_label"
                 />
@@ -60,10 +61,15 @@
                 app:layout_constraintTop_toTopOf="@+id/text_notification_item_count_label"
                 app:layout_constraintStart_toEndOf="@+id/text_notification_item_count_label"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constrainedWidth="true"
                 android:textAppearance="?attr/textAppearanceBody2"
                 android:text="@{@plurals/all_count(count, count)}"
                 tools:text="1 kpl"
                 />
+
+            <!-- time range value uses wrap_content to keep it on single line
+                 as long as possible, and label shrinks and wraps until
+                 layout_constraintWidth_min limits width -->
 
             <TextView
                 android:id="@+id/text_notification_item_time_range_label"
@@ -72,8 +78,11 @@
                 app:layout_constraintTop_toBottomOf="@+id/text_notification_item_count_label"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toStartOf="@+id/text_notification_item_time_range_value"
+                app:layout_constraintWidth_min="80dp"
                 android:layout_marginTop="10dp"
+                android:layout_marginEnd="6dp"
                 android:textAppearance="?attr/textAppearanceBody2"
+                android:hyphenationFrequency="normal"
                 android:text="@string/notification_item_time_range_label"
                 />
 
@@ -84,8 +93,10 @@
                 app:layout_constraintTop_toTopOf="@+id/text_notification_item_time_range_label"
                 app:layout_constraintStart_toEndOf="@+id/text_notification_item_time_range_label"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constrainedWidth="true"
                 android:textAppearance="?attr/textAppearanceBody2"
                 android:text="@{range}"
+                android:gravity="end"
                 tools:text="23.10.-1.11.2020"
                 />
 
