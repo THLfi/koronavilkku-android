@@ -65,6 +65,15 @@ class ExposureSummaryCheckerTest {
     }
 
     @Test
+    fun unexpectedWeightArray() {
+        val checker = ExposureSummaryChecker(
+            summary().build(),
+            configuration.copy(durationAtAttenuationWeights = listOf(1.0f))
+        )
+        assertTrue(checker.hasHighRisk())
+    }
+
+    @Test
     fun selectsLatestForDuration() {
         val checker = ExposureSummaryChecker(
             summary().setMaximumRiskScore(10).setAttenuationDurations(intArrayOf(30,30,0)).build(),

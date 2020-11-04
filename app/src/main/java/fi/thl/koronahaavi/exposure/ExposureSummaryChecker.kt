@@ -46,7 +46,9 @@ class ExposureSummaryChecker(
 
     private fun ExposureSummary.getWeightedAttenuationDurationSum() =
         attenuationDurationsInMinutes.foldIndexed(0.0f) { i, sum, duration ->
-            sum + config.durationAtAttenuationWeights[i] * duration
+            // weights should be same length as durations, but make sure we don't get index out of bounds
+            val weight = config.durationAtAttenuationWeights.getOrElse(i) { 0.0f }
+            sum + weight * duration
         }
 
     private enum class Result {RISK_HIGH, DURATION_LONG, NO_RISK}
