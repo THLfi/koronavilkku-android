@@ -54,7 +54,7 @@ android {
 
     signingConfigs {
         // this config is only used if a keystore.properties file is present
-        debug {
+        debugConfig {
             keyAlias keystoreProperties['keyAlias']
             keyPassword keystoreProperties['keyPassword']
             storeFile file(keystoreProperties['storeFile'] ?: 'undefined')
@@ -96,7 +96,7 @@ android {
             manifestPlaceholders = [allowCleartext:"true"]
 
             if (keystorePropertiesFile.exists()) {
-                signingConfig signingConfigs.debug
+                signingConfig signingConfigs.debugConfig
             }
         }
         release {
