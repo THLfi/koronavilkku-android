@@ -60,6 +60,10 @@ class ExposureDetailFragment : Fragment() {
                 findNavController().navigateSafe(ExposureDetailFragmentDirections.toSelectMunicipality())
             }
 
+            buttonExposureDetailAppInfo.setOnClickListener {
+                activity?.openGuide()
+            }
+
             layoutButtonExposureDetailCheck.button.setOnClickListener {
                 startManualExposureCheck()
             }
