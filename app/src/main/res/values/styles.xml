@@ -225,15 +225,6 @@
         <item name="android:textSize">15sp</item>
     </style>
 
-    <style name="LinkItemContentValue" parent="@style/Widget.MaterialComponents.TextView">
-        <item name="android:textAppearance">?attr/textAppearanceBody2</item>
-    </style>
-
-    <style name="LinkItemContentLink" parent="@style/Widget.MaterialComponents.TextView">
-        <item name="android:textAppearance">?attr/textAppearanceCaption</item>
-        <item name="android:textColor">@color/mainBlue</item>
-    </style>
-
     <style name="ThemeOverlay.Vilkku.Button.Critical" parent="">
         <item name="colorPrimary">?attr/colorError</item>
     </style>

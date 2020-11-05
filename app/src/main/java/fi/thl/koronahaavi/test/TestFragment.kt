@@ -86,7 +86,7 @@ class TestFragment : Fragment() {
             startDownload(it)
         }
 
-        binding.buttonTestReceiver.visibility = if (BuildConfig.FLAVOR == "sim") View.VISIBLE else View.GONE
+        binding.buttonTestReceiver.visibility = if (BuildConfig.FLAVOR.contains("sim")) View.VISIBLE else View.GONE
 
         binding.buttonTestReceiver.setOnClickListener {
             simulateReceiver(it)
