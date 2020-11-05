@@ -7,7 +7,8 @@
       "en": "Tampere"
     },
     "omaolo": {
-      "available": false
+      "available": false,
+      "symptomAssessmentOnly": false
     },
     "contact": [
       {
@@ -49,7 +50,8 @@
         "fi": true,
         "sv": false,
         "en": false
-      }
+      },
+      "symptomAssessmentOnly": false
     },
     "contact": [
       {

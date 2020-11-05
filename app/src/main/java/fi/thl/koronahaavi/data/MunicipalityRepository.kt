@@ -130,7 +130,8 @@ data class NetworkContact(
 @JsonClass(generateAdapter = true)
 data class OmaoloFeatures(
     val available: Boolean,
-    val serviceLanguages: ServiceLanguages?
+    val serviceLanguages: ServiceLanguages?,
+    val symptomAssessmentOnly: Boolean?
 )
 
 @JsonClass(generateAdapter = true)

@@ -63,6 +63,25 @@ class MunicipalityListViewModel @ViewModelInject constructor(
                 m.code == code
             }
         }
+
+    fun getMunicipalityData(code: String) =
+        getMunicipality(code)?.let {
+            MunicipalityData.from(it)
+        }
+}
+
+data class MunicipalityData(
+    val showOmaoloSymptomAssessment: Boolean,
+    val showOmaoloContactRequest: Boolean,
+    val contacts: List<MunicipalityContact>
+) {
+    companion object {
+        fun from(m: Municipality) = MunicipalityData(
+            showOmaoloSymptomAssessment = m.omaoloFeatures.available,
+            showOmaoloContactRequest = m.omaoloFeatures.available && m.omaoloFeatures.symptomAssessmentOnly != true,
+            contacts = m.contacts
+        )
+    }
 }
 
 data class MunicipalityNameData(

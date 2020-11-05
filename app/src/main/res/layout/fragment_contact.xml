@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
     <data>
         <import type="android.view.View" />
-        <variable name="municipality" type="fi.thl.koronahaavi.exposure.Municipality" />
+        <variable name="municipality" type="fi.thl.koronahaavi.exposure.MunicipalityData" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -34,7 +34,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    android:visibility="@{municipality.omaoloFeatures.available ? View.VISIBLE : View.GONE}"
+                    android:visibility="@{municipality.showOmaoloSymptomAssessment ? View.VISIBLE : View.GONE}"
                     tools:visibility="visible"
                     >
                     <androidx.constraintlayout.widget.ConstraintLayout
@@ -98,7 +98,7 @@
                     app:layout_constraintEnd_toEndOf="parent"
                     android:layout_marginHorizontal="20dp"
                     android:layout_marginTop="30dp"
-                    android:visibility="@{municipality.omaoloFeatures.available ? View.VISIBLE : View.GONE}"
+                    android:visibility="@{municipality.showOmaoloSymptomAssessment ? View.VISIBLE : View.GONE}"
                     android:text="@string/contact_evaluation_other_title"
                     android:textAppearance="?attr/textAppearanceHeadline3" />
 
@@ -112,7 +112,7 @@
                     android:layout_marginTop="20dp"
                     android:layout_marginHorizontal="20dp"
                     layout="@layout/link_item_card"
-                    android:visibility="@{municipality.omaoloFeatures.available ? View.VISIBLE : View.GONE}"
+                    android:visibility="@{municipality.showOmaoloContactRequest ? View.VISIBLE : View.GONE}"
                     app:label="@{@string/card_contact_request_title}"
                     app:link="@{@string/card_contact_request_link_name}"/>
 

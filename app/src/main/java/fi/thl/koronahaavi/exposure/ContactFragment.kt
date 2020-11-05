@@ -26,6 +26,13 @@ class ContactFragment : Fragment(), ContactItemListener {
     private val viewModel by activityViewModels<MunicipalityListViewModel>()
     private val args by navArgs<ContactFragmentArgs>()
     private val listAdapter by lazy { ContactAdapter(this) }
+    private var municipalityData: MunicipalityData? = null
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        municipalityData = viewModel.getMunicipalityData(args.code)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -34,7 +41,7 @@ class ContactFragment : Fragment(), ContactItemListener {
     ): View? {
         val root = inflater.inflate(R.layout.fragment_contact, container, false)
         binding = FragmentContactBinding.bind(root).apply {
-            this.municipality = viewModel.getMunicipality(args.code)
+            this.municipality = municipalityData
         }
 
         binding.lifecycleOwner = this.viewLifecycleOwner
@@ -65,7 +72,7 @@ class ContactFragment : Fragment(), ContactItemListener {
             ))
         }
 
-        listAdapter.submitList(binding.municipality?.contacts)
+        listAdapter.submitList(municipalityData?.contacts)
     }
 
     override fun onClicked(c: MunicipalityContact) {
