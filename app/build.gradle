@@ -21,6 +21,13 @@ def pinBackendHost = localProperties.get("pinBackendHost", "$PIN_BACKEND_HOST")
 def pinBackendKeyHash = localProperties.get("pinBackendKeyHash", "$PIN_BACKEND_KEY_HASH")
 def pinBackendKeyBackupHash = localProperties.get("pinBackendKeyBackupHash", "$PIN_BACKEND_KEY_BACKUP_HASH")
 
+// setup app signing keystore for huawei debug builds
+def keystoreProperties = new Properties()
+def keystorePropertiesFile = rootProject.file("keystore.properties")
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+}
+
 android {
     compileSdkVersion rootProject.compileSdkVersion
     buildToolsVersion "29.0.3"
@@ -45,20 +52,17 @@ android {
         testInstrumentationRunner "fi.thl.koronahaavi.HaaviTestRunner"
     }
 
-    buildTypes {
+    signingConfigs {
+        // this config is only used if a keystore.properties file is present
         debug {
-            applicationIdSuffix ".debug"
-            versionNameSuffix "-debug"
-            debuggable true
-            manifestPlaceholders = [allowCleartext:"true"]
-        }
-        release {
-            minifyEnabled false
-            manifestPlaceholders = [allowCleartext:"false"]
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+            storeFile file(keystoreProperties['storeFile'] ?: 'undefined')
+            storePassword keystoreProperties['storePassword']
         }
     }
 
-    flavorDimensions "mode"
+    flavorDimensions "mode", "system"
     productFlavors {
         sim {
             dimension "mode"
@@ -68,7 +72,39 @@ android {
         live {
             dimension "mode"
         }
+        google {
+            dimension "system"
+        }
+        huawei {
+            dimension "system"
+        }
     }
+
+    // ignore simHuawei builds because we only need one simulated build
+    variantFilter { variant ->
+        def names = variant.flavors*.name
+        if (names.contains("sim") && names.contains("huawei")) {
+            setIgnore(true)
+        }
+    }
+
+    buildTypes {
+        debug {
+            applicationIdSuffix ".debug"
+            versionNameSuffix "-debug"
+            debuggable true
+            manifestPlaceholders = [allowCleartext:"true"]
+
+            if (keystorePropertiesFile.exists()) {
+                signingConfig signingConfigs.debug
+            }
+        }
+        release {
+            minifyEnabled false
+            manifestPlaceholders = [allowCleartext:"false"]
+        }
+    }
+
 
     buildFeatures {
         dataBinding = true
@@ -167,6 +203,9 @@ dependencies {
     kapt "com.squareup.moshi:moshi-kotlin-codegen:1.6.0"
     implementation "com.squareup.okhttp3:logging-interceptor:4.7.2"
 
+    // Huawei bluetooth tracing
+    huaweiImplementation 'com.huawei.hms:contactshield:5.0.3.300'
+
     // Testing
     testImplementation "junit:junit:$junitVersion"
     testImplementation 'androidx.arch.core:core-testing:2.1.0'
@@ -188,4 +227,11 @@ dependencies {
     kaptAndroidTest "com.google.dagger:hilt-android-compiler:$hiltVersion"
     androidTestImplementation "androidx.work:work-testing:$workVersion"
     androidTestImplementation "androidx.navigation:navigation-testing:$navigationVersion"
+}
+
+if (gradle.getStartParameter().getTaskRequests().toString().toLowerCase().contains("huawei")) {
+    println "Huawei App Gallery Connect plugin applied"
+
+    // this plugin looks for agconnect-services.json from app flavor specific source folders
+    apply plugin: 'com.huawei.agconnect'
 }

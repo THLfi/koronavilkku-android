@@ -173,6 +173,7 @@
     <string name="enable_note">Koppla på COVID-19-exponerings\u00ADmeddelandena</string>
 
     <string name="enable_err_title">Det gick inte att aktivera exponerings\u00ADmeddelanden</string>
+    <string name="enable_err_hms_location_permission">HMS Core behöver tillstånd för att använda enhetens plats. Du kan aktivera det i telefonens Inställningar.</string>
     <string name="enable_err_missing_capability">Din enhet stöds inte</string>
     <string name="enable_err_api_not_supported">Tyvärr är exponeringsmeddelanden från Google Play-tjänster inte tillgängliga för din enhet.\n\n%s</string>
     <string name="enable_err_not_owner">Du är inloggad på enheten med en användarprofil som inte är enhetens ägarprofil. Coronablinkern fungerar bara med enhetens ägarprofil.\n\nFör att ändra profil, svep med två fingrar från toppen av startskärmen. Tryck sedan på knappen Byt användare.</string>

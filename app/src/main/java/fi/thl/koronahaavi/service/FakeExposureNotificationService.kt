@@ -2,15 +2,19 @@
 
 package fi.thl.koronahaavi.service
 
+import android.app.Activity
 import android.content.ComponentName
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
+import android.content.DialogInterface
 import android.content.Intent
+import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.nearby.exposurenotification.ExposureInformation
 import com.google.android.gms.nearby.exposurenotification.ExposureNotificationClient
 import com.google.android.gms.nearby.exposurenotification.ExposureSummary
 import com.google.android.gms.nearby.exposurenotification.TemporaryExposureKey
 import com.google.android.gms.nearby.exposurenotification.TemporaryExposureKey.TemporaryExposureKeyBuilder
+import fi.thl.koronahaavi.data.Exposure
 import fi.thl.koronahaavi.exposure.ExposureStateUpdatedReceiver
 import fi.thl.koronahaavi.service.ExposureNotificationService.ResolvableResult
 import kotlinx.coroutines.delay
@@ -19,6 +23,7 @@ import kotlinx.coroutines.flow.StateFlow
 import timber.log.Timber
 import java.io.File
 import java.time.Instant
+import java.time.ZoneOffset
 import java.time.ZonedDateTime
 import kotlin.random.Random
 
@@ -65,11 +70,13 @@ class FakeExposureNotificationService(
             .build()
     }
 
-    override suspend fun getExposureDetails(token: String): List<ExposureInformation> {
+    override suspend fun getExposureDetails(token: String): List<Exposure> {
         return listOf(
-            ExposureInformation.ExposureInformationBuilder()
-                .setDateMillisSinceEpoch(ZonedDateTime.now().minusDays(2).toInstant().toEpochMilli())
-                .build()
+            Exposure(
+                detectedDate = ZonedDateTime.now().minusDays(2),
+                totalRiskScore = 200,
+                createdDate = ZonedDateTime.now()
+            )
         )
     }
 
@@ -98,6 +105,8 @@ class FakeExposureNotificationService(
 
     override fun deviceSupportsLocationlessScanning() = false
 
+    override fun getAvailabilityResolver() = FakeAvailabilityResolver()
+
     private fun fakeExposureKey() = TemporaryExposureKeyBuilder()
         .setKeyData(Random.nextBytes(16))
         .setRollingPeriod(144)
@@ -107,4 +116,13 @@ class FakeExposureNotificationService(
     companion object {
         const val EN_ENABLED_KEY = "en_enabled"
     }
+}
+
+class FakeAvailabilityResolver : ExposureNotificationService.AvailabilityResolver {
+    override fun isSystemAvailable(context: Context): Int = ConnectionResult.SUCCESS
+
+    override fun isUserResolvableError(errorCode: Int) = false
+
+    override fun showErrorDialogFragment(activity: Activity, errorCode: Int, requestCode: Int,
+                                         cancelListener: (dialog: DialogInterface) -> Unit) = false
 }
