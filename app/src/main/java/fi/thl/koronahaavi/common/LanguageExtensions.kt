@@ -42,6 +42,7 @@ fun UserPreferences.changeLanguage(language: String?) {
     this.language = language
 }
 
+@Suppress("DEPRECATION")
 fun Resources.primaryLocale(): Locale {
     return configuration.let { cfg ->
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {

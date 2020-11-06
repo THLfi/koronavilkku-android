@@ -136,7 +136,7 @@ class TestFragment : Fragment() {
                     try {
                         // https://developers.google.com/android/reference/com/google/android/gms/common/GoogleApiAvailability#makeGooglePlayServicesAvailable(android.app.Activity)
                         Timber.d("begin making GMS available")
-                        gaa.makeGooglePlayServicesAvailable(activity).await()
+                        gaa.makeGooglePlayServicesAvailable(requireActivity()).await()
                         Timber.d("done, play services available!")
                     } catch (e: Exception) {
                         Timber.e(e, "activity completed too soon, or there were problems making play services available")
@@ -144,7 +144,7 @@ class TestFragment : Fragment() {
                 }
 
             } else {
-                var result = gaa.isGooglePlayServicesAvailable(activity)
+                val result = gaa.isGooglePlayServicesAvailable(requireContext())
                 //result = ConnectionResult.SERVICE_VERSION_UPDATE_REQUIRED // If one needs to check what the dialog looks like.
 
                 // Once the user returns from Play store (possibly the user selected to Update
@@ -152,7 +152,7 @@ class TestFragment : Fragment() {
                 // this reqCode.
                 val reqCode = 999
 
-                val shown = gaa.showErrorDialogFragment(activity, result, reqCode)
+                val shown = gaa.showErrorDialogFragment(requireActivity(), result, reqCode)
                 // Or alternatively call showErrorNotification() - but dialog seems more appropriate when inside the app (e.g. onboarding).
                 // The button in the dialog / notification action can take the user to Play store to update
                 // Play services, or open device's Play services app settings to enable it.
