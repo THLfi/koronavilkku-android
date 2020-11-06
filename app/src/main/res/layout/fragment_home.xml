@@ -105,6 +105,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
+                    android:visibility="@{model.isLocked ? View.GONE : View.VISIBLE}"
                     android:clickable="true"
                     android:focusable="true">
 
@@ -121,7 +122,7 @@
                             android:orientation="vertical"
                             app:layout_constraintTop_toTopOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintEnd_toStartOf="@+id/image_home_exposure_status"
+                            app:layout_constraintEnd_toStartOf="@+id/text_home_exposure_notification_count"
                             android:layout_marginEnd="12dp">
 
                             <TextView
@@ -129,27 +130,50 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:textAppearance="?attr/textAppearanceHeadline4"
+                                android:text="@{model.hasExposures ? @string/home_exposure_label : @string/home_no_exposure_label}"
                                 tools:text="@string/home_exposure_label"
                                 />
+
+                            <!-- text here is an initial layout placeholder for the most common case
+                                 to reduce UI flicker, and text is then updated dynamically from code -->
                             <TextView
                                 android:id="@+id/text_home_exposure_sub_label"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="10dp"
                                 android:textAppearance="?attr/textAppearanceCaption"
+                                android:text="@string/home_no_exposure_sub_label"
                                 tools:text="@string/home_exposure_sub_label"
                                 />
+
                             <TextView
                                 android:id="@+id/text_home_exposure_check_label"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="10dp"
-                                android:visibility="@{model.hasExposures() ? View.GONE : View.VISIBLE}"
+                                android:visibility="@{model.hasExposures ? View.GONE : View.VISIBLE}"
                                 android:textAppearance="?attr/textAppearanceCaption"
+                                android:textColor="@color/textDarkGrey"
                                 tools:text="@string/exposure_detail_last_check"
+                                tools:visibility="gone"
                                 />
                         </LinearLayout>
 
+                        <TextView
+                            android:id="@+id/text_home_exposure_notification_count"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintTop_toTopOf="@id/layout_home_exposure_labels"
+                            app:layout_constraintEnd_toStartOf="@+id/image_home_exposure_status"
+                            android:layout_marginEnd="8dp"
+                            android:text="@{model.notificationCount.toString()}"
+                            android:visibility="@{model.hasExposures==true ? View.VISIBLE : View.GONE}"
+                            style="@style/Widget.Vilkku.TextView.Badge"
+                            android:backgroundTint="?attr/colorError"
+                            tools:text="16"
+                            tools:visibility="visible"/>
+
+                        <!-- visibility updated in code only if needed to prevent icon background flicker -->
                         <ImageView
                             android:id="@+id/image_home_exposure_status"
                             android:layout_width="@dimen/home_exposure_status_icon_size"
@@ -158,11 +182,12 @@
                             app:layout_constraintBottom_toBottomOf="@+id/layout_home_exposure_labels"
                             app:layout_constraintEnd_toEndOf="parent"
                             android:layout_marginEnd="10dp"
+                            android:visibility="gone"
                             style="@style/Widget.Vilkku.ImageView.Exposure"
                             android:contentDescription="@null"
-                            tools:src="@drawable/ic_alert"
-                            tools:backgroundTint="@color/mainRed"
-                            tools:tint="?attr/colorOnPrimary"/>
+                            tools:src="@drawable/ic_check"
+                            tools:backgroundTint="@color/lightBlue"
+                            tools:tint="?attr/colorOnPrimary" />
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/button_home_exposure_instructions"
@@ -172,10 +197,10 @@
                             app:layout_constraintTop_toBottomOf="@+id/layout_home_exposure_labels"
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintStart_toStartOf="parent"
-                            android:visibility="@{model.hasExposures()==true ? View.VISIBLE : View.GONE}"
+                            android:visibility="@{model.hasExposures==true ? View.VISIBLE : View.GONE}"
                             android:text="@string/home_exposure_instructions"
                             android:theme="@style/ThemeOverlay.Vilkku.Button.Critical"
-                            tools:visibility="gone"/>
+                            tools:visibility="visible"/>
 
                         <include
                             android:id="@+id/layout_button_home_exposure_check"
@@ -189,6 +214,7 @@
                             android:visibility="@{model.showManualCheck()==true ? View.VISIBLE : View.GONE}"
                             app:buttonText="@{@string/home_exposure_check}"
                             app:inProgress="@{model.checkInProgress}"
+                            tools:visibility="gone"
                             />
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -201,9 +227,11 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="20dp"
+                    app:layout_goneMarginTop="0dp"
                     app:layout_constraintTop_toBottomOf="@+id/card_home_exposure"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent">
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:visibility="@{model.hasExposures ? View.GONE : View.VISIBLE}">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"

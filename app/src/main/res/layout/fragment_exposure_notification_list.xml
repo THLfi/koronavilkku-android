@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View" />
+        <variable name="model" type="fi.thl.koronahaavi.exposure.ExposureDetailViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingVertical="20dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginHorizontal="20dp"
+                    android:text="@string/notification_list_title"
+                    android:textAppearance="?attr/textAppearanceHeadline2"
+                    android:hyphenationFrequency="normal" />
+
+                <TextView
+                    android:id="@+id/text_notification_list_last_check"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginHorizontal="20dp"
+                    android:textAppearance="?attr/textAppearanceBody2"
+                    tools:text="@tools:sample/lorem"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerview_notification_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:paddingHorizontal="20dp"
+                    android:clipToPadding="false"
+                    android:overScrollMode="never"
+                    tools:itemCount="2"
+                    tools:listitem="@layout/item_notification_info"
+                    />
+
+                <TextView
+                    android:id="@+id/text_notification_list_disclaimer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:text="@string/notification_list_disclaimer"
+                    android:textAppearance="?attr/textAppearanceBody2"
+                    />
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/button_notification_list_close"
+            android:layout_width="@dimen/bottom_sheet_close_button_size"
+            android:layout_height="@dimen/bottom_sheet_close_button_size"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_margin="@dimen/bottom_sheet_close_button_margin"
+            style="@style/Widget.Vilkku.Button.IconOnly"
+            android:theme="@style/ThemeOverlay.Vilkku.Button.Background"
+            app:icon="@drawable/ic_x"
+            app:iconSize="@dimen/bottom_sheet_close_button_icon_size"
+            android:contentDescription="@string/guide_button_back"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

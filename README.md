@@ -8,8 +8,9 @@ This is the COVID-19 exposure notifications Android app for the Finnish Institut
 Clone the repository, and open in Android Studio 4.0 or later (or build directly with Gradle).
 
 Choose a build variant:
-* liveDebug for real exposure notification system on a device. Note that using the exposure notification system is restricted by app id.
-* simDebug for a simulated exposure notification system which provides dummy responses and allows running in emulator.
+* simGoogleDebug for a simulated exposure notification system which provides dummy responses and allows running the app in emulator
+* liveGoogleDebug for Google Play Services exposure notification system on a device. Note that using the exposure notification system is restricted by app id.
+* liveHuaweiDebug for Huawei Contact Shield or Google Play Services exposure notification system on a device. Note that using Contact Shield requires configuration files not included in this repository.
 
 Configure the app for your local environment by creating a local.properties file in project root directory with entries that override defaults from gradle.properties. For example:
 
@@ -18,10 +19,14 @@ backendUrl=http://10.0.2.2:8080/
 enableTestUI=true
 ```
 
-## System requirements
+## Google device requirements
 * Android version 6 or above
 * Google Play Services version 20.18.13 or above
 * Device owner user profile
+
+## Huawei device requirements
+* EMUI 5.0 or later
+* Huawei Mobile Services (HMS) Core 5.0.2.300 or later
 
 ## Backend
 See [koronavilkku-backend](https://github.com/THLfi/koronavilkku-backend) for information on application backend.

@@ -19,7 +19,7 @@ import fi.thl.koronahaavi.common.openGuide
 import fi.thl.koronahaavi.common.openLink
 import fi.thl.koronahaavi.databinding.FragmentSettingsBinding
 import fi.thl.koronahaavi.device.SystemState
-import com.google.android.gms.oss.licenses.OssLicensesMenuActivity;
+import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
 
 
 @AndroidEntryPoint
@@ -96,7 +96,7 @@ class SettingsFragment : Fragment() {
         }
 
         binding.settingsOpenSourceNotices.linkItemContainer.setOnClickListener {
-            OssLicensesMenuActivity.setActivityTitle(getString(R.string.settings_open_source_notices));
+            OssLicensesMenuActivity.setActivityTitle(getString(R.string.settings_open_source_notices))
             startActivity(Intent(requireContext(), OssLicensesMenuActivity::class.java))
         }
 

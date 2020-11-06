@@ -45,7 +45,7 @@ object AppModule {
 
     @Singleton
     @Provides
-    fun provideHttpClient(@ApplicationContext context: Context): OkHttpClient {
+    fun provideHttpClient(): OkHttpClient {
         val pinnerBuilder = CertificatePinner.Builder().apply {
             if (BuildConfig.PIN_BACKEND_KEY_HASH.isNotEmpty() && BuildConfig.PIN_BACKEND_KEY_BACKUP_HASH.isNotEmpty()) {
                 add(
@@ -77,8 +77,9 @@ object AppModule {
     @Singleton
     @Provides
     fun provideExposureRepository(keyGroupTokenDao: KeyGroupTokenDao,
-                                  exposureDao: ExposureDao
+                                  exposureDao: ExposureDao,
+                                  settingsRepository: SettingsRepository
     ) : ExposureRepository {
-        return DefaultExposureRepository(keyGroupTokenDao, exposureDao)
+        return DefaultExposureRepository(keyGroupTokenDao, exposureDao, settingsRepository)
     }
 }

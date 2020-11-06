@@ -7,8 +7,26 @@ import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
 
 object FormatExtensions {
-    private val DATE_FORMATTER: DateTimeFormatter = DateTimeFormatter.ofPattern("d.M.yyyy")
+    private val DATE_YEAR_FORMATTER: DateTimeFormatter = DateTimeFormatter.ofPattern("d.M.yyyy")
+    private val DATE_FORMATTER: DateTimeFormatter = DateTimeFormatter.ofPattern("d.M.")
     private val TIME_FORMATTER: DateTimeFormatter = DateTimeFormatter.ofPattern("H.mm")
+
+    fun Context.formatLastCheckTime(dateTime: ZonedDateTime?): String =
+        if (dateTime != null) {
+            getString(R.string.exposure_detail_last_check,
+                formatRelativeDateTime(dateTime)
+            )
+        } else {
+            getString(R.string.exposure_detail_no_last_check)
+        }
+
+    // 1.12 - 4.12.2020
+    fun Context.formatDateRange(start: ZonedDateTime, end: ZonedDateTime): String =
+        getString(R.string.all_date_range,
+            if (start.year == end.year) DATE_FORMATTER.format(start) else formatDate(start),
+            formatDate(end))
+
+    fun formatDate(dateTime: ZonedDateTime): String = DATE_YEAR_FORMATTER.format(dateTime)
 
     /**
      * Format a string with relative date part and normal time with a preposition
@@ -16,16 +34,16 @@ object FormatExtensions {
      * yesterday at 11:15pm
      * 12.9.2020 at 5:34pm
      */
-    fun ZonedDateTime.formatRelativeDateTime(context: Context): String =
-        context.getString(R.string.all_date_and_time,
-            formatRelativeDate(context),
-            TIME_FORMATTER.format(this)
+    private fun Context.formatRelativeDateTime(dateTime: ZonedDateTime): String =
+        getString(R.string.all_date_and_time,
+            formatRelativeDate(dateTime),
+            TIME_FORMATTER.format(dateTime)
         )
 
-    private fun ZonedDateTime.formatRelativeDate(context: Context): String = when {
-        toLocalDate() == LocalDate.now() -> context.getString(R.string.all_today)
-        plusDays(1).toLocalDate() == LocalDate.now() -> context.getString(R.string.all_yesterday)
-        else -> DATE_FORMATTER.format(this)
+    private fun Context.formatRelativeDate(dateTime: ZonedDateTime): String = when {
+        dateTime.toLocalDate() == LocalDate.now() -> getString(R.string.all_today)
+        dateTime.plusDays(1).toLocalDate() == LocalDate.now() -> getString(R.string.all_yesterday)
+        else -> formatDate(dateTime)
     }
 
 }

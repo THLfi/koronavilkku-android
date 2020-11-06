@@ -47,36 +47,39 @@
                     app:constraint_referenced_ids="text_exposure_detail_none_title,
                     text_exposure_detail_last_check,
                     card_exposure_detail_check_delayed,
+                    view_exposure_detail_spacer,
                     text_exposure_detail_message,
                     card_exposure_detail_contact,
+                    view_exposure_detail_notification_spacer,
+                    layout_exposure_detail_notifications,
                     text_exposure_detail_instructions_title,
+                    text_exposure_detail_instructions_subtitle,
                     text_exposure_detail_instructions_1,
-                    text_exposure_detail_instructions_1_sublist,
                     text_exposure_detail_instructions_2,
                     text_exposure_detail_instructions_3,
                     text_exposure_detail_instructions_4,
                     text_exposure_detail_instructions_5,
                     text_exposure_detail_instructions_6,
                     text_exposure_detail_instructions_7,
-                    view_divider,
-                    text_exposure_detail_disclaimer" />
+                    text_exposure_detail_disclaimer_none" />
 
                 <androidx.constraintlayout.widget.Group
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:constraint_referenced_ids="card_exposure_detail_contact,
+                    view_exposure_detail_notification_spacer,
+                    layout_exposure_detail_notifications,
                     text_exposure_detail_instructions_title,
+                    text_exposure_detail_instructions_subtitle,
                     text_exposure_detail_instructions_1,
-                    text_exposure_detail_instructions_1_sublist,
                     text_exposure_detail_instructions_2,
                     text_exposure_detail_instructions_3,
                     text_exposure_detail_instructions_4,
                     text_exposure_detail_instructions_5,
                     text_exposure_detail_instructions_6,
-                    text_exposure_detail_instructions_7,
-                    view_divider"
+                    text_exposure_detail_instructions_7"
                     android:visibility="@{model.hasExposures ? View.VISIBLE : View.GONE}"
-                    tools:visibility="gone"/>
+                    tools:visibility="visible"/>
 
                 <TextView
                     android:id="@+id/text_exposure_detail_none_title"
@@ -85,23 +88,24 @@
                     android:textAppearance="?attr/textAppearanceHeadline2"
                     android:text="@string/exposure_detail_title_none"
                     android:visibility="@{model.hasExposures ? View.GONE : View.VISIBLE}"
-                    tools:visibility="visible"/>
+                    tools:visibility="gone"/>
 
                 <TextView
                     android:id="@+id/text_exposure_detail_last_check"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="20dp"
+                    android:paddingBottom="15dp"
                     android:textAppearance="?attr/textAppearanceBody2"
                     android:visibility="@{model.hasExposures ? View.GONE : View.VISIBLE}"
-                    tools:text="Edellisen kerran tarkistettu tänään klo 9.32"
-                    tools:visibility="visible"/>
+                    tools:text="@string/exposure_detail_last_check"
+                    tools:visibility="gone"/>
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/card_exposure_detail_check_delayed"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:visibility="@{model.showManualCheck()==true ? View.VISIBLE : View.GONE}">
+                    android:visibility="@{model.showManualCheck()==true ? View.VISIBLE : View.GONE}"
+                    tools:visibility="gone">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
@@ -134,14 +138,21 @@
 
                 </com.google.android.material.card.MaterialCardView>
 
+                <View
+                    android:id="@+id/view_exposure_detail_spacer"
+                    android:layout_width="0dp"
+                    android:layout_height="10dp"
+                    android:visibility="@{model.hasExposures ? View.GONE : View.VISIBLE}"
+                    tools:visibility="gone"/>
+
                 <TextView
                     android:id="@+id/text_exposure_detail_message"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:paddingTop="20dp"
+                    android:paddingBottom="10dp"
                     android:textAppearance="?attr/textAppearanceHeadline4"
                     android:text="@{model.hasExposures ? @string/exposure_detail_message : @string/exposure_detail_message_none}"
-                    tools:text="@string/exposure_detail_message_none"/>
+                    tools:text="@string/exposure_detail_message"/>
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/card_exposure_detail_contact"
@@ -178,7 +189,8 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:paddingBottom="10dp"
-                            android:text="@string/exposure_detail_contact_subtitle"/>
+                            android:text="@string/exposure_detail_contact_subtitle"
+                            android:textAppearance="?attr/textAppearanceBody2"/>
 
                         <com.google.android.material.button.MaterialButton
                             android:id="@+id/button_exposure_detail_contact_start"
@@ -191,6 +203,21 @@
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </com.google.android.material.card.MaterialCardView>
 
+                <View
+                    android:id="@+id/view_exposure_detail_notification_spacer"
+                    android:layout_width="0dp"
+                    android:layout_height="1dp" />
+
+                <include
+                    android:id="@+id/layout_exposure_detail_notifications"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    layout="@layout/link_item_card"
+                    app:label="@{@string/exposure_detail_notifications_title}"
+                    app:link="@{@plurals/exposure_notification_count(model.notificationCount ?? 0, model.notificationCount ?? 0)}"
+                    app:noLinkColor="@{true}"
+                    app:icon="@{@drawable/ic_info}" />
+
                 <TextView
                     android:id="@+id/text_exposure_detail_instructions_title"
                     android:layout_width="0dp"
@@ -199,28 +226,24 @@
                     android:text="@string/exposure_detail_instructions_title"
                     android:textAppearance="?attr/textAppearanceHeadline3"
                     />
+                <TextView
+                    android:id="@+id/text_exposure_detail_instructions_subtitle"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/exposure_detail_instructions_subtitle"
+                    android:textAppearance="?attr/textAppearanceBody2"
+                    />
                 <fi.thl.koronahaavi.widget.BulletTextView
                     android:id="@+id/text_exposure_detail_instructions_1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:paddingTop="10dp"
                     android:text="@string/exposure_detail_instructions_1"
-                    android:textAppearance="?attr/textAppearanceBody2"
-                    />
-                <TextView
-                    android:id="@+id/text_exposure_detail_instructions_1_sublist"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:paddingStart="26dp"
-                    android:paddingEnd="0dp"
-                    android:text="@string/exposure_detail_instructions_1_sublist"
                     android:textAppearance="?attr/textAppearanceBody2"
                     />
                 <fi.thl.koronahaavi.widget.BulletTextView
                     android:id="@+id/text_exposure_detail_instructions_2"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:paddingTop="10dp"
                     android:text="@string/exposure_detail_instructions_2"
                     android:textAppearance="?attr/textAppearanceBody2"
                     />
@@ -260,20 +283,16 @@
                     android:text="@string/exposure_detail_instructions_7"
                     android:textAppearance="?attr/textAppearanceBody2"
                     />
-                <View
-                    android:id="@+id/view_divider"
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:background="?android:attr/listDivider"
-                    />
+
                 <TextView
-                    android:id="@+id/text_exposure_detail_disclaimer"
+                    android:id="@+id/text_exposure_detail_disclaimer_none"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:paddingTop="20dp"
-                    android:text="@{model.hasExposures ? @string/exposure_detail_disclaimer : @string/exposure_detail_disclaimer_none}"
+                    android:visibility="@{model.hasExposures ? View.GONE : View.VISIBLE}"
+                    android:text="@string/exposure_detail_disclaimer_none"
                     android:textAppearance="?attr/textAppearanceBody2"
-                    tools:text="@string/exposure_detail_disclaimer"/>
+                    tools:visibility="visible"
+                    />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/button_exposure_detail_app_info"

@@ -87,10 +87,18 @@
                 android:text="@string/test_reset_onboarding" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/button_test_unlock"
+                android:id="@+id/button_test_lock"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@+id/button_test_reset_onboarding"
+                app:layout_constraintStart_toStartOf="parent"
+                android:text="@string/test_lock" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button_test_unlock"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/button_test_lock"
                 app:layout_constraintStart_toStartOf="parent"
                 android:text="@string/test_unlock" />
 

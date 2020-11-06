@@ -113,6 +113,7 @@ class DiagnosisKeyUpdateWorker @WorkerInject constructor(
                 Timber.e("provideDiagnosisKeys call failed requiring resolution, status code: %d", result.status.statusCode)
                 false
             }
+            is ResolvableResult.HmsCanceled -> false
         }
 
         // remove temp key files since EN api has read and processed them

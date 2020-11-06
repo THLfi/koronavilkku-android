@@ -2,10 +2,13 @@
 
 package fi.thl.koronahaavi.service
 
+import android.app.Activity
 import android.content.Context
+import android.content.DialogInterface
 import android.os.Process
 import android.os.UserManager
 import com.google.android.gms.common.ConnectionResult
+import com.google.android.gms.common.GoogleApiAvailability
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.CommonStatusCodes
 import com.google.android.gms.nearby.Nearby
@@ -14,6 +17,7 @@ import com.google.android.gms.nearby.exposurenotification.ExposureInformation
 import com.google.android.gms.nearby.exposurenotification.ExposureNotificationStatusCodes
 import com.google.android.gms.nearby.exposurenotification.ExposureSummary
 import fi.thl.koronahaavi.BuildConfig
+import fi.thl.koronahaavi.data.Exposure
 import fi.thl.koronahaavi.service.ExposureNotificationService.ConnectionError
 import fi.thl.koronahaavi.service.ExposureNotificationService.ResolvableResult
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -21,6 +25,9 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.tasks.await
 import timber.log.Timber
 import java.io.File
+import java.time.Instant
+import java.time.ZoneOffset
+import java.time.ZonedDateTime
 
 class GoogleExposureNotificationService(
     private val context: Context
@@ -60,9 +67,10 @@ class GoogleExposureNotificationService(
         return client.getExposureSummary(token).await()
     }
 
-    override suspend fun getExposureDetails(token: String): List<ExposureInformation> {
+    override suspend fun getExposureDetails(token: String): List<Exposure> {
         // this call will show a system notification to user
         return client.getExposureInformation(token).await()
+            .map(ExposureInformation::toExposure)
     }
 
     override suspend fun provideDiagnosisKeyFiles(token: String, files: List<File>, config: ExposureConfigurationData)
@@ -80,6 +88,8 @@ class GoogleExposureNotificationService(
     }
 
     override fun deviceSupportsLocationlessScanning() = client.deviceSupportsLocationlessScanning()
+
+    override fun getAvailabilityResolver() = GoogleAvailabilityResolver()
 
     /**
      * check if device owner based on https://stackoverflow.com/a/15448131/1467657
@@ -158,36 +168,30 @@ class GoogleExposureNotificationService(
     }
 }
 
-/* EN api error codes for reference.. currently only handling not_supported 39501
+private fun ExposureInformation.toExposure(): Exposure {
+    Timber.d(this.toString())
 
-/** The operation failed, without any more information.  */
-private const val FAILED = CommonStatusCodes.ERROR // 13
+    return Exposure(
+        detectedDate = ZonedDateTime.ofInstant(Instant.ofEpochMilli(this.dateMillisSinceEpoch), ZoneOffset.UTC),
+        totalRiskScore = this.totalRiskScore,
+        createdDate = ZonedDateTime.now()
+    )
+}
 
-/** The app was already in the requested state so the call did nothing.  */
-private const val FAILED_ALREADY_STARTED = 39500
+class GoogleAvailabilityResolver : ExposureNotificationService.AvailabilityResolver {
+    private val apiAvailability = GoogleApiAvailability.getInstance()
 
-/** The hardware capability of the device was not supported.  */
-private const val FAILED_NOT_SUPPORTED = 39501
+    override fun isSystemAvailable(context: Context): Int =
+        apiAvailability.isGooglePlayServicesAvailable(context, MIN_GOOGLE_PLAY_VERSION)
 
-/** The user rejected the opt-in state.  */
-private const val FAILED_REJECTED_OPT_IN = 39502
+    override fun isUserResolvableError(errorCode: Int) =
+        apiAvailability.isUserResolvableError(errorCode)
 
-/** The functionality was disabled by the user or the phone.  */
-private const val FAILED_SERVICE_DISABLED = 39503
+    override fun showErrorDialogFragment(activity: Activity, errorCode: Int, requestCode: Int,
+                                         cancelListener: (dialog: DialogInterface) -> Unit) =
+        apiAvailability.showErrorDialogFragment(activity, errorCode, requestCode, cancelListener)
 
-/** The bluetooth was powered off.  */
-private const val FAILED_BLUETOOTH_DISABLED = 39504
-
-/** The service was disabled for some reasons temporarily.  */
-private const val FAILED_TEMPORARILY_DISABLED = 39505
-
-/** The operation failed during a disk read/write.  */
-private const val FAILED_DISK_IO = 39506
-
-/** The client is unauthorized to access the APIs.  */
-private const val FAILED_UNAUTHORIZED = 39507
-
-/** The client has been rate limited for access to this API.  */
-private const val FAILED_RATE_LIMITED = 39508
-
- */
+    companion object {
+        const val MIN_GOOGLE_PLAY_VERSION = 201813000   // v20.18.13
+    }
+}

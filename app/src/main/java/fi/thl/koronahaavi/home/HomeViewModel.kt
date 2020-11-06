@@ -21,6 +21,7 @@ import fi.thl.koronahaavi.service.WorkDispatcher
 import fi.thl.koronahaavi.service.WorkState
 import fi.thl.koronahaavi.settings.EnableENError
 import fi.thl.koronahaavi.settings.toENApiError
+import fi.thl.koronahaavi.settings.toUserEnableStep
 import kotlinx.coroutines.launch
 
 class HomeViewModel @ViewModelInject constructor(
@@ -31,7 +32,7 @@ class HomeViewModel @ViewModelInject constructor(
     private val workDispatcher: WorkDispatcher
 ) : ViewModel() {
 
-    private val isLocked = appStateRepository.lockedAfterDiagnosis().asLiveData()
+    val isLocked = appStateRepository.lockedAfterDiagnosis().asLiveData()
 
     private val enableResolutionRequiredEvent = MutableLiveData<Event<Status>>()
     fun enableResolutionRequired(): LiveData<Event<Status>> = enableResolutionRequiredEvent
@@ -41,7 +42,8 @@ class HomeViewModel @ViewModelInject constructor(
 
     val checkInProgress = MutableLiveData<Boolean>(false)
 
-    private val hasExposures = exposureRepository.flowHasExposures().asLiveData()
+    private val exposureNotifications = exposureRepository.flowExposureNotifications().asLiveData()
+    val hasExposures = exposureNotifications.map { it.isNotEmpty() }
     private val lastCheckTime = appStateRepository.getLastExposureCheckTimeLive()
     private val isENEnabled = exposureNotificationService.isEnabledFlow().asLiveData()
     private val isBluetoothOn = deviceStateRepository.bluetoothOn()
@@ -52,9 +54,10 @@ class HomeViewModel @ViewModelInject constructor(
     private val newExposureCheckEvent = MutableLiveData<Event<Any>>()
 
     fun systemState(): LiveData<SystemState?> = systemState.distinctUntilChanged()
-    fun exposureState(): LiveData<ExposureState> = exposureState.distinctUntilChanged()
-    fun hasExposures() = exposureState.map { it == ExposureState.HasExposures }
+    fun exposureState(): LiveData<ExposureState?> = exposureState.distinctUntilChanged()
     fun showManualCheck(): LiveData<Boolean> = showManualCheck.distinctUntilChanged()
+
+    val notificationCount = exposureNotifications.map { it.size }
 
     val exposureCheckState: LiveData<Event<WorkState>> = newExposureCheckEvent.switchMap {
         workDispatcher.runUpdateWorker()
@@ -89,6 +92,11 @@ class HomeViewModel @ViewModelInject constructor(
                 is ResolvableResult.ApiNotSupported -> {
                     enableENErrorEvent.postValue(Event(
                         EnableENError.ApiNotSupported(result.connectionError?.toENApiError())
+                    ))
+                }
+                is ResolvableResult.HmsCanceled -> {
+                    enableENErrorEvent.postValue(Event(
+                        EnableENError.UserCanceled(result.step.toUserEnableStep())
                     ))
                 }
             }

@@ -6,7 +6,6 @@ import androidx.hilt.work.WorkerInject
 import androidx.work.*
 import fi.thl.koronahaavi.data.ExposureRepository
 import timber.log.Timber
-import java.time.ZonedDateTime
 import java.util.concurrent.TimeUnit
 
 /**
@@ -23,29 +22,11 @@ class ClearExpiredExposuresWorker @WorkerInject constructor(
 
     override suspend fun doWork(): Result {
         Timber.d("Starting")
-        val expireTime = ZonedDateTime.now().minusDays(EXPOSURE_TTL_SINCE_DETECTION_DAYS.toLong())
-
-        exposureRepository.getAllExposures().forEach {
-            if (it.detectedDate.isBefore(expireTime)) {
-                Timber.d("Deleting exposure detected ${it.detectedDate}")
-                exposureRepository.deleteExposure(it.id)
-            }
-        }
-
-        exposureRepository.getAllKeyGroupTokens().forEach {
-            if (it.updatedDate.isBefore(expireTime)) {
-                Timber.d("Deleting key group updated ${it.updatedDate}")
-                exposureRepository.deleteKeyGroupToken(it)
-            }
-        }
-
+        exposureRepository.deleteExpiredExposuresAndTokens()
         return Result.success()
     }
 
     companion object {
-        // 11 day ttl gives the user 24hrs to access the app in case notification is
-        // received for a 10 day old exposure
-        const val EXPOSURE_TTL_SINCE_DETECTION_DAYS = 11
         const val CLEAR_EXPIRED_WORKER_NAME = "ClearExpiredExposuresWorker"
 
         fun schedule(context: Context, reconfigure: Boolean = false) {

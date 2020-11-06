@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="fi.thl.koronahaavi">
+
+    <application>
+        <!-- required for huawei contact shield callbacks -->
+        <service android:name=".service.ContactShieldIntentService"
+            android:exported="false"/>
+    </application>
+
+</manifest>

@@ -133,7 +133,8 @@ class MunicipalityRepositoryTest {
                         "fi": true,
                         "sv": false,
                         "en": true
-                    }
+                    },
+                    "symptomAssessmentOnly": false
                 },
                 "contact":
                 [
@@ -173,7 +174,8 @@ class MunicipalityRepositoryTest {
                     "en": "Helsinki"
                 },
                 "omaolo": {
-                    "available": false
+                    "available": false,
+                    "symptomAssessmentOnly": false
                 },
                 "contact":
                 [

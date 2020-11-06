@@ -3,6 +3,7 @@ package fi.thl.koronahaavi.service
 import com.google.android.gms.nearby.exposurenotification.TemporaryExposureKey
 import fi.thl.koronahaavi.data.AppStateRepository
 import fi.thl.koronahaavi.data.SettingsRepository
+import fi.thl.koronahaavi.utils.TestData
 import io.mockk.*
 import kotlinx.coroutines.runBlocking
 import okhttp3.ResponseBody.Companion.toResponseBody
@@ -42,7 +43,7 @@ class DiagnosisKeyServiceTest {
         coEvery { backendService.getDiagnosisKeyFile(any()) } returns "test".toResponseBody()
         every { systemOperations.createFileInCache(any()) } returns folder.newFile()
         coEvery { backendService.getConfiguration() } returns exposureConfig
-        every { settingsRepository.appConfiguration } returns appConfig
+        every { settingsRepository.appConfiguration } returns TestData.appConfig
 
         diagnosisKeyService = DiagnosisKeyService(backendService, appStateRepository, settingsRepository, systemOperations)
     }
@@ -55,7 +56,7 @@ class DiagnosisKeyServiceTest {
             assertEquals(SendKeysResult.Success, result)
 
             coVerify { backendService.sendKeys(any(), capture(sentList)) }
-            assertEquals(appConfig.diagnosisKeysPerSubmit, sentList.captured.keys.size)
+            assertEquals(TestData.appConfig.diagnosisKeysPerSubmit, sentList.captured.keys.size)
         }
     }
 
@@ -153,13 +154,6 @@ class DiagnosisKeyServiceTest {
         durationAtAttenuationThresholds = listOf(),
         durationAtAttenuationWeights = listOf(1.0f, 0.5f, 0.0f),
         exposureRiskDuration = 15
-    )
-
-    private val appConfig = AppConfiguration(
-        version = 0,
-        diagnosisKeysPerSubmit = 18,
-        pollingIntervalMinutes = 240,
-        tokenLength = 12
     )
 }
 

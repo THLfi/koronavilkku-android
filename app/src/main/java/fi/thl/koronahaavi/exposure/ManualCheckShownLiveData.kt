@@ -8,7 +8,7 @@ import androidx.lifecycle.MediatorLiveData
  */
 class ManualCheckShownLiveData(
     private val enEnabled: LiveData<Boolean?>,
-    private val exposureState: LiveData<ExposureState>,
+    private val exposureState: LiveData<ExposureState?>,
     private val checkInProgress: LiveData<Boolean>
 ) : MediatorLiveData<Boolean>() {
 

@@ -7,6 +7,7 @@
     <string name="all_today">today</string>
     <string name="all_yesterday">yesterday</string>
     <string name="all_date_and_time">%1$s at %2$s</string>
+    <string name="all_date_range" translatable="false">%1$s\u2013%2$s</string>
     <string name="all_finnish" translatable="false">Suomi</string>
     <string name="all_swedish" translatable="false">Svenska</string>
     <string name="all_english" translatable="false">English</string>
@@ -101,7 +102,6 @@
     <string name="exposure_detail_title">Potential exposure</string>
 
     <string name="exposure_detail_message">In the past 10 days, you have been close to a person who has reported a COVID-19 infection via Koronavilkku.</string>
-    <string name="exposure_detail_disclaimer">The assessment of your exposure is based on encounters that Koronavilkku has collected during the last 10 days. The intensity of exposure cannot be accurately assessed.</string>
 
     <string name="exposure_detail_contact_title">Contact healthcare services</string>
     <string name="exposure_detail_contact_subtitle">Information about your potential exposure will only be communicated to healthcare services if you contact them yourself.</string>
@@ -114,16 +114,25 @@
     <string name="exposure_detail_last_check">Last checked %s</string>
     <string name="exposure_detail_no_last_check">No checks yet</string>
 
-    <string name="exposure_detail_instructions_title">Follow these instructions carefully during the next 10 days:</string>
-    <string name="exposure_detail_instructions_1">If you develop any of the following symptoms consistent with COVID-19, contact your municipal healthcare services and get tested as soon as possible:</string>
-    <string name="exposure_detail_contact_instructions_1">Contact your municipal healthcare services as soon as possible and get tested if you experience any of the following symptoms consistent with COVID-19:</string>
-    <string name="exposure_detail_instructions_1_sublist">- change in sense of smell or taste\n- shortness of breath\n- cough, sore throat or runny nose\n- fever\n- headaches or muscle pain\n- unexplained diarrhoea or abdominal pain.</string>
+    <string name="exposure_detail_notifications_title">Show exposure notifications</string>
+
+    <string name="exposure_detail_instructions_title">Do you have symptoms?</string>
+    <string name="exposure_detail_instructions_subtitle">Follow these instructions carefully during the next 10 days:</string>
+    <string name="exposure_detail_instructions_1">Contact your municipal healthcare services and get tested as soon as possible if you develop any of the following symptoms consistent with COVID-19: change in sense of smell or taste, shortness of breath, cough, sore throat, runny nose, fever, headaches, muscle pain, unexplained diarrhoea or abdominal pain.</string>
+    <string name="exposure_detail_contact_instructions_1">If you develop symptoms, get tested</string>
     <string name="exposure_detail_instructions_2">Avoid meeting other people.</string>
     <string name="exposure_detail_instructions_3">Maintain good hand hygiene.</string>
     <string name="exposure_detail_instructions_4">Avoid public places and public transport. If you have to visit public places, keep at least a two-meter distance to other people. If you cannot keep enough distance, use a face mask.</string>
     <string name="exposure_detail_instructions_5">If possible, let someone else handle food shopping and other errands outside the home.</string>
     <string name="exposure_detail_instructions_6">If you cough or sneeze, use a disposable tissue to cover your mouth and nose. Put the used tissue in a waste bin and wash your hands with water and soap or use hand sanitiser. If you do not have a tissue, cough or sneeze into your sleeve.</string>
     <string name="exposure_detail_instructions_7">Work remotely if possible.</string>
+
+    <string name="notification_list_title">Exposure notifications</string>
+    <string name="notification_list_disclaimer">The assessment of your exposure is based on encounters that Koronavilkku has collected during the last 10 days. The intensity of exposure cannot be accurately assessed.</string>
+
+    <string name="notification_item_title">Notification about potential exposure %s</string>
+    <string name="notification_item_count_label">Potential exposures:</string>
+    <string name="notification_item_time_range_label">Time period:</string>
 
     <string name="guide_title">"About Koronavilkku "</string>
     <string name="guide_p1_text">Koronavilkku is an application produced by the Finnish Institute for Health and Welfare that informs you if it estimates that you may have been exposed to the coronavirus. If you are diagnosed with COVID-19, you can report this anonymously using the app. Your privacy is strongly protected.</string>
@@ -168,6 +177,7 @@
     <string name="enable_note">Enable COVID-19 exposure notifications</string>
 
     <string name="enable_err_title">Exposure notifications could not be turned on</string>
+    <string name="enable_err_hms_location_permission">In order to use exposure notification on your device, HMS Core requires permission to access device location. Please grant permission in device settings.</string>
     <string name="enable_err_missing_capability">Your device is not supported</string>
     <string name="enable_err_api_not_supported">Unfortunately Google Play Services exposure notifications are not available for your device.\n\n%s</string>
     <string name="enable_err_not_owner">You are not logged into your phone as the device owner. Koronavilkku only works with the device owner\'s user profile.\n\nYou can switch between profiles by swiping down from the top of the home screen with two fingers and tapping the Switch User button.</string>
@@ -229,6 +239,7 @@
     <string name="test_set_batch_id" translatable="false">Aseta</string>
     <string name="test_batch_id_hint" translatable="false">Batch id</string>
     <string name="test_clear_exposures" translatable="false">Poista altistukset</string>
+    <string name="test_lock" translatable="false">Aseta lukitustila</string>
     <string name="test_unlock" translatable="false">Poista lukitustila</string>
     <string name="test_set_old_update" translatable="false">Aseta päivitys vanhaksi</string>
     <string name="test_open_en_settings" translatable="false">EN asetukset</string>
@@ -267,4 +278,15 @@
 
     <string name="exposure_check_error_title">Error loading exposure data</string>
     <string name="exposure_check_error_message">Exposure data could not be loaded. Please check your internet connection and try again.</string>
+
+    <plurals name="exposure_notification_count">
+        <item quantity="one">%d notification</item>
+        <item quantity="other">%d notifications</item>
+    </plurals>
+
+    <plurals name="all_count">
+        <item quantity="one">%d pc.</item>
+        <item quantity="other">%d pcs.</item>
+    </plurals>
+
 </resources>

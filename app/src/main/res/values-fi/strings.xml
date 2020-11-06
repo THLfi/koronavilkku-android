@@ -43,11 +43,11 @@
     <string name="home_title">Koti</string>
     <string name="home_exposure_label">Mahdollinen altistuminen</string>
     <string name="home_no_exposure_label">Ei havaittuja altistumisia</string>
-    <string name="home_pending_check_label">Mahdollisten altistumisten tarkistus on häiriintynyt. Tarkistusta yritetään uudelleen myöhemmin.</string>
+    <string name="home_pending_check_label">Altistumistietojen tarkistus ei ole onnistunut yli 24 tuntiin. Sovellus yrittää tarkistaa tiedot myöhemmin. Voit myös käynnistää tarkistuksen nyt.</string>
     <string name="home_exposure_sub_label">Olet saattanut altistua virukselle</string>
     <string name="home_no_exposure_sub_label">Et ole ollut tartunnasta ilmoittaneen henkilön lähellä</string>
     <string name="home_exposure_instructions">Katso toimintaohjeet</string>
-    <string name="home_exposure_check">Tarkista nyt</string>
+    <string name="home_exposure_check">Käynnistä tarkistus</string>
 
     <string name="home_symptom_label">Epäiletkö tartuntaa?</string>
     <string name="home_prevention_label">Näin suojaudut</string>
@@ -97,12 +97,10 @@
     <string name="terms_url">https://koronavilkku.fi/kayttoehdot/</string>
 
     <string name="exposure_detail_title">Mahdollinen altistuminen</string>
-
     <string name="exposure_detail_message">Olet ollut viimeisten 10 vuorokauden aikana lähellä henkilöä, joka on ilmoittanut koronatartunnasta Koronavilkun kautta.</string>
-    <string name="exposure_detail_disclaimer">Arvio altistumisesta perustuu Koronavilkun keräämiin kohtaamistietoihin viimeisten 10 vuorokauden ajalta. Altistumisen voimakkuutta ei voida täsmällisesti arvioida.</string>
 
     <string name="exposure_detail_contact_title">Ota yhteyttä terveyden\u00ADhuoltoon</string>
-    <string name="exposure_detail_contact_subtitle">Tieto mahdollisesta altistumisestasi välittyy terveydenhuoltoon vain, jos otat itse yhteyttä.</string>
+    <string name="exposure_detail_contact_subtitle">Tieto mahdollisesta altistumisestasi ei välity terveydenhuoltoon, jollet itse ota yhteyttä.</string>
     <string name="exposure_detail_contact_start">Ota yhteyttä</string>
 
     <string name="exposure_detail_title_none">Ei havaittuja altistumisia</string>
@@ -112,16 +110,25 @@
     <string name="exposure_detail_last_check">Tarkistettu viimeksi %s</string>
     <string name="exposure_detail_no_last_check">Altistumistietoja ei ole vielä tarkistettu</string>
 
-    <string name="exposure_detail_instructions_title">Noudata näitä ohjeita huolellisesti seuraavien 10 päivän ajan:</string>
-    <string name="exposure_detail_instructions_1">Jos sinulla ilmenee yksikin näistä koronavirustautiin sopivista oireista, ota mahdollisimman pian yhteyttä kuntasi terveydenhuoltoon ja hakeudu testiin:</string>
-    <string name="exposure_detail_contact_instructions_1">Ota mahdollisimman pian yhteyttä kuntasi terveydenhuoltoon ja hakeudu testiin, jos sinulla ilmenee yksikin näistä koronavirustautiin sopivista oireista:</string>
-    <string name="exposure_detail_instructions_1_sublist">- haju- tai makuaistin muutos\n- hengitysvaikeus\n- yskä, kurkkukipu tai nuha\n- kuume\n- päänsärky tai lihaskipuja\n- ripuli tai vatsakipu ilman muuta ilmeistä syytä.</string>
+    <string name="exposure_detail_notifications_title">Katso altistumis\u00ADilmoitukset</string>
+
+    <string name="exposure_detail_instructions_title">Toimi näin</string>
+    <string name="exposure_detail_instructions_subtitle">Noudata näitä ohjeita 10 päivän ajan:</string>
+    <string name="exposure_detail_instructions_1">Tarkkaile vointiasi. Jos sinulla ilmenee yksikin koronavirustautiin sopiva oire, ota mahdollisimman pian yhteyttä kuntasi terveydenhuoltoon ja hakeudu testiin. Koronavirustautiin sopivia oireita ovat haju- tai makuaistin muutos, hengitysvaikeus, yskä, kurkkukipu, nuha, kuume, päänsärky, lihaskivut, ripuli tai vatsakipu ilman muuta ilmeistä syytä.</string>
+    <string name="exposure_detail_contact_instructions_1">Jos sinulla ilmenee oireita, hakeudu testiin</string>
     <string name="exposure_detail_instructions_2">Vältä tapaamasta muita ihmisiä.</string>
     <string name="exposure_detail_instructions_3">Huolehdi käsihygieniastasi.</string>
     <string name="exposure_detail_instructions_4">Vältä julkisia paikkoja ja liikennevälineitä. Jos joudut liikkumaan julkisilla paikoilla, pidä muihin ihmisiin etäisyyttä vähintään kaksi metriä. Jos et pysty pitämään riittävästi etäisyyttä, käytä kasvomaskia.</string>
     <string name="exposure_detail_instructions_5">Anna toisen henkilön hoitaa ruokaostokset ja muu asiointi kodin ulkopuolella, jos mahdollista.</string>
     <string name="exposure_detail_instructions_6">Jos yskit tai aivastat, suojaa suusi ja nenäsi kertakäyttönenäliinalla. Laita käytetty nenäliina jäteastiaan ja pese kätesi vedellä ja saippualla tai käytä käsihuuhdetta. Jos sinulla ei ole nenäliinaa, yski tai aivasta hihaan.</string>
     <string name="exposure_detail_instructions_7">Tee etätyötä, jos mahdollista.</string>
+
+    <string name="notification_list_title">Altistumis\u00ADilmoitukset</string>
+    <string name="notification_list_disclaimer">Arvio altistumisesta perustuu Koronavilkun keräämiin kohtaamistietoihin viimeisten 10 vuorokauden ajalta. Altistumisen voimakkuutta ei voida täsmällisesti arvioida.</string>
+
+    <string name="notification_item_title">Altistumisilmoitus %s</string>
+    <string name="notification_item_count_label">Mahdollisia altistumisia</string>
+    <string name="notification_item_time_range_label">Aika\u00ADvälillä</string>
 
     <string name="guide_title">Tietoa Koronavilkusta</string>
     <string name="guide_p1_text">Koronavilkku on Terveyden ja hyvinvoinnin laitoksen tuottama sovellus, jonka avulla saat tiedon, jos olet sovelluksen arvion mukaan altistunut koronavirukselle. Jos sinulla todetaan tartunta, voit ilmoittaa siitä sovelluksella nimettömästi. Sovelluksessa yksityisyytesi on vahvasti suojattu.</string>
@@ -166,6 +173,7 @@
     <string name="enable_note">Ota altistumis\u00ADilmoitukset käyttöön</string>
 
     <string name="enable_err_title">Altistumis\u00ADilmoituksia ei voitu ottaa käyttöön</string>
+    <string name="enable_err_hms_location_permission">HMS Core tarvitsee luvan käyttää laitteen sijaintia. Voit antaa luvan laitteesi asetuksissa.</string>
     <string name="enable_err_missing_capability">Altistumisilmoitukset eivät toimi laitteessasi.</string>
     <string name="enable_err_api_not_supported">Valitettavasti altistumisilmoitukset eivät ole saatavilla laitteeseesi.\n\n%s</string>
     <string name="enable_err_not_owner">Olet kirjautunut laitteeseen jonkun muun kuin laitteen omistajan käyttäjäprofiililla. Koronavilkku toimii vain laitteen omistajan käyttäjäprofiililla.\n\nVoit vaihtaa profiilia pyyhkäisemällä kahdella sormella puhelimen aloitusnäytön yläreunasta. Paina sitten Vaihda käyttäjää -painiketta.</string>
@@ -243,7 +251,17 @@
     <string name="power_deny_confirm_message">Jos et anna Koronavilkulle lupaa toimia aina taustalla, sovellus ei välttämättä voi hakea palvelimelta tietoja mahdollisesta altistumisesta. Siinä tapauksessa suosittelemme, että avaat sovelluksen ainakin kerran päivässä.\n\nVoit muuttaa valintaasi myöhemmin puhelimesi asetuksissa.</string>
     <string name="power_allow_retry">Anna lupa</string>
 
-    <string name="exposure_check_error_title">Virhe altistumistietojen lataamisessa</string>
+    <string name="exposure_check_error_title">Altistumistietoja ei voitu ladata</string>
     <string name="exposure_check_error_message">Altistumistietojen lataaminen ei onnistunut. Tarkista verkkoyhteys ja yritä uudelleen.</string>
+
+    <plurals name="exposure_notification_count">
+        <item quantity="one">%d ilmoitus</item>
+        <item quantity="other">%d ilmoitusta</item>
+    </plurals>
+
+    <plurals name="all_count">
+        <item quantity="one">%d kpl</item>
+        <item quantity="other">%d kpl</item>
+    </plurals>
 
 </resources>

@@ -87,6 +87,7 @@ class CodeEntryViewModel @ViewModelInject constructor(
     private suspend fun getKeysAndSend(authCode: String) {
         when (val result = exposureNotificationService.getTemporaryExposureKeys()) {
             is Success -> {
+                Timber.d("Sending keys, size ${result.data.size}")
                 sendKeys(authCode, result.data)
             }
             is ResolutionRequired -> {
