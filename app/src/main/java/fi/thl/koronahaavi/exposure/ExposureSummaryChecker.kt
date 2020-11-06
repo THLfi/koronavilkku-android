@@ -1,8 +1,8 @@
 @file:Suppress("DEPRECATION")
 package fi.thl.koronahaavi.exposure
 
-import com.google.android.gms.nearby.exposurenotification.ExposureInformation
 import com.google.android.gms.nearby.exposurenotification.ExposureSummary
+import fi.thl.koronahaavi.data.Exposure
 import fi.thl.koronahaavi.service.ExposureConfigurationData
 import timber.log.Timber
 
@@ -28,11 +28,11 @@ class ExposureSummaryChecker(
     fun hasHighRisk() =
         result == Result.RISK_HIGH || result == Result.DURATION_LONG
 
-    fun filterExposures(exposures: List<ExposureInformation>): List<ExposureInformation> {
+    fun filterExposures(exposures: List<Exposure>): List<Exposure> {
         return if (result == Result.DURATION_LONG) {
             // only include latest since exposure was accumulated and is therefore
             // represented better as a single exposure
-            exposures.sortedBy { it.dateMillisSinceEpoch }.takeLast(1)
+            exposures.sortedBy { it.detectedDate }.takeLast(1)
         } else {
             exposures
         }

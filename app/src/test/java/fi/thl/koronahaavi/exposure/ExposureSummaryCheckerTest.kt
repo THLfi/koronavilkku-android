@@ -3,6 +3,7 @@ package fi.thl.koronahaavi.exposure
 
 import com.google.android.gms.nearby.exposurenotification.ExposureInformation.ExposureInformationBuilder
 import com.google.android.gms.nearby.exposurenotification.ExposureSummary
+import fi.thl.koronahaavi.data.Exposure
 import fi.thl.koronahaavi.service.ExposureConfigurationData
 import org.junit.Assert.*
 import org.junit.Test
@@ -80,16 +81,17 @@ class ExposureSummaryCheckerTest {
             configuration
         )
 
-        val latest = LocalDateTime.of(2020, Month.NOVEMBER, 3, 0, 0).atZone(ZoneId.of("Z")).toInstant()
+        val created = ZonedDateTime.now()
+        val latest = LocalDateTime.of(2020, Month.NOVEMBER, 3, 0, 0).atZone(ZoneId.of("Z"))
 
         val result = checker.filterExposures(listOf(
-            ExposureInformationBuilder().setDateMillisSinceEpoch(latest.minus(Duration.ofDays(1)).toEpochMilli()).build(),
-            ExposureInformationBuilder().setDateMillisSinceEpoch(latest.toEpochMilli()).build(),
-            ExposureInformationBuilder().setDateMillisSinceEpoch(latest.minus(Duration.ofDays(2)).toEpochMilli()).build()
+            Exposure(1, latest.minus(Duration.ofDays(1)), created, 0),
+            Exposure(2, latest, created, 0),
+            Exposure(3, latest.minus(Duration.ofDays(2)), created, 0)
         ))
 
         assertEquals(1, result.size)
-        assertEquals(latest.toEpochMilli(), result[0].dateMillisSinceEpoch)
+        assertEquals(latest, result[0].detectedDate)
     }
 
     private fun summary() = ExposureSummary.ExposureSummaryBuilder()

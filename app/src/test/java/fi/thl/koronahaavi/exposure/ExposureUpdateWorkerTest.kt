@@ -12,13 +12,13 @@ import androidx.work.ListenableWorker.Result
 import androidx.work.WorkerFactory
 import androidx.work.WorkerParameters
 import androidx.work.testing.TestListenableWorkerBuilder
-import com.google.android.gms.nearby.exposurenotification.ExposureInformation
 import com.google.android.gms.nearby.exposurenotification.ExposureSummary
 import fi.thl.koronahaavi.data.AppStateRepository
 import fi.thl.koronahaavi.data.ExposureRepository
 import fi.thl.koronahaavi.data.SettingsRepository
 import fi.thl.koronahaavi.service.ExposureConfigurationData
 import fi.thl.koronahaavi.service.ExposureNotificationService
+import fi.thl.koronahaavi.utils.TestData
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.every
@@ -96,8 +96,8 @@ class ExposureUpdateWorkerTest {
                 ExposureSummary.ExposureSummaryBuilder().setMatchedKeyCount(1).setMaximumRiskScore(200).build()
 
         coEvery { exposureNotificationService.getExposureDetails(any()) } returns listOf(
-            ExposureInformation.ExposureInformationBuilder().setTotalRiskScore(200).build(),
-            ExposureInformation.ExposureInformationBuilder().setTotalRiskScore(160).build()
+            TestData.exposure().copy(totalRiskScore = 200),
+            TestData.exposure().copy(totalRiskScore = 160)
         )
 
         runBlocking {
