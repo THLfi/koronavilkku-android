@@ -115,6 +115,10 @@ class TestFragment : Fragment() {
 
         binding.testDeviceInfo.text = "${Build.MANUFACTURER} ${Build.MODEL}"
 
+        binding.buttonTestLock.setOnClickListener {
+            appStateRepository.setDiagnosisKeysSubmitted(true)
+        }
+
         binding.buttonTestUnlock.setOnClickListener {
             appStateRepository.setDiagnosisKeysSubmitted(false)
         }

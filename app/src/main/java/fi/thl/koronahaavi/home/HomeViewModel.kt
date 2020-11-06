@@ -32,7 +32,7 @@ class HomeViewModel @ViewModelInject constructor(
     private val workDispatcher: WorkDispatcher
 ) : ViewModel() {
 
-    private val isLocked = appStateRepository.lockedAfterDiagnosis().asLiveData()
+    val isLocked = appStateRepository.lockedAfterDiagnosis().asLiveData()
 
     private val enableResolutionRequiredEvent = MutableLiveData<Event<Status>>()
     fun enableResolutionRequired(): LiveData<Event<Status>> = enableResolutionRequiredEvent
