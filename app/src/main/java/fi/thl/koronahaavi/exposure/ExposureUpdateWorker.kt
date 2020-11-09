@@ -40,18 +40,19 @@ class ExposureUpdateWorker @WorkerInject constructor(
         Timber.d(summary.toString())
 
         if (summary.matchedKeyCount > 0) {
-            Timber.i("Exposure matches found: ${summary.matchedKeyCount}")
             val config = settingsRepository.requireExposureConfiguration()
+            val checker = ExposureSummaryChecker(summary, config)
 
-            if (summary.maximumRiskScore >= config.minimumRiskScore) {
-                Timber.i("Maximum risk score ${summary.maximumRiskScore} over minimum ${config.minimumRiskScore}, saving detailed exposure data")
+            Timber.d("Configuration minimum risk score ${config.minimumRiskScore}")
 
-                // this call will trigger EN system notifications (only on real use)
-                exposureNotificationService.getExposureDetails(token)
+            if (checker.hasHighRisk()) {
+                Timber.d("High risk detected")
+
+                // this call will trigger EN system notifications
+                val exposures = exposureNotificationService.getExposureDetails(token)
+
+                checker.filterExposures(exposures)
                     .forEach { exposureRepository.saveExposure(it) }
-            }
-            else {
-                Timber.d("Maximum risk score ${summary.maximumRiskScore} less than minimum ${config.minimumRiskScore}, ignoring")
             }
         }
         else {

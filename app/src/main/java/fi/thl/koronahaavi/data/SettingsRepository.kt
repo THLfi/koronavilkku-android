@@ -57,7 +57,7 @@ class SettingsRepository @Inject constructor (
         }
 
     companion object {
-        const val EXPOSURE_CONFIG_KEY = "exposure_configuration"
+        const val EXPOSURE_CONFIG_KEY = "exposure_configuration_version_2" // non-null fields added
         const val DB_PASSWORD_BYTES = 32
         const val DB_PASSWORD_KEY = "db_password"
     }

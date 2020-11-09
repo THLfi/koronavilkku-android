@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package fi.thl.koronahaavi.exposure
 
 import android.app.Application
@@ -10,10 +12,13 @@ import androidx.work.ListenableWorker.Result
 import androidx.work.WorkerFactory
 import androidx.work.WorkerParameters
 import androidx.work.testing.TestListenableWorkerBuilder
+import com.google.android.gms.nearby.exposurenotification.ExposureSummary
 import fi.thl.koronahaavi.data.AppStateRepository
 import fi.thl.koronahaavi.data.ExposureRepository
 import fi.thl.koronahaavi.data.SettingsRepository
+import fi.thl.koronahaavi.service.ExposureConfigurationData
 import fi.thl.koronahaavi.service.ExposureNotificationService
+import fi.thl.koronahaavi.utils.TestData
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.every
@@ -49,6 +54,7 @@ class ExposureUpdateWorkerTest {
         settingsRepository = mockk(relaxed = true)
 
         every { appStateRepository.lockedAfterDiagnosis() } returns lockedFlow
+        every { settingsRepository.requireExposureConfiguration() } returns configuration
 
         worker = TestListenableWorkerBuilder<ExposureUpdateWorker>(context)
             .setWorkerFactory(fakeFactory)
@@ -70,6 +76,37 @@ class ExposureUpdateWorkerTest {
         }
     }
 
+    @Test
+    fun successWhenNoMatches() {
+        coEvery { exposureNotificationService.isEnabled() } returns true
+        coEvery { exposureNotificationService.getExposureSummary(any()) } returns
+                ExposureSummary.ExposureSummaryBuilder().setMatchedKeyCount(0).build()
+
+        runBlocking {
+            val result = worker.startWork().get()
+            Assert.assertEquals(Result.success(), result)
+            coVerify(exactly = 0) { settingsRepository.requireExposureConfiguration() }
+        }
+    }
+
+    @Test
+    fun successWhenHighRisk() {
+        coEvery { exposureNotificationService.isEnabled() } returns true
+        coEvery { exposureNotificationService.getExposureSummary(any()) } returns
+                ExposureSummary.ExposureSummaryBuilder().setMatchedKeyCount(1).setMaximumRiskScore(200).build()
+
+        coEvery { exposureNotificationService.getExposureDetails(any()) } returns listOf(
+            TestData.exposure().copy(totalRiskScore = 200),
+            TestData.exposure().copy(totalRiskScore = 160)
+        )
+
+        runBlocking {
+            val result = worker.startWork().get()
+            Assert.assertEquals(Result.success(), result)
+            coVerify(exactly = 1) { exposureNotificationService.getExposureDetails(any()) }
+            coVerify(exactly = 2) { exposureRepository.saveExposure(any()) }
+        }
+    }
 
     private val fakeFactory = object : WorkerFactory() {
         override fun createWorker(
@@ -82,4 +119,15 @@ class ExposureUpdateWorkerTest {
         }
     }
 
+    private val configuration = ExposureConfigurationData(
+        version = 1,
+        minimumRiskScore = 100,
+        attenuationScores = listOf(),
+        daysSinceLastExposureScores = listOf(),
+        durationScores = listOf(),
+        transmissionRiskScoresAndroid = listOf(),
+        durationAtAttenuationThresholds = listOf(),
+        durationAtAttenuationWeights = listOf(1.0f, 0.5f, 0.0f),
+        exposureRiskDuration = 15
+    )
 }

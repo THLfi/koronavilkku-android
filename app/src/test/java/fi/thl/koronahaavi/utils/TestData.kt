@@ -10,12 +10,17 @@ import java.time.ZoneId
 import java.time.ZonedDateTime
 import java.time.temporal.TemporalAmount
 import java.util.*
+import kotlin.random.Random
 
 object TestData {
     private val baseCreatedDate = ZonedDateTime.of(2020, 11, 2, 13, 10, 5, 0, ZoneId.of("Z"))
 
-    fun exposure(age: TemporalAmount = Duration.ofDays(2))
-            = Exposure(1, ZonedDateTime.now(), baseCreatedDate.minus(age), 0)
+    fun exposure(age: TemporalAmount = Duration.ofDays(2)) = Exposure(
+        id = Random.nextLong(),
+        detectedDate = baseCreatedDate.minus(age).minusDays(3),
+        createdDate = baseCreatedDate.minus(age),
+        totalRiskScore = 0
+    )
 
     val appConfig = AppConfiguration(
         version = 0,
