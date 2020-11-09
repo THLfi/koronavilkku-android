@@ -25,9 +25,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.suspendCancellableCoroutine
 import timber.log.Timber
 import java.io.File
-import java.time.Instant
-import java.time.ZoneOffset
-import java.time.ZonedDateTime
+import java.time.*
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 
@@ -201,7 +199,7 @@ suspend fun <T> com.huawei.hmf.tasks.Task<T>.await(): T {
 private fun ContactDetail.toExposure(
     createdDate: ZonedDateTime = ZonedDateTime.now()
 ) = Exposure(
-    detectedDate = ZonedDateTime.ofInstant(Instant.ofEpochMilli(dayNumber), ZoneOffset.UTC),
+    detectedDate = LocalDate.ofEpochDay(dayNumber).atTime(0, 0).atZone(ZoneOffset.UTC),
     totalRiskScore = totalRiskValue,
     createdDate = createdDate
 )
