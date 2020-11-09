@@ -68,9 +68,14 @@ class GoogleExposureNotificationService(
     }
 
     override suspend fun getExposureDetails(token: String): List<Exposure> {
+        val createdDate = ZonedDateTime.now()
+
         // this call will show a system notification to user
         return client.getExposureInformation(token).await()
-            .map(ExposureInformation::toExposure)
+            .map { info ->
+                info.toExposure(createdDate)
+                        .also { Timber.d(it.toString()) }
+            }
     }
 
     override suspend fun provideDiagnosisKeyFiles(token: String, files: List<File>, config: ExposureConfigurationData)
@@ -168,15 +173,13 @@ class GoogleExposureNotificationService(
     }
 }
 
-private fun ExposureInformation.toExposure(): Exposure {
-    Timber.d(this.toString())
-
-    return Exposure(
+private fun ExposureInformation.toExposure(
+    createdDate: ZonedDateTime = ZonedDateTime.now()
+) = Exposure(
         detectedDate = ZonedDateTime.ofInstant(Instant.ofEpochMilli(this.dateMillisSinceEpoch), ZoneOffset.UTC),
         totalRiskScore = this.totalRiskScore,
-        createdDate = ZonedDateTime.now()
+        createdDate = createdDate
     )
-}
 
 class GoogleAvailabilityResolver : ExposureNotificationService.AvailabilityResolver {
     private val apiAvailability = GoogleApiAvailability.getInstance()

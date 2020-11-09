@@ -70,15 +70,15 @@ class HuaweiContactShieldService(
                 .build()
         }
 
-    override suspend fun getExposureDetails(token: String) =
-        engine.getContactDetail(token).await()
-            .map {
-                Exposure(
-                    detectedDate = ZonedDateTime.ofInstant(Instant.ofEpochMilli(it.dayNumber), ZoneOffset.UTC),
-                    totalRiskScore = it.totalRiskValue,
-                    createdDate = ZonedDateTime.now()
-                )
-            }
+    override suspend fun getExposureDetails(token: String): List<Exposure> {
+        val createdDate = ZonedDateTime.now()
+
+        return engine.getContactDetail(token).await()
+                .map { info ->
+                    info.toExposure(createdDate)
+                            .also { Timber.d(it.toString()) }
+                }
+    }
 
     override suspend fun provideDiagnosisKeyFiles(
         token: String,
@@ -197,6 +197,14 @@ suspend fun <T> com.huawei.hmf.tasks.Task<T>.await(): T {
         }
     }
 }
+
+private fun ContactDetail.toExposure(
+    createdDate: ZonedDateTime = ZonedDateTime.now()
+) = Exposure(
+    detectedDate = ZonedDateTime.ofInstant(Instant.ofEpochMilli(dayNumber), ZoneOffset.UTC),
+    totalRiskScore = totalRiskValue,
+    createdDate = createdDate
+)
 
 class HuaweiAvailabilityResolver : ExposureNotificationService.AvailabilityResolver {
     private val apiAvailability = HuaweiApiAvailability.getInstance()
