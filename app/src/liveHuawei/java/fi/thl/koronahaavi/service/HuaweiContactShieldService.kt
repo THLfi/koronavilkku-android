@@ -73,8 +73,8 @@ class HuaweiContactShieldService(
 
         return engine.getContactDetail(token).await()
                 .map { info ->
+                    Timber.d(info.toString())
                     info.toExposure(createdDate)
-                            .also { Timber.d(it.toString()) }
                 }
     }
 

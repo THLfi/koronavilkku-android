@@ -73,8 +73,8 @@ class GoogleExposureNotificationService(
         // this call will show a system notification to user
         return client.getExposureInformation(token).await()
             .map { info ->
+                Timber.d(info.toString())
                 info.toExposure(createdDate)
-                        .also { Timber.d(it.toString()) }
             }
     }
 
