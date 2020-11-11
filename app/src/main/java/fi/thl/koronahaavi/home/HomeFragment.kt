@@ -156,13 +156,12 @@ class HomeFragment : Fragment() {
         binding.textHomeExposureSubLabel.text = requireContext().getString(
             when (state) {
                 is ExposureState.HasExposures -> R.string.home_exposure_sub_label
-                is ExposureState.Clear -> R.string.home_no_exposure_sub_label
-                is ExposureState.Pending -> R.string.home_pending_check_label
+                is ExposureState.Clear.Updated -> R.string.home_no_exposure_sub_label
+                is ExposureState.Clear.Pending, is ExposureState.Clear.Disabled -> R.string.home_pending_check_label
             }
         )
 
         binding.textHomeExposureCheckLabel.text = when (state) {
-            is ExposureState.Pending -> requireContext().formatLastCheckTime(state.lastCheck)
             is ExposureState.Clear -> requireContext().formatLastCheckTime(state.lastCheck)
             ExposureState.HasExposures -> null // view is hidden in layout xml
         }
@@ -173,13 +172,13 @@ class HomeFragment : Fragment() {
 
         with (binding.imageHomeExposureStatus) {
             when (state) {
-                is ExposureState.Clear -> {
+                is ExposureState.Clear.Updated -> {
                     setImageDrawable(getDrawable(R.drawable.ic_check))
                     imageTintList = ColorStateList.valueOf(requireContext().themeColor(R.attr.colorOnPrimary))
                     backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.lightBlue, null))
                     visibility = View.VISIBLE
                 }
-                is ExposureState.Pending -> {
+                is ExposureState.Clear.Pending, is ExposureState.Clear.Disabled -> {
                     setImageDrawable(getDrawable(R.drawable.ic_alert_triangle))
                     imageTintList = ColorStateList.valueOf(resources.getColor(R.color.lightGrey, null))
                     backgroundTintList = ColorStateList.valueOf(resources.getColor(R.color.veryLightGrey, null))

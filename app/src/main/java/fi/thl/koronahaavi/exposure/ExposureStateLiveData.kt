@@ -7,21 +7,24 @@ import java.time.ZonedDateTime
 class ExposureStateLiveData(
     private val hasExposures: LiveData<Boolean>,
     private val lastCheck: LiveData<ZonedDateTime?>,
-    private val isLocked: LiveData<Boolean>
+    private val isLocked: LiveData<Boolean>,
+    private val enEnabled: LiveData<Boolean?>
 ) : MediatorLiveData<ExposureState?>() {
 
     init {
         addSource(hasExposures) { updateExposureState() }
         addSource(lastCheck) { updateExposureState() }
         addSource(isLocked) { updateExposureState() }
+        addSource(enEnabled) { updateExposureState() }
     }
 
     private fun updateExposureState() {
         value = when {
             (hasExposures.value == null) -> null  // need to know this to get state
             (hasExposures.value == true) -> ExposureState.HasExposures
-            (isLastCheckOld()) -> ExposureState.Pending(lastCheck.value)
-            else -> ExposureState.Clear(lastCheck.value)
+            (enEnabled.value == false) -> ExposureState.Clear.Disabled(lastCheck.value)
+            (isLastCheckOld()) -> ExposureState.Clear.Pending(lastCheck.value)
+            else -> ExposureState.Clear.Updated(lastCheck.value)
         }
     }
 
@@ -38,7 +41,13 @@ class ExposureStateLiveData(
 }
 
 sealed class ExposureState {
-    data class Clear(val lastCheck: ZonedDateTime?): ExposureState()
     object HasExposures: ExposureState()
-    data class Pending(val lastCheck: ZonedDateTime?): ExposureState()
+
+    // Clear sub-states represent situations where there are no known exposures but for example
+    // updates have been delayed
+    sealed class Clear(open val lastCheck: ZonedDateTime?): ExposureState() {
+        data class Updated(override val lastCheck: ZonedDateTime?): ExposureState.Clear(lastCheck)
+        data class Pending(override val lastCheck: ZonedDateTime?): ExposureState.Clear(lastCheck)
+        data class Disabled(override val lastCheck: ZonedDateTime?): ExposureState.Clear(lastCheck)
+    }
 }
