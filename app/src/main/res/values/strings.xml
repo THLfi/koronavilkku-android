@@ -47,7 +47,7 @@
     <string name="home_title">Home</string>
     <string name="home_exposure_label">Potential exposure</string>
     <string name="home_no_exposure_label">No observed exposures</string>
-    <string name="home_pending_check_label">Checking for potential exposures has been interrupted. The app will try again later.</string>
+    <string name="home_pending_check_label">Checking for potential exposures has not been carried out for over 24 hours. The app will try again later. You can start a check now.</string>
     <string name="home_exposure_sub_label">You may have been exposed to the coronavirus</string>
     <string name="home_no_exposure_sub_label">You have not been near a person who has reported an infection</string>
     <string name="home_exposure_instructions">See instructions</string>
