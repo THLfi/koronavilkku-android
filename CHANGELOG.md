@@ -10,8 +10,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Manual exposure check allowed when checks have been delayed 24h
 - Display exposure notification count on home screen and notification list on exposure detail screen
 - Municipality data that controls the availability of Omaolo contact request
+- Potential exposure detection based on exposure attenuation durations
 
 ### Changed
+- Home screen text and icon updates when exposure notifications are turned off
 - App structure and build properties to support Huawei Contact Shield build flavor
 - Dependency updates
 
