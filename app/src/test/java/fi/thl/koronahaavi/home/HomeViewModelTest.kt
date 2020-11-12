@@ -109,6 +109,19 @@ class HomeViewModelTest {
         viewModel.exposureCheckState.test().assertValue() { it.getContentIfNotHandled() == WorkState.InProgress }
     }
 
+    @Test
+    fun exposureSubLabelShown() {
+        viewModel.hideExposureSubLabel().test().assertValue(false)
+    }
+
+    @Test
+    fun exposureSubLabelWhenPendingBlocked() {
+        lastCheckTime.value = ZonedDateTime.now().minusDays(2)
+        enEnabledFlow.value = false
+
+        viewModel.hideExposureSubLabel().test().assertValue(true)
+    }
+
     private fun setSystemOn() {
         enEnabledFlow.value = true
         bluetoothOn.value = true

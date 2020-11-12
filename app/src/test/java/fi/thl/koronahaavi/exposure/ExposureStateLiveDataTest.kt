@@ -22,41 +22,61 @@ class ExposureStateLiveDataTest {
     private lateinit var lastCheck: MutableLiveData<ZonedDateTime?>
     private lateinit var lockedFlow: MutableStateFlow<Boolean>
     private lateinit var data: ExposureStateLiveData
+    private lateinit var enEnabled: MutableLiveData<Boolean?>
 
     @Before
     fun init() {
         hasExposures = MutableLiveData(false)
-        lastCheck = MutableLiveData()
+        lastCheck = MutableLiveData(ZonedDateTime.now().minusMinutes(1))
         lockedFlow = MutableStateFlow(false)
+        enEnabled = MutableLiveData(true)
 
-        data = ExposureStateLiveData(hasExposures, lastCheck, lockedFlow.asLiveData())
+        data = ExposureStateLiveData(hasExposures, lastCheck, lockedFlow.asLiveData(), enEnabled)
     }
 
     @Test
     fun pendingWhenOld() {
         lastCheck.value = ZonedDateTime.now().minusDays(2)
 
-        data.test().assertValue { it is ExposureState.Pending}
+        data.test().assertValue { it is ExposureState.Clear.Pending }
     }
 
     @Test
-    fun clearWhenLocked() {
+    fun disabledWhenOldDisabled() {
+        lastCheck.value = ZonedDateTime.now().minusDays(2)
+        enEnabled.value = false
+
+        data.test().assertValue { it is ExposureState.Clear.Disabled }
+    }
+
+    @Test
+    fun disabledWhenDisabled() {
+        enEnabled.value = false
+
+        data.test().assertValue { it is ExposureState.Clear.Disabled }
+    }
+
+    @Test
+    fun clearWhenOldLocked() {
         lastCheck.value = ZonedDateTime.now().minusDays(2)
         lockedFlow.value = true
 
-        data.test().assertValue { it is ExposureState.Clear}
+        data.test().assertValue { it is ExposureState.Clear.Updated}
     }
 
     @Test
     fun clearWhenUpToDate() {
-        lastCheck.value = ZonedDateTime.now().minusHours(4)
+        data.test().assertValue { it is ExposureState.Clear.Updated}
+    }
 
-        data.test().assertValue { it is ExposureState.Clear}
+    @Test
+    fun clearWhenNoCheck() {
+        lastCheck.value = null
+        data.test().assertValue { it is ExposureState.Clear.Updated}
     }
 
     @Test
     fun hasExposures() {
-        lastCheck.value = ZonedDateTime.now().minusHours(4)
         hasExposures.value = true
 
         data.test().assertValue { it is ExposureState.HasExposures}
