@@ -116,13 +116,13 @@
 
     <string name="exposure_detail_notifications_title">Show exposure notifications</string>
 
-    <string name="exposure_detail_instructions_title">Do you have symptoms?</string>
-    <string name="exposure_detail_instructions_subtitle">Follow these instructions carefully during the next 10 days:</string>
-    <string name="exposure_detail_instructions_1">Contact your municipal healthcare services and get tested as soon as possible if you develop any of the following symptoms consistent with COVID-19: change in sense of smell or taste, shortness of breath, cough, sore throat, runny nose, fever, headaches, muscle pain, unexplained diarrhoea or abdominal pain.</string>
+    <string name="exposure_detail_instructions_title">What to do</string>
+    <string name="exposure_detail_instructions_subtitle">Follow these instructions for 10 days:</string>
+    <string name="exposure_detail_instructions_1">Monitor your health. If you develop any symptom consistent with COVID-19, contact your municipal healthcare service and get tested as soon as possible. Symptoms consistent with COVID-19 are change in sense of smell or taste, shortness of breath, cough, sore throat, runny nose, fever, headaches, muscle pain, unexplained diarrhoea or abdominal pain.</string>
     <string name="exposure_detail_contact_instructions_1">If you develop symptoms, get tested</string>
     <string name="exposure_detail_instructions_2">Avoid meeting other people.</string>
     <string name="exposure_detail_instructions_3">Maintain good hand hygiene.</string>
-    <string name="exposure_detail_instructions_4">Avoid public places and public transport. If you have to visit public places, keep at least a two-meter distance to other people. If you cannot keep enough distance, use a face mask.</string>
+    <string name="exposure_detail_instructions_4">Avoid public places and public transport. If you have to visit public places, keep at least a two-meter distance to other people. If you cannot keep a sufficient distance, use a face mask.</string>
     <string name="exposure_detail_instructions_5">If possible, let someone else handle food shopping and other errands outside the home.</string>
     <string name="exposure_detail_instructions_6">If you cough or sneeze, use a disposable tissue to cover your mouth and nose. Put the used tissue in a waste bin and wash your hands with water and soap or use hand sanitiser. If you do not have a tissue, cough or sneeze into your sleeve.</string>
     <string name="exposure_detail_instructions_7">Work remotely if possible.</string>
