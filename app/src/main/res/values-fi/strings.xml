@@ -13,6 +13,7 @@
     <string name="all_allow">Salli</string>
     <string name="all_deny">Hylkää</string>
     <string name="all_close">Sulje</string>
+    <string name="all_continue">Jatka</string>
 
     <string name="diagnosis_title">Ilmoita tartunnastasi</string>
     <string name="diagnosis_body1">Jos sinulla todetaan tartunta koronavirustestillä, saat avauskoodin terveydenhuollon ammattilaiselta tai tekstiviestillä THL:ltä. Avauskoodilla voit jakaa nimettömästi tiedon tartunnastasi.</string>
@@ -253,6 +254,10 @@
 
     <string name="exposure_check_error_title">Altistumistietoja ei voitu ladata</string>
     <string name="exposure_check_error_message">Altistumistietojen lataaminen ei onnistunut. Tarkista verkkoyhteys ja yritä uudelleen.</string>
+
+    <string name="share_consent_title">Tietojesi käyttö</string>
+    <string name="share_consent_eu">Koronavilkun käyttäjille Suomessa sekä muiden EU-maiden kansallisten koronasovellusten käyttäjille.</string>
+    <string name="share_consent_finland">Ilmoitan tartunnastani vain Koronavilkun käyttäjille Suomessa.</string>
 
     <plurals name="exposure_notification_count">
         <item quantity="one">%d ilmoitus</item>

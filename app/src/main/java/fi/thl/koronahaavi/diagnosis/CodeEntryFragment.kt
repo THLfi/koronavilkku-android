@@ -28,7 +28,7 @@ class CodeEntryFragment : Fragment() {
 
     private val viewModel by viewModels<CodeEntryViewModel>()
     private val requestResolutionViewModel by activityViewModels<RequestResolutionViewModel>()
-    private val args by navArgs<CodeEntryFragmentArgs>()
+    //private val args by navArgs<CodeEntryFragmentArgs>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,9 +42,11 @@ class CodeEntryFragment : Fragment() {
 
         binding.lifecycleOwner = this.viewLifecycleOwner
 
+        /*
         if (savedInstanceState == null) {
             viewModel.code.postValue(args.code)
         }
+         */
 
         return binding.root
     }
@@ -92,7 +94,7 @@ class CodeEntryFragment : Fragment() {
         }
 
         // don't show keyboard automatically if code provided from app link
-        if (args.code == null) {
+        if (viewModel.code.value == null) {
             if (binding.textInputEditCodeEntry.requestFocus()) {
                 requireActivity().getInputMethodManager().toggleSoftInput(
                     InputMethodManager.SHOW_IMPLICIT,

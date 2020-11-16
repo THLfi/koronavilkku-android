@@ -9,8 +9,8 @@
         app:destination="@id/diagnosis"/>
 
     <action
-        android:id="@+id/to_code_entry"
-        app:destination="@id/code_entry"
+        android:id="@+id/to_share_consent"
+        app:destination="@id/share_consent"
         app:launchSingleTop="true">  <!-- prevents multiple code entry screens, when repeating deeplink starts -->
         <argument
             android:name="code"
@@ -49,8 +49,23 @@
         android:name="fi.thl.koronahaavi.diagnosis.DiagnosisFragment"
         tools:layout="@layout/fragment_diagnosis" >
         <action
+            android:id="@+id/to_share_consent"
+            app:destination="@id/share_consent" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/share_consent"
+        android:name="fi.thl.koronahaavi.diagnosis.ShareConsentFragment"
+        android:label="@string/share_consent_title"
+        tools:layout="@layout/fragment_share_consent" >
+        <action
             android:id="@+id/to_code_entry"
             app:destination="@id/code_entry" />
+        <argument
+            android:name="code"
+            app:argType="string"
+            app:nullable="true"
+            android:defaultValue="@null" />
     </fragment>
 
     <fragment
@@ -68,11 +83,6 @@
             app:exitAnim="@anim/nav_default_exit_anim"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim" />
-        <argument
-            android:name="code"
-            app:argType="string"
-            app:nullable="true"
-            android:defaultValue="@null" />
     </fragment>
 
 

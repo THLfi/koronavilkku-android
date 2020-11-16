@@ -20,6 +20,9 @@ class CodeEntryViewModel @ViewModelInject constructor(
     settingsRepository: SettingsRepository
 ) : ViewModel() {
 
+    val shareSelection = MutableLiveData<Int?>()
+    val shareContinueAllowed = shareSelection.map { it != null }
+
     val code = MutableLiveData<String>()
 
     val maxCodeLength = settingsRepository.appConfiguration.tokenLength

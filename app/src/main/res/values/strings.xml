@@ -17,6 +17,7 @@
     <string name="all_allow">Allow</string>
     <string name="all_deny">Deny</string>
     <string name="all_close">Close</string>
+    <string name="all_continue">Continue</string>
 
     <string name="diagnosis_title">Report your infection</string>
     <string name="diagnosis_body1">If you are diagnosed with COVID-19, you will receive a key code from a healthcare professional or a text message from the Finnish Institute for Health and Welfare. You can use the key code to anonymously share information about your infection.</string>
@@ -278,6 +279,10 @@
 
     <string name="exposure_check_error_title">Error loading exposure data</string>
     <string name="exposure_check_error_message">Exposure data could not be loaded. Please check your internet connection and try again.</string>
+
+    <string name="share_consent_title">Tietojesi käyttö</string>
+    <string name="share_consent_eu">Koronavilkun käyttäjille Suomessa sekä muiden EU-maiden kansallisten koronasovellusten käyttäjille.</string>
+    <string name="share_consent_finland">Ilmoitan tartunnastani vain Koronavilkun käyttäjille Suomessa.</string>
 
     <plurals name="exposure_notification_count">
         <item quantity="one">%d notification</item>

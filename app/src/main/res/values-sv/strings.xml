@@ -13,6 +13,7 @@
     <string name="all_allow">Tillåt</string>
     <string name="all_deny">Neka</string>
     <string name="all_close">Stäng</string>
+    <string name="all_continue">Jatka</string>
 
     <string name="diagnosis_title">Meddela din smitta</string>
     <string name="diagnosis_body1">Om du har testats och konstaterats ha coronavirusinfektion får du en startkod från hälsovården eller i ett textmeddelande från THL. Med startkoden kan du anonymt förmedla information om din smitta.</string>
@@ -253,6 +254,10 @@
 
     <string name="exposure_check_error_title">Det gick inte att ladda exponeringsdata</string>
     <string name="exposure_check_error_message">Exponeringsdata kunde inte laddas. Kontrollera din nätverksanslutning och försök på nytt.</string>
+
+    <string name="share_consent_title">Tietojesi käyttö</string>
+    <string name="share_consent_eu">Koronavilkun käyttäjille Suomessa sekä muiden EU-maiden kansallisten koronasovellusten käyttäjille.</string>
+    <string name="share_consent_finland">Ilmoitan tartunnastani vain Koronavilkun käyttäjille Suomessa.</string>
 
     <plurals name="exposure_notification_count">
         <item quantity="one">%d meddelande</item>
