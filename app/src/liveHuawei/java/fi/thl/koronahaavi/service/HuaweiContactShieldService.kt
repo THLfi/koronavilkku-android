@@ -28,6 +28,7 @@ import java.io.File
 import java.time.*
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
+import kotlin.math.min
 
 class HuaweiContactShieldService(
     private val context: Context
@@ -100,11 +101,26 @@ class HuaweiContactShieldService(
         engine.periodicKey.await().map {
             TemporaryExposureKey.TemporaryExposureKeyBuilder()
                 .setKeyData(it.content)
-                .setRollingStartIntervalNumber(it.periodicKeyValidTime.toInt())
-                .setRollingPeriod(it.periodicKeyLifeTime.toInt())
+                .setRollingStartIntervalNumber(
+                    convertToDayFirstInterval(it.periodicKeyValidTime.toInt())
+                )
+                .setRollingPeriod(
+                    convertToRollingPeriod(it.periodicKeyValidTime.toInt(), it.periodicKeyLifeTime.toInt())
+                )
                 .setTransmissionRiskLevel(it.initialRiskLevel)
                 .build()
         }
+    }
+
+    // convert to beginning of day in UTC, to match Google implementation
+    private fun convertToDayFirstInterval(periodicKeyValidTime: Int) =
+        periodicKeyValidTime / ROLLING_INTERVALS_IN_DAY * ROLLING_INTERVALS_IN_DAY
+
+    // convert to match Google implementation
+    private fun convertToRollingPeriod(periodicKeyValidTime: Int, periodicKeyLifeTime: Int): Int {
+        val dayFirstInterval = convertToDayFirstInterval(periodicKeyValidTime)
+
+        return min(periodicKeyValidTime + periodicKeyLifeTime - dayFirstInterval, ROLLING_INTERVALS_IN_DAY)
     }
 
     override fun deviceSupportsLocationlessScanning() = false
@@ -155,6 +171,10 @@ class HuaweiContactShieldService(
             .setInitialRiskLevelRiskValues(*transmissionRiskScoresAndroid.toIntArray())
             .setAttenuationDurationThresholds(*durationAtAttenuationThresholds.toIntArray())
             .build()
+    }
+
+    companion object {
+        const val ROLLING_INTERVALS_IN_DAY = 144
     }
 }
 
