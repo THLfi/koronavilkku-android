@@ -19,6 +19,9 @@ class FakeExposureRepository : ExposureRepository {
     override suspend fun deleteKeyGroupToken(token: KeyGroupToken) {
     }
 
+    override suspend fun deleteAllKeyGroupTokens() {
+    }
+
     override suspend fun saveExposure(exposure: Exposure) {
     }
 

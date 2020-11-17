@@ -3,7 +3,6 @@ package fi.thl.koronahaavi.data
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import timber.log.Timber
-import java.time.Duration
 import java.time.ZonedDateTime
 
 class DefaultExposureRepository (
@@ -20,6 +19,8 @@ class DefaultExposureRepository (
 
     override suspend fun deleteKeyGroupToken(token: KeyGroupToken) = keyGroupTokenDao.delete(token)
 
+    override suspend fun deleteAllKeyGroupTokens() = keyGroupTokenDao.deleteAll()
+
     override suspend fun saveExposure(exposure: Exposure) = exposureDao.insert(exposure)
 
     override suspend fun getExposure(id: Long) = exposureDao.get(id)
@@ -31,17 +32,18 @@ class DefaultExposureRepository (
     override suspend fun deleteExposure(id: Long) = exposureDao.delete(id)
 
     override suspend fun deleteExpiredExposuresAndTokens() {
-        val expireTime = getDetectionStart()
+        val detectionStart = getDetectionStart()
 
         getAllExposures().forEach {
-            if (it.detectedDate.isBefore(expireTime)) {
+            if (it.detectedDate.isBefore(detectionStart)) {
                 Timber.d("Deleting exposure detected ${it.detectedDate}")
                 deleteExposure(it.id)
             }
         }
 
         getAllKeyGroupTokens().forEach {
-            if (it.updatedDate.isBefore(expireTime)) {
+            // also check updatedDate for legacy data that does not have latestExposureDate
+            if (it.latestExposureDate?.isBefore(detectionStart) == true || it.updatedDate.isBefore(detectionStart)) {
                 Timber.d("Deleting key group updated ${it.updatedDate}")
                 deleteKeyGroupToken(it)
             }

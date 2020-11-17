@@ -58,7 +58,9 @@ class HomeViewModel @ViewModelInject constructor(
     fun showManualCheck(): LiveData<Boolean> = showManualCheck.distinctUntilChanged()
     fun hideExposureSubLabel(): LiveData<Boolean> = exposureState.map { it is ExposureState.Clear.Disabled }
 
-    val notificationCount = exposureNotifications.map { it.size }
+    val notificationCount: LiveData<String?> = exposureNotifications.map {
+        if (it.isEmpty()) null else it.size.toString()
+    }
 
     val exposureCheckState: LiveData<Event<WorkState>> = newExposureCheckEvent.switchMap {
         workDispatcher.runUpdateWorker()

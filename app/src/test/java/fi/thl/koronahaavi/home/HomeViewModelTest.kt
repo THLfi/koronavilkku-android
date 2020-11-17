@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.jraska.livedata.test
 import fi.thl.koronahaavi.common.Event
 import fi.thl.koronahaavi.data.AppStateRepository
+import fi.thl.koronahaavi.data.ExposureNotification
 import fi.thl.koronahaavi.data.ExposureRepository
 import fi.thl.koronahaavi.device.DeviceStateRepository
 import fi.thl.koronahaavi.device.SystemState
@@ -54,7 +55,7 @@ class HomeViewModelTest {
         every { exposureRepository.getIsExposedFlow() } returns flowOf(false)
         every { appStateRepository.getLastExposureCheckTimeLive() } returns lastCheckTime
 
-        viewModel = HomeViewModel(exposureRepository, deviceStateRepository, appStateRepository, exposureNotificationService, workDispatcher)
+        viewModel = createViewModel()
     }
 
     @Test
@@ -120,6 +121,24 @@ class HomeViewModelTest {
 
         viewModel.hideExposureSubLabel().test().assertValue(true)
     }
+
+    @Test
+    fun notificationCountNotAvailable() {
+        viewModel.notificationCount.test().assertNullValue()
+    }
+
+    @Test
+    fun notificationCountAvailable() {
+        every { exposureRepository.getExposureNotificationsFlow() } returns flowOf(listOf(
+            ExposureNotification(ZonedDateTime.now(), 2)
+        ))
+        viewModel = createViewModel()
+
+        viewModel.notificationCount.test().assertValue { it == "1"}
+    }
+
+    private fun createViewModel() =
+        HomeViewModel(exposureRepository, deviceStateRepository, appStateRepository, exposureNotificationService, workDispatcher)
 
     private fun setSystemOn() {
         enEnabledFlow.value = true

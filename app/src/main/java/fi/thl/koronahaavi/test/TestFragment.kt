@@ -39,6 +39,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import timber.log.Timber
 import java.time.ZonedDateTime
+import java.util.*
 import javax.inject.Inject
 
 @SuppressLint("SetTextI18n")
@@ -73,6 +74,7 @@ class TestFragment : Fragment() {
         binding.buttonTestClearExposures.setOnClickListener {
             requireActivity().lifecycleScope.launch {
                 exposureRepository.deleteAllExposures()
+                exposureRepository.deleteAllKeyGroupTokens()
             }
         }
 
@@ -182,7 +184,7 @@ class TestFragment : Fragment() {
             val intent = Intent().apply {
                 component = ComponentName(requireContext(), ExposureStateUpdatedReceiver::class.java)
                 action = ExposureNotificationClient.ACTION_EXPOSURE_STATE_UPDATED
-                putExtra(ExposureNotificationClient.EXTRA_TOKEN, "123")
+                putExtra(ExposureNotificationClient.EXTRA_TOKEN, UUID.randomUUID().toString())
             }
             requireContext().sendBroadcast(intent)
         }

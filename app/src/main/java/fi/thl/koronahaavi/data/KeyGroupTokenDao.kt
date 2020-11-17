@@ -20,4 +20,7 @@ interface KeyGroupTokenDao {
 
     @Delete
     fun delete(vararg tokens: KeyGroupToken)
+
+    @Query("DELETE FROM key_group_token")
+    suspend fun deleteAll()
 }
