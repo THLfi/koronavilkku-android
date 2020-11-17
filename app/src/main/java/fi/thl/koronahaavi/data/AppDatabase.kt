@@ -11,7 +11,7 @@ import java.time.ZonedDateTime
 @Database(
     entities = [KeyGroupToken::class, Exposure::class],
     version = 3,
-    exportSchema = false
+    exportSchema = true
 )
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {

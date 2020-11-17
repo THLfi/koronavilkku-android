@@ -50,6 +50,12 @@ android {
         resConfigs "en", "fi", "sv"
 
         testInstrumentationRunner "fi.thl.koronahaavi.HaaviTestRunner"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments += ["room.schemaLocation": "$projectDir/schemas".toString()]
+            }
+        }
     }
 
     signingConfigs {
