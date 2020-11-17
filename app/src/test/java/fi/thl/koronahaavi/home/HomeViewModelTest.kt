@@ -2,7 +2,6 @@ package fi.thl.koronahaavi.home
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.MutableLiveData
-import com.google.android.gms.common.internal.constants.ListAppsActivityContract
 import com.jraska.livedata.test
 import fi.thl.koronahaavi.common.Event
 import fi.thl.koronahaavi.data.AppStateRepository
@@ -17,7 +16,6 @@ import io.mockk.every
 import io.mockk.mockk
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.flowOf
-import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -52,7 +50,8 @@ class HomeViewModelTest {
         every { deviceStateRepository.bluetoothOn() } returns bluetoothOn
         every { deviceStateRepository.locationOn() } returns locationOn
         every { exposureNotificationService.isEnabledFlow() } returns enEnabledFlow
-        every { exposureRepository.flowExposureNotifications() } returns flowOf(listOf())
+        every { exposureRepository.getExposureNotificationsFlow() } returns flowOf(listOf())
+        every { exposureRepository.getIsExposedFlow() } returns flowOf(false)
         every { appStateRepository.getLastExposureCheckTimeLive() } returns lastCheckTime
 
         viewModel = HomeViewModel(exposureRepository, deviceStateRepository, appStateRepository, exposureNotificationService, workDispatcher)

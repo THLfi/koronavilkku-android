@@ -10,7 +10,7 @@ import java.time.ZonedDateTime
 
 @Database(
     entities = [KeyGroupToken::class, Exposure::class],
-    version = 3,
+    version = 4,
     exportSchema = false
 )
 @TypeConverters(Converters::class)

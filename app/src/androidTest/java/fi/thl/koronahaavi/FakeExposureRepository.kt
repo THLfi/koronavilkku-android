@@ -34,6 +34,6 @@ class FakeExposureRepository : ExposureRepository {
     override suspend fun deleteExpiredExposuresAndTokens() {
     }
 
-    override fun flowAllExposures(): Flow<List<Exposure>> = flowOf(listOf())
-    override fun flowExposureNotifications(): Flow<List<ExposureNotification>> = flowOf(listOf())
+    override fun getIsExposedFlow(): Flow<Boolean> = flowOf(false)
+    override fun getExposureNotificationsFlow(): Flow<List<ExposureNotification>> = flowOf(listOf())
 }

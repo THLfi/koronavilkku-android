@@ -213,6 +213,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     layout="@layout/link_item_card"
+                    android:visibility="@{model.showNotifications ? View.VISIBLE : View.GONE}"
                     app:label="@{@string/exposure_detail_notifications_title}"
                     app:link="@{@plurals/exposure_notification_count(model.notificationCount ?? 0, model.notificationCount ?? 0)}"
                     app:noLinkColor="@{true}"

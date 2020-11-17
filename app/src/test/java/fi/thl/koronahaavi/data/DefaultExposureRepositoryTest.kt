@@ -46,7 +46,7 @@ class DefaultExposureRepositoryTest {
         ))
 
         runBlocking {
-            repository.flowExposureNotifications().collectLatest {
+            repository.getExposureNotificationsFlow().collectLatest {
                 assertEquals(3, it.size)
                 assertTrue(it.any { n -> n.createdDate == baseCreatedDate.minus(Duration.ofDays(2)) })
                 assertTrue(it.any { n -> n.createdDate == baseCreatedDate.minus(Duration.ofDays(3)) })

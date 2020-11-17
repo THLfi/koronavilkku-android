@@ -167,11 +167,6 @@ class TestFragment : Fragment() {
             }
         }
 
-        exposureRepository.flowAllExposures().asLiveData().observe(viewLifecycleOwner, Observer {
-            val scores = it.joinToString { e -> e.totalRiskScore.toString() }
-            binding.testExposureRiskScores.text = "Exposure risk scores: $scores"
-        })
-
         exposureRepository.flowHandledKeyGroupTokens().asLiveData().observe(viewLifecycleOwner, Observer {
             val tokens = it.joinToString { t -> "(${t.matchedKeyCount},${t.maximumRiskScore})" }
             binding.testExposureRiskScores.text = "Updated tokens: $tokens"

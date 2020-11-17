@@ -2,6 +2,8 @@ package fi.thl.koronahaavi.di
 
 import android.content.Context
 import androidx.room.Room
+import androidx.room.migration.Migration
+import androidx.sqlite.db.SupportSQLiteDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,9 +25,9 @@ object DatabaseModule {
     ): AppDatabase {
 
         return Room.databaseBuilder(context.applicationContext, AppDatabase::class.java, databaseName)
-            .fallbackToDestructiveMigration()
-            .openHelperFactory(SupportFactory(settingsRepository.getOrCreateDatabasePassword()))
-            .build()
+                .addMigrations(migrationThreeToFour)
+                .openHelperFactory(SupportFactory(settingsRepository.getOrCreateDatabasePassword()))
+                .build()
     }
 
     @Singleton
@@ -35,4 +37,12 @@ object DatabaseModule {
     @Singleton
     @Provides
     fun provideExposureDao(database: AppDatabase) = database.exposureDao()
+
+    // first app version 1.0 had schema version 3, so this is the first migration we need to address
+    private val migrationThreeToFour = object : Migration(3, 4) {
+        override fun migrate(database: SupportSQLiteDatabase) {
+            database.execSQL("ALTER TABLE key_group_token ADD COLUMN exposure_count INTEGER")
+            database.execSQL("ALTER TABLE key_group_token ADD COLUMN latest_exposure_date INTEGER")
+        }
+    }
 }

@@ -42,8 +42,8 @@ class HomeViewModel @ViewModelInject constructor(
 
     val checkInProgress = MutableLiveData<Boolean>(false)
 
-    private val exposureNotifications = exposureRepository.flowExposureNotifications().asLiveData()
-    val hasExposures = exposureNotifications.map { it.isNotEmpty() }
+    private val exposureNotifications = exposureRepository.getExposureNotificationsFlow().asLiveData()
+    val hasExposures = exposureRepository.getIsExposedFlow().asLiveData()
     private val lastCheckTime = appStateRepository.getLastExposureCheckTimeLive()
     private val isENEnabled = exposureNotificationService.isEnabledFlow().asLiveData()
     private val isBluetoothOn = deviceStateRepository.bluetoothOn()

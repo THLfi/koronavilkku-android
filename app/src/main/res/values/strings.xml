@@ -52,6 +52,7 @@
     <string name="home_no_exposure_sub_label">You have not been near a person who has reported an infection</string>
     <string name="home_exposure_instructions">See instructions</string>
     <string name="home_exposure_check">Check now</string>
+    <string name="home_notifications_unknown" translatable="false">!</string>
 
     <string name="home_symptom_label">Do you think you may have COVID-19?</string>
     <string name="home_prevention_label">Protect yourself</string>
