@@ -15,21 +15,20 @@ import androidx.work.testing.TestListenableWorkerBuilder
 import com.google.android.gms.nearby.exposurenotification.ExposureSummary
 import fi.thl.koronahaavi.data.AppStateRepository
 import fi.thl.koronahaavi.data.ExposureRepository
+import fi.thl.koronahaavi.data.KeyGroupToken
 import fi.thl.koronahaavi.data.SettingsRepository
 import fi.thl.koronahaavi.service.ExposureConfigurationData
 import fi.thl.koronahaavi.service.ExposureNotificationService
 import fi.thl.koronahaavi.utils.TestData
-import io.mockk.coEvery
-import io.mockk.coVerify
-import io.mockk.every
-import io.mockk.mockk
+import io.mockk.*
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.runBlocking
-import org.junit.Assert
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.annotation.Config
+import java.time.Duration
 
 @RunWith(AndroidJUnit4::class)
 @Config(application = Application::class)
@@ -41,6 +40,7 @@ class ExposureUpdateWorkerTest {
     private lateinit var appStateRepository: AppStateRepository
     private lateinit var settingsRepository: SettingsRepository
     val lockedFlow = MutableStateFlow(false)
+    val groupToken = "test_token"
 
     lateinit var worker: ListenableWorker
 
@@ -55,11 +55,12 @@ class ExposureUpdateWorkerTest {
 
         every { appStateRepository.lockedAfterDiagnosis() } returns lockedFlow
         every { settingsRepository.requireExposureConfiguration() } returns configuration
+        coEvery { exposureNotificationService.isEnabled() } returns true
 
         worker = TestListenableWorkerBuilder<ExposureUpdateWorker>(context)
             .setWorkerFactory(fakeFactory)
             .setInputData(Data.Builder()
-                .putString(ExposureUpdateWorker.TOKEN_KEY, "token")
+                .putString(ExposureUpdateWorker.TOKEN_KEY, groupToken)
                 .build()
             )
             .build()
@@ -67,31 +68,28 @@ class ExposureUpdateWorkerTest {
 
     @Test
     fun successWhenLocked() {
-        coEvery { exposureNotificationService.isEnabled() } returns true
         lockedFlow.value = true
         runBlocking {
             val result = worker.startWork().get()
-            Assert.assertEquals(Result.success(), result)
+            assertEquals(Result.success(), result)
             coVerify(exactly = 0) { exposureNotificationService.getExposureSummary(any()) }
         }
     }
 
     @Test
     fun successWhenNoMatches() {
-        coEvery { exposureNotificationService.isEnabled() } returns true
         coEvery { exposureNotificationService.getExposureSummary(any()) } returns
                 ExposureSummary.ExposureSummaryBuilder().setMatchedKeyCount(0).build()
 
         runBlocking {
             val result = worker.startWork().get()
-            Assert.assertEquals(Result.success(), result)
+            assertEquals(Result.success(), result)
             coVerify(exactly = 0) { settingsRepository.requireExposureConfiguration() }
         }
     }
 
     @Test
     fun successWhenHighRisk() {
-        coEvery { exposureNotificationService.isEnabled() } returns true
         coEvery { exposureNotificationService.getExposureSummary(any()) } returns
                 ExposureSummary.ExposureSummaryBuilder().setMatchedKeyCount(1).setMaximumRiskScore(200).build()
 
@@ -102,9 +100,62 @@ class ExposureUpdateWorkerTest {
 
         runBlocking {
             val result = worker.startWork().get()
-            Assert.assertEquals(Result.success(), result)
+            assertEquals(Result.success(), result)
             coVerify(exactly = 1) { exposureNotificationService.getExposureDetails(any()) }
             coVerify(exactly = 2) { exposureRepository.saveExposure(any()) }
+        }
+    }
+
+    @Test
+    fun keyGroupTokenUpdated() {
+        coEvery { exposureNotificationService.getExposureSummary(any()) } returns
+                ExposureSummary.ExposureSummaryBuilder().setMatchedKeyCount(1).setMaximumRiskScore(200).build()
+
+        val latestExposure = TestData.exposure(Duration.ofDays(1)).copy(totalRiskScore = 200)
+
+        coEvery { exposureNotificationService.getExposureDetails(any()) } returns listOf(
+            TestData.exposure(Duration.ofDays(2)).copy(totalRiskScore = 200),
+            latestExposure,
+            TestData.exposure(Duration.ofDays(3)).copy(totalRiskScore = 200)
+        )
+
+        runBlocking {
+            worker.startWork().get()
+
+            val savedToken = slot<KeyGroupToken>()
+            coVerify(exactly = 1) { exposureRepository.saveKeyGroupToken(capture(savedToken)) }
+
+            assertEquals(3, savedToken.captured.exposureCount)
+            assertEquals(latestExposure.detectedDate, savedToken.captured.latestExposureDate)
+        }
+    }
+
+    @Test
+    fun keyGroupTokenUpdatedFiltered() {
+        coEvery { exposureNotificationService.getExposureSummary(any()) } returns
+                ExposureSummary.ExposureSummaryBuilder()
+                    .setMatchedKeyCount(2)
+                    .setMaximumRiskScore(10)
+                    .setAttenuationDurations(intArrayOf(30,0,0))
+                    .build()
+
+        val latestExposure = TestData.exposure(Duration.ofDays(1)).copy(totalRiskScore = 10)
+
+        coEvery { exposureNotificationService.getExposureDetails(any()) } returns listOf(
+            TestData.exposure(Duration.ofDays(2)).copy(totalRiskScore = 10),
+            latestExposure,
+            TestData.exposure(Duration.ofDays(3)).copy(totalRiskScore = 10)
+        )
+
+        runBlocking {
+            worker.startWork().get()
+
+            val savedToken = slot<KeyGroupToken>()
+            coVerify(exactly = 1) { exposureRepository.saveKeyGroupToken(capture(savedToken)) }
+
+            // only the latest is returned since filterd by ExposureSummaryChecker
+            assertEquals(1, savedToken.captured.exposureCount)
+            assertEquals(latestExposure.detectedDate, savedToken.captured.latestExposureDate)
         }
     }
 

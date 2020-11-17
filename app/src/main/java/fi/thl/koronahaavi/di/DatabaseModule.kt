@@ -12,6 +12,7 @@ import dagger.hilt.android.qualifiers.ApplicationContext
 import fi.thl.koronahaavi.data.AppDatabase
 import fi.thl.koronahaavi.data.SettingsRepository
 import net.sqlcipher.database.SupportFactory
+import timber.log.Timber
 import javax.inject.Singleton
 
 @Module
@@ -41,6 +42,7 @@ object DatabaseModule {
     // first app version 1.0 had schema version 3, so this is the first migration we need to address
     val migrationThreeToFour = object : Migration(3, 4) {
         override fun migrate(database: SupportSQLiteDatabase) {
+            Timber.d("Migrating from schema 3 to 4")
             database.execSQL("ALTER TABLE key_group_token ADD COLUMN exposure_count INTEGER")
             database.execSQL("ALTER TABLE key_group_token ADD COLUMN latest_exposure_date INTEGER")
         }
