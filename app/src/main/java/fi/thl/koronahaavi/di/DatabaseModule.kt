@@ -39,7 +39,7 @@ object DatabaseModule {
     fun provideExposureDao(database: AppDatabase) = database.exposureDao()
 
     // first app version 1.0 had schema version 3, so this is the first migration we need to address
-    private val migrationThreeToFour = object : Migration(3, 4) {
+    val migrationThreeToFour = object : Migration(3, 4) {
         override fun migrate(database: SupportSQLiteDatabase) {
             database.execSQL("ALTER TABLE key_group_token ADD COLUMN exposure_count INTEGER")
             database.execSQL("ALTER TABLE key_group_token ADD COLUMN latest_exposure_date INTEGER")
