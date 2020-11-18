@@ -49,12 +49,6 @@ object TestModule {
         return context.getSharedPreferences(TEST_SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE)
     }
 
-    @Singleton
-    @Provides
-    fun provideExposureRepository(): ExposureRepository {
-        return FakeExposureRepository()
-    }
-
     @Singleton @Provides @DatabaseName
     fun databaseName() = "koronavilkku-test-db"
 

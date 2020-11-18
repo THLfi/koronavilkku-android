@@ -78,7 +78,7 @@ class DefaultExposureRepositoryTest {
 
     @Test
     fun notificationsEmptyWithNoData() {
-        every { keyGroupTokenDao.getAllMatchedFlow() } returns flowOf(listOf())
+        every { keyGroupTokenDao.getExposureTokensFlow() } returns flowOf(listOf())
 
         runBlocking {
             repository.getExposureNotificationsFlow().collectLatest {
@@ -89,7 +89,7 @@ class DefaultExposureRepositoryTest {
 
     @Test
     fun notificationsEmptyWithLegacyData() {
-        every { keyGroupTokenDao.getAllMatchedFlow() } returns flowOf(listOf(
+        every { keyGroupTokenDao.getExposureTokensFlow() } returns flowOf(listOf(
             createLegacyKeyGroupToken()
         ))
 
@@ -102,7 +102,7 @@ class DefaultExposureRepositoryTest {
 
     @Test
     fun notificationsWithLegacyData() {
-        every { keyGroupTokenDao.getAllMatchedFlow() } returns flowOf(listOf(
+        every { keyGroupTokenDao.getExposureTokensFlow() } returns flowOf(listOf(
             createLegacyKeyGroupToken(),
             createKeyGroupToken(),
             createKeyGroupToken()
@@ -117,7 +117,7 @@ class DefaultExposureRepositoryTest {
 
     @Test
     fun notificationsEmptyWithMissingCount() {
-        every { keyGroupTokenDao.getAllMatchedFlow() } returns flowOf(listOf(
+        every { keyGroupTokenDao.getExposureTokensFlow() } returns flowOf(listOf(
             createKeyGroupToken().copy(exposureCount = null)
         ))
 
@@ -132,7 +132,7 @@ class DefaultExposureRepositoryTest {
     fun notificationsWithOldData() {
         val limitDays = TestData.appConfig.exposureValidDays + 1L
 
-        every { keyGroupTokenDao.getAllMatchedFlow() } returns flowOf(listOf(
+        every { keyGroupTokenDao.getExposureTokensFlow() } returns flowOf(listOf(
             createKeyGroupToken().copy(latestExposureDate = ZonedDateTime.now().minusDays(limitDays + 1L)),
             createKeyGroupToken().copy(latestExposureDate = ZonedDateTime.now().minusDays(limitDays - 1L)),
             createKeyGroupToken()

@@ -73,13 +73,4 @@ object AppModule {
             .addConverterFactory(MoshiConverterFactory.create())
             .build()
     }
-
-    @Singleton
-    @Provides
-    fun provideExposureRepository(keyGroupTokenDao: KeyGroupTokenDao,
-                                  exposureDao: ExposureDao,
-                                  settingsRepository: SettingsRepository
-    ) : ExposureRepository {
-        return DefaultExposureRepository(keyGroupTokenDao, exposureDao, settingsRepository)
-    }
 }

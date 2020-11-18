@@ -9,8 +9,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ApplicationComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
-import fi.thl.koronahaavi.data.AppDatabase
-import fi.thl.koronahaavi.data.SettingsRepository
+import fi.thl.koronahaavi.data.*
 import net.sqlcipher.database.SupportFactory
 import timber.log.Timber
 import javax.inject.Singleton
@@ -38,6 +37,15 @@ object DatabaseModule {
     @Singleton
     @Provides
     fun provideExposureDao(database: AppDatabase) = database.exposureDao()
+
+    @Singleton
+    @Provides
+    fun provideExposureRepository(keyGroupTokenDao: KeyGroupTokenDao,
+                                  exposureDao: ExposureDao,
+                                  settingsRepository: SettingsRepository
+    ) : ExposureRepository {
+        return DefaultExposureRepository(keyGroupTokenDao, exposureDao, settingsRepository)
+    }
 
     // first app version 1.0 had schema version 3, so this is the first migration we need to address
     val migrationThreeToFour = object : Migration(3, 4) {

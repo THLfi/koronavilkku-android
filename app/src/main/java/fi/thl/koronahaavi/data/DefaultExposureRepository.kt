@@ -15,7 +15,7 @@ class DefaultExposureRepository (
 
     override suspend fun saveKeyGroupToken(token: KeyGroupToken) = keyGroupTokenDao.insert(token)
 
-    override fun flowHandledKeyGroupTokens() = keyGroupTokenDao.flowHandled()
+    override fun flowHandledKeyGroupTokens() = keyGroupTokenDao.getHandledFlow()
 
     override suspend fun deleteKeyGroupToken(token: KeyGroupToken) = keyGroupTokenDao.delete(token)
 
@@ -60,7 +60,7 @@ class DefaultExposureRepository (
         }
 
     override fun getExposureNotificationsFlow(): Flow<List<ExposureNotification>> =
-        keyGroupTokenDao.getAllMatchedFlow().map { groupTokens ->
+        keyGroupTokenDao.getExposureTokensFlow().map { groupTokens ->
             val detectionStart = getDetectionStart()
 
             groupTokens.filter {
