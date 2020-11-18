@@ -19,9 +19,10 @@ class ExposureDetailViewModel @ViewModelInject constructor(
     private val workDispatcher: WorkDispatcher,
     private val settingsRepository: SettingsRepository
 ) : ViewModel() {
-    private val exposureNotifications = exposureRepository.flowExposureNotifications().asLiveData()
-    val hasExposures = exposureNotifications.map { it.isNotEmpty() }
+    private val exposureNotifications = exposureRepository.getExposureNotificationsFlow().asLiveData()
+    val hasExposures = exposureRepository.getIsExposedFlow().asLiveData()
     val notificationCount = exposureNotifications.map { it.size }
+    val showNotifications = exposureNotifications.map { it.isNotEmpty() }
 
     val notifications = exposureNotifications.map {
         it.map(this::createNotificationData)
@@ -56,7 +57,7 @@ class ExposureDetailViewModel @ViewModelInject constructor(
             dateTime = notification.createdDate,
             exposureRangeStart = notification.createdDate.minusDays(rangeDays),
             exposureRangeEnd = notification.createdDate.minusDays(1),
-            exposureCount = notification.exposures.size
+            exposureCount = notification.exposureCount
         )
     }
 }

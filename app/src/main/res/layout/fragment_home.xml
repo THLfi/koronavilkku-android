@@ -167,11 +167,11 @@
                             app:layout_constraintTop_toTopOf="@id/layout_home_exposure_labels"
                             app:layout_constraintEnd_toStartOf="@+id/image_home_exposure_status"
                             android:layout_marginEnd="8dp"
-                            android:text="@{model.notificationCount.toString()}"
+                            android:text="@{model.notificationCount ?? @string/home_notifications_unknown}"
                             android:visibility="@{model.hasExposures==true ? View.VISIBLE : View.GONE}"
                             style="@style/Widget.Vilkku.TextView.Badge"
                             android:backgroundTint="?attr/colorError"
-                            tools:text="16"
+                            tools:text="@string/home_notifications_unknown"
                             tools:visibility="visible"/>
 
                         <!-- visibility updated in code only if needed to prevent icon background flicker -->
