@@ -1,0 +1,102 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 4,
+    "identityHash": "ec4f84dc8edb7d2ac7a76a242ba9fa81",
+    "entities": [
+      {
+        "tableName": "key_group_token",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`token` TEXT NOT NULL, `updated_date` INTEGER NOT NULL, `matched_key_count` INTEGER, `maximum_risk_score` INTEGER, `exposure_count` INTEGER, `latest_exposure_date` INTEGER, PRIMARY KEY(`token`))",
+        "fields": [
+          {
+            "fieldPath": "token",
+            "columnName": "token",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "updatedDate",
+            "columnName": "updated_date",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "matchedKeyCount",
+            "columnName": "matched_key_count",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "maximumRiskScore",
+            "columnName": "maximum_risk_score",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "exposureCount",
+            "columnName": "exposure_count",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "latestExposureDate",
+            "columnName": "latest_exposure_date",
+            "affinity": "INTEGER",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "token"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "exposure",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `detected_date` INTEGER NOT NULL, `created_date` INTEGER NOT NULL, `total_risk_score` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "detectedDate",
+            "columnName": "detected_date",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "createdDate",
+            "columnName": "created_date",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "totalRiskScore",
+            "columnName": "total_risk_score",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'ec4f84dc8edb7d2ac7a76a242ba9fa81')"
+    ]
+  }
+}

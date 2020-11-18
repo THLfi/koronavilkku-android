@@ -39,12 +39,11 @@ class ExposureDetailViewModelTest {
 
         every { settingsRepository.appConfiguration } returns TestData.appConfig
 
-        every { exposureRepository.flowExposureNotifications() } returns flowOf(listOf(
-            ExposureNotification(notificationCreatedDate, listOf(
-                TestData.exposure(),
-                TestData.exposure()
-            ))
+        every { exposureRepository.getExposureNotificationsFlow() } returns flowOf(listOf(
+            ExposureNotification(notificationCreatedDate, 2)
         ))
+
+        every { exposureRepository.getIsExposedFlow() } returns flowOf(true)
 
         viewModel = ExposureDetailViewModel(
             exposureRepository, appStateRepository, exposureNotificationService, workDispatcher, settingsRepository

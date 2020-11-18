@@ -6,10 +6,8 @@ import android.content.Context
 import androidx.hilt.Assisted
 import androidx.hilt.work.WorkerInject
 import androidx.work.*
-import fi.thl.koronahaavi.data.AppStateRepository
-import fi.thl.koronahaavi.data.ExposureRepository
-import fi.thl.koronahaavi.data.KeyGroupToken
-import fi.thl.koronahaavi.data.SettingsRepository
+import com.google.android.gms.nearby.exposurenotification.ExposureSummary
+import fi.thl.koronahaavi.data.*
 import fi.thl.koronahaavi.service.ExposureNotificationService
 import timber.log.Timber
 
@@ -37,7 +35,8 @@ class ExposureUpdateWorker @WorkerInject constructor(
         }
 
         val summary = exposureNotificationService.getExposureSummary(token)
-        Timber.d(summary.toString())
+                .also { Timber.d(it.toString()) }
+        var exposures: List<Exposure>? = null
 
         if (summary.matchedKeyCount > 0) {
             val config = settingsRepository.requireExposureConfiguration()
@@ -49,24 +48,29 @@ class ExposureUpdateWorker @WorkerInject constructor(
                 Timber.d("High risk detected")
 
                 // this call will trigger EN system notifications
-                val exposures = exposureNotificationService.getExposureDetails(token)
+                exposures = exposureNotificationService.getExposureDetails(token).let {
+                    checker.filterExposures(it)
+                }
 
-                checker.filterExposures(exposures)
-                    .forEach { exposureRepository.saveExposure(it) }
+                exposures.forEach { exposureRepository.saveExposure(it) }
             }
         }
         else {
             Timber.i("No exposure matches found")
         }
 
-        exposureRepository.saveKeyGroupToken(KeyGroupToken(
-            token = token,
-            matchedKeyCount = summary.matchedKeyCount,
-            maximumRiskScore = summary.maximumRiskScore
-        ))
-
+        exposureRepository.saveKeyGroupToken(createKeyGroupToken(token, summary, exposures))
         return Result.success()
     }
+
+    private fun createKeyGroupToken(token: String, summary: ExposureSummary, exposures: List<Exposure>?) =
+            KeyGroupToken(
+                token = token,
+                matchedKeyCount = summary.matchedKeyCount,
+                maximumRiskScore = summary.maximumRiskScore,
+                exposureCount = exposures?.size,
+                latestExposureDate = exposures?.map { it.detectedDate }?.max()
+            )
 
     companion object {
         const val TOKEN_KEY = "token_key"
