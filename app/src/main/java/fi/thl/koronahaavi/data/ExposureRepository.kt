@@ -7,12 +7,13 @@ interface ExposureRepository {
     suspend fun saveKeyGroupToken(token: KeyGroupToken)
     fun flowHandledKeyGroupTokens(): Flow<List<KeyGroupToken>>
     suspend fun deleteKeyGroupToken(token: KeyGroupToken)
+    suspend fun deleteAllKeyGroupTokens()
     suspend fun saveExposure(exposure: Exposure)
     suspend fun getExposure(id: Long): Exposure?
     suspend fun getAllExposures(): List<Exposure>
     suspend fun deleteAllExposures()
     suspend fun deleteExpiredExposuresAndTokens()
     suspend fun deleteExposure(id: Long)
-    fun flowAllExposures(): Flow<List<Exposure>>
-    fun flowExposureNotifications(): Flow<List<ExposureNotification>>
+    fun getIsExposedFlow(): Flow<Boolean>
+    fun getExposureNotificationsFlow(): Flow<List<ExposureNotification>>
 }

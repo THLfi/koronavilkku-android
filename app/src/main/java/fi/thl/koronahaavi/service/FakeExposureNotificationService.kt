@@ -65,19 +65,19 @@ class FakeExposureNotificationService(
 
     override suspend fun getExposureSummary(token: String): ExposureSummary {
         return ExposureSummary.ExposureSummaryBuilder()
-            .setMatchedKeyCount(1)
+            .setMatchedKeyCount(Random.nextInt(1,4))
             .setMaximumRiskScore(200)
             .build()
     }
 
     override suspend fun getExposureDetails(token: String): List<Exposure> {
-        return listOf(
+        return List(Random.nextInt(1,3)) {
             Exposure(
-                detectedDate = ZonedDateTime.now().minusDays(2),
+                detectedDate = ZonedDateTime.now().minusDays(Random.nextLong(2,6)),
                 totalRiskScore = 200,
                 createdDate = ZonedDateTime.now()
             )
-        )
+        }
     }
 
     override suspend fun provideDiagnosisKeyFiles(token: String, files: List<File>, config: ExposureConfigurationData)

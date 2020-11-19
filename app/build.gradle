@@ -50,6 +50,12 @@ android {
         resConfigs "en", "fi", "sv"
 
         testInstrumentationRunner "fi.thl.koronahaavi.HaaviTestRunner"
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments += ["room.schemaLocation": "$projectDir/schemas".toString()]
+            }
+        }
     }
 
     signingConfigs {
@@ -136,6 +142,11 @@ android {
         }
     }
 
+    sourceSets {
+        // Database schema required for migration testing
+        androidTest.assets.srcDirs += files("$projectDir/schemas".toString())
+    }
+
     testOptions.unitTests.includeAndroidResources = true
 }
 
@@ -184,7 +195,6 @@ dependencies {
     implementation "androidx.room:room-runtime:$roomVersion"
     implementation "androidx.room:room-ktx:$roomVersion"
     kapt "androidx.room:room-compiler:$roomVersion"
-    testImplementation "androidx.room:room-testing:$roomVersion"
 
     // Google Play (also aar file included from libs folder)
     implementation "com.google.android.gms:play-services-base:$playVersion"
@@ -226,6 +236,7 @@ dependencies {
     kaptAndroidTest "com.google.dagger:hilt-android-compiler:$hiltVersion"
     androidTestImplementation "androidx.work:work-testing:$workVersion"
     androidTestImplementation "androidx.navigation:navigation-testing:$navigationVersion"
+    androidTestImplementation "androidx.room:room-testing:$roomVersion"
 }
 
 if (gradle.getStartParameter().getTaskRequests().toString().toLowerCase().contains("huawei")) {

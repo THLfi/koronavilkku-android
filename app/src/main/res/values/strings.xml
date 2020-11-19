@@ -53,6 +53,7 @@
     <string name="home_no_exposure_sub_label">You have not been near a person who has reported an infection</string>
     <string name="home_exposure_instructions">See instructions</string>
     <string name="home_exposure_check">Check now</string>
+    <string name="home_notifications_unknown" translatable="false">!</string>
 
     <string name="home_symptom_label">Do you think you may have COVID-19?</string>
     <string name="home_prevention_label">Protect yourself</string>
@@ -117,7 +118,7 @@
 
     <string name="exposure_detail_notifications_title">Show exposure notifications</string>
 
-    <string name="exposure_detail_instructions_title">What to do</string>
+    <string name="exposure_detail_instructions_title">What should I do?</string>
     <string name="exposure_detail_instructions_subtitle">Follow these instructions for 10 days:</string>
     <string name="exposure_detail_instructions_1">Monitor your health. If you develop any symptom consistent with COVID-19, contact your municipal healthcare service and get tested as soon as possible. Symptoms consistent with COVID-19 are change in sense of smell or taste, shortness of breath, cough, sore throat, runny nose, fever, headaches, muscle pain, unexplained diarrhoea or abdominal pain.</string>
     <string name="exposure_detail_contact_instructions_1">If you develop symptoms, get tested</string>

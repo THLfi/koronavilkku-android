@@ -182,7 +182,7 @@
                             android:layout_height="wrap_content"
                             android:hyphenationFrequency="normal"
                             android:text="@string/exposure_detail_contact_title"
-                            android:textAppearance="?attr/textAppearanceHeadline2" />
+                            android:textAppearance="?attr/textAppearanceHeadline3" />
 
                         <TextView
                             android:id="@+id/text_exposure_detail_contact_subtitle"
@@ -198,7 +198,7 @@
                             android:layout_height="wrap_content"
                             android:text="@string/exposure_detail_contact_start"
                             android:visibility="@{model.hasExposures ? View.VISIBLE : View.GONE}"
-                            tools:visibility="gone"/>
+                            tools:visibility="visible"/>
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </com.google.android.material.card.MaterialCardView>
@@ -213,6 +213,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     layout="@layout/link_item_card"
+                    android:visibility="@{model.showNotifications ? View.VISIBLE : View.GONE}"
                     app:label="@{@string/exposure_detail_notifications_title}"
                     app:link="@{@plurals/exposure_notification_count(model.notificationCount ?? 0, model.notificationCount ?? 0)}"
                     app:noLinkColor="@{true}"

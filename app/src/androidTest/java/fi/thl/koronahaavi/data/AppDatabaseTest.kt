@@ -8,6 +8,7 @@ import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
 import fi.thl.koronahaavi.TestModule
+import fi.thl.koronahaavi.TestRepositoryModule
 import fi.thl.koronahaavi.di.AppModule
 import fi.thl.koronahaavi.di.DatabaseModule
 import fi.thl.koronahaavi.di.ExposureNotificationModule
@@ -17,7 +18,7 @@ import net.sqlcipher.database.SQLiteException
 import org.junit.*
 import javax.inject.Inject
 
-@UninstallModules(AppModule::class, NetworkModule::class, ExposureNotificationModule::class)
+@UninstallModules(AppModule::class, NetworkModule::class, ExposureNotificationModule::class, TestRepositoryModule::class)
 @HiltAndroidTest
 class AppDatabaseTest {
     @get:Rule
