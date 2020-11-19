@@ -255,9 +255,19 @@
     <string name="exposure_check_error_title">Altistumistietoja ei voitu ladata</string>
     <string name="exposure_check_error_message">Altistumistietojen lataaminen ei onnistunut. Tarkista verkkoyhteys ja yritä uudelleen.</string>
 
-    <string name="share_consent_title">Tietojesi käyttö</string>
     <string name="share_consent_eu">Koronavilkun käyttäjille Suomessa sekä muiden EU-maiden kansallisten koronasovellusten käyttäjille.</string>
     <string name="share_consent_finland">Ilmoitan tartunnastani vain Koronavilkun käyttäjille Suomessa.</string>
+    <string name="share_consent_header">Kenelle haluat ilmoittaa tartunnastasi?</string>
+    <string name="share_consent_info">Ilmoitus on aina nimetön.</string>
+
+    <string name="travel_disclosure_header">Oletko matkustanut ulkomailla viimeisten 14 vuorokauden aikana?</string>
+    <string name="travel_disclosure_no">En ole matkustanut.</string>
+    <string name="travel_disclosure_yes">Olen matkustanut.</string>
+
+    <string name="country_list_title">Missä olet matkustanut?</string>
+
+    <string name="summary_consent_header">Vahvista ja lähetä</string>
+    <string name="summary_consent_continue">Syötä avauskoodisi</string>
 
     <plurals name="exposure_notification_count">
         <item quantity="one">%d ilmoitus</item>

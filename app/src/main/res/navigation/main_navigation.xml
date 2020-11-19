@@ -56,16 +56,74 @@
     <fragment
         android:id="@+id/share_consent"
         android:name="fi.thl.koronahaavi.diagnosis.ShareConsentFragment"
-        android:label="@string/share_consent_title"
         tools:layout="@layout/fragment_share_consent" >
-        <action
-            android:id="@+id/to_code_entry"
-            app:destination="@id/code_entry" />
         <argument
             android:name="code"
             app:argType="string"
             app:nullable="true"
             android:defaultValue="@null" />
+        <action
+            android:id="@+id/to_travel_disclosure"
+            app:destination="@id/travel_disclosure"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/to_summary_consent"
+            app:destination="@id/summary_consent"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/travel_disclosure"
+        android:name="fi.thl.koronahaavi.diagnosis.TravelDisclosureFragment"
+        tools:layout="@layout/fragment_travel_disclosure" >
+        <action
+            android:id="@+id/to_summary_consent"
+            app:destination="@id/summary_consent"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/to_country_list"
+            app:destination="@id/country_list"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/country_list"
+        android:name="fi.thl.koronahaavi.diagnosis.CountrySelectionListFragment"
+        android:label="@string/country_list_title"
+        tools:layout="@layout/fragment_country_selection_list" >
+        <action
+            android:id="@+id/to_summary_consent"
+            app:destination="@id/summary_consent"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/summary_consent"
+        android:name="fi.thl.koronahaavi.diagnosis.SummaryConsentFragment"
+        tools:layout="@layout/fragment_summary_consent" >
+        <action
+            android:id="@+id/to_code_entry"
+            app:destination="@id/code_entry"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
     <fragment

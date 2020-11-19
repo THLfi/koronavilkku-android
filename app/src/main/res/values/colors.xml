@@ -19,4 +19,7 @@
 
     <color name="dividerGrey">#C4C4C4</color>
 
+    <!-- opaque version of disabled button color on default veryLightBlue background -->
+    <color name="disabledButton">#CBCFD5</color>
+
 </resources>

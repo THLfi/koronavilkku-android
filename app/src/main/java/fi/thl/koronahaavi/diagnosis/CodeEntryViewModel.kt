@@ -4,6 +4,7 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.google.android.gms.common.api.Status
 import com.google.android.gms.nearby.exposurenotification.TemporaryExposureKey
+import fi.thl.koronahaavi.R
 import fi.thl.koronahaavi.common.Event
 import fi.thl.koronahaavi.data.AppStateRepository
 import fi.thl.koronahaavi.data.SettingsRepository
@@ -22,6 +23,17 @@ class CodeEntryViewModel @ViewModelInject constructor(
 
     val shareSelection = MutableLiveData<Int?>()
     val shareContinueAllowed = shareSelection.map { it != null }
+
+    val travelSelection = MutableLiveData<Int?>()
+    val travelContinueAllowed = travelSelection.map { it != null }
+
+    fun isSummaryReady() =
+        when {
+            shareSelection.value == R.id.radio_share_consent_finland -> true
+            travelSelection.value == R.id.radio_travel_no -> true
+            // .. travel info here
+            else -> false
+        }
 
     val code = MutableLiveData<String>()
 

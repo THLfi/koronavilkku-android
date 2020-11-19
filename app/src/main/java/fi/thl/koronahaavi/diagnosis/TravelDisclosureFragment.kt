@@ -8,36 +8,29 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
 import androidx.navigation.ui.setupWithNavController
 import fi.thl.koronahaavi.R
 import fi.thl.koronahaavi.common.navigateSafe
-import fi.thl.koronahaavi.databinding.FragmentShareConsentBinding
+import fi.thl.koronahaavi.databinding.FragmentTravelDisclosureBinding
 
 @AndroidEntryPoint
-class ShareConsentFragment : Fragment() {
-    private lateinit var binding: FragmentShareConsentBinding
+class TravelDisclosureFragment : Fragment() {
+    private lateinit var binding: FragmentTravelDisclosureBinding
 
     private val viewModel by viewModels<CodeEntryViewModel>()
-    private val args by navArgs<ShareConsentFragmentArgs>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val root = inflater.inflate(R.layout.fragment_share_consent, container, false)
-        binding = FragmentShareConsentBinding.bind(root).apply {
+        val root = inflater.inflate(R.layout.fragment_travel_disclosure, container, false)
+        binding = FragmentTravelDisclosureBinding.bind(root).apply {
             this.model = viewModel
         }
 
         binding.lifecycleOwner = this.viewLifecycleOwner
-
-        if (savedInstanceState == null) {
-            viewModel.code.value = args.code
-        }
-
         return binding.root
     }
 
@@ -53,7 +46,8 @@ class ShareConsentFragment : Fragment() {
 
     private fun toNextDestination(): NavDirections =
             if (viewModel.isSummaryReady())
-                ShareConsentFragmentDirections.toSummaryConsent()
+                TravelDisclosureFragmentDirections.toSummaryConsent()
             else
-                ShareConsentFragmentDirections.toTravelDisclosure()
+                TravelDisclosureFragmentDirections.toCountryList()
+
 }

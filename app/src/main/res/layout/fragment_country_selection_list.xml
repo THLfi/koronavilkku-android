@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View" />
+        <variable name="model" type="fi.thl.koronahaavi.diagnosis.CodeEntryViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include android:id="@+id/layout_toolbar" layout="@layout/toolbar"/>
+
+
+        <include
+            android:id="@+id/layout_country_list_continue"
+            layout="@layout/layout_bottom_continue_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:buttonEnabled="@{true}"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -134,6 +134,12 @@
         <item name="android:paddingBottom">10dp</item>
     </style>
 
+    <!-- Replaces default transparent background color for a disabled button with an opaque -->
+    <style name="Widget.Vilkku.Button.Opaque">
+        <!-- base style default is @color/mtrl_btn_bg_color_selector -->
+        <item name="backgroundTint">@color/button_background_opaque</item>
+    </style>
+
     <style name="Widget.Vilkku.BottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView">
         <item name="backgroundTint">?attr/colorSurface</item>
     </style>
