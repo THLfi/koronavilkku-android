@@ -1,53 +1,27 @@
 package fi.thl.koronahaavi.diagnosis
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.navigation.NavDirections
-import androidx.navigation.fragment.findNavController
+import androidx.navigation.navGraphViewModels
 import dagger.hilt.android.AndroidEntryPoint
-import androidx.navigation.ui.setupWithNavController
 import fi.thl.koronahaavi.R
-import fi.thl.koronahaavi.common.navigateSafe
-import fi.thl.koronahaavi.databinding.FragmentTravelDisclosureBinding
+import fi.thl.koronahaavi.common.ChoiceFragment
+import fi.thl.koronahaavi.common.ChoiceData
+import fi.thl.koronahaavi.common.ChoiceData.Choice
 
 @AndroidEntryPoint
-class TravelDisclosureFragment : Fragment() {
-    private lateinit var binding: FragmentTravelDisclosureBinding
-
-    private val viewModel by viewModels<CodeEntryViewModel>()
-
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val root = inflater.inflate(R.layout.fragment_travel_disclosure, container, false)
-        binding = FragmentTravelDisclosureBinding.bind(root).apply {
-            this.model = viewModel
-        }
-
-        binding.lifecycleOwner = this.viewLifecycleOwner
-        return binding.root
+class TravelDisclosureFragment : ChoiceFragment() {
+    private val viewModel by navGraphViewModels<CodeEntryViewModel>(R.id.diagnosis_share_navigation) {
+        defaultViewModelProviderFactory
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun getChoiceViewModel() = viewModel.travelSelectionModel
 
-        binding.layoutToolbar.toolbar.setupWithNavController(findNavController())
+    override val headerTextId = R.string.travel_disclosure_header
+    override val bodyTextId: Int? = null
+    override val firstChoiceTextId = R.string.travel_disclosure_no
+    override val secondChoiceTextId = R.string.travel_disclosure_yes
 
-        binding.layoutShareContentContinue.buttonContinue.setOnClickListener {
-            findNavController().navigateSafe(toNextDestination())
-        }
+    override fun getNextDirections(choice: Choice) = when (choice) {
+        Choice.FIRST -> TravelDisclosureFragmentDirections.toSummaryConsent()
+        Choice.SECOND -> TravelDisclosureFragmentDirections.toCountryList()
     }
-
-    private fun toNextDestination(): NavDirections =
-            if (viewModel.isSummaryReady())
-                TravelDisclosureFragmentDirections.toSummaryConsent()
-            else
-                TravelDisclosureFragmentDirections.toCountryList()
-
 }

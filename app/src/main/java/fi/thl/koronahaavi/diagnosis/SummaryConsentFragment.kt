@@ -7,17 +7,21 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.navGraphViewModels
 import dagger.hilt.android.AndroidEntryPoint
 import androidx.navigation.ui.setupWithNavController
 import fi.thl.koronahaavi.R
 import fi.thl.koronahaavi.common.navigateSafe
 import fi.thl.koronahaavi.databinding.FragmentSummaryConsentBinding
+import timber.log.Timber
 
 @AndroidEntryPoint
 class SummaryConsentFragment : Fragment() {
     private lateinit var binding: FragmentSummaryConsentBinding
 
-    private val viewModel by viewModels<CodeEntryViewModel>()
+    private val viewModel by navGraphViewModels<CodeEntryViewModel>(R.id.diagnosis_share_navigation) {
+        defaultViewModelProviderFactory
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,

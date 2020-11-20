@@ -1,59 +1,38 @@
 package fi.thl.koronahaavi.diagnosis
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
-import androidx.navigation.NavDirections
-import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.navigation.navGraphViewModels
 import dagger.hilt.android.AndroidEntryPoint
-import androidx.navigation.ui.setupWithNavController
 import fi.thl.koronahaavi.R
-import fi.thl.koronahaavi.common.navigateSafe
-import fi.thl.koronahaavi.databinding.FragmentShareConsentBinding
+import fi.thl.koronahaavi.common.ChoiceFragment
+import fi.thl.koronahaavi.common.ChoiceData.Choice
 
 @AndroidEntryPoint
-class ShareConsentFragment : Fragment() {
-    private lateinit var binding: FragmentShareConsentBinding
+class ShareConsentFragment : ChoiceFragment() {
+    private val viewModel by navGraphViewModels<CodeEntryViewModel>(R.id.diagnosis_share_navigation) {
+        defaultViewModelProviderFactory
+    }
 
-    private val viewModel by viewModels<CodeEntryViewModel>()
     private val args by navArgs<ShareConsentFragmentArgs>()
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val root = inflater.inflate(R.layout.fragment_share_consent, container, false)
-        binding = FragmentShareConsentBinding.bind(root).apply {
-            this.model = viewModel
-        }
-
-        binding.lifecycleOwner = this.viewLifecycleOwner
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
 
         if (savedInstanceState == null) {
             viewModel.code.value = args.code
         }
-
-        return binding.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    override fun getChoiceViewModel() = viewModel.shareConsentModel
 
-        binding.layoutToolbar.toolbar.setupWithNavController(findNavController())
+    override val headerTextId = R.string.share_consent_header
+    override val bodyTextId = R.string.share_consent_info
+    override val firstChoiceTextId = R.string.share_consent_eu
+    override val secondChoiceTextId = R.string.share_consent_finland
 
-        binding.layoutShareContentContinue.buttonContinue.setOnClickListener {
-            findNavController().navigateSafe(toNextDestination())
-        }
+    override fun getNextDirections(choice: Choice) = when (choice) {
+        Choice.FIRST -> ShareConsentFragmentDirections.toTravelDisclosure()
+        Choice.SECOND -> ShareConsentFragmentDirections.toSummaryConsent()
     }
-
-    private fun toNextDestination(): NavDirections =
-            if (viewModel.isSummaryReady())
-                ShareConsentFragmentDirections.toSummaryConsent()
-            else
-                ShareConsentFragmentDirections.toTravelDisclosure()
 }

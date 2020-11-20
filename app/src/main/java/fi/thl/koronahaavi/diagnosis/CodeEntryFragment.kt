@@ -12,6 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import androidx.navigation.navGraphViewModels
 import androidx.navigation.ui.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint
 import fi.thl.koronahaavi.R
@@ -26,9 +27,10 @@ import timber.log.Timber
 class CodeEntryFragment : Fragment() {
     private lateinit var binding: FragmentCodeEntryBinding
 
-    private val viewModel by viewModels<CodeEntryViewModel>()
+    private val viewModel by navGraphViewModels<CodeEntryViewModel>(R.id.diagnosis_share_navigation) {
+        defaultViewModelProviderFactory
+    }
     private val requestResolutionViewModel by activityViewModels<RequestResolutionViewModel>()
-    //private val args by navArgs<CodeEntryFragmentArgs>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,12 +43,6 @@ class CodeEntryFragment : Fragment() {
         }
 
         binding.lifecycleOwner = this.viewLifecycleOwner
-
-        /*
-        if (savedInstanceState == null) {
-            viewModel.code.postValue(args.code)
-        }
-         */
 
         return binding.root
     }

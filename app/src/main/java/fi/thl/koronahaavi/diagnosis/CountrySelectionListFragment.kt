@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.navGraphViewModels
 import dagger.hilt.android.AndroidEntryPoint
 import androidx.navigation.ui.setupWithNavController
 import fi.thl.koronahaavi.R
@@ -17,7 +18,9 @@ import fi.thl.koronahaavi.databinding.FragmentCountrySelectionListBinding
 class CountrySelectionListFragment : Fragment() {
     private lateinit var binding: FragmentCountrySelectionListBinding
 
-    private val viewModel by viewModels<CodeEntryViewModel>()
+    private val viewModel by navGraphViewModels<CodeEntryViewModel>(R.id.diagnosis_share_navigation) {
+        defaultViewModelProviderFactory
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
