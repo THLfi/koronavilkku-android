@@ -89,7 +89,10 @@ class MainActivityTest {
             activityRule.launchActivity(
                 Intent(Intent.ACTION_VIEW, Uri.parse("https://koronavilkku/i?$code"))
             )
-            onView(withId(R.id.text_input_edit_code_entry)).checkHasText(code)
+
+            // todo update test for share/travel flow
+            //onView(withId(R.id.text_input_edit_code_entry)).checkHasText(code)
+            onView(withId(R.id.text_choice_header)).checkIsVisible()
         }
     }
 
@@ -135,7 +138,9 @@ class MainActivityTest {
             activityRule.launchActivity(
                 Intent(Intent.ACTION_VIEW, Uri.parse("https://koronavilkku/i?$code=should_be_ignored"))
             )
-            onView(withId(R.id.text_input_edit_code_entry)).checkHasText(code)
+            // todo update test for share/travel flow
+            //onView(withId(R.id.text_input_edit_code_entry)).checkHasText(code)
+            onView(withId(R.id.text_choice_header)).checkIsVisible()
         }
     }
 
