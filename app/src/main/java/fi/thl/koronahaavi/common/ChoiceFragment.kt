@@ -50,17 +50,11 @@ abstract class ChoiceFragment : Fragment() {
 
         binding.layoutToolbar.toolbar.setupWithNavController(findNavController())
 
-        viewModel.selectedChoice.observe(viewLifecycleOwner, Observer { choice ->
-            with (binding.buttonChoiceContinue) {
-                isEnabled = if (choice != null) {
-                    val directions = getNextDirections(choice)
-                    setOnClickListener { findNavController().navigateSafe(directions) }
-                    true
-                } else {
-                    false
-                }
+        binding.buttonChoiceContinue.setOnClickListener {
+            viewModel.selectedChoice.value?.let {
+                findNavController().navigateSafe(getNextDirections(it))
             }
-        })
+        }
     }
 
     @get:StringRes abstract val headerTextId: Int

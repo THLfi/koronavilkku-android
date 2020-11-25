@@ -90,7 +90,7 @@
                 android:layout_margin="40dp"
                 style="@style/Widget.Vilkku.Button.Opaque"
                 android:text="@string/all_continue"
-                android:enabled="false"
+                android:enabled="@{model.selectedChoice != null}"
                 />
         </FrameLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
