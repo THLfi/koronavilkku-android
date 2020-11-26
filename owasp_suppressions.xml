@@ -318,4 +318,32 @@
         <sha1>88a941faf9819d371e3174b5ed56a3f3f7d73269</sha1>
         <cve>CVE-2020-26939</cve>
     </suppress>
+    <suppress>
+        <notes><![CDATA[
+   file name: jetified-kotlin-stdlib-1.4.10.jar
+   ]]></notes>
+        <sha1>ea29e063d2bbe695be13e9d044dcfb0c7add398e</sha1>
+        <cve>CVE-2020-15824</cve>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+   file name: jetified-kotlin-stdlib-common-1.4.10.jar
+   ]]></notes>
+        <sha1>6229be3465805c99db1142ad75e6c6ddeac0b04c</sha1>
+        <cve>CVE-2020-15824</cve>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+   file name: jetified-kotlin-stdlib-jdk7-1.4.10.jar
+   ]]></notes>
+        <sha1>30e46450b0bb3dbf43898d2f461be4a942784780</sha1>
+        <cve>CVE-2020-15824</cve>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+   file name: jetified-kotlin-stdlib-jdk8-1.4.10.jar
+   ]]></notes>
+        <sha1>998caa30623f73223194a8b657abd2baec4880ea</sha1>
+        <cve>CVE-2020-15824</cve>
+    </suppress>
 </suppressions>

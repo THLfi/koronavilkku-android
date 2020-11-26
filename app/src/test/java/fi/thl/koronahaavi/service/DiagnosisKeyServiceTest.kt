@@ -42,7 +42,7 @@ class DiagnosisKeyServiceTest {
         coEvery { backendService.listDiagnosisKeyBatches(any()) } returns DiagnosisKeyBatches(batches)
         coEvery { backendService.getDiagnosisKeyFile(any()) } returns "test".toResponseBody()
         every { systemOperations.createFileInCache(any()) } returns folder.newFile()
-        coEvery { backendService.getConfiguration() } returns exposureConfig
+        coEvery { backendService.getConfiguration() } returns TestData.exposureConfiguration()
         every { settingsRepository.appConfiguration } returns TestData.appConfig
 
         diagnosisKeyService = DiagnosisKeyService(backendService, appStateRepository, settingsRepository, systemOperations)
@@ -52,7 +52,7 @@ class DiagnosisKeyServiceTest {
     fun sendSuccess() {
         runBlocking {
             val sentList = slot<DiagnosisKeyList>()
-            val result = diagnosisKeyService.sendExposureKeys("1234", listOf(fakeExposureKey(), fakeExposureKey()))
+            val result = diagnosisKeyService.sendExposureKeys("1234", fakeKeyList(), listOf(), true)
             assertEquals(SendKeysResult.Success, result)
 
             coVerify { backendService.sendKeys(any(), capture(sentList)) }
@@ -66,7 +66,7 @@ class DiagnosisKeyServiceTest {
                 HttpException(Response.error<String>(403, "".toResponseBody() ))
 
         runBlocking {
-            val result = diagnosisKeyService.sendExposureKeys("1234", listOf(fakeExposureKey(), fakeExposureKey()))
+            val result = diagnosisKeyService.sendExposureKeys("1234", fakeKeyList(), listOf(), true)
             assertEquals(SendKeysResult.Unauthorized, result)
         }
     }
@@ -76,8 +76,26 @@ class DiagnosisKeyServiceTest {
         coEvery { backendService.sendKeys(any(), any()) } throws Exception()
 
         runBlocking {
-            val result = diagnosisKeyService.sendExposureKeys("1234", listOf(fakeExposureKey(), fakeExposureKey()))
+            val result = diagnosisKeyService.sendExposureKeys("1234", fakeKeyList(), listOf(), true)
             assertEquals(SendKeysResult.Failed, result)
+        }
+    }
+
+    @Test
+    fun sendVisitedCountries() {
+        every { settingsRepository.getExposureConfiguration() } returns TestData.exposureConfiguration().copy(
+            participatingCountries = listOf("aa", "bb", "cc")
+        )
+
+        runBlocking {
+            val sentData = slot<DiagnosisKeyList>()
+
+            diagnosisKeyService.sendExposureKeys("1234", fakeKeyList(), listOf("bb"), true)
+            coVerify { backendService.sendKeys(any(), capture(sentData)) }
+
+            assertEquals(BackendService.NumericBoolean.FALSE, sentData.captured.visitedCountries["aa"])
+            assertEquals(BackendService.NumericBoolean.TRUE, sentData.captured.visitedCountries["bb"])
+            assertEquals(BackendService.NumericBoolean.FALSE, sentData.captured.visitedCountries["cc"])
         }
     }
 
@@ -138,22 +156,12 @@ class DiagnosisKeyServiceTest {
         }
     }
 
+    private fun fakeKeyList() = listOf(fakeExposureKey(), fakeExposureKey())
+
     private fun fakeExposureKey() = TemporaryExposureKey.TemporaryExposureKeyBuilder()
         .setKeyData(Random.nextBytes(16))
         .setRollingPeriod(144)
         .setRollingStartIntervalNumber((Instant.now().epochSecond / 600).toInt())
         .build()
-
-    private val exposureConfig = ExposureConfigurationData(
-        version = 1,
-        minimumRiskScore = 0,
-        attenuationScores = listOf(),
-        daysSinceLastExposureScores = listOf(),
-        durationScores = listOf(),
-        transmissionRiskScoresAndroid = listOf(),
-        durationAtAttenuationThresholds = listOf(),
-        durationAtAttenuationWeights = listOf(1.0f, 0.5f, 0.0f),
-        exposureRiskDuration = 15
-    )
 }
 

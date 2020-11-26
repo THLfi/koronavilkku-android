@@ -7,7 +7,7 @@ import timber.log.Timber
 // not used at the moment, but maybe for standalone demo build or testing
 class FakeBackendService : BackendService {
 
-    override suspend fun sendKeys(token: String, data: DiagnosisKeyList, type: BackendService.RequestType) {
+    override suspend fun sendKeys(token: String, data: DiagnosisKeyList, isFake: BackendService.NumericBoolean) {
         Timber.d("Sending keys")
     }
 
@@ -29,7 +29,8 @@ class FakeBackendService : BackendService {
             transmissionRiskScoresAndroid = listOf(),
             durationAtAttenuationThresholds = listOf(),
             durationAtAttenuationWeights = listOf(1.0f, 0.5f, 0.0f),
-            exposureRiskDuration = 15
+            exposureRiskDuration = 15,
+            participatingCountries = listOf("DK", "DE", "IE", "IT", "LV", "ES")
         )
     }
 

@@ -1,6 +1,7 @@
 package fi.thl.koronahaavi.service
 
 import com.squareup.moshi.JsonClass
+import com.squareup.moshi.ToJson
 import okhttp3.ResponseBody
 import retrofit2.http.*
 
@@ -29,15 +30,21 @@ interface BackendService {
     suspend fun sendKeys(
         @Header("KV-Publish-Token") token: String,
         @Body data: DiagnosisKeyList,
-        @Header("KV-Fake-Request") type: RequestType = RequestType.REAL
+        @Header("KV-Fake-Request") isFake: NumericBoolean = NumericBoolean.FALSE
     )
 
-    enum class RequestType(val code: Int) {
-        REAL(0),
-        FAKE(1);
+    // This class is used to serialize boolean data with numbers 1 and 0, so that message
+    // byte length is the same regardless of value
+    enum class NumericBoolean(val code: Int) {
+        FALSE(0),
+        TRUE(1);
 
         override fun toString(): String {
             return code.toString()
+        }
+
+        companion object {
+            fun from(value: Boolean) = if (value) TRUE else FALSE
         }
     }
 }
@@ -63,7 +70,9 @@ data class DiagnosisKey (
 
 @JsonClass(generateAdapter = true)
 data class DiagnosisKeyList (
-    val keys: List<DiagnosisKey>
+    val keys: List<DiagnosisKey>,
+    val visitedCountries: Map<String, BackendService.NumericBoolean>,
+    val consentToShareWithEfgs: BackendService.NumericBoolean
 )
 
 @JsonClass(generateAdapter = true)
@@ -76,7 +85,8 @@ data class ExposureConfigurationData (
     val transmissionRiskScoresAndroid: List<Int>, // <- note specific to android
     val durationAtAttenuationThresholds: List<Int>,
     val durationAtAttenuationWeights: List<Float>, // decimal weights for attenuation buckets in summary
-    val exposureRiskDuration: Int
+    val exposureRiskDuration: Int,
+    val participatingCountries: List<String>? // country codes for EU interoperability
 )
 
 @JsonClass(generateAdapter = true)
@@ -91,3 +101,11 @@ data class AppConfiguration(
 data class InitialBatchId(val current: BatchId)
 
 data class DiagnosisKeyBatches(val batches: List<BatchId>)
+
+class NumericBooleanAdapter{
+    @ToJson
+    fun toJson(obj: BackendService.NumericBoolean): Int = obj.code
+
+    // this is a one-way adapter, and does not have a fromJson method
+    // since we do not need to read these values from json
+}
