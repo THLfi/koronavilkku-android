@@ -3,7 +3,7 @@ package fi.thl.koronahaavi.service
 import com.google.android.gms.nearby.exposurenotification.TemporaryExposureKey
 import fi.thl.koronahaavi.data.AppStateRepository
 import fi.thl.koronahaavi.data.SettingsRepository
-import fi.thl.koronahaavi.service.BackendService.RequestType
+import fi.thl.koronahaavi.service.BackendService.NumericBoolean
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
@@ -25,6 +25,8 @@ class DiagnosisKeyService @Inject constructor (
 ) {
     suspend fun sendExposureKeys(authCode: String,
                                  keyHistory: List<TemporaryExposureKey>,
+                                 visitedCountryCodes: List<String>,
+                                 consentToShare: Boolean,
                                  isFake: Boolean = false
     ): SendKeysResult {
         return try {
@@ -34,12 +36,14 @@ class DiagnosisKeyService @Inject constructor (
                 keys = List(numKeys) { index ->
                     keyHistory.getOrNull(index)?.toDiagnosisKey()
                         ?: createFakeKey(index) // padding
-                }
+                },
+                visitedCountries = getVisitedCountries(visitedCountryCodes),
+                consentToShareWithEfgs = NumericBoolean.from(consentToShare)
             )
 
             withContext(Dispatchers.IO) {
-                val type = if (isFake) RequestType.FAKE else RequestType.REAL
-                backendService.sendKeys(authCode, payload, type)
+                val isFakeRequest = if (isFake) NumericBoolean.TRUE else NumericBoolean.FALSE
+                backendService.sendKeys(authCode, payload, isFakeRequest)
             }
             SendKeysResult.Success
         }
@@ -54,6 +58,14 @@ class DiagnosisKeyService @Inject constructor (
             }
         }
     }
+
+    /**
+     * Creates map of country code to 1 or 0, required for json serialization
+     */
+    private fun getVisitedCountries(selectedCodes: List<String>): Map<String, NumericBoolean> =
+        settingsRepository.getExposureConfiguration()?.participatingCountries?.associateWith {
+            NumericBoolean.from(selectedCodes.contains(it))
+        } ?: mapOf()
 
     private fun TemporaryExposureKey.toDiagnosisKey() =
         DiagnosisKey(

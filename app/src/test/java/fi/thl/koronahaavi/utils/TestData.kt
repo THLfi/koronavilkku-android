@@ -5,6 +5,8 @@ import fi.thl.koronahaavi.data.OmaoloFeatures
 import fi.thl.koronahaavi.data.ServiceLanguages
 import fi.thl.koronahaavi.exposure.Municipality
 import fi.thl.koronahaavi.service.AppConfiguration
+import fi.thl.koronahaavi.service.DiagnosisKey
+import fi.thl.koronahaavi.service.ExposureConfigurationData
 import java.time.Duration
 import java.time.ZoneId
 import java.time.ZonedDateTime
@@ -41,5 +43,25 @@ object TestData {
         available = true,
         serviceLanguages = ServiceLanguages(fi = true, sv = true, en = null),
         symptomAssessmentOnly = null
+    )
+
+    fun exposureConfiguration() = ExposureConfigurationData(
+        version = 1,
+        minimumRiskScore = 100,
+        attenuationScores = listOf(),
+        daysSinceLastExposureScores = listOf(),
+        durationScores = listOf(),
+        transmissionRiskScoresAndroid = listOf(),
+        durationAtAttenuationThresholds = listOf(),
+        durationAtAttenuationWeights = listOf(1.0f, 0.5f, 0.0f),
+        exposureRiskDuration = 15,
+        participatingCountries = listOf()
+    )
+
+    fun diagnosisKey() = DiagnosisKey(
+            keyData = "xAKM/2Mlz2RvfO/wKFAzpg==",
+            transmissionRiskLevel = 5,
+            rollingPeriod = 144,
+            rollingStartIntervalNumber = 2650847
     )
 }

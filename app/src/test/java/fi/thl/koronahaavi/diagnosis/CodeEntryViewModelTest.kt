@@ -48,7 +48,7 @@ class CodeEntryViewModelTest {
 
         coEvery { exposureNotificationService.isEnabledFlow() } returns enEnabledFlow
         coEvery { exposureNotificationService.getTemporaryExposureKeys() } returns Success(listOf())
-        coEvery { diagnosisKeyService.sendExposureKeys(any(), any()) } returns SendKeysResult.Success
+        coEvery { diagnosisKeyService.sendExposureKeys(any(), any(), any(), any()) } returns SendKeysResult.Success
 
         viewModel = CodeEntryViewModel(exposureNotificationService, diagnosisKeyService, appStateRepository, workDispatcher, settingsRepository)
     }
@@ -83,7 +83,7 @@ class CodeEntryViewModelTest {
             viewModel.submit()
 
             viewModel.keyHistoryResolutionEvent().test().assertHasValue()
-            coVerify(exactly = 0) { diagnosisKeyService.sendExposureKeys(any(), any()) }
+            coVerify(exactly = 0) { diagnosisKeyService.sendExposureKeys(any(), any(), any(), any()) }
         }
     }
 
@@ -93,7 +93,7 @@ class CodeEntryViewModelTest {
             viewModel.code.postValue("1234")
             viewModel.submit()
 
-            coVerify { diagnosisKeyService.sendExposureKeys(any(), any()) }
+            coVerify { diagnosisKeyService.sendExposureKeys(any(), any(), any(), any()) }
             coVerify { appStateRepository.setDiagnosisKeysSubmitted(true) }
         }
     }

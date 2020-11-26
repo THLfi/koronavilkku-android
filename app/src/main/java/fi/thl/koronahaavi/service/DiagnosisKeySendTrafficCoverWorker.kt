@@ -25,6 +25,8 @@ class DiagnosisKeySendTrafficCoverWorker @WorkerInject constructor(
             diagnosisKeyService.sendExposureKeys(
                 authCode = DiagnosisKeyService.FAKE_TOKEN,
                 keyHistory = listOf(),
+                visitedCountryCodes = listOf(),
+                consentToShare = true,
                 isFake = true
             )
         }

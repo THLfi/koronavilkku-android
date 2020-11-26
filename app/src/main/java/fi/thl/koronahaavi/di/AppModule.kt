@@ -2,6 +2,7 @@ package fi.thl.koronahaavi.di
 
 import android.content.Context
 import android.content.SharedPreferences
+import com.squareup.moshi.Moshi
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -9,6 +10,7 @@ import dagger.hilt.android.components.ApplicationComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
 import fi.thl.koronahaavi.BuildConfig
 import fi.thl.koronahaavi.data.*
+import fi.thl.koronahaavi.service.NumericBooleanAdapter
 import fi.thl.koronahaavi.service.UserAgentInterceptor
 import fi.thl.koronahaavi.settings.UserPreferences
 import okhttp3.CertificatePinner
@@ -22,6 +24,9 @@ import javax.inject.Singleton
 
 @Qualifier
 annotation class DatabaseName
+
+@Qualifier
+annotation class BaseUrl
 
 @Module
 @InstallIn(ApplicationComponent::class)
@@ -64,13 +69,24 @@ object AppModule {
         }.build()
     }
 
+    // this allows testing with a different base url
+    @Singleton @Provides @BaseUrl
+    fun baseUrl() = BuildConfig.BASE_URL
+
     @Singleton
     @Provides
-    fun provideRetrofit(httpClient: OkHttpClient) : Retrofit {
+    fun provideRetrofit(
+        httpClient: OkHttpClient,
+        @BaseUrl baseUrl: String
+    ) : Retrofit {
+        val moshi = Moshi.Builder()
+            .add(NumericBooleanAdapter())
+            .build()
+
         return Retrofit.Builder()
-            .baseUrl(BuildConfig.BASE_URL)
+            .baseUrl(baseUrl)
             .client(httpClient)
-            .addConverterFactory(MoshiConverterFactory.create())
+            .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build()
     }
 }

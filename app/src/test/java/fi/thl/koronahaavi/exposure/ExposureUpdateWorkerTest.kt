@@ -17,7 +17,6 @@ import fi.thl.koronahaavi.data.AppStateRepository
 import fi.thl.koronahaavi.data.ExposureRepository
 import fi.thl.koronahaavi.data.KeyGroupToken
 import fi.thl.koronahaavi.data.SettingsRepository
-import fi.thl.koronahaavi.service.ExposureConfigurationData
 import fi.thl.koronahaavi.service.ExposureNotificationService
 import fi.thl.koronahaavi.utils.TestData
 import io.mockk.*
@@ -54,7 +53,7 @@ class ExposureUpdateWorkerTest {
         settingsRepository = mockk(relaxed = true)
 
         every { appStateRepository.lockedAfterDiagnosis() } returns lockedFlow
-        every { settingsRepository.requireExposureConfiguration() } returns configuration
+        every { settingsRepository.requireExposureConfiguration() } returns TestData.exposureConfiguration()
         coEvery { exposureNotificationService.isEnabled() } returns true
 
         worker = TestListenableWorkerBuilder<ExposureUpdateWorker>(context)
@@ -169,16 +168,4 @@ class ExposureUpdateWorkerTest {
                 exposureRepository, appStateRepository, settingsRepository)
         }
     }
-
-    private val configuration = ExposureConfigurationData(
-        version = 1,
-        minimumRiskScore = 100,
-        attenuationScores = listOf(),
-        daysSinceLastExposureScores = listOf(),
-        durationScores = listOf(),
-        transmissionRiskScoresAndroid = listOf(),
-        durationAtAttenuationThresholds = listOf(),
-        durationAtAttenuationWeights = listOf(1.0f, 0.5f, 0.0f),
-        exposureRiskDuration = 15
-    )
 }
