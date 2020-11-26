@@ -5,6 +5,7 @@ import androidx.lifecycle.*
 import com.google.android.gms.common.api.Status
 import com.google.android.gms.nearby.exposurenotification.TemporaryExposureKey
 import fi.thl.koronahaavi.common.ChoiceData
+import fi.thl.koronahaavi.common.ChoiceData.Choice
 import fi.thl.koronahaavi.common.Event
 import fi.thl.koronahaavi.data.AppStateRepository
 import fi.thl.koronahaavi.data.SettingsRepository
@@ -21,11 +22,11 @@ class CodeEntryViewModel @ViewModelInject constructor(
     private val settingsRepository: SettingsRepository
 ) : ViewModel() {
 
-    val shareConsentModel = ChoiceData()
-    val travelSelectionModel = ChoiceData()
+    val shareConsentModel = ChoiceData(Choice.FIRST)
+    val travelSelectionModel = ChoiceData(Choice.SECOND)
 
-    fun shareToEU() = shareConsentModel.selectedChoice.map { it == ChoiceData.Choice.FIRST }
-    fun hasTraveled() = travelSelectionModel.selectedChoice.map { it == ChoiceData.Choice.SECOND }
+    fun shareToEU() = shareConsentModel.selectedPositive
+    fun hasTraveled() = travelSelectionModel.selectedPositive
 
     val code = MutableLiveData<String>()
 
@@ -112,7 +113,8 @@ class CodeEntryViewModel @ViewModelInject constructor(
         // todo replace with actual UI selections
         val selectedCountries = settingsRepository.getExposureConfiguration()?.participatingCountries?.take(2)
             ?: listOf()
-        val consentToShare = true
+        val consentToShare = shareConsentModel.isPositive()
+            ?: false
 
         when (diagnosisKeyService.sendExposureKeys(
             authCode = authCode,
