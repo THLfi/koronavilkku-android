@@ -11,6 +11,7 @@ import androidx.work.WorkerParameters
 import androidx.work.testing.TestListenableWorkerBuilder
 import fi.thl.koronahaavi.data.AppStateRepository
 import fi.thl.koronahaavi.data.ExposureRepository
+import fi.thl.koronahaavi.utils.TestData
 import io.mockk.*
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.runBlocking
@@ -187,15 +188,5 @@ class DiagnosisKeyUpdateWorkerTest {
         }
     }
 
-    private val exposureConfig = ExposureConfigurationData(
-        version = 1,
-        minimumRiskScore = 0,
-        attenuationScores = listOf(),
-        daysSinceLastExposureScores = listOf(),
-        durationScores = listOf(),
-        transmissionRiskScoresAndroid = listOf(),
-        durationAtAttenuationThresholds = listOf(),
-        durationAtAttenuationWeights = listOf(1.0f, 0.5f, 0.0f),
-        exposureRiskDuration = 15
-    )
+    private val exposureConfig = TestData.exposureConfiguration()
 }

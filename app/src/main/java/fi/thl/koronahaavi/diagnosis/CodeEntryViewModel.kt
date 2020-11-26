@@ -17,7 +17,7 @@ class CodeEntryViewModel @ViewModelInject constructor(
     private val diagnosisKeyService: DiagnosisKeyService,
     private val appStateRepository: AppStateRepository,
     private val workDispatcher: WorkDispatcher,
-    settingsRepository: SettingsRepository
+    private val settingsRepository: SettingsRepository
 ) : ViewModel() {
 
     val code = MutableLiveData<String>()
@@ -102,7 +102,17 @@ class CodeEntryViewModel @ViewModelInject constructor(
     }
 
     private suspend fun sendKeys(authCode: String, keys: List<TemporaryExposureKey>) {
-        when (diagnosisKeyService.sendExposureKeys(authCode, keys)) {
+        // todo replace with actual UI selections
+        val selectedCountries = settingsRepository.getExposureConfiguration()?.participatingCountries?.take(2)
+            ?: listOf()
+        val consentToShare = true
+
+        when (diagnosisKeyService.sendExposureKeys(
+            authCode = authCode,
+            keyHistory = keys,
+            visitedCountryCodes = selectedCountries,
+            consentToShare = consentToShare
+        )) {
             is SendKeysResult.Success -> {
                 // stop observing locked state since we are about to lock the app, and error
                 // might have time to show in UI before navigating away
