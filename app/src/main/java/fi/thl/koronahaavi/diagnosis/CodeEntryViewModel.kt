@@ -13,6 +13,7 @@ import fi.thl.koronahaavi.service.*
 import fi.thl.koronahaavi.service.ExposureNotificationService.ResolvableResult.*
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import java.util.*
 
 class CodeEntryViewModel @ViewModelInject constructor(
     private val exposureNotificationService: ExposureNotificationService,
@@ -22,11 +23,33 @@ class CodeEntryViewModel @ViewModelInject constructor(
     private val settingsRepository: SettingsRepository
 ) : ViewModel() {
 
-    val shareConsentModel = ChoiceData(Choice.FIRST)
-    val travelSelectionModel = ChoiceData(Choice.SECOND)
+    val shareConsentModel = ChoiceData(positiveChoice = Choice.FIRST)
+    val travelSelectionModel = ChoiceData(positiveChoice = Choice.SECOND)
 
     fun shareToEU() = shareConsentModel.selectedPositive
     fun hasTraveled() = travelSelectionModel.selectedPositive
+
+    private val allCountries = settingsRepository.getExposureConfiguration()?.participatingCountries
+    private val selectedCountries = MutableLiveData<Set<String>>(setOf())
+
+    val countries: LiveData<List<CountryData>> = selectedCountries.map { selected ->
+        allCountries?.map { code ->
+            CountryData(
+                code = code,
+                name = Locale("", code).getDisplayCountry(Locale.getDefault()),
+                isSelected = selected.contains(code)
+            )
+        } ?: listOf()
+    }
+
+    fun setCountrySelection(code: String, isSelected: Boolean) {
+        selectedCountries.postValue(
+            if (isSelected)
+                setOf(code).union(selectedCountries.value ?: setOf())
+            else
+                selectedCountries.value?.minus(code)
+        )
+    }
 
     val code = MutableLiveData<String>()
 
@@ -142,6 +165,12 @@ class CodeEntryViewModel @ViewModelInject constructor(
         }
     }
 }
+
+data class CountryData(
+    val code: String,
+    val name: String,
+    val isSelected: Boolean
+)
 
 sealed class CodeEntryError {
     object Auth : CodeEntryError()

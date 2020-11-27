@@ -5,22 +5,29 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import dagger.hilt.android.AndroidEntryPoint
 import androidx.navigation.ui.setupWithNavController
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.ListAdapter
+import androidx.recyclerview.widget.RecyclerView
 import fi.thl.koronahaavi.R
 import fi.thl.koronahaavi.common.navigateSafe
 import fi.thl.koronahaavi.databinding.FragmentCountrySelectionListBinding
+import fi.thl.koronahaavi.databinding.ItemCountryBinding
 
 @AndroidEntryPoint
-class CountrySelectionListFragment : Fragment() {
+class CountrySelectionListFragment : Fragment(), CountryItemListener {
     private lateinit var binding: FragmentCountrySelectionListBinding
 
     private val viewModel by navGraphViewModels<CodeEntryViewModel>(R.id.diagnosis_share_navigation) {
         defaultViewModelProviderFactory
     }
+
+    private val listAdapter by lazy { CountryAdapter(this) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -39,10 +46,67 @@ class CountrySelectionListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding.layoutToolbar.toolbar.setupWithNavController(findNavController())
+        with (binding) {
+            layoutToolbar.toolbar.setupWithNavController(findNavController())
 
-        binding.layoutCountryListContinue.buttonContinue.setOnClickListener {
-            findNavController().navigateSafe(CountrySelectionListFragmentDirections.toSummaryConsent())
+            recyclerviewCountrySelection.apply {
+                adapter = listAdapter
+                layoutManager = LinearLayoutManager(context)
+            }
+
+            buttonCountrySelectionContinue.setOnClickListener {
+                findNavController().navigateSafe(CountrySelectionListFragmentDirections.toSummaryConsent())
+            }
+        }
+
+        viewModel.countries.observe(viewLifecycleOwner, Observer {
+            // todo handle empty list
+            listAdapter.submitList(it)
+        })
+    }
+
+    override fun onSelectedChanged(c: CountryData, isSelected: Boolean) {
+        viewModel.setCountrySelection(c.code, isSelected)
+    }
+}
+
+interface CountryItemListener {
+    fun onSelectedChanged(c: CountryData, isSelected: Boolean)
+}
+
+class CountryAdapter(private val itemListener: CountryItemListener)
+    : ListAdapter<CountryData, CountryViewHolder>(CountryItemDiff()) {
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CountryViewHolder {
+        val inflater = LayoutInflater.from(parent.context)
+        val binding = ItemCountryBinding.inflate(inflater, parent, false)
+        return CountryViewHolder(binding)
+    }
+
+    override fun onBindViewHolder(holder: CountryViewHolder, position: Int) {
+        holder.bind(getItem(position), itemListener)
+    }
+
+    class CountryItemDiff : DiffUtil.ItemCallback<CountryData>() {
+        override fun areItemsTheSame(oldItem: CountryData, newItem: CountryData)
+                = oldItem.code == newItem.code
+
+        override fun areContentsTheSame(oldItem: CountryData, newItem: CountryData)
+                = oldItem == newItem
+    }
+}
+
+class CountryViewHolder(val binding: ItemCountryBinding)
+    : RecyclerView.ViewHolder(binding.root) {
+
+    fun bind(data: CountryData, itemListener: CountryItemListener) {
+        with (binding) {
+            label = data.name
+            selected = data.isSelected
+
+            checkboxCountry.setOnClickListener {
+                itemListener.onSelectedChanged(data, checkboxCountry.isChecked)
+            }
         }
     }
 }
