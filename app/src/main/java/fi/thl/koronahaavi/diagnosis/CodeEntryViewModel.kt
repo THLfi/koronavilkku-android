@@ -31,6 +31,7 @@ class CodeEntryViewModel @ViewModelInject constructor(
 
     private val allCountries = settingsRepository.getExposureConfiguration()?.participatingCountries
     private val selectedCountries = MutableLiveData<Set<String>>(setOf())
+    val otherCountrySelected = MutableLiveData<Boolean>()
 
     val countries: LiveData<List<CountryData>> = selectedCountries.map { selected ->
         allCountries?.map { code ->

@@ -273,7 +273,9 @@
     <string name="summary_consent_travel_header">Matkustustiedot</string>
     <string name="summary_consent_travel_body">Olet matkustanut viimeisten 14 vuorokauden aikana näiden maiden alueilla:</string>
     <string name="summary_consent_travel_body_none">Et ole matkustanut viimeisten 14 vuorokauden aikana ulkomailla.</string>
+
     <string name="country_selection_body">Minkä maiden alueilla olet matkustanut viimeisten 14 vuorokauden aikana? Jos matkustusmaasi ei ole listalla, valitse Muu.</string>
+    <string name="country_selection_other">Muu / En halua kertoa</string>
 
     <plurals name="exposure_notification_count">
         <item quantity="one">%d ilmoitus</item>

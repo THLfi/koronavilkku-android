@@ -39,7 +39,21 @@
                     android:clipToPadding="false"
                     android:overScrollMode="never"
                     tools:listitem="@layout/item_country"
-                    tools:itemCount="8"
+                    tools:itemCount="3"
+                    />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="?android:attr/listDivider"
+                    />
+                <include layout="@layout/item_country"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    app:label="@{@string/country_selection_other}"
+                    app:selected="@={model.otherCountrySelected}"
                     />
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/button_country_selection_continue"
@@ -50,6 +64,5 @@
                     />
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
-
     </LinearLayout>
 </layout>
