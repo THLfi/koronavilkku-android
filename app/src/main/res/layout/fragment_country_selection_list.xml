@@ -38,7 +38,7 @@
                     android:paddingHorizontal="20dp"
                     android:clipToPadding="false"
                     android:overScrollMode="never"
-                    tools:listitem="@layout/item_country"
+                    tools:listitem="@layout/item_country_select"
                     tools:itemCount="3"
                     />
                 <View
@@ -48,7 +48,7 @@
                     android:layout_marginBottom="20dp"
                     android:background="?android:attr/listDivider"
                     />
-                <include layout="@layout/item_country"
+                <include layout="@layout/item_country_select"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="20dp"

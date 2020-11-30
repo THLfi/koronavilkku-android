@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import fi.thl.koronahaavi.R
 import fi.thl.koronahaavi.common.navigateSafe
 import fi.thl.koronahaavi.databinding.FragmentCountrySelectionListBinding
-import fi.thl.koronahaavi.databinding.ItemCountryBinding
+import fi.thl.koronahaavi.databinding.ItemCountrySelectBinding
 
 @AndroidEntryPoint
 class CountrySelectionListFragment : Fragment(), CountryItemListener {
@@ -79,7 +79,7 @@ class CountryAdapter(private val itemListener: CountryItemListener)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CountryViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = ItemCountryBinding.inflate(inflater, parent, false)
+        val binding = ItemCountrySelectBinding.inflate(inflater, parent, false)
         return CountryViewHolder(binding)
     }
 
@@ -96,7 +96,7 @@ class CountryAdapter(private val itemListener: CountryItemListener)
     }
 }
 
-class CountryViewHolder(val binding: ItemCountryBinding)
+class CountryViewHolder(val binding: ItemCountrySelectBinding)
     : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(data: CountryData, itemListener: CountryItemListener) {

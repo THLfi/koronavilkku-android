@@ -7,6 +7,7 @@ import com.google.android.gms.nearby.exposurenotification.TemporaryExposureKey
 import fi.thl.koronahaavi.common.ChoiceData
 import fi.thl.koronahaavi.common.ChoiceData.Choice
 import fi.thl.koronahaavi.common.Event
+import fi.thl.koronahaavi.common.combineWith
 import fi.thl.koronahaavi.data.AppStateRepository
 import fi.thl.koronahaavi.data.SettingsRepository
 import fi.thl.koronahaavi.service.*
@@ -50,6 +51,17 @@ class CodeEntryViewModel @ViewModelInject constructor(
             else
                 selectedCountries.value?.minus(code)
         )
+    }
+
+    val summaryShowCountries = shareToEU().combineWith(hasTraveled()) { share , travel ->
+        share == true && travel == true
+    }
+
+    val dataUseAccepted = MutableLiveData<Boolean>()
+    val dataShareAccepted = MutableLiveData<Boolean>()
+
+    val summaryContinueAllowed = dataUseAccepted.combineWith(dataShareAccepted, shareToEU()) { useAccepted, shareAccepted, shareSelected ->
+        useAccepted == true && (shareAccepted == true || shareSelected == false)
     }
 
     val code = MutableLiveData<String>()

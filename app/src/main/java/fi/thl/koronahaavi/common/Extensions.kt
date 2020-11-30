@@ -16,6 +16,8 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.res.use
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MediatorLiveData
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -83,4 +85,39 @@ fun View.fadeGone(duration: Long = 1000) {
                 visibility = View.GONE
             }
         })
+}
+
+/**
+ * Creates a MediatorLiveData that is updated with given block
+ */
+fun <T, S, R> LiveData<T>.combineWith(
+        liveData: LiveData<S>,
+        block: (T?, S?) -> R
+): LiveData<R> {
+    val result = MediatorLiveData<R>()
+    result.addSource(this) {
+        result.value = block(this.value, liveData.value)
+    }
+    result.addSource(liveData) {
+        result.value = block(this.value, liveData.value)
+    }
+    return result
+}
+
+fun <T, S, U, R> LiveData<T>.combineWith(
+        liveData1: LiveData<S>,
+        liveData2: LiveData<U>,
+        block: (T?, S?, U?) -> R
+): LiveData<R> {
+    val result = MediatorLiveData<R>()
+    result.addSource(this) {
+        result.value = block(this.value, liveData1.value, liveData2.value)
+    }
+    result.addSource(liveData1) {
+        result.value = block(this.value, liveData1.value, liveData2.value)
+    }
+    result.addSource(liveData2) {
+        result.value = block(this.value, liveData1.value, liveData2.value)
+    }
+    return result
 }

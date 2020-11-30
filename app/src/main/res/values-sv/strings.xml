@@ -265,6 +265,8 @@
     <string name="travel_disclosure_yes">Olen matkustanut.</string>
 
     <string name="country_list_title">Missä olet matkustanut?</string>
+    <string name="country_selection_body">Minkä maiden alueilla olet matkustanut viimeisten 14 vuorokauden aikana? Jos matkustusmaasi ei ole listalla, valitse Muu.</string>
+    <string name="country_selection_other">Muu / En halua kertoa</string>
 
     <string name="summary_consent_header">Vahvista ja lähetä</string>
     <string name="summary_consent_continue">Syötä avauskoodisi</string>
@@ -273,9 +275,10 @@
     <string name="summary_consent_travel_header">Matkustustiedot</string>
     <string name="summary_consent_travel_body">Olet matkustanut viimeisten 14 vuorokauden aikana näiden maiden alueilla:</string>
     <string name="summary_consent_travel_body_none">Et ole matkustanut viimeisten 14 vuorokauden aikana ulkomailla.</string>
-
-    <string name="country_selection_body">Minkä maiden alueilla olet matkustanut viimeisten 14 vuorokauden aikana? Jos matkustusmaasi ei ole listalla, valitse Muu.</string>
-    <string name="country_selection_other">Muu / En halua kertoa</string>
+    <string name="summary_consent_accept_header">Suostumus</string>
+    <string name="summary_consent_accept_use">Kohtaamistietoni sekä tiedon todennäköisestä tartuttavuusajastani saa luovuttaa Koronavilkku-sovelluksen käyttöön tartuntaketjujen katkaisemiseksi.  Annan suostumukseni vapaaehtoisesti. Minulta ei ole vaadittu suostumusta terveydenhuollon asiakaspalvelutilanteessa eikä viranomaismenettelyssä.</string>
+    <string name="summary_consent_accept_share">Kohtaamistietoni, edellä valitsemani matkustustiedot sekä tiedon todennäköisestä tartuttavuusajastani saa luovuttaa EU- ja Eta-maiden sekä Sveitsin koronasovellusten käyttöön tartuntaketjujen katkaisemiseksi.</string>
+    <string name="summary_consent_no_cancellation">Et voi peruuttaa antamaasi suostumusta sen jälkeen, kun olet lähettänyt tiedot.</string>
 
     <plurals name="exposure_notification_count">
         <item quantity="one">%d meddelande</item>

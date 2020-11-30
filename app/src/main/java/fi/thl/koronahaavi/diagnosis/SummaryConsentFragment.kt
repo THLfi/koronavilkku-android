@@ -5,7 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navGraphViewModels
 import dagger.hilt.android.AndroidEntryPoint
@@ -13,7 +13,7 @@ import androidx.navigation.ui.setupWithNavController
 import fi.thl.koronahaavi.R
 import fi.thl.koronahaavi.common.navigateSafe
 import fi.thl.koronahaavi.databinding.FragmentSummaryConsentBinding
-import timber.log.Timber
+import fi.thl.koronahaavi.databinding.ItemCountryBulletBinding
 
 @AndroidEntryPoint
 class SummaryConsentFragment : Fragment() {
@@ -46,5 +46,32 @@ class SummaryConsentFragment : Fragment() {
         binding.buttonSummaryConsentContinue.setOnClickListener {
             findNavController().navigateSafe(SummaryConsentFragmentDirections.toCodeEntry())
         }
+
+        viewModel.countries.observe(viewLifecycleOwner, Observer { allCountries ->
+            updateCountryBullets(allCountries.filter { it.isSelected })
+        })
+    }
+
+    private fun updateCountryBullets(selectedCountries: List<CountryData>) {
+        if (viewModel.summaryShowCountries.value == false) {
+            return
+        }
+
+        binding.layoutSummaryConsentCountries.removeAllViews()
+
+        selectedCountries.forEach { addCountryBullet(it.name) }
+
+        // view model should have a valid value for this selection, since it is selected in a previous fragment
+        if (viewModel.otherCountrySelected.value == true) {
+            addCountryBullet(getString(R.string.country_selection_other))
+        }
+    }
+
+    private fun addCountryBullet(label: String) {
+        binding.layoutSummaryConsentCountries.addView(
+            ItemCountryBulletBinding.inflate(layoutInflater, binding.layoutSummaryConsentCountries, false)
+                    .apply { root.text = label }
+                    .root
+        )
     }
 }

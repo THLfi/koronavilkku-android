@@ -25,13 +25,14 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingHorizontal="20dp"
+                android:clipToPadding="false"
                 android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/summary_consent_header"
-                    android:layout_marginHorizontal="20dp"
                     android:layout_marginVertical="10dp"
                     android:textAppearance="?attr/textAppearanceHeadline3"
                     />
@@ -40,7 +41,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@{model.shareToEU() ? @string/summary_consent_body_eu : @string/summary_consent_body_finland}"
-                    android:layout_marginHorizontal="20dp"
                     android:textAppearance="?attr/textAppearanceBody2"
                     tools:text="@string/summary_consent_body_eu"
                     />
@@ -49,7 +49,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/summary_consent_travel_header"
-                    android:layout_marginHorizontal="20dp"
                     android:layout_marginTop="20dp"
                     android:textAppearance="?attr/textAppearanceHeadline4"
                     android:visibility="@{model.shareToEU() ? View.VISIBLE : View.GONE}"
@@ -59,19 +58,83 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@{model.hasTraveled() ? @string/summary_consent_travel_body : @string/summary_consent_travel_body_none}"
-                    android:layout_marginHorizontal="20dp"
                     android:layout_marginTop="10dp"
                     android:textAppearance="?attr/textAppearanceBody2"
                     android:visibility="@{model.shareToEU() ? View.VISIBLE : View.GONE}"
                     tools:text="@string/summary_consent_travel_body"
+                    />
+                <LinearLayout
+                    android:id="@+id/layout_summary_consent_countries"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="@{model.summaryShowCountries ? View.VISIBLE : View.GONE}"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/summary_consent_accept_header"
+                    android:textAppearance="?attr/textAppearanceHeadline4"
+                    />
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp">
+
+                    <com.google.android.material.checkbox.MaterialCheckBox
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginVertical="20dp"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="0dp"
+                        android:gravity="top"
+                        android:checked="@={model.dataUseAccepted}"
+                        android:text="@string/summary_consent_accept_use"
+                        android:textColor="@color/textDarkGrey"
+                        />
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:visibility="@{model.shareToEU() ? View.VISIBLE : View.GONE}">
+
+                    <com.google.android.material.checkbox.MaterialCheckBox
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginVertical="20dp"
+                        android:paddingStart="8dp"
+                        android:paddingEnd="0dp"
+                        android:gravity="top"
+                        android:checked="@={model.dataShareAccepted}"
+                        android:text="@string/summary_consent_accept_share"
+                        android:textColor="@color/textDarkGrey"
+                        />
+                </com.google.android.material.card.MaterialCardView>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/summary_consent_no_cancellation"
+                    android:textAppearance="?attr/textAppearanceBody2"
+                    android:textColor="@color/textDarkGrey"
+                    android:gravity="center"
                     />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/button_summary_consent_continue"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="40dp"
+                    android:layout_marginVertical="20dp"
                     android:text="@string/summary_consent_continue"
+                    android:enabled="@{model.summaryContinueAllowed}"
                     />
 
             </LinearLayout>
