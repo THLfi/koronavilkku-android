@@ -13,7 +13,7 @@ class TravelDisclosureFragment : ChoiceFragment() {
         defaultViewModelProviderFactory
     }
 
-    override fun getChoiceViewModel() = viewModel.travelSelectionModel
+    override fun getChoiceViewModel() = viewModel.shareData.travelInfoChoice
 
     override val headerTextId = R.string.travel_disclosure_header
     override val bodyTextId: Int? = null

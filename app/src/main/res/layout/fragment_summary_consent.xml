@@ -5,7 +5,7 @@
 
     <data>
         <import type="android.view.View" />
-        <variable name="model" type="fi.thl.koronahaavi.diagnosis.CodeEntryViewModel" />
+        <variable name="model" type="fi.thl.koronahaavi.diagnosis.ShareTravelChoiceData" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

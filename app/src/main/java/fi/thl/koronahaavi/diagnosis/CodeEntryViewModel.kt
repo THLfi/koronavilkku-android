@@ -4,65 +4,24 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.google.android.gms.common.api.Status
 import com.google.android.gms.nearby.exposurenotification.TemporaryExposureKey
-import fi.thl.koronahaavi.common.ChoiceData
-import fi.thl.koronahaavi.common.ChoiceData.Choice
 import fi.thl.koronahaavi.common.Event
-import fi.thl.koronahaavi.common.combineWith
 import fi.thl.koronahaavi.data.AppStateRepository
 import fi.thl.koronahaavi.data.SettingsRepository
 import fi.thl.koronahaavi.service.*
 import fi.thl.koronahaavi.service.ExposureNotificationService.ResolvableResult.*
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import java.util.*
 
 class CodeEntryViewModel @ViewModelInject constructor(
     private val exposureNotificationService: ExposureNotificationService,
     private val diagnosisKeyService: DiagnosisKeyService,
     private val appStateRepository: AppStateRepository,
     private val workDispatcher: WorkDispatcher,
-    private val settingsRepository: SettingsRepository
+    settingsRepository: SettingsRepository
 ) : ViewModel() {
 
-    val shareConsentModel = ChoiceData(positiveChoice = Choice.FIRST)
-    val travelSelectionModel = ChoiceData(positiveChoice = Choice.SECOND)
-
-    fun shareToEU() = shareConsentModel.selectedPositive
-    fun hasTraveled() = travelSelectionModel.selectedPositive
-
-    private val allCountries = settingsRepository.getExposureConfiguration()?.participatingCountries
-    private val selectedCountries = MutableLiveData<Set<String>>(setOf())
-    val otherCountrySelected = MutableLiveData<Boolean>()
-
-    val countries: LiveData<List<CountryData>> = selectedCountries.map { selected ->
-        allCountries?.map { code ->
-            CountryData(
-                code = code,
-                name = Locale("", code).getDisplayCountry(Locale.getDefault()),
-                isSelected = selected.contains(code)
-            )
-        } ?: listOf()
-    }
-
-    fun setCountrySelection(code: String, isSelected: Boolean) {
-        selectedCountries.postValue(
-            if (isSelected)
-                setOf(code).union(selectedCountries.value ?: setOf())
-            else
-                selectedCountries.value?.minus(code)
-        )
-    }
-
-    val summaryShowCountries = shareToEU().combineWith(hasTraveled()) { share , travel ->
-        share == true && travel == true
-    }
-
-    val dataUseAccepted = MutableLiveData<Boolean>()
-    val dataShareAccepted = MutableLiveData<Boolean>()
-
-    val summaryContinueAllowed = dataUseAccepted.combineWith(dataShareAccepted, shareToEU()) { useAccepted, shareAccepted, shareSelected ->
-        useAccepted == true && (shareAccepted == true || shareSelected == false)
-    }
+    // live data elements for EU data share and travel information UI flow
+    val shareData = ShareTravelChoiceData(settingsRepository)
 
     val code = MutableLiveData<String>()
 
@@ -146,10 +105,9 @@ class CodeEntryViewModel @ViewModelInject constructor(
     }
 
     private suspend fun sendKeys(authCode: String, keys: List<TemporaryExposureKey>) {
-        // todo replace with actual UI selections
-        val selectedCountries = settingsRepository.getExposureConfiguration()?.participatingCountries?.take(2)
+        val selectedCountries = shareData.selectedCountries().value?.toList()
             ?: listOf()
-        val consentToShare = shareConsentModel.isPositive()
+        val consentToShare = shareData.consentChoice.isPositive()
             ?: false
 
         when (diagnosisKeyService.sendExposureKeys(
@@ -178,12 +136,6 @@ class CodeEntryViewModel @ViewModelInject constructor(
         }
     }
 }
-
-data class CountryData(
-    val code: String,
-    val name: String,
-    val isSelected: Boolean
-)
 
 sealed class CodeEntryError {
     object Auth : CodeEntryError()

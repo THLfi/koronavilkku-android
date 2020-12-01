@@ -36,7 +36,7 @@ class CountrySelectionListFragment : Fragment(), CountryItemListener {
     ): View? {
         val root = inflater.inflate(R.layout.fragment_country_selection_list, container, false)
         binding = FragmentCountrySelectionListBinding.bind(root).apply {
-            this.model = viewModel
+            this.model = viewModel.shareData
         }
 
         binding.lifecycleOwner = this.viewLifecycleOwner
@@ -59,14 +59,13 @@ class CountrySelectionListFragment : Fragment(), CountryItemListener {
             }
         }
 
-        viewModel.countries.observe(viewLifecycleOwner, Observer {
-            // todo handle empty list
+        viewModel.shareData.countries.observe(viewLifecycleOwner, Observer {
             listAdapter.submitList(it)
         })
     }
 
     override fun onSelectedChanged(c: CountryData, isSelected: Boolean) {
-        viewModel.setCountrySelection(c.code, isSelected)
+        viewModel.shareData.setCountrySelection(c.code, isSelected)
     }
 }
 

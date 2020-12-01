@@ -24,7 +24,7 @@ class ShareConsentFragment : ChoiceFragment() {
         }
     }
 
-    override fun getChoiceViewModel() = viewModel.shareConsentModel
+    override fun getChoiceViewModel() = viewModel.shareData.consentChoice
 
     override val headerTextId = R.string.share_consent_header
     override val bodyTextId = R.string.share_consent_info

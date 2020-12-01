@@ -30,7 +30,7 @@ class SummaryConsentFragment : Fragment() {
     ): View? {
         val root = inflater.inflate(R.layout.fragment_summary_consent, container, false)
         binding = FragmentSummaryConsentBinding.bind(root).apply {
-            this.model = viewModel
+            this.model = viewModel.shareData
         }
 
         binding.lifecycleOwner = this.viewLifecycleOwner
@@ -47,13 +47,13 @@ class SummaryConsentFragment : Fragment() {
             findNavController().navigateSafe(SummaryConsentFragmentDirections.toCodeEntry())
         }
 
-        viewModel.countries.observe(viewLifecycleOwner, Observer { allCountries ->
+        viewModel.shareData.countries.observe(viewLifecycleOwner, Observer { allCountries ->
             updateCountryBullets(allCountries.filter { it.isSelected })
         })
     }
 
     private fun updateCountryBullets(selectedCountries: List<CountryData>) {
-        if (viewModel.summaryShowCountries.value == false) {
+        if (viewModel.shareData.summaryShowCountries.value == false) {
             return
         }
 
@@ -62,7 +62,7 @@ class SummaryConsentFragment : Fragment() {
         selectedCountries.forEach { addCountryBullet(it.name) }
 
         // view model should have a valid value for this selection, since it is selected in a previous fragment
-        if (viewModel.otherCountrySelected.value == true) {
+        if (viewModel.shareData.otherCountrySelected.value == true) {
             addCountryBullet(getString(R.string.country_selection_other))
         }
     }
