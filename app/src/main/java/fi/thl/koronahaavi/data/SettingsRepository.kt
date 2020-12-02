@@ -33,11 +33,11 @@ class SettingsRepository @Inject constructor (
         appConfiguration = defaultAppConfig
     }
 
-    fun getExposureConfiguration(): ExposureConfigurationData? = exposureConfiguration
+    fun getExposureConfiguration(): ExposureConfigurationData? =
+        exposureConfiguration ?: loadExposureConfig()
 
     fun requireExposureConfiguration() : ExposureConfigurationData =
-        exposureConfiguration ?:
-        loadExposureConfig() ?:
+        exposureConfiguration ?: loadExposureConfig() ?:
         throw Exception("exposure configuration not available")
 
     fun updateExposureConfiguration(config: ExposureConfigurationData) {

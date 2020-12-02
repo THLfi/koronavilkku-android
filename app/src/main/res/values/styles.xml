@@ -134,6 +134,12 @@
         <item name="android:paddingBottom">10dp</item>
     </style>
 
+    <!-- Replaces default transparent background color for a disabled button with an opaque -->
+    <style name="Widget.Vilkku.Button.Opaque">
+        <!-- base style default is @color/mtrl_btn_bg_color_selector -->
+        <item name="backgroundTint">@color/button_background_opaque</item>
+    </style>
+
     <style name="Widget.Vilkku.BottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView">
         <item name="backgroundTint">?attr/colorSurface</item>
     </style>
@@ -270,6 +276,23 @@
 
     <style name="Widget.Vilkku.Checkbox" parent="Widget.AppCompat.CompoundButton.CheckBox">
         <item name="android:buttonTint">?attr/colorPrimary</item>
+        <item name="android:textAppearance">?attr/textAppearanceBody2</item>
+    </style>
+
+    <style name="Widget.Vilkku.RadioButton.Card" parent="@style/Widget.MaterialComponents.CompoundButton.RadioButton">
+        <!-- custom radio icon uses an inset to add a left margin -->
+        <item name="android:button">@drawable/radio_button_card_offset</item>
+        <item name="buttonTint">?attr/colorPrimary</item>
+
+        <!-- define a card background-->
+        <item name="android:background">@drawable/shape_badge_background</item>
+        <item name="android:backgroundTint">?attr/colorSurface</item>
+        <item name="android:paddingTop">@dimen/radio_button_card_padding</item>
+        <item name="android:paddingBottom">@dimen/radio_button_card_padding</item>
+        <item name="android:paddingEnd">@dimen/radio_button_card_padding</item>
+        <item name="android:paddingStart">10dp</item>
+        <item name="android:elevation">2dp</item>
+
         <item name="android:textAppearance">?attr/textAppearanceBody2</item>
     </style>
 

@@ -30,4 +30,6 @@
     <dimen name="bottom_sheet_close_button_icon_size">24dp</dimen>
     <dimen name="bottom_sheet_close_button_margin">14dp</dimen>
 
+    <dimen name="radio_button_card_padding">20dp</dimen>
+
 </resources>
