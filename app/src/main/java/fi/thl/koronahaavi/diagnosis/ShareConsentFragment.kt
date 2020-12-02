@@ -31,6 +31,9 @@ class ShareConsentFragment : ChoiceFragment() {
     override val firstChoiceTextId = R.string.share_consent_eu
     override val secondChoiceTextId = R.string.share_consent_finland
 
+    override val footerTextId: Int?
+        get() = if (args.code == null) null else R.string.share_consent_code_saved
+
     override fun getNextDirections(choice: Choice) = when (choice) {
         Choice.FIRST -> ShareConsentFragmentDirections.toTravelDisclosure()
         Choice.SECOND -> ShareConsentFragmentDirections.toSummaryConsent()

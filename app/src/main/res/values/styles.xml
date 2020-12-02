@@ -294,6 +294,7 @@
         <item name="android:elevation">2dp</item>
 
         <item name="android:textAppearance">?attr/textAppearanceBody2</item>
+        <item name="android:textColor">@color/choice_radio_button_text</item>
     </style>
 
 </resources>

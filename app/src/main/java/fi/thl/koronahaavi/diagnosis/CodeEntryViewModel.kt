@@ -105,8 +105,7 @@ class CodeEntryViewModel @ViewModelInject constructor(
     }
 
     private suspend fun sendKeys(authCode: String, keys: List<TemporaryExposureKey>) {
-        val selectedCountries = shareData.selectedCountries().value?.toList()
-            ?: listOf()
+        val selectedCountries = shareData.traveledToCountries().toList()
         val consentToShare = shareData.consentChoice.isPositive()
             ?: false
 

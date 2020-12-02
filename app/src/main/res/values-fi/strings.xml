@@ -259,6 +259,7 @@
     <string name="share_consent_finland">Ilmoitan tartunnastani vain Koronavilkun käyttäjille Suomessa.</string>
     <string name="share_consent_header">Kenelle haluat ilmoittaa tartunnastasi?</string>
     <string name="share_consent_info">Ilmoitus on aina nimetön.</string>
+    <string name="share_consent_code_saved">Koronavilkku sai avauskoodisi tekstiviestistä.</string>
 
     <string name="travel_disclosure_header">Oletko matkustanut ulkomailla viimeisten 14 vuorokauden aikana?</string>
     <string name="travel_disclosure_no">En ole matkustanut.</string>

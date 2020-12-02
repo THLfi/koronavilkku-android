@@ -42,6 +42,8 @@ abstract class ChoiceFragment : Fragment() {
         binding.radio1.text = getString(firstChoiceTextId)
         binding.radio2.text = getString(secondChoiceTextId)
 
+        footerTextId?.let { binding.textChoiceFooter.text = getString(it) }
+
         return binding.root
     }
 
@@ -61,6 +63,7 @@ abstract class ChoiceFragment : Fragment() {
     @get:StringRes abstract val bodyTextId: Int?
     @get:StringRes abstract val firstChoiceTextId: Int
     @get:StringRes abstract val secondChoiceTextId: Int
+    @get:StringRes abstract val footerTextId: Int?
 
     abstract fun getChoiceViewModel(): ChoiceData
     abstract fun getNextDirections(choice: ChoiceData.Choice): NavDirections

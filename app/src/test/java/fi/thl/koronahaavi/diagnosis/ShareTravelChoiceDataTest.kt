@@ -6,6 +6,8 @@ import fi.thl.koronahaavi.data.SettingsRepository
 import fi.thl.koronahaavi.utils.TestData
 import io.mockk.every
 import io.mockk.mockk
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -54,5 +56,24 @@ class ShareTravelChoiceDataTest {
             it.first { c -> c.code == "it" }.isSelected.not() &&
             it.first { c -> c.code == "de" }.isSelected
         }
+    }
+
+    @Test
+    fun traveledToCountries() {
+        data.travelInfoChoice.setPositive()
+        data.setCountrySelection("it", true)
+        data.setCountrySelection("de", true)
+
+        val countries = data.traveledToCountries()
+        assertEquals(setOf("it", "de"), countries)
+    }
+
+    @Test
+    fun noTravelSelected() {
+        data.setCountrySelection("it", true)
+        data.setCountrySelection("de", true)
+
+        val countries = data.traveledToCountries()
+        assertEquals(emptySet<String>(), countries)
     }
 }

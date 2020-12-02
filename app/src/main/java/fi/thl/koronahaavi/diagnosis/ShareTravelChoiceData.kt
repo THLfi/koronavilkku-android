@@ -37,7 +37,10 @@ class ShareTravelChoiceData(settingsRepository: SettingsRepository) {
     private val allCountries = settingsRepository.getExposureConfiguration()?.participatingCountries
 
     private val selectedCountries = MutableLiveData<Set<String>>(setOf())
-    fun selectedCountries(): LiveData<Set<String>> = selectedCountries
+
+    fun traveledToCountries(): Set<String> =
+        (if (travelInfoChoice.isPositive() == true) selectedCountries.value else null)
+            ?: setOf()
 
     fun setCountrySelection(code: String, isSelected: Boolean) {
         selectedCountries.postValue(

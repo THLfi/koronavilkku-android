@@ -1,6 +1,7 @@
 package fi.thl.koronahaavi.diagnosis
 
 import android.content.Context
+import androidx.lifecycle.ViewModelStore
 import androidx.navigation.NavController
 import androidx.test.espresso.Espresso.onView
 import androidx.navigation.testing.TestNavHostController
@@ -39,6 +40,7 @@ class CodeEntryFragmentTest {
         context = ApplicationProvider.getApplicationContext()
 
         navController = TestNavHostController(context).apply {
+            setViewModelStore(ViewModelStore())
             setGraph(R.navigation.main_navigation)
         }
     }
