@@ -85,6 +85,9 @@ class HuaweiContactShieldService(
         config: ExposureConfigurationData
     ): ResolvableResult<Unit> {
 
+        val verifier = DiagnosisKeyFileSignatureVerifier()
+        verifier.verify(files)
+
         val intent = PendingIntent.getService(
             context,
             0,
