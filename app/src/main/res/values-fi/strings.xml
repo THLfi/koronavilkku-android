@@ -13,6 +13,7 @@
     <string name="all_allow">Salli</string>
     <string name="all_deny">Hylkää</string>
     <string name="all_close">Sulje</string>
+    <string name="all_continue">Jatka</string>
 
     <string name="diagnosis_title">Ilmoita tartunnastasi</string>
     <string name="diagnosis_body1">Jos sinulla todetaan tartunta koronavirustestillä, saat avauskoodin terveydenhuollon ammattilaiselta tai tekstiviestillä THL:ltä. Avauskoodilla voit jakaa nimettömästi tiedon tartunnastasi.</string>
@@ -253,6 +254,31 @@
 
     <string name="exposure_check_error_title">Altistumistietoja ei voitu ladata</string>
     <string name="exposure_check_error_message">Altistumistietojen lataaminen ei onnistunut. Tarkista verkkoyhteys ja yritä uudelleen.</string>
+
+    <string name="share_consent_eu">Koronavilkun käyttäjille Suomessa sekä muiden EU-maiden kansallisten koronasovellusten käyttäjille.</string>
+    <string name="share_consent_finland">Ilmoitan tartunnastani vain Koronavilkun käyttäjille Suomessa.</string>
+    <string name="share_consent_header">Kenelle haluat ilmoittaa tartunnastasi?</string>
+    <string name="share_consent_info">Ilmoitus on aina nimetön.</string>
+
+    <string name="travel_disclosure_header">Oletko matkustanut ulkomailla viimeisten 14 vuorokauden aikana?</string>
+    <string name="travel_disclosure_no">En ole matkustanut.</string>
+    <string name="travel_disclosure_yes">Olen matkustanut.</string>
+
+    <string name="country_list_title">Missä olet matkustanut?</string>
+    <string name="country_selection_body">Minkä maiden alueilla olet matkustanut viimeisten 14 vuorokauden aikana? Jos matkustusmaasi ei ole listalla, valitse Muu.</string>
+    <string name="country_selection_other">Muu / En halua kertoa</string>
+
+    <string name="summary_consent_header">Vahvista ja lähetä</string>
+    <string name="summary_consent_continue">Syötä avauskoodisi</string>
+    <string name="summary_consent_body_eu">Tieto tartunnastasi jaetaan nimettömästi Koronavilkun käyttäjille sekä muiden EU- ja Eta-maiden sekä Sveitsin koronasovellusten käyttäjille.</string>
+    <string name="summary_consent_body_finland">Tieto tartunnastasi jaetaan nimettömästi Koronavilkun käyttäjille.</string>
+    <string name="summary_consent_travel_header">Matkustustiedot</string>
+    <string name="summary_consent_travel_body">Olet matkustanut viimeisten 14 vuorokauden aikana näiden maiden alueilla:</string>
+    <string name="summary_consent_travel_body_none">Et ole matkustanut viimeisten 14 vuorokauden aikana ulkomailla.</string>
+    <string name="summary_consent_accept_header">Suostumus</string>
+    <string name="summary_consent_accept_use">Kohtaamistietoni sekä tiedon todennäköisestä tartuttavuusajastani saa luovuttaa Koronavilkku-sovelluksen käyttöön tartuntaketjujen katkaisemiseksi.  Annan suostumukseni vapaaehtoisesti. Minulta ei ole vaadittu suostumusta terveydenhuollon asiakaspalvelutilanteessa eikä viranomaismenettelyssä.</string>
+    <string name="summary_consent_accept_share">Kohtaamistietoni, edellä valitsemani matkustustiedot sekä tiedon todennäköisestä tartuttavuusajastani saa luovuttaa EU- ja Eta-maiden sekä Sveitsin koronasovellusten käyttöön tartuntaketjujen katkaisemiseksi.</string>
+    <string name="summary_consent_no_cancellation">Et voi peruuttaa antamaasi suostumusta sen jälkeen, kun olet lähettänyt tiedot.</string>
 
     <plurals name="exposure_notification_count">
         <item quantity="one">%d ilmoitus</item>

@@ -120,7 +120,7 @@ class MainActivity : AppCompatActivity() {
                     // coroutine needed since isEnabled is async
                     lifecycleScope.launch {
                         if (exposureNotificationService.isEnabled()) {
-                            navController.navigate(MainNavigationDirections.toCodeEntry(code))
+                            navController.navigate(MainNavigationDirections.toShareConsent(code))
                         } else {
                             // Diagnosis view will give instructions to the user (needs to be enabled first).
                             navController.navigate(MainNavigationDirections.toDiagnosis())

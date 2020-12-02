@@ -36,7 +36,7 @@ class DiagnosisFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         binding.buttonDiagnosisStart.setOnClickListener {
-            findNavController().navigateSafe(DiagnosisFragmentDirections.toCodeEntry())
+            findNavController().navigateSafe(DiagnosisFragmentDirections.toShareConsent())
         }
     }
 }

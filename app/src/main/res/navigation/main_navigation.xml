@@ -9,8 +9,8 @@
         app:destination="@id/diagnosis"/>
 
     <action
-        android:id="@+id/to_code_entry"
-        app:destination="@id/code_entry"
+        android:id="@+id/to_share_consent"
+        app:destination="@id/diagnosis_share_navigation"
         app:launchSingleTop="true">  <!-- prevents multiple code entry screens, when repeating deeplink starts -->
         <argument
             android:name="code"
@@ -49,38 +49,10 @@
         android:name="fi.thl.koronahaavi.diagnosis.DiagnosisFragment"
         tools:layout="@layout/fragment_diagnosis" >
         <action
-            android:id="@+id/to_code_entry"
-            app:destination="@id/code_entry" />
+            android:id="@+id/to_share_consent"
+            app:destination="@id/diagnosis_share_navigation" />
     </fragment>
 
-    <fragment
-        android:id="@+id/code_entry"
-        android:name="fi.thl.koronahaavi.diagnosis.CodeEntryFragment"
-        android:label="@string/code_entry_title"
-        tools:layout="@layout/fragment_code_entry" >
-        <!-- popUpTo=home so that back nav from diagnosis_complete goes to home -->
-        <action
-            android:id="@+id/to_diagnosis_complete"
-            app:destination="@id/diagnosis_complete"
-            app:popUpTo="@id/home"
-            app:popUpToInclusive="false"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
-        <argument
-            android:name="code"
-            app:argType="string"
-            app:nullable="true"
-            android:defaultValue="@null" />
-    </fragment>
-
-
-    <fragment
-        android:id="@+id/diagnosis_complete"
-        android:name="fi.thl.koronahaavi.diagnosis.DiagnosisCompleteFragment"
-        android:label="@string/diagnosis_title"
-        tools:layout="@layout/fragment_diagnosis_complete" />
 
     <fragment
         android:id="@+id/settings"
@@ -205,6 +177,103 @@
             <argument
                 android:name="municipalityCode"
                 app:argType="string" />
+        </fragment>
+    </navigation>
+
+    <!-- nested graph so we can scope view model to graph instead of activity -->
+    <navigation
+        android:id="@+id/diagnosis_share_navigation"
+        app:startDestination="@id/share_consent">
+
+        <fragment
+            android:id="@+id/share_consent"
+            android:name="fi.thl.koronahaavi.diagnosis.ShareConsentFragment"
+            tools:layout="@layout/fragment_choice">
+            <argument
+                android:name="code"
+                app:argType="string"
+                app:nullable="true"
+                android:defaultValue="@null" />
+            <action
+                android:id="@+id/to_travel_disclosure"
+                app:destination="@id/travel_disclosure"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_out_right" />
+            <action
+                android:id="@+id/to_summary_consent"
+                app:destination="@id/summary_consent"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_out_right" />
+        </fragment>
+        <fragment
+            android:id="@+id/country_list"
+            android:name="fi.thl.koronahaavi.diagnosis.CountrySelectionListFragment"
+            android:label="@string/country_list_title"
+            tools:layout="@layout/fragment_country_selection_list">
+            <action
+                android:id="@+id/to_summary_consent"
+                app:destination="@id/summary_consent"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_out_right" />
+        </fragment>
+        <fragment
+            android:id="@+id/code_entry"
+            android:name="fi.thl.koronahaavi.diagnosis.CodeEntryFragment"
+            android:label="@string/code_entry_title"
+            tools:layout="@layout/fragment_code_entry">
+            <!-- popUpTo=home so that back nav from diagnosis_complete goes to home -->
+            <action
+                android:id="@+id/to_diagnosis_complete"
+                app:destination="@id/diagnosis_complete"
+                app:enterAnim="@anim/nav_default_enter_anim"
+                app:exitAnim="@anim/nav_default_exit_anim"
+                app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+                app:popExitAnim="@anim/nav_default_pop_exit_anim"
+                app:popUpTo="@id/home"
+                app:popUpToInclusive="false" />
+        </fragment>
+        <fragment
+            android:id="@+id/diagnosis_complete"
+            android:name="fi.thl.koronahaavi.diagnosis.DiagnosisCompleteFragment"
+            android:label="@string/diagnosis_title"
+            tools:layout="@layout/fragment_diagnosis_complete" />
+        <fragment
+            android:id="@+id/summary_consent"
+            android:name="fi.thl.koronahaavi.diagnosis.SummaryConsentFragment"
+            tools:layout="@layout/fragment_summary_consent">
+            <action
+                android:id="@+id/to_code_entry"
+                app:destination="@id/code_entry"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_out_right" />
+        </fragment>
+        <fragment
+            android:id="@+id/travel_disclosure"
+            android:name="fi.thl.koronahaavi.diagnosis.TravelDisclosureFragment"
+            tools:layout="@layout/fragment_choice">
+            <action
+                android:id="@+id/to_summary_consent"
+                app:destination="@id/summary_consent"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_out_right" />
+            <action
+                android:id="@+id/to_country_list"
+                app:destination="@id/country_list"
+                app:enterAnim="@anim/slide_in_right"
+                app:exitAnim="@anim/slide_out_left"
+                app:popEnterAnim="@anim/slide_in_left"
+                app:popExitAnim="@anim/slide_out_right" />
+
         </fragment>
     </navigation>
 
