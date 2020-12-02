@@ -54,19 +54,14 @@ class ShareTravelChoiceData(settingsRepository: SettingsRepository) {
     val countries: LiveData<List<CountryData>> = selectedCountries.map { selected ->
         allCountries?.map { code ->
             CountryData(
-                    code = code,
-                    name = getCountryName(code),
-                    isSelected = selected.contains(code)
+                code = code,
+                isSelected = selected.contains(code)
             )
         } ?: listOf()
     }
-
-    private fun getCountryName(code: String) =
-            Locale("", code).getDisplayCountry(Locale.getDefault())
 }
 
 data class CountryData(
         val code: String,
-        val name: String,
         val isSelected: Boolean
 )

@@ -127,7 +127,7 @@
 
     <style name="Widget.Vilkku.Button" parent="Widget.MaterialComponents.Button">
         <item name="shapeAppearance">@style/ShapeAppearance.Vilkku.Button</item>
-        <item name="android:textAppearance">@style/TextAppearance.Vilkku.LabelSecondary</item>
+        <item name="android:textAppearance">@style/TextAppearance.Vilkku.LabelPrimary</item>
         <item name="android:paddingLeft">50dp</item>
         <item name="android:paddingRight">50dp</item>
         <item name="android:paddingTop">10dp</item>
