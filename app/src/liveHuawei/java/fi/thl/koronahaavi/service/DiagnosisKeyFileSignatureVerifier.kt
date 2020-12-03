@@ -6,38 +6,30 @@ import java.io.InputStream
 import java.security.KeyFactory
 import java.security.Signature
 import java.security.spec.X509EncodedKeySpec
-import java.util.*
 import java.util.zip.ZipInputStream
 
 class DiagnosisKeyFileSignatureVerifier {
 
-    suspend fun verify(files: List<File>): Boolean {
+    suspend fun verify(files: List<File>, keyBytes: ByteArray): Boolean {
 
         files.forEach { f ->
-
             f.inputStream().use { input ->
                 val entries = input.unzip() ?: return false
 
-                val payloadBytes = entries.exportBinaryBytes.copyOfRange(16, entries.exportBinaryBytes.size)
+                val tekSignatureList = TEKSignatureList.parseFrom(entries.signatureBytes)
+                if (tekSignatureList.signaturesCount != 1) return false
+                val tekSignature = tekSignatureList.getSignatures(0)
 
-                val signatureList = TEKSignatureList.parseFrom(entries.signatureBytes)
-                val signature = signatureList.getSignatures(0)
+                val publicKey = KeyFactory.getInstance("EC")
+                        .generatePublic(X509EncodedKeySpec(keyBytes))
 
                 val sig = Signature.getInstance(
-                        algorithmOidToName[signature.signatureInfo.signatureAlgorithm]
+                        algorithmOidToName[tekSignature.signatureInfo.signatureAlgorithm]
                 )
 
-                /*
-                val decoded = Base64.getDecoder().decode("")
-                val publicKey = KeyFactory.getInstance("EC")
-                        .generatePublic(X509EncodedKeySpec(decoded))
-
                 sig.initVerify(publicKey)
-                sig.update(payloadBytes)
-                return sig.verify(signature.signature.toByteArray())
-
-                 */
-
+                sig.update(entries.exportBinaryBytes)
+                return sig.verify(tekSignature.signature.toByteArray())
             }
         }
         return true

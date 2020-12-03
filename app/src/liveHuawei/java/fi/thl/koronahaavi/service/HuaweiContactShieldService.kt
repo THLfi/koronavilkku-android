@@ -7,6 +7,7 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.util.Base64
 import com.google.android.gms.nearby.exposurenotification.ExposureNotificationStatusCodes
 import com.google.android.gms.nearby.exposurenotification.ExposureSummary
 import com.google.android.gms.nearby.exposurenotification.ExposureSummary.ExposureSummaryBuilder
@@ -86,7 +87,8 @@ class HuaweiContactShieldService(
     ): ResolvableResult<Unit> {
 
         val verifier = DiagnosisKeyFileSignatureVerifier()
-        verifier.verify(files)
+        val keyBytes = Base64.decode(BuildConfig.EXPOSURE_FILE_SIGNATURE_PUBLIC_KEY, Base64.DEFAULT)
+        verifier.verify(files, keyBytes)
 
         val intent = PendingIntent.getService(
             context,
