@@ -24,14 +24,16 @@ class DiagnosisKeyFileSignatureVerifierTest {
     @SuppressLint("NewApi")
     @Test
     fun test() {
-        val keyFile = File(javaClass.getResource("/batch_test.zip")!!.file)
-
-        val keyBytes = Base64.getDecoder().decode(
-                "MFYwEAYHKoZIzj0CAQYFK4EEAAoDQgAENp3lLVciCeIYsZCKc0Ip7cfkWbY12T/cQRRE5l2LSD70JKaFnl3QdyFpImzW/Uv1Jw0KwAp/6BQ6mQ3w3GSFiA=="
+        val keyFiles = listOf(
+            File(javaClass.getResource("/batch_test.zip")!!.file),
+            File(javaClass.getResource("/batch_test_2.zip")!!.file)
         )
 
+        val testKey = "MFYwEAYHKoZIzj0CAQYFK4EEAAoDQgAENp3lLVciCeIYsZCKc0Ip7cfkWbY12T/cQRRE5l2LSD70JKaFnl3QdyFpImzW/Uv1Jw0KwAp/6BQ6mQ3w3GSFiA=="
+        val keyBytes = Base64.getDecoder().decode(testKey)
+
         runBlocking {
-            assertTrue(verifier.verify(listOf(keyFile), keyBytes))
+            assertTrue(verifier.verify(keyFiles, keyBytes))
         }
     }
 
