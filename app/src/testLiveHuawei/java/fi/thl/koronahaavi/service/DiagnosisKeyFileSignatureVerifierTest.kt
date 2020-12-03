@@ -24,7 +24,7 @@ class DiagnosisKeyFileSignatureVerifierTest {
         val keyFile = File(javaClass.getResource("/batch_test.zip")!!.file)
 
         runBlocking {
-            verifier.verify(listOf(keyFile))
+            assertTrue(verifier.verify(listOf(keyFile)))
         }
     }
 

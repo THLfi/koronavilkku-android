@@ -3,17 +3,20 @@ package fi.thl.koronahaavi.service
 import fi.thl.koronahaavi.proto.TEKSignatureList
 import java.io.File
 import java.io.InputStream
+import java.security.KeyFactory
 import java.security.Signature
+import java.security.spec.X509EncodedKeySpec
+import java.util.*
 import java.util.zip.ZipInputStream
 
 class DiagnosisKeyFileSignatureVerifier {
 
-    suspend fun verify(files: List<File>) {
+    suspend fun verify(files: List<File>): Boolean {
 
         files.forEach { f ->
 
             f.inputStream().use { input ->
-                val entries = input.unzip()
+                val entries = input.unzip() ?: return false
 
                 val payloadBytes = entries.exportBinaryBytes.copyOfRange(16, entries.exportBinaryBytes.size)
 
@@ -24,23 +27,23 @@ class DiagnosisKeyFileSignatureVerifier {
                         algorithmOidToName[signature.signatureInfo.signatureAlgorithm]
                 )
 
-                // todo need key
-                // sig.initVerify()
-                //sig.update(payloadBytes)
-                //sig.verify(signature.signature.toByteArray())
+                /*
+                val decoded = Base64.getDecoder().decode("")
+                val publicKey = KeyFactory.getInstance("EC")
+                        .generatePublic(X509EncodedKeySpec(decoded))
+
+                sig.initVerify(publicKey)
+                sig.update(payloadBytes)
+                return sig.verify(signature.signature.toByteArray())
+
+                 */
+
             }
         }
-
-        /*
-                //if (!String(exportBinaryBytes.copyOfRange(0, 16)).startsWith("EK Export v1")) return false
-
-                //val export = TemporaryExposureKeyExport.parseFrom(payloadBytes)
-                //if (export.signatureInfosCount != 1) return false
-                //val signatureInfo = export.getSignatureInfos(0)
-         */
+        return true
     }
 
-    private fun InputStream.unzip(): ExposureFileEntries {
+    private fun InputStream.unzip(): ExposureFileEntries? {
         var exportBinaryBytes: ByteArray? = null
         var signatureBytes: ByteArray? = null
 
@@ -53,13 +56,12 @@ class DiagnosisKeyFileSignatureVerifier {
                 }
                 zipIn.closeEntry()
             } while (entry != null)
+        }
 
-            exportBinaryBytes?.let { bin ->
-                signatureBytes?.let { sig ->
-                    return ExposureFileEntries(bin, sig)
-                }
-            } ?:
-            throw Exception("Could not find entries from export archive")
+        return exportBinaryBytes?.let { bin ->
+            signatureBytes?.let { sig ->
+                ExposureFileEntries(exportBinaryBytes = bin, signatureBytes = sig)
+            }
         }
     }
 
