@@ -70,8 +70,12 @@ class ShareTravelChoiceDataTest {
 
     @Test
     fun noTravelSelected() {
+        // first select countries
         data.setCountrySelection("it", true)
         data.setCountrySelection("de", true)
+
+        // then go back and change travel selection
+        data.travelInfoChoice.setNegative()
 
         val countries = data.traveledToCountries()
         assertEquals(emptySet<String>(), countries)
@@ -91,5 +95,38 @@ class ShareTravelChoiceDataTest {
             it.any { c -> c.code == "DE" } &&
             it.any { c -> c.code == "IE" }
         }
+    }
+
+    @Test
+    fun summaryShowCountries() {
+        val observer = data.summaryShowCountries.test()
+        observer.assertNoValue()
+
+        data.consentChoice.setPositive()
+        observer.assertValue(false)
+
+        data.travelInfoChoice.setPositive()
+        observer.assertValue(true)
+
+        data.consentChoice.setNegative()
+        observer.assertValue(false)
+    }
+
+    @Test
+    fun summaryContinueAllowed() {
+        val observer = data.summaryContinueAllowed.test()
+        observer.assertNoValue()
+
+        data.dataUseAccepted.postValue(true)
+        observer.assertValue(false)
+
+        data.dataShareAccepted.postValue(true)
+        observer.assertValue(true)
+
+        data.dataShareAccepted.postValue(false)
+        observer.assertValue(false)
+
+        data.consentChoice.setNegative() // data share not required when this selected
+        observer.assertValue(true)
     }
 }

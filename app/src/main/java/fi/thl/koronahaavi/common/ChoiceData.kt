@@ -22,6 +22,7 @@ class ChoiceData(private val positiveChoice: Choice?) {
     fun getSelectedChoice(): Choice? = selectedControl.value?.toChoice()
     fun isPositive(): Boolean? = positiveChoice?.let { getSelectedChoice() == it }
     fun setPositive() = positiveChoice?.let { selectedControl.postValue(it.toControl()) }
+    fun setNegative() = positiveChoice?.let { selectedControl.postValue(it.invert().toControl()) }
 
     enum class Choice { FIRST, SECOND }
 
@@ -31,8 +32,13 @@ class ChoiceData(private val positiveChoice: Choice?) {
         else -> null
     }
 
+    private fun Choice.invert(): Choice = when (this) {
+        Choice.FIRST -> Choice.SECOND
+        Choice.SECOND -> Choice.FIRST
+    }
+
     private fun Choice.toControl(): Int = when (this) {
-        Choice.FIRST ->R.id.radio_1
-        Choice.SECOND ->R.id.radio_2
+        Choice.FIRST -> R.id.radio_1
+        Choice.SECOND -> R.id.radio_2
     }
 }

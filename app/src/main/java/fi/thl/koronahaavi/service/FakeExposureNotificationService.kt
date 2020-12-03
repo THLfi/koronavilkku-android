@@ -96,7 +96,6 @@ class FakeExposureNotificationService(
     }
 
     override suspend fun getTemporaryExposureKeys(): ResolvableResult<List<TemporaryExposureKey>> {
-        delay(2000) // simulate some processing
         return ResolvableResult.Success(listOf(
             fakeExposureKey(),
             fakeExposureKey()
