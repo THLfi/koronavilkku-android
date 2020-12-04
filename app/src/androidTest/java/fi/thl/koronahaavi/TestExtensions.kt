@@ -3,18 +3,26 @@ package fi.thl.koronahaavi
 import android.content.ComponentName
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
+import android.widget.HorizontalScrollView
+import android.widget.ListView
+import android.widget.ScrollView
 import androidx.annotation.StringRes
 import androidx.annotation.StyleRes
 import androidx.core.util.Preconditions
+import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.testing.FragmentScenario.EmptyFragmentActivity
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.test.core.app.ActivityScenario
 import androidx.test.core.app.ApplicationProvider
+import androidx.test.espresso.ViewAction
 import androidx.test.espresso.ViewInteraction
+import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.matcher.ViewMatchers
+import org.hamcrest.Matcher
 import org.hamcrest.Matchers
 
 /**
@@ -104,4 +112,16 @@ fun ViewInteraction.checkHasText(text: String) {
 
 fun ViewInteraction.checkHasText(@StringRes resId: Int) {
     check(ViewAssertions.matches(ViewMatchers.withText(resId)))
+}
+
+// this adds scrollTo support for NestedScrollView
+class NestedScrollViewAction(scrollToAction: ViewAction) : ViewAction by scrollToAction {
+    override fun getConstraints(): Matcher<View> {
+        return Matchers.allOf(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE),
+            ViewMatchers.isDescendantOfA(Matchers.anyOf(
+                ViewMatchers.isAssignableFrom(NestedScrollView::class.java),
+                ViewMatchers.isAssignableFrom(ScrollView::class.java),
+                ViewMatchers.isAssignableFrom(HorizontalScrollView::class.java),
+                ViewMatchers.isAssignableFrom(ListView::class.java))))
+    }
 }

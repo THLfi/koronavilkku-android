@@ -5,6 +5,7 @@ import fi.thl.koronahaavi.R
 import java.time.LocalDate
 import java.time.ZonedDateTime
 import java.time.format.DateTimeFormatter
+import java.util.*
 
 object FormatExtensions {
     private val DATE_YEAR_FORMATTER: DateTimeFormatter = DateTimeFormatter.ofPattern("d.M.yyyy")
@@ -27,6 +28,9 @@ object FormatExtensions {
             formatDate(end))
 
     fun formatDate(dateTime: ZonedDateTime): String = DATE_YEAR_FORMATTER.format(dateTime)
+
+    fun String.convertToCountryName(): String =
+        Locale("", this).getDisplayCountry(Locale.getDefault())
 
     /**
      * Format a string with relative date part and normal time with a preposition

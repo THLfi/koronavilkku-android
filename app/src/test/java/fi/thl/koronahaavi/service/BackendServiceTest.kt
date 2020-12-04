@@ -64,6 +64,17 @@ class BackendServiceTest {
             assertTrue(body.contains("\"aa\":0,\"bb\":0,\"cc\":1"))
             assertEquals("0", req.getHeader("KV-Fake-Request"))
             assertEquals("test_token", req.getHeader("KV-Publish-Token"))
+
+            // fake request modifies header
+            mockServer.enqueue(MockResponse())
+            backendService.sendKeys(
+                token = "test_token",
+                data = payload,
+                isFake = NumericBoolean.TRUE
+            )
+
+            val fakeReq = mockServer.takeRequest()
+            assertEquals("1", fakeReq.getHeader("KV-Fake-Request"))
         }
     }
 }

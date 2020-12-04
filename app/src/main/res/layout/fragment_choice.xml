@@ -25,7 +25,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingBottom="60dp">
 
                 <TextView
                     android:id="@+id/text_choice_header"
@@ -50,8 +51,6 @@
                     android:id="@+id/radio_group_choice"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
                     android:padding="20dp"
                     android:clipToPadding="false"
                     android:checkedButton="@={model.selectedControl}">
@@ -72,6 +71,19 @@
                         tools:text="@tools:sample/lorem"
                         />
                 </RadioGroup>
+
+                <TextView
+                    android:id="@+id/text_choice_footer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center"
+                    android:textAppearance="?attr/textAppearanceBody2"
+                    android:textColor="@color/textDarkGrey"
+                    tools:text="@tools:sample/lorem"
+                    />
+
             </LinearLayout>
         </ScrollView>
 

@@ -16,19 +16,17 @@
     <string name="all_continue">Jatka</string>
 
     <string name="diagnosis_title">Ilmoita tartunnastasi</string>
-    <string name="diagnosis_body1">Jos sinulla todetaan tartunta koronavirustestillä, saat avauskoodin terveydenhuollon ammattilaiselta tai tekstiviestillä THL:ltä. Avauskoodilla voit jakaa nimettömästi tiedon tartunnastasi.</string>
-    <string name="diagnosis_body2">Syötä avauskoodi sillä puhelimella, jota yleensä pidät mukanasi.</string>
+    <string name="diagnosis_body1">Jos sinulla todetaan Suomessa tartunta koronavirustestillä, saat avauskoodin terveydenhuollon ammattilaiselta tai tekstiviestillä THL:ltä. Avauskoodilla voit jakaa nimettömästi tiedon tartunnastasi.</string>
+    <string name="diagnosis_body2">Koronavilkku ilmoittaa mahdollisesta altistumisesta käyttäjille, jotka ovat olleet lähelläsi todennäköisenä tartuttavuusaikana. Tämä auttaa katkaisemaan tartuntaketjuja. Syötä avauskoodi sillä puhelimella, jota yleensä pidät mukanasi.</string>
     <string name="diagnosis_page_title">Ilmoita tartunnastasi</string>
-    <string name="diagnosis_code_entry">Syötä avauskoodisi</string>
+    <string name="diagnosis_code_entry">Ilmoita tartunnasta</string>
     <string name="diagnosis_en_disabled">Altistumisilmoitusten täytyy olla päällä, jotta voit ilmoittaa tartunnasta. Palaa Koti-näkymään, jossa voit laittaa ne päälle.</string>
 
     <string name="diagnosis_locked_title">Olet jo ilmoittanut tartunnasta</string>
     <string name="diagnosis_locked_body1">Ilmoittamasi tiedot auttavat koronavirusepidemian taltuttamisessa. Sovellus on nyt lukittu eikä enää kerää tietoja kohtaamisista. Pikaista paranemista!</string>
     <string name="diagnosis_locked_image_description">Lukittu</string>
 
-    <string name="diagnosis_instructions_1">Avauskoodista ei voi tunnistaa henkilöllisyyttäsi.</string>
-    <string name="diagnosis_instructions_2">Koronavilkku ilmoittaa mahdollisesta altistumisesta käyttäjille, jotka ovat olleet lähelläsi todennäköisenä tartuttavuusaikana.</string>
-    <string name="diagnosis_instructions_3">Tieto mahdollisesta altistumisesta kannustaa ilmoituksen saaneita pitämään etäisyyttä muihin, havaitsemaan tartuntaan sopivat oireet ajoissa ja tarvittaessa hakeutumaan testiin. Näin voidaan välttää uusia tartuntoja.</string>
+    <string name="diagnosis_instructions_1">Ilmoittaaksesi tartunnasta tarvitset avauskoodin. Avauskoodista ei voi tunnistaa henkilöllisyyttäsi.</string>
 
     <string name="code_entry_title">Syötä avauskoodisi</string>
     <string name="code_entry_submit">Ilmoita tartunnasta</string>
@@ -259,6 +257,7 @@
     <string name="share_consent_finland">Ilmoitan tartunnastani vain Koronavilkun käyttäjille Suomessa.</string>
     <string name="share_consent_header">Kenelle haluat ilmoittaa tartunnastasi?</string>
     <string name="share_consent_info">Ilmoitus on aina nimetön.</string>
+    <string name="share_consent_code_saved">Koronavilkku sai avauskoodisi tekstiviestistä.</string>
 
     <string name="travel_disclosure_header">Oletko matkustanut ulkomailla viimeisten 14 vuorokauden aikana?</string>
     <string name="travel_disclosure_no">En ole matkustanut.</string>

@@ -19,6 +19,7 @@ class TravelDisclosureFragment : ChoiceFragment() {
     override val bodyTextId: Int? = null
     override val firstChoiceTextId = R.string.travel_disclosure_no
     override val secondChoiceTextId = R.string.travel_disclosure_yes
+    override val footerTextId: Int? = null
 
     override fun getNextDirections(choice: Choice) = when (choice) {
         Choice.FIRST -> TravelDisclosureFragmentDirections.toSummaryConsent()

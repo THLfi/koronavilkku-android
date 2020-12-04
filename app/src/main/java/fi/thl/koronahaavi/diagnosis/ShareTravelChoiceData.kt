@@ -30,14 +30,25 @@ class ShareTravelChoiceData(settingsRepository: SettingsRepository) {
         share == true && travel == true
     }
 
+    // travel choice section hidden if user was not able to select it
+    val summaryShowTravelChoice = shareToEU().combineWith(hasTraveled()) { share , travel ->
+        share == true && travel != null
+    }
+
     val summaryContinueAllowed = dataUseAccepted.combineWith(dataShareAccepted, shareToEU()) { use, share, shareSelected ->
         use == true && (share == true || shareSelected == false)
     }
 
-    private val allCountries = settingsRepository.getExposureConfiguration()?.participatingCountries
+    private val allCountries = settingsRepository.getExposureConfiguration()?.participatingCountries?.filter {
+        // Validate codes as additional security measure
+        Locale.getISOCountries().contains(it) && it != "FI"
+    }
 
     private val selectedCountries = MutableLiveData<Set<String>>(setOf())
-    fun selectedCountries(): LiveData<Set<String>> = selectedCountries
+
+    fun traveledToCountries(): Set<String> =
+        (if (travelInfoChoice.isPositive() == true) selectedCountries.value else null)
+            ?: setOf()
 
     fun setCountrySelection(code: String, isSelected: Boolean) {
         selectedCountries.postValue(
@@ -51,19 +62,17 @@ class ShareTravelChoiceData(settingsRepository: SettingsRepository) {
     val countries: LiveData<List<CountryData>> = selectedCountries.map { selected ->
         allCountries?.map { code ->
             CountryData(
-                    code = code,
-                    name = getCountryName(code),
-                    isSelected = selected.contains(code)
+                code = code,
+                isSelected = selected.contains(code)
             )
         } ?: listOf()
     }
 
-    private fun getCountryName(code: String) =
-            Locale("", code).getDisplayCountry(Locale.getDefault())
+    // do not show travel choice if countries not available
+    fun isTravelSelectionAvailable() = allCountries?.isNotEmpty() == true
 }
 
 data class CountryData(
-        val code: String,
-        val name: String,
-        val isSelected: Boolean
+    val code: String,
+    val isSelected: Boolean
 )
