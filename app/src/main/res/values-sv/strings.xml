@@ -17,18 +17,16 @@
 
     <string name="diagnosis_title">Meddela din smitta</string>
     <string name="diagnosis_body1">Om du har testats och konstaterats ha coronavirusinfektion får du en startkod från hälsovården eller i ett textmeddelande från THL. Med startkoden kan du anonymt förmedla information om din smitta.</string>
-    <string name="diagnosis_body2">Ange startkoden i den telefon som du vanligtvis har med dig.</string>
+    <string name="diagnosis_body2">Coronablinkern meddelar om eventuell exponering till de användare som har varit i din närhet under perioden som du sannolikt har varit smittsam. På det här sättet kan smittkedjan brytas. Ange startkoden i den telefon som du vanligtvis har med dig.</string>
     <string name="diagnosis_page_title">Meddela om din smitta</string>
-    <string name="diagnosis_code_entry">Ange startkod</string>
+    <string name="diagnosis_code_entry">Meddela om smitta</string>
     <string name="diagnosis_en_disabled">Exponeringsmeddelandena måste vara påkopplade för att du ska kunna meddela att du har blivit smittad. Gå tillbaka till hemsidan där du kan koppla på dem.</string>
 
     <string name="diagnosis_locked_title">Du har redan meddelat om din smitta</string>
     <string name="diagnosis_locked_body1">De uppgifter du angett bidrar till att bekämpa coronavirusepidemin. Coronablinkern samlar inte längre information om närliggande telefoner. Krya på dig!</string>
     <string name="diagnosis_locked_image_description">Låst</string>
 
-    <string name="diagnosis_instructions_1">Det är inte möjligt att identifiera dig med hjälp av startkoden.</string>
-    <string name="diagnosis_instructions_2">Informationen förmedlas till de användare som har varit i din närhet i perioden som du sannolikt har varit smittsam.</string>
-    <string name="diagnosis_instructions_3">Informationen uppmanar mottagarna att undvika kontakter, att i tid lägga märke till symtom som passar in på infektionen och att vid behov söka sig till test. På det här sättet kan smittospridning begränsas.</string>
+    <string name="diagnosis_instructions_1">För att meddela smittan behöver du en startkod. Det är inte möjligt att identifiera dig med hjälp av startkoden.</string>
 
     <string name="code_entry_title">Ange din startkod</string>
     <string name="code_entry_submit">Meddela om din smitta</string>
@@ -259,6 +257,7 @@
     <string name="share_consent_finland">Ilmoitan tartunnastani vain Koronavilkun käyttäjille Suomessa.</string>
     <string name="share_consent_header">Kenelle haluat ilmoittaa tartunnastasi?</string>
     <string name="share_consent_info">Ilmoitus on aina nimetön.</string>
+    <string name="share_consent_code_saved">Koronavilkku sai avauskoodisi tekstiviestistä.</string>
 
     <string name="travel_disclosure_header">Oletko matkustanut ulkomailla viimeisten 14 vuorokauden aikana?</string>
     <string name="travel_disclosure_no">En ole matkustanut.</string>

@@ -51,18 +51,18 @@
                     android:text="@string/summary_consent_travel_header"
                     android:layout_marginTop="20dp"
                     android:textAppearance="?attr/textAppearanceHeadline4"
-                    android:visibility="@{model.shareToEU() ? View.VISIBLE : View.GONE}"
+                    android:visibility="@{model.summaryShowTravelChoice ? View.VISIBLE : View.GONE}"
                     />
-
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@{model.hasTraveled() ? @string/summary_consent_travel_body : @string/summary_consent_travel_body_none}"
                     android:layout_marginTop="10dp"
                     android:textAppearance="?attr/textAppearanceBody2"
-                    android:visibility="@{model.shareToEU() ? View.VISIBLE : View.GONE}"
+                    android:visibility="@{model.summaryShowTravelChoice ? View.VISIBLE : View.GONE}"
                     tools:text="@string/summary_consent_travel_body"
                     />
+
                 <LinearLayout
                     android:id="@+id/layout_summary_consent_countries"
                     android:layout_width="match_parent"
@@ -70,6 +70,7 @@
                     android:orientation="vertical"
                     android:visibility="@{model.summaryShowCountries ? View.VISIBLE : View.GONE}"
                     />
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

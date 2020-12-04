@@ -11,6 +11,7 @@ import androidx.navigation.navGraphViewModels
 import dagger.hilt.android.AndroidEntryPoint
 import androidx.navigation.ui.setupWithNavController
 import fi.thl.koronahaavi.R
+import fi.thl.koronahaavi.common.FormatExtensions.convertToCountryName
 import fi.thl.koronahaavi.common.navigateSafe
 import fi.thl.koronahaavi.databinding.FragmentSummaryConsentBinding
 import fi.thl.koronahaavi.databinding.ItemCountryBulletBinding
@@ -54,15 +55,20 @@ class SummaryConsentFragment : Fragment() {
 
     private fun updateCountryBullets(selectedCountries: List<CountryData>) {
         if (viewModel.shareData.summaryShowCountries.value == false) {
-            return
+            return // no need to update since parent view is hidden
         }
 
         binding.layoutSummaryConsentCountries.removeAllViews()
 
-        selectedCountries.forEach { addCountryBullet(it.name) }
+        selectedCountries.map {
+            it.code.convertToCountryName()
+        }.sorted().forEach {
+            addCountryBullet(it)
+        }
 
         // view model should have a valid value for this selection, since it is selected in a previous fragment
-        if (viewModel.shareData.otherCountrySelected.value == true) {
+        // no country selections also implies this other selection
+        if (viewModel.shareData.otherCountrySelected.value == true || selectedCountries.isEmpty()) {
             addCountryBullet(getString(R.string.country_selection_other))
         }
     }

@@ -38,9 +38,7 @@
                 text_diagnosis_body1,
                 text_diagnosis_body2,
                 button_diagnosis_start,
-                text_diagnosis_instructions_1,
-                text_diagnosis_instructions_2,
-                text_diagnosis_instructions_3"
+                text_diagnosis_instructions_1"
                 android:visibility="@{model.allowStart==true ? View.VISIBLE : View.GONE}"
                 tools:visibility="visible"
                 />
@@ -85,15 +83,15 @@
                 android:id="@+id/text_diagnosis_body1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="10dp"
+                android:paddingVertical="10dp"
                 android:text="@string/diagnosis_body1"
-                android:textAppearance="?attr/textAppearanceBody2"
+                android:textAppearance="?attr/textAppearanceHeadline4"
                 />
             <TextView
                 android:id="@+id/text_diagnosis_body2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingBottom="20dp"
+                android:paddingBottom="70dp"
                 android:text="@string/diagnosis_body2"
                 android:textAppearance="?attr/textAppearanceBody2"
                 />
@@ -104,27 +102,14 @@
                 android:text="@string/diagnosis_code_entry"
                 android:visibility="@{model.allowStart ? View.VISIBLE : View.GONE}"
                 />
-            <fi.thl.koronahaavi.widget.BulletTextView
+            <TextView
                 android:id="@+id/text_diagnosis_instructions_1"
-                android:layout_width="0dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="20dp"
+                android:paddingTop="5dp"
                 android:text="@string/diagnosis_instructions_1"
                 android:textAppearance="?attr/textAppearanceBody2"
-                />
-            <fi.thl.koronahaavi.widget.BulletTextView
-                android:id="@+id/text_diagnosis_instructions_2"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="@string/diagnosis_instructions_2"
-                android:textAppearance="?attr/textAppearanceBody2"
-                />
-            <fi.thl.koronahaavi.widget.BulletTextView
-                android:id="@+id/text_diagnosis_instructions_3"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:text="@string/diagnosis_instructions_3"
-                android:textAppearance="?attr/textAppearanceBody2"
+                android:gravity="center"
                 />
 
 
