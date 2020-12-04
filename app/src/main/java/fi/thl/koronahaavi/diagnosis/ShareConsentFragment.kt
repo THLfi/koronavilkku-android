@@ -34,8 +34,10 @@ class ShareConsentFragment : ChoiceFragment() {
     override val footerTextId: Int?
         get() = if (args.code == null) null else R.string.share_consent_code_saved
 
-    override fun getNextDirections(choice: Choice) = when (choice) {
-        Choice.FIRST -> ShareConsentFragmentDirections.toTravelDisclosure()
-        Choice.SECOND -> ShareConsentFragmentDirections.toSummaryConsent()
-    }
+    override fun getNextDirections(choice: Choice) =
+            if (choice == Choice.FIRST && viewModel.shareData.isTravelSelectionAvailable())
+                // need to skip travel, if country selection data not available for some reason
+                ShareConsentFragmentDirections.toTravelDisclosure()
+            else
+                ShareConsentFragmentDirections.toSummaryConsent()
 }

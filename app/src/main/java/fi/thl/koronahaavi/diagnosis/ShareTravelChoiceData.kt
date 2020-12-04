@@ -30,6 +30,11 @@ class ShareTravelChoiceData(settingsRepository: SettingsRepository) {
         share == true && travel == true
     }
 
+    // travel choice section hidden if user was not able to select it
+    val summaryShowTravelChoice = shareToEU().combineWith(hasTraveled()) { share , travel ->
+        share == true && travel != null
+    }
+
     val summaryContinueAllowed = dataUseAccepted.combineWith(dataShareAccepted, shareToEU()) { use, share, shareSelected ->
         use == true && (share == true || shareSelected == false)
     }
@@ -62,9 +67,12 @@ class ShareTravelChoiceData(settingsRepository: SettingsRepository) {
             )
         } ?: listOf()
     }
+
+    // do not show travel choice if countries not available
+    fun isTravelSelectionAvailable() = allCountries?.isNotEmpty() == true
 }
 
 data class CountryData(
-        val code: String,
-        val isSelected: Boolean
+    val code: String,
+    val isSelected: Boolean
 )

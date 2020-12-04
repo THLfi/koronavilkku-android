@@ -234,4 +234,43 @@ class MainActivityTest {
             onView(withId(R.id.image_home_app_status)).checkIsDisplayed()
         }
     }
+
+    @Test
+    fun shareDiagnosisFlowNoCountryData() {
+        appStateRepository.setDiagnosisKeysSubmitted(false)
+        appStateRepository.setOnboardingComplete(true)
+
+        runBlocking {
+            activityRule.launchActivity(null)
+
+            // clear participating countries to simulate no data
+            settingsRepository.updateExposureConfiguration(backendService.getConfiguration().copy(
+                    participatingCountries = null
+            ))
+
+            exposureNotificationService.enable()
+
+            // select diagnosis tab
+            onView(allOf(
+                    withText(R.string.diagnosis_title),
+                    isDescendantOfA(withId(R.id.nav_view)),
+                    isDisplayed()
+            )).perform(click())
+
+            onView(withId(R.id.text_diagnosis_title)).checkIsDisplayed()
+
+            // start share diagnosis
+            onView(withId(R.id.button_diagnosis_start)).perform(click())
+            onView(withId(R.id.text_choice_header)).checkHasText(R.string.share_consent_header)
+
+            // select EU share and continue
+            onView(withId(R.id.radio_1)).perform(click())
+            onView(withId(R.id.button_choice_continue)).perform(click())
+
+            // verify that navigated directly to summary
+            onView(withText(R.string.summary_consent_header)).checkIsDisplayed()
+            onView(withText(R.string.summary_consent_travel_header)).checkIsGone()
+            onView(withId(R.id.layout_summary_consent_countries)).checkIsGone()
+        }
+    }
 }
