@@ -173,12 +173,12 @@ class MainActivityTest {
         appStateRepository.setOnboardingComplete(true)
 
         runBlocking {
-            activityRule.launchActivity(null)
+            exposureNotificationService.enable()
 
             // get config from fake backend, since required for country list
             settingsRepository.updateExposureConfiguration(backendService.getConfiguration())
 
-            exposureNotificationService.enable()
+            activityRule.launchActivity(null)
 
             // select diagnosis tab
             onView(allOf(
@@ -190,7 +190,7 @@ class MainActivityTest {
             onView(withId(R.id.text_diagnosis_title)).checkIsDisplayed()
 
             // start share diagnosis
-            onView(withId(R.id.button_diagnosis_start)).perform(click())
+            onView(withId(R.id.button_diagnosis_start)).perform(scrollTo(), click())
             onView(withId(R.id.text_choice_header)).checkHasText(R.string.share_consent_header)
 
             // select EU share and continue
@@ -241,14 +241,14 @@ class MainActivityTest {
         appStateRepository.setOnboardingComplete(true)
 
         runBlocking {
-            activityRule.launchActivity(null)
+            exposureNotificationService.enable()
 
             // clear participating countries to simulate no data
             settingsRepository.updateExposureConfiguration(backendService.getConfiguration().copy(
-                    participatingCountries = null
+                participatingCountries = null
             ))
 
-            exposureNotificationService.enable()
+            activityRule.launchActivity(null)
 
             // select diagnosis tab
             onView(allOf(
@@ -260,7 +260,7 @@ class MainActivityTest {
             onView(withId(R.id.text_diagnosis_title)).checkIsDisplayed()
 
             // start share diagnosis
-            onView(withId(R.id.button_diagnosis_start)).perform(click())
+            onView(withId(R.id.button_diagnosis_start)).perform(scrollTo(), click())
             onView(withId(R.id.text_choice_header)).checkHasText(R.string.share_consent_header)
 
             // select EU share and continue
