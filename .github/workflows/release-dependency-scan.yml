@@ -17,8 +17,9 @@ jobs:
           cp -R .github .github_latest
       - name: Checkout latest release
         run: |
+          export LATEST_TAG=$(git tag | sed '/-/d' | sort -t "." -k1,1n -k2,2n -k3,3n | tail -1)
           git fetch --all --tags --prune
-          git checkout tags/$(git tag | sed '/-/d' | sort -t "." -k1,1n -k2,2n -k3,3n | tail -1) -b latest_release
+          if git show-ref --verify --quiet "refs/heads/${LATEST_TAG}_owasp_updates" > 0; then git checkout "${LATEST_TAG}_owasp_updates"; else git checkout "tags/${LATEST_TAG}" -b latest_release; fi
       - name: Cache Gradle cache and wrapper
         uses: actions/cache@v2
         with:

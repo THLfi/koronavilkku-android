@@ -51,11 +51,7 @@ allprojects {
 
     dependencyCheck {
         failBuildOnCVSS=0
-        if (project.hasProperty("owaspSuppressionFile")) {
-            suppressionFile = project.getProperty("owaspSuppressionFile")
-        } else {
-            suppressionFile = 'owasp_suppressions_1.xml'
-        }
+        suppressionFile = 'owasp_suppressions.xml'
         skipConfigurations += 'lintClassPath'
     }
 }
