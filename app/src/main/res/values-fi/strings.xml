@@ -276,7 +276,7 @@
     <string name="summary_consent_travel_body">Olet matkustanut viimeisten 14 vuorokauden aikana näissä maissa: </string>
     <string name="summary_consent_travel_body_none">Et ole matkustanut viimeisten 14 vuorokauden aikana ulkomailla.</string>
     <string name="summary_consent_accept_header">Suostumus</string>
-    <string name="summary_consent_accept_use">Kohtaamistietoni sekä tiedon todennäköisestä tartuttavuusajastani saa luovuttaa Koronavilkku-sovelluksen käyttöön tartuntaketjujen katkaisemiseksi. Annan suostumukseni vapaaehtoisesti. Minulta ei ole vaadittu suostumusta terveydenhuollon asiakaspalvelutilanteessa eikä viranomaismenettelyssä.</string>
+    <string name="summary_consent_accept_use">Kohtaamistietoni sekä tiedon todennäköisestä tartuttavuusajastani saa luovuttaa Koronavilkku-sovelluksen käyttöön tartuntaketjujen katkaisemiseksi.\n\nAnnan suostumukseni vapaaehtoisesti. Minulta ei ole vaadittu suostumusta terveydenhuollon asiakaspalvelutilanteessa eikä viranomaismenettelyssä.</string>
     <string name="summary_consent_accept_share">Kohtaamistietoni, edellä valitsemani matkustustiedot ja tiedon todennäköisestä tartuttavuusajastani saa luovuttaa EU- ja Eta-maiden sekä Sveitsin ja Iso-Britannian koronasovellusten käyttöön tartuntaketjujen katkaisemiseksi.</string>
     <string name="summary_consent_no_cancellation">Kun olet lähettänyt tiedot, et voi enää peruuttaa antamaasi suostumusta.</string>
 
