@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### Added
+- User consent and travel information choices required for EFGS interoperability
+
+### Changed
+- Backend API provides country codes and accepts EFGS share consent and travel selections
+- UI changes to share diagnosis screen and navigation
+
 ## [1.3.0](https://github.com/THLfi/koronavilkku-android/compare/v1.2.1...v1.3.0) - 2020-11-24
 
 ### Added

@@ -17,21 +17,20 @@
     <string name="all_allow">Allow</string>
     <string name="all_deny">Deny</string>
     <string name="all_close">Close</string>
+    <string name="all_continue">Continue</string>
 
     <string name="diagnosis_title">Report your infection</string>
-    <string name="diagnosis_body1">If you are diagnosed with COVID-19, you will receive a key code from a healthcare professional or a text message from the Finnish Institute for Health and Welfare. You can use the key code to anonymously share information about your infection.</string>
-    <string name="diagnosis_body2">Enter the key code on the phone you usually carry with you.</string>
+    <string name="diagnosis_body1">If you are diagnosed with COVID-19, you will receive a key code from a health care professional or via text message from the Finnish Institute for Health and Welfare. You can use the key code to anonymously share information about your infection.</string>
+    <string name="diagnosis_body2">Koronavilkku sends a notification of potential exposure to users who have been close to you during the period when you could have infected others. This helps decrease the spread of infection. Enter the key code on the phone you usually carry with you.</string>
     <string name="diagnosis_page_title">Report your infection</string>
-    <string name="diagnosis_code_entry">Enter key code</string>
+    <string name="diagnosis_code_entry">Report your infection</string>
     <string name="diagnosis_en_disabled">Exposure notifications must be turned on in order to report an infection. Return to the Home view and enable them there.</string>
 
     <string name="diagnosis_locked_title">You have already reported your infection</string>
     <string name="diagnosis_locked_body1">The information you have reported will help to tackle the coronavirus epidemic. The app is now locked and no longer collects information about nearby phones. We wish you a quick recovery!</string>
     <string name="diagnosis_locked_image_description">Locked</string>
 
-    <string name="diagnosis_instructions_1">The key code does not reveal your identity.</string>
-    <string name="diagnosis_instructions_2">Koronavilkku indicates potential exposure to users who have been close to you during the period when you could have infected others.</string>
-    <string name="diagnosis_instructions_3">Information on potential exposure encourages those who have been notified to keep a safe distance from others, to detect symptoms early on that may indicate infection and, if necessary, to get tested. This will help to decrease the spread of infection.</string>
+    <string name="diagnosis_instructions_1">You will need a key code to report your infection. The key code does not reveal your identity.</string>
 
     <string name="code_entry_title">Enter key code</string>
     <string name="code_entry_submit">Report infection</string>
@@ -279,6 +278,32 @@
 
     <string name="exposure_check_error_title">Error loading exposure data</string>
     <string name="exposure_check_error_message">Exposure data could not be loaded. Please check your internet connection and try again.</string>
+
+    <string name="share_consent_eu">Koronavilkun käyttäjille Suomessa sekä muiden EU-maiden kansallisten koronasovellusten käyttäjille.</string>
+    <string name="share_consent_finland">Ilmoitan tartunnastani vain Koronavilkun käyttäjille Suomessa.</string>
+    <string name="share_consent_header">Kenelle haluat ilmoittaa tartunnastasi?</string>
+    <string name="share_consent_info">Ilmoitus on aina nimetön.</string>
+    <string name="share_consent_code_saved">Koronavilkku sai avauskoodisi tekstiviestistä.</string>
+
+    <string name="travel_disclosure_header">Oletko matkustanut ulkomailla viimeisten 14 vuorokauden aikana?</string>
+    <string name="travel_disclosure_no">En ole matkustanut.</string>
+    <string name="travel_disclosure_yes">Olen matkustanut.</string>
+
+    <string name="country_list_title">Missä olet matkustanut?</string>
+    <string name="country_selection_body">Minkä maiden alueilla olet matkustanut viimeisten 14 vuorokauden aikana? Jos matkustusmaasi ei ole listalla, valitse Muu.</string>
+    <string name="country_selection_other">Muu / En halua kertoa</string>
+
+    <string name="summary_consent_header">Vahvista ja lähetä</string>
+    <string name="summary_consent_continue">Syötä avauskoodisi</string>
+    <string name="summary_consent_body_eu">Tieto tartunnastasi jaetaan nimettömästi Koronavilkun käyttäjille sekä muiden EU- ja Eta-maiden sekä Sveitsin koronasovellusten käyttäjille.</string>
+    <string name="summary_consent_body_finland">Tieto tartunnastasi jaetaan nimettömästi Koronavilkun käyttäjille.</string>
+    <string name="summary_consent_travel_header">Matkustustiedot</string>
+    <string name="summary_consent_travel_body">Olet matkustanut viimeisten 14 vuorokauden aikana näiden maiden alueilla:</string>
+    <string name="summary_consent_travel_body_none">Et ole matkustanut viimeisten 14 vuorokauden aikana ulkomailla.</string>
+    <string name="summary_consent_accept_header">Suostumus</string>
+    <string name="summary_consent_accept_use">Kohtaamistietoni sekä tiedon todennäköisestä tartuttavuusajastani saa luovuttaa Koronavilkku-sovelluksen käyttöön tartuntaketjujen katkaisemiseksi. Annan suostumukseni vapaaehtoisesti. Minulta ei ole vaadittu suostumusta terveydenhuollon asiakaspalvelutilanteessa eikä viranomaismenettelyssä.</string>
+    <string name="summary_consent_accept_share">Kohtaamistietoni, edellä valitsemani matkustustiedot sekä tiedon todennäköisestä tartuttavuusajastani saa luovuttaa EU- ja Eta-maiden sekä Sveitsin koronasovellusten käyttöön tartuntaketjujen katkaisemiseksi.</string>
+    <string name="summary_consent_no_cancellation">Et voi peruuttaa antamaasi suostumusta sen jälkeen, kun olet lähettänyt tiedot.</string>
 
     <plurals name="exposure_notification_count">
         <item quantity="one">%d notification</item>

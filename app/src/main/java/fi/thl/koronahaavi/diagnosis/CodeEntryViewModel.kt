@@ -17,8 +17,11 @@ class CodeEntryViewModel @ViewModelInject constructor(
     private val diagnosisKeyService: DiagnosisKeyService,
     private val appStateRepository: AppStateRepository,
     private val workDispatcher: WorkDispatcher,
-    private val settingsRepository: SettingsRepository
+    settingsRepository: SettingsRepository
 ) : ViewModel() {
+
+    // live data elements for EU data share and travel information UI flow
+    val shareData = ShareTravelChoiceData(settingsRepository)
 
     val code = MutableLiveData<String>()
 
@@ -102,10 +105,9 @@ class CodeEntryViewModel @ViewModelInject constructor(
     }
 
     private suspend fun sendKeys(authCode: String, keys: List<TemporaryExposureKey>) {
-        // todo replace with actual UI selections
-        val selectedCountries = settingsRepository.getExposureConfiguration()?.participatingCountries?.take(2)
-            ?: listOf()
-        val consentToShare = true
+        val selectedCountries = shareData.traveledToCountries().toList()
+        val consentToShare = shareData.consentChoice.isPositive()
+            ?: false
 
         when (diagnosisKeyService.sendExposureKeys(
             authCode = authCode,

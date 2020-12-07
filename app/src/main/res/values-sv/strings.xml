@@ -13,21 +13,20 @@
     <string name="all_allow">Tillåt</string>
     <string name="all_deny">Neka</string>
     <string name="all_close">Stäng</string>
+    <string name="all_continue">Jatka</string>
 
     <string name="diagnosis_title">Meddela din smitta</string>
     <string name="diagnosis_body1">Om du har testats och konstaterats ha coronavirusinfektion får du en startkod från hälsovården eller i ett textmeddelande från THL. Med startkoden kan du anonymt förmedla information om din smitta.</string>
-    <string name="diagnosis_body2">Ange startkoden i den telefon som du vanligtvis har med dig.</string>
+    <string name="diagnosis_body2">Coronablinkern meddelar om eventuell exponering till de användare som har varit i din närhet under perioden som du sannolikt har varit smittsam. På det här sättet kan smittkedjan brytas. Ange startkoden i den telefon som du vanligtvis har med dig.</string>
     <string name="diagnosis_page_title">Meddela om din smitta</string>
-    <string name="diagnosis_code_entry">Ange startkod</string>
+    <string name="diagnosis_code_entry">Meddela om smitta</string>
     <string name="diagnosis_en_disabled">Exponeringsmeddelandena måste vara påkopplade för att du ska kunna meddela att du har blivit smittad. Gå tillbaka till hemsidan där du kan koppla på dem.</string>
 
     <string name="diagnosis_locked_title">Du har redan meddelat om din smitta</string>
     <string name="diagnosis_locked_body1">De uppgifter du angett bidrar till att bekämpa coronavirusepidemin. Coronablinkern samlar inte längre information om närliggande telefoner. Krya på dig!</string>
     <string name="diagnosis_locked_image_description">Låst</string>
 
-    <string name="diagnosis_instructions_1">Det är inte möjligt att identifiera dig med hjälp av startkoden.</string>
-    <string name="diagnosis_instructions_2">Informationen förmedlas till de användare som har varit i din närhet i perioden som du sannolikt har varit smittsam.</string>
-    <string name="diagnosis_instructions_3">Informationen uppmanar mottagarna att undvika kontakter, att i tid lägga märke till symtom som passar in på infektionen och att vid behov söka sig till test. På det här sättet kan smittospridning begränsas.</string>
+    <string name="diagnosis_instructions_1">För att meddela smittan behöver du en startkod. Det är inte möjligt att identifiera dig med hjälp av startkoden.</string>
 
     <string name="code_entry_title">Ange din startkod</string>
     <string name="code_entry_submit">Meddela om din smitta</string>
@@ -253,6 +252,32 @@
 
     <string name="exposure_check_error_title">Det gick inte att ladda exponeringsdata</string>
     <string name="exposure_check_error_message">Exponeringsdata kunde inte laddas. Kontrollera din nätverksanslutning och försök på nytt.</string>
+
+    <string name="share_consent_eu">Koronavilkun käyttäjille Suomessa sekä muiden EU-maiden kansallisten koronasovellusten käyttäjille.</string>
+    <string name="share_consent_finland">Ilmoitan tartunnastani vain Koronavilkun käyttäjille Suomessa.</string>
+    <string name="share_consent_header">Kenelle haluat ilmoittaa tartunnastasi?</string>
+    <string name="share_consent_info">Ilmoitus on aina nimetön.</string>
+    <string name="share_consent_code_saved">Koronavilkku sai avauskoodisi tekstiviestistä.</string>
+
+    <string name="travel_disclosure_header">Oletko matkustanut ulkomailla viimeisten 14 vuorokauden aikana?</string>
+    <string name="travel_disclosure_no">En ole matkustanut.</string>
+    <string name="travel_disclosure_yes">Olen matkustanut.</string>
+
+    <string name="country_list_title">Missä olet matkustanut?</string>
+    <string name="country_selection_body">Minkä maiden alueilla olet matkustanut viimeisten 14 vuorokauden aikana? Jos matkustusmaasi ei ole listalla, valitse Muu.</string>
+    <string name="country_selection_other">Muu / En halua kertoa</string>
+
+    <string name="summary_consent_header">Vahvista ja lähetä</string>
+    <string name="summary_consent_continue">Syötä avauskoodisi</string>
+    <string name="summary_consent_body_eu">Tieto tartunnastasi jaetaan nimettömästi Koronavilkun käyttäjille sekä muiden EU- ja Eta-maiden sekä Sveitsin koronasovellusten käyttäjille.</string>
+    <string name="summary_consent_body_finland">Tieto tartunnastasi jaetaan nimettömästi Koronavilkun käyttäjille.</string>
+    <string name="summary_consent_travel_header">Matkustustiedot</string>
+    <string name="summary_consent_travel_body">Olet matkustanut viimeisten 14 vuorokauden aikana näiden maiden alueilla:</string>
+    <string name="summary_consent_travel_body_none">Et ole matkustanut viimeisten 14 vuorokauden aikana ulkomailla.</string>
+    <string name="summary_consent_accept_header">Suostumus</string>
+    <string name="summary_consent_accept_use">Kohtaamistietoni sekä tiedon todennäköisestä tartuttavuusajastani saa luovuttaa Koronavilkku-sovelluksen käyttöön tartuntaketjujen katkaisemiseksi.  Annan suostumukseni vapaaehtoisesti. Minulta ei ole vaadittu suostumusta terveydenhuollon asiakaspalvelutilanteessa eikä viranomaismenettelyssä.</string>
+    <string name="summary_consent_accept_share">Kohtaamistietoni, edellä valitsemani matkustustiedot sekä tiedon todennäköisestä tartuttavuusajastani saa luovuttaa EU- ja Eta-maiden sekä Sveitsin koronasovellusten käyttöön tartuntaketjujen katkaisemiseksi.</string>
+    <string name="summary_consent_no_cancellation">Et voi peruuttaa antamaasi suostumusta sen jälkeen, kun olet lähettänyt tiedot.</string>
 
     <plurals name="exposure_notification_count">
         <item quantity="one">%d meddelande</item>

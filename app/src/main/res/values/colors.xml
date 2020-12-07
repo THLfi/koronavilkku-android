@@ -7,6 +7,7 @@
     <color name="darkBlue">#145c98</color>
     <color name="lightBlue">#7699d6</color>
     <color name="veryLightBlue">#f2f6fb</color>
+    <color name="veryLightBlueTransparent">#00f2f6fb</color>
 
     <color name="black">#303030</color>
     <color name="darkGrey">#606060</color>
@@ -18,5 +19,8 @@
     <color name="textDarkGrey">#9c000000</color>
 
     <color name="dividerGrey">#C4C4C4</color>
+
+    <!-- opaque version of disabled button color on default veryLightBlue background -->
+    <color name="disabledButton">#CBCFD5</color>
 
 </resources>

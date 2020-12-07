@@ -64,11 +64,13 @@ class AppHomeTest {
             exposureDao.deleteAll()
             keyGroupTokenDao.deleteAll()
         }
+
+        appStateRepository.setDiagnosisKeysSubmitted(false)
+        appStateRepository.setOnboardingComplete(true)
     }
 
     @Test
     fun legacyExposure() {
-        appStateRepository.setOnboardingComplete(true)
         activityRule.launchActivity(null)
         onView(withId(R.id.image_home_app_status)).checkIsDisplayed()
         onView(withId(R.id.button_home_exposure_instructions)).checkIsGone()
@@ -93,7 +95,6 @@ class AppHomeTest {
 
     @Test
     fun singleExposureNotification() {
-        appStateRepository.setOnboardingComplete(true)
         activityRule.launchActivity(null)
         onView(withId(R.id.image_home_app_status)).checkIsDisplayed()
         onView(withId(R.id.button_home_exposure_instructions)).checkIsGone()
@@ -119,7 +120,6 @@ class AppHomeTest {
 
     @Test
     fun multipleExposureNotifications() {
-        appStateRepository.setOnboardingComplete(true)
         activityRule.launchActivity(null)
         onView(withId(R.id.image_home_app_status)).checkIsDisplayed()
         onView(withId(R.id.button_home_exposure_instructions)).checkIsGone()

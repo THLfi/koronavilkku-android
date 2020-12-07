@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View" />
+        <variable name="model" type="fi.thl.koronahaavi.diagnosis.ShareTravelChoiceData" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <include android:id="@+id/layout_toolbar" layout="@layout/toolbar"/>
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?attr/textAppearanceBody1"
+                    android:text="@string/country_selection_body"
+                    android:layout_margin="20dp"
+                    />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerview_country_selection"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingHorizontal="20dp"
+                    android:clipToPadding="false"
+                    android:overScrollMode="never"
+                    tools:listitem="@layout/item_country_select"
+                    tools:itemCount="3"
+                    />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="?android:attr/listDivider"
+                    />
+                <include layout="@layout/item_country_select"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginHorizontal="20dp"
+                    app:label="@{@string/country_selection_other}"
+                    app:selected="@={model.otherCountrySelected}"
+                    />
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/button_country_selection_continue"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="40dp"
+                    android:text="@string/all_continue"
+                    />
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+    </LinearLayout>
+</layout>
