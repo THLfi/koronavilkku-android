@@ -21,7 +21,7 @@ def enableTestUI = localProperties.get("enableTestUI", "$ENABLE_TEST_UI")
 def pinBackendHost = localProperties.get("pinBackendHost", "$PIN_BACKEND_HOST")
 def pinBackendKeyHash = localProperties.get("pinBackendKeyHash", "$PIN_BACKEND_KEY_HASH")
 def pinBackendKeyBackupHash = localProperties.get("pinBackendKeyBackupHash", "$PIN_BACKEND_KEY_BACKUP_HASH")
-def exposureFileSignaturePublicKey = localProperties.get("exposureFileSignaturePublicKey", "")
+def exposureFilePublicKey = localProperties.get("exposureFilePublicKey", "")
 
 // setup app signing keystore for huawei debug builds
 def keystoreProperties = new Properties()
@@ -48,10 +48,6 @@ android {
         buildConfigField "String", "PIN_BACKEND_HOST", "\"$pinBackendHost\""
         buildConfigField "String", "PIN_BACKEND_KEY_HASH", "\"$pinBackendKeyHash\""
         buildConfigField "String", "PIN_BACKEND_KEY_BACKUP_HASH", "\"$pinBackendKeyBackupHash\""
-
-        // todo limit to huawei
-        buildConfigField "String", "EXPOSURE_FILE_SIGNATURE_PUBLIC_KEY", "\"$exposureFileSignaturePublicKey\""
-
 
         resConfigs "en", "fi", "sv"
 
@@ -89,6 +85,9 @@ android {
         }
         huawei {
             dimension "system"
+
+            // exposure file signature verification is only required for huawei builds
+            buildConfigField "String", "EXPOSURE_FILE_PUBLIC_KEY", "\"$exposureFilePublicKey\""
         }
     }
 
