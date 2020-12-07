@@ -101,7 +101,7 @@
 
     <string name="exposure_detail_title">Potential exposure</string>
 
-    <string name="exposure_detail_message">In the past 10 days, you have been close to a person who has reported a COVID-19 infection via Koronavilkku.</string>
+    <string name="exposure_detail_message">In the last 10 days, you have been close to a person who has reported their coronavirus infection through the application.</string>
 
     <string name="exposure_detail_contact_title">Contact healthcare services</string>
     <string name="exposure_detail_contact_subtitle">Information about your potential exposure will only be communicated to healthcare services if you contact them yourself.</string>
@@ -126,6 +126,7 @@
     <string name="exposure_detail_instructions_5">If possible, let someone else handle food shopping and other errands outside the home.</string>
     <string name="exposure_detail_instructions_6">If you cough or sneeze, use a disposable tissue to cover your mouth and nose. Put the used tissue in a waste bin and wash your hands with water and soap or use hand sanitiser. If you do not have a tissue, cough or sneeze into your sleeve.</string>
     <string name="exposure_detail_instructions_7">Work remotely if possible.</string>
+    <string name="exposure_detail_instructions_8">If you are not in Finland, follow the instructions by local authorities.</string>
 
     <string name="notification_list_title">Exposure notifications</string>
     <string name="notification_list_disclaimer">The assessment of your exposure is based on encounters that Koronavilkku has collected during the last 10 days. The intensity of exposure cannot be accurately assessed.</string>
@@ -216,18 +217,19 @@
     <string name="en_blocked_location">On some Android phones, exposure notifications also require that the location setting is turned on. The app does not, however, use your location data.</string>
     <string name="en_blocked_button_label">Enable</string>
 
-    <string name="municipality_list_title">Select your municipality</string>
+    <string name="municipality_list_title">Select municipality</string>
     <string name="municipality_search_hint">Search</string>
     <string name="municipality_no_results">"No municipality found "</string>
 
 
-    <string name="contact_evaluation_title">Take a symptom assessment</string>
-    <string name="contact_evaluation_body">We recommend that you contact healthcare services by taking a symptom assessment. This helps the healthcare professionals in their work and saves you effort when handling the matter.</string>
+    <string name="contact_evaluation_title">Take a symptom assessment in Omaolo</string>
+    <string name="contact_evaluation_body">We recommend that you contact healthcare services by taking a symptom assessment. This makes it easy for you to get health care services involved online and make it easier for health care professionals to do their jobs.</string>
     <string name="contact_evaluation_start">Take assessment</string>
-    <string name="contact_evaluation_footer">It takes approximately 5–10 minutes to take the symptom assessment. Children under the age of 16 must contact healthcare services by telephone.</string>
-    <string name="contact_evaluation_other_title">Or contact your municipal healthcare services in another way:</string>
+    <string name="contact_evaluation_footer">If you do not have a Finnish personal identification number or are under the age of 15 years, you must contact healthcare services by telephone.</string>
+    <string name="contact_evaluation_other_title">Alternative contact methods</string>
+    <string name="contact_evaluation_other_sub_title">Alternatively, you can contact the health care services in your municipality in other ways:</string>
     <string name="card_contact_request_title">Send a contact request</string>
-    <string name="card_contact_request_link_name">Only for people without symptoms (not for children under 16)</string>
+    <string name="card_contact_request_link_name">Only for people without symptoms (not for children under 15)</string>
     <string name="info_icon">Info</string>
 
     <string name="test_title" translatable="false">Testi</string>
@@ -279,31 +281,30 @@
     <string name="exposure_check_error_title">Error loading exposure data</string>
     <string name="exposure_check_error_message">Exposure data could not be loaded. Please check your internet connection and try again.</string>
 
-    <string name="share_consent_eu">Koronavilkun käyttäjille Suomessa sekä muiden EU-maiden kansallisten koronasovellusten käyttäjille.</string>
-    <string name="share_consent_finland">Ilmoitan tartunnastani vain Koronavilkun käyttäjille Suomessa.</string>
-    <string name="share_consent_header">Kenelle haluat ilmoittaa tartunnastasi?</string>
-    <string name="share_consent_info">Ilmoitus on aina nimetön.</string>
-    <string name="share_consent_code_saved">Koronavilkku sai avauskoodisi tekstiviestistä.</string>
+    <string name="share_consent_eu">Users of Koronavilkku and other European coronavirus apps.</string>
+    <string name="share_consent_finland">Users of Koronavilkku only.</string>
+    <string name="share_consent_header">Who do you want to report your infection to?</string>
+    <string name="share_consent_code_saved">Koronavilkku has received your key code.</string>
 
-    <string name="travel_disclosure_header">Oletko matkustanut ulkomailla viimeisten 14 vuorokauden aikana?</string>
-    <string name="travel_disclosure_no">En ole matkustanut.</string>
-    <string name="travel_disclosure_yes">Olen matkustanut.</string>
+    <string name="travel_disclosure_header">Have you travelled abroad within the past 14 days?</string>
+    <string name="travel_disclosure_no">I have not.</string>
+    <string name="travel_disclosure_yes">I have.</string>
 
-    <string name="country_list_title">Missä olet matkustanut?</string>
-    <string name="country_selection_body">Minkä maiden alueilla olet matkustanut viimeisten 14 vuorokauden aikana? Jos matkustusmaasi ei ole listalla, valitse Muu.</string>
-    <string name="country_selection_other">Muu / En halua kertoa</string>
+    <string name="country_list_title">Where have you travelled?</string>
+    <string name="country_selection_body">Which countries have you visited within the past 14 days? If the country you visited is not listed or you do not want to disclose it, select Other.</string>
+    <string name="country_selection_other">Other</string>
 
-    <string name="summary_consent_header">Vahvista ja lähetä</string>
-    <string name="summary_consent_continue">Syötä avauskoodisi</string>
-    <string name="summary_consent_body_eu">Tieto tartunnastasi jaetaan nimettömästi Koronavilkun käyttäjille sekä muiden EU- ja Eta-maiden sekä Sveitsin koronasovellusten käyttäjille.</string>
-    <string name="summary_consent_body_finland">Tieto tartunnastasi jaetaan nimettömästi Koronavilkun käyttäjille.</string>
-    <string name="summary_consent_travel_header">Matkustustiedot</string>
-    <string name="summary_consent_travel_body">Olet matkustanut viimeisten 14 vuorokauden aikana näiden maiden alueilla:</string>
-    <string name="summary_consent_travel_body_none">Et ole matkustanut viimeisten 14 vuorokauden aikana ulkomailla.</string>
-    <string name="summary_consent_accept_header">Suostumus</string>
-    <string name="summary_consent_accept_use">Kohtaamistietoni sekä tiedon todennäköisestä tartuttavuusajastani saa luovuttaa Koronavilkku-sovelluksen käyttöön tartuntaketjujen katkaisemiseksi. Annan suostumukseni vapaaehtoisesti. Minulta ei ole vaadittu suostumusta terveydenhuollon asiakaspalvelutilanteessa eikä viranomaismenettelyssä.</string>
-    <string name="summary_consent_accept_share">Kohtaamistietoni, edellä valitsemani matkustustiedot sekä tiedon todennäköisestä tartuttavuusajastani saa luovuttaa EU- ja Eta-maiden sekä Sveitsin koronasovellusten käyttöön tartuntaketjujen katkaisemiseksi.</string>
-    <string name="summary_consent_no_cancellation">Et voi peruuttaa antamaasi suostumusta sen jälkeen, kun olet lähettänyt tiedot.</string>
+    <string name="summary_consent_header">Confirm and send</string>
+    <string name="summary_consent_continue">Enter your key code</string>
+    <string name="summary_consent_body_eu">Information about your infection will be shared anonymously to the users of Koronavilkku and other coronavirus applications in the EU, EEA and Switzerland.</string>
+    <string name="summary_consent_body_finland">Information about your infection will be shared anonymously to the users of Koronavilkku.</string>
+    <string name="summary_consent_travel_header">Travel information</string>
+    <string name="summary_consent_travel_body">You have visited these countries within the past 14 days: </string>
+    <string name="summary_consent_travel_body_none">You have not travelled abroad within the past 14 days.</string>
+    <string name="summary_consent_accept_header">Consent</string>
+    <string name="summary_consent_accept_use">Data on my encounters and the estimated period of when I can have infected others may be shared with the Koronavilkku app for the purpose of breaking transmission chains.I give this consent voluntarily. Giving the consent was not demanded of me in a health care customer service situation or during official proceedings.</string>
+    <string name="summary_consent_accept_share">Data on my encounters, the travel information I have selected above, and the estimated period of when I can have infected others may be shared to the coronavirus applications used in the EU, EEA and Switzerland for the purpose of breaking transmission chains.</string>
+    <string name="summary_consent_no_cancellation">You cannot withdraw your consent after sending the information.</string>
 
     <plurals name="exposure_notification_count">
         <item quantity="one">%d notification</item>

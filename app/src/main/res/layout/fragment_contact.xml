@@ -102,11 +102,25 @@
                     android:text="@string/contact_evaluation_other_title"
                     android:textAppearance="?attr/textAppearanceHeadline3" />
 
+                <TextView
+                    android:id="@+id/text_contact_other_sub_title"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@+id/text_contact_other_title"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    android:layout_marginHorizontal="20dp"
+                    android:layout_marginTop="10dp"
+                    android:visibility="@{municipality.showOmaoloSymptomAssessment ? View.VISIBLE : View.GONE}"
+                    android:text="@string/contact_evaluation_other_sub_title"
+                    android:textAppearance="?attr/textAppearanceBody2"
+                    android:textColor="@color/textDarkGrey" />
+
                 <include
                     android:id="@+id/card_contact_web"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@+id/text_contact_other_title"
+                    app:layout_constraintTop_toBottomOf="@+id/text_contact_other_sub_title"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     android:layout_marginTop="20dp"

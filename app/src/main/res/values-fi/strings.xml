@@ -16,11 +16,11 @@
     <string name="all_continue">Jatka</string>
 
     <string name="diagnosis_title">Ilmoita tartunnastasi</string>
-    <string name="diagnosis_body1">Jos sinulla todetaan Suomessa tartunta koronavirustestillä, saat avauskoodin terveydenhuollon ammattilaiselta tai tekstiviestillä THL:ltä. Avauskoodilla voit jakaa nimettömästi tiedon tartunnastasi.</string>
-    <string name="diagnosis_body2">Koronavilkku ilmoittaa mahdollisesta altistumisesta käyttäjille, jotka ovat olleet lähelläsi todennäköisenä tartuttavuusaikana. Tämä auttaa katkaisemaan tartuntaketjuja. Syötä avauskoodi sillä puhelimella, jota yleensä pidät mukanasi.</string>
+    <string name="diagnosis_body1">Ilmoittaaksesi tartunnastasi tarvitset avauskoodin. Saat koodin terveydenhuollon ammattilaiselta tai tekstiviestillä THL:ltä, jos sinulla todetaan tartunta koronavirustestillä Suomessa.</string>
+    <string name="diagnosis_body2">Syötä avauskoodi sillä puhelimella, jota yleensä pidät mukanasi. Koronavilkku ilmoittaa mahdollisesta altistumisesta sovelluksen käyttäjille, jotka ovat olleet lähelläsi todennäköisenä tartuttavuusaikana. Avauskoodista ei voi tunnistaa henkilöllisyyttäsi.</string>
     <string name="diagnosis_page_title">Ilmoita tartunnastasi</string>
     <string name="diagnosis_code_entry">Ilmoita tartunnasta</string>
-    <string name="diagnosis_en_disabled">Altistumisilmoitusten täytyy olla päällä, jotta voit ilmoittaa tartunnasta. Palaa Koti-näkymään, jossa voit laittaa ne päälle.</string>
+    <string name="diagnosis_en_disabled">Altistumisilmoitusten täytyy olla käytössä, jotta voit ilmoittaa tartunnasta. Ota altistumisilmoitukset käyttöön Koronavilkun Koti-näkymässä.</string>
 
     <string name="diagnosis_locked_title">Olet jo ilmoittanut tartunnasta</string>
     <string name="diagnosis_locked_body1">Ilmoittamasi tiedot auttavat koronavirusepidemian taltuttamisessa. Sovellus on nyt lukittu eikä enää kerää tietoja kohtaamisista. Pikaista paranemista!</string>
@@ -29,7 +29,7 @@
     <string name="diagnosis_instructions_1">Ilmoittaaksesi tartunnasta tarvitset avauskoodin. Avauskoodista ei voi tunnistaa henkilöllisyyttäsi.</string>
 
     <string name="code_entry_title">Syötä avauskoodisi</string>
-    <string name="code_entry_submit">Ilmoita tartunnasta</string>
+    <string name="code_entry_submit">Lähetä</string>
     <string name="code_entry_invalid">Avauskoodi on virheellinen tai sen voimassaolo on päättynyt. Tarkistathan, että olet syöttänyt koodin täsmälleen oikein.</string>
     <string name="code_entry_submit_failed">Tartunnasta ilmoittaminen epäonnistui, koska palvelimeen ei saada yhteyttä. Ole hyvä ja yritä hetken kuluttua uudelleen.</string>
     <string name="code_entry_en_disabled">Altistumisilmoitukset ovat pois päältä. Palaa koti-näkymään jossa voit laittaa ne päälle</string>
@@ -96,7 +96,7 @@
     <string name="terms_url">https://koronavilkku.fi/kayttoehdot/</string>
 
     <string name="exposure_detail_title">Mahdollinen altistuminen</string>
-    <string name="exposure_detail_message">Olet ollut viimeisten 10 vuorokauden aikana lähellä henkilöä, joka on ilmoittanut koronatartunnasta Koronavilkun kautta.</string>
+    <string name="exposure_detail_message">Olet ollut viimeisten 10 vuorokauden aikana lähellä henkilöä, joka on ilmoittanut koronatartunnastaan sovelluksen kautta.</string>
 
     <string name="exposure_detail_contact_title">Ota yhteyttä terveyden\u00ADhuoltoon</string>
     <string name="exposure_detail_contact_subtitle">Tieto mahdollisesta altistumisestasi ei välity terveydenhuoltoon, jollet itse ota yhteyttä.</string>
@@ -113,7 +113,7 @@
 
     <string name="exposure_detail_instructions_title">Toimi näin</string>
     <string name="exposure_detail_instructions_subtitle">Noudata näitä ohjeita 10 päivän ajan:</string>
-    <string name="exposure_detail_instructions_1">Tarkkaile vointiasi. Jos sinulla ilmenee yksikin koronavirustautiin sopiva oire, ota mahdollisimman pian yhteyttä kuntasi terveydenhuoltoon ja hakeudu testiin. Koronavirustautiin sopivia oireita ovat haju- tai makuaistin muutos, hengitysvaikeus, yskä, kurkkukipu, nuha, kuume, päänsärky, lihaskivut, ripuli tai vatsakipu ilman muuta ilmeistä syytä.</string>
+    <string name="exposure_detail_instructions_1">Tarkkaile vointiasi. Jos sinulla ilmenee yksikin koronavirustautiin sopiva oire, ota mahdollisimman pian yhteyttä kuntasi terveydenhuoltoon ja hakeudu testiin. Koronavirustautiin sopivia oireita ovat haju- tai makuaistin muutos, hengitysvaikeus, yskä, kurkkukipu, nuha, kuume, päänsärky, lihaskivut sekä ripuli tai vatsakipu ilman muuta ilmeistä syytä.</string>
     <string name="exposure_detail_contact_instructions_1">Jos sinulla ilmenee oireita, hakeudu testiin</string>
     <string name="exposure_detail_instructions_2">Vältä tapaamasta muita ihmisiä.</string>
     <string name="exposure_detail_instructions_3">Huolehdi käsihygieniastasi.</string>
@@ -121,6 +121,7 @@
     <string name="exposure_detail_instructions_5">Anna toisen henkilön hoitaa ruokaostokset ja muu asiointi kodin ulkopuolella, jos mahdollista.</string>
     <string name="exposure_detail_instructions_6">Jos yskit tai aivastat, suojaa suusi ja nenäsi kertakäyttönenäliinalla. Laita käytetty nenäliina jäteastiaan ja pese kätesi vedellä ja saippualla tai käytä käsihuuhdetta. Jos sinulla ei ole nenäliinaa, yski tai aivasta hihaan.</string>
     <string name="exposure_detail_instructions_7">Tee etätyötä, jos mahdollista.</string>
+    <string name="exposure_detail_instructions_8">Jos et ole Suomessa, noudata paikallisten viranomaisten ohjeita.</string>
 
     <string name="notification_list_title">Altistumis\u00ADilmoitukset</string>
     <string name="notification_list_disclaimer">Arvio altistumisesta perustuu Koronavilkun keräämiin kohtaamistietoihin viimeisten 10 vuorokauden ajalta. Altistumisen voimakkuutta ei voida täsmällisesti arvioida.</string>
@@ -211,17 +212,18 @@
     <string name="en_blocked_location">Joissakin Android-puhelimissa altistumisilmoitukset vaativat lisäksi sijaintiasetuksen käyttöönoton. Sijaintiasi ei kuitenkaan tallenneta.</string>
     <string name="en_blocked_button_label">Ota käyttöön</string>
 
-    <string name="municipality_list_title">Valitse asuinkuntasi</string>
+    <string name="municipality_list_title">Valitse kunta</string>
     <string name="municipality_search_hint">Etsi</string>
     <string name="municipality_no_results">Hakutekstillä alkavia kuntia ei löytynyt</string>
 
-    <string name="contact_evaluation_title">Tee oirearvio</string>
-    <string name="contact_evaluation_body">Suosittelemme, että otat yhteyttä terveydenhuoltoon oirearvion kautta, koska se helpottaa terveydenhuollon ammattilaisten tekemää työtä ja säästää sinulta vaivaa asian käsittelyssä.</string>
+    <string name="contact_evaluation_title">Tee oirearvio Omaolossa</string>
+    <string name="contact_evaluation_body">Suosittelemme, että otat yhteyttä terveydenhuoltoon tekemällä oirearvion. Näin saat asiasi helposti vireille verkossa ja helpotat terveydenhuollon ammattilaisten tekemää työtä. Oirearvion tekemiseen kuluu noin 5–10 minuuttia.</string>
     <string name="contact_evaluation_start">Tee oirearvio</string>
-    <string name="contact_evaluation_footer">Oirearvion tekemiseen kuluu noin 5–10 minuuttia. Alle 16-vuotiaiden pitää ottaa yhteyttä terveydenhuoltoon puhelimitse.</string>
-    <string name="contact_evaluation_other_title">Tai ota yhteyttä kuntasi terveydenhuoltoon muilla tavoin:</string>
+    <string name="contact_evaluation_footer">Jos olet alle 15-vuotias, pyydä huoltajaasi asioimaan Omaolossa puolestasi.</string>
+    <string name="contact_evaluation_other_title">Muut yhteydenottotavat</string>
+    <string name="contact_evaluation_other_sub_title">Vaihtoehtoisesti voit ottaa yhteyttä kuntasi terveydenhuoltoon muilla tavoin:</string>
     <string name="card_contact_request_title">Lähetä yhteydenottopyyntö</string>
-    <string name="card_contact_request_link_name">Vain oireettomille (ei alle 16-vuotiaille)</string>
+    <string name="card_contact_request_link_name">Vain oireettomille (ei alle 15-vuotiaille)</string>
     <string name="info_icon">Info</string>
 
     <string name="pre_web_contact_title_evaluation">Omaolon oirearvio</string>
@@ -253,10 +255,9 @@
     <string name="exposure_check_error_title">Altistumistietoja ei voitu ladata</string>
     <string name="exposure_check_error_message">Altistumistietojen lataaminen ei onnistunut. Tarkista verkkoyhteys ja yritä uudelleen.</string>
 
-    <string name="share_consent_eu">Koronavilkun käyttäjille Suomessa sekä muiden EU-maiden kansallisten koronasovellusten käyttäjille.</string>
-    <string name="share_consent_finland">Ilmoitan tartunnastani vain Koronavilkun käyttäjille Suomessa.</string>
+    <string name="share_consent_eu">Koronavilkun ja muiden eurooppalaisten koronasovellusten käyttäjille.</string>
+    <string name="share_consent_finland">Vain Koronavilkun käyttäjille.</string>
     <string name="share_consent_header">Kenelle haluat ilmoittaa tartunnastasi?</string>
-    <string name="share_consent_info">Ilmoitus on aina nimetön.</string>
     <string name="share_consent_code_saved">Koronavilkku sai avauskoodisi tekstiviestistä.</string>
 
     <string name="travel_disclosure_header">Oletko matkustanut ulkomailla viimeisten 14 vuorokauden aikana?</string>
@@ -264,20 +265,20 @@
     <string name="travel_disclosure_yes">Olen matkustanut.</string>
 
     <string name="country_list_title">Missä olet matkustanut?</string>
-    <string name="country_selection_body">Minkä maiden alueilla olet matkustanut viimeisten 14 vuorokauden aikana? Jos matkustusmaasi ei ole listalla, valitse Muu.</string>
-    <string name="country_selection_other">Muu / En halua kertoa</string>
+    <string name="country_selection_body">Missä maissa olet matkustanut viimeisten 14 vuorokauden aikana? Jos matkustusmaasi ei ole listalla tai et halua kertoa sitä, valitse Muu.</string>
+    <string name="country_selection_other">Muu</string>
 
     <string name="summary_consent_header">Vahvista ja lähetä</string>
     <string name="summary_consent_continue">Syötä avauskoodisi</string>
-    <string name="summary_consent_body_eu">Tieto tartunnastasi jaetaan nimettömästi Koronavilkun käyttäjille sekä muiden EU- ja Eta-maiden sekä Sveitsin koronasovellusten käyttäjille.</string>
+    <string name="summary_consent_body_eu">Tieto tartunnastasi jaetaan nimettömästi Koronavilkun ja muiden eurooppalaisten koronasovellusten käyttäjille.</string>
     <string name="summary_consent_body_finland">Tieto tartunnastasi jaetaan nimettömästi Koronavilkun käyttäjille.</string>
     <string name="summary_consent_travel_header">Matkustustiedot</string>
-    <string name="summary_consent_travel_body">Olet matkustanut viimeisten 14 vuorokauden aikana näiden maiden alueilla:</string>
+    <string name="summary_consent_travel_body">Olet matkustanut viimeisten 14 vuorokauden aikana näissä maissa: </string>
     <string name="summary_consent_travel_body_none">Et ole matkustanut viimeisten 14 vuorokauden aikana ulkomailla.</string>
     <string name="summary_consent_accept_header">Suostumus</string>
-    <string name="summary_consent_accept_use">Kohtaamistietoni sekä tiedon todennäköisestä tartuttavuusajastani saa luovuttaa Koronavilkku-sovelluksen käyttöön tartuntaketjujen katkaisemiseksi.  Annan suostumukseni vapaaehtoisesti. Minulta ei ole vaadittu suostumusta terveydenhuollon asiakaspalvelutilanteessa eikä viranomaismenettelyssä.</string>
-    <string name="summary_consent_accept_share">Kohtaamistietoni, edellä valitsemani matkustustiedot sekä tiedon todennäköisestä tartuttavuusajastani saa luovuttaa EU- ja Eta-maiden sekä Sveitsin koronasovellusten käyttöön tartuntaketjujen katkaisemiseksi.</string>
-    <string name="summary_consent_no_cancellation">Et voi peruuttaa antamaasi suostumusta sen jälkeen, kun olet lähettänyt tiedot.</string>
+    <string name="summary_consent_accept_use">Kohtaamistietoni sekä tiedon todennäköisestä tartuttavuusajastani saa luovuttaa Koronavilkku-sovelluksen käyttöön tartuntaketjujen katkaisemiseksi. Annan suostumukseni vapaaehtoisesti. Minulta ei ole vaadittu suostumusta terveydenhuollon asiakaspalvelutilanteessa eikä viranomaismenettelyssä.</string>
+    <string name="summary_consent_accept_share">Kohtaamistietoni, edellä valitsemani matkustustiedot ja tiedon todennäköisestä tartuttavuusajastani saa luovuttaa EU- ja Eta-maiden sekä Sveitsin ja Iso-Britannian koronasovellusten käyttöön tartuntaketjujen katkaisemiseksi.</string>
+    <string name="summary_consent_no_cancellation">Kun olet lähettänyt tiedot, et voi enää peruuttaa antamaasi suostumusta.</string>
 
     <plurals name="exposure_notification_count">
         <item quantity="one">%d ilmoitus</item>

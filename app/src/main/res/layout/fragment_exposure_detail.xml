@@ -61,6 +61,7 @@
                     text_exposure_detail_instructions_5,
                     text_exposure_detail_instructions_6,
                     text_exposure_detail_instructions_7,
+                    text_exposure_detail_instructions_8,
                     text_exposure_detail_disclaimer_none" />
 
                 <androidx.constraintlayout.widget.Group
@@ -77,7 +78,8 @@
                     text_exposure_detail_instructions_4,
                     text_exposure_detail_instructions_5,
                     text_exposure_detail_instructions_6,
-                    text_exposure_detail_instructions_7"
+                    text_exposure_detail_instructions_7,
+                    text_exposure_detail_instructions_8"
                     android:visibility="@{model.hasExposures ? View.VISIBLE : View.GONE}"
                     tools:visibility="visible"/>
 
@@ -280,8 +282,16 @@
                     android:id="@+id/text_exposure_detail_instructions_7"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="20dp"
                     android:text="@string/exposure_detail_instructions_7"
+                    android:textAppearance="?attr/textAppearanceBody2"
+                    />
+
+                <TextView
+                    android:id="@+id/text_exposure_detail_instructions_8"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="20dp"
+                    android:text="@string/exposure_detail_instructions_8"
                     android:textAppearance="?attr/textAppearanceBody2"
                     />
 

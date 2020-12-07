@@ -37,8 +37,7 @@
                 app:constraint_referenced_ids="text_diagnosis_title,
                 text_diagnosis_body1,
                 text_diagnosis_body2,
-                button_diagnosis_start,
-                text_diagnosis_instructions_1"
+                button_diagnosis_start"
                 android:visibility="@{model.allowStart==true ? View.VISIBLE : View.GONE}"
                 tools:visibility="visible"
                 />
@@ -102,16 +101,6 @@
                 android:text="@string/diagnosis_code_entry"
                 android:visibility="@{model.allowStart ? View.VISIBLE : View.GONE}"
                 />
-            <TextView
-                android:id="@+id/text_diagnosis_instructions_1"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="5dp"
-                android:text="@string/diagnosis_instructions_1"
-                android:textAppearance="?attr/textAppearanceBody2"
-                android:gravity="center"
-                />
-
 
             <ImageView
                 android:id="@+id/image_diagnosis_locked"
