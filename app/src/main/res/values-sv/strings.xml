@@ -13,7 +13,7 @@
     <string name="all_allow">Tillåt</string>
     <string name="all_deny">Neka</string>
     <string name="all_close">Stäng</string>
-    <string name="all_continue">Jatka</string>
+    <string name="all_continue">Fortsätt</string>
 
     <string name="diagnosis_title">Meddela din smitta</string>
     <string name="diagnosis_body1">Om du har testats och konstaterats ha coronavirusinfektion får du en startkod från hälsovården eller i ett textmeddelande från THL. Med startkoden kan du anonymt förmedla information om din smitta.</string>
