@@ -4,6 +4,7 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'dagger.hilt.android.plugin'
 apply plugin: 'androidx.navigation.safeargs.kotlin'
 apply plugin: 'com.google.android.gms.oss-licenses-plugin'
+apply plugin: 'com.google.protobuf'
 
 // setup properties from local overrides or from gradle.properties defaults
 // these are then used to create buildConfigFields which are used in code
@@ -20,6 +21,7 @@ def enableTestUI = localProperties.get("enableTestUI", "$ENABLE_TEST_UI")
 def pinBackendHost = localProperties.get("pinBackendHost", "$PIN_BACKEND_HOST")
 def pinBackendKeyHash = localProperties.get("pinBackendKeyHash", "$PIN_BACKEND_KEY_HASH")
 def pinBackendKeyBackupHash = localProperties.get("pinBackendKeyBackupHash", "$PIN_BACKEND_KEY_BACKUP_HASH")
+def exposureFilePublicKey = localProperties.get("exposureFilePublicKey", "")
 
 // setup app signing keystore for huawei debug builds
 def keystoreProperties = new Properties()
@@ -83,6 +85,9 @@ android {
         }
         huawei {
             dimension "system"
+
+            // exposure file signature verification is only required for huawei builds
+            buildConfigField "String", "EXPOSURE_FILE_PUBLIC_KEY", "\"$exposureFilePublicKey\""
         }
     }
 
@@ -143,6 +148,13 @@ android {
     }
 
     sourceSets {
+        // Proto definition only used on huawei for key file verification
+        huawei {
+            proto {
+                srcDirs 'src/liveHuawei/java/fi/thl/koronahaavi/proto'
+            }
+        }
+
         // Database schema required for migration testing
         androidTest.assets.srcDirs += files("$projectDir/schemas".toString())
     }
@@ -152,6 +164,21 @@ android {
 
 configurations.all {
     resolutionStrategy.force "junit:junit:$junitVersion"
+}
+
+protobuf {
+    protoc {
+        artifact = 'com.google.protobuf:protoc:3.11.4'
+    }
+    generateProtoTasks {
+        all().each { task ->
+            task.builtins {
+                java {
+                    option "lite"
+                }
+            }
+        }
+    }
 }
 
 dependencies {
@@ -168,6 +195,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation "com.google.android.material:material:$materialVersion"
     implementation "com.jakewharton.timber:timber:$timberVersion"
+    implementation 'com.google.protobuf:protobuf-javalite:3.11.4'
 
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion"

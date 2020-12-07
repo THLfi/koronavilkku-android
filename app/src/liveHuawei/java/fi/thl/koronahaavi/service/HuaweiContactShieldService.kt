@@ -7,6 +7,7 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.util.Base64
 import com.google.android.gms.nearby.exposurenotification.ExposureNotificationStatusCodes
 import com.google.android.gms.nearby.exposurenotification.ExposureSummary
 import com.google.android.gms.nearby.exposurenotification.ExposureSummary.ExposureSummaryBuilder
@@ -83,18 +84,22 @@ class HuaweiContactShieldService(
         token: String,
         files: List<File>,
         config: ExposureConfigurationData
-    ): ResolvableResult<Unit> {
+    ): ResolvableResult<Unit> = resultFromRunning<Unit> {
+
+        val verifier = ExposureKeyFileSignatureVerifier()
+        val keyBytes = Base64.decode(BuildConfig.EXPOSURE_FILE_PUBLIC_KEY, Base64.DEFAULT)
+        if (!verifier.verify(files, keyBytes)) {
+            throw Exception("Invalid exposure key file signature")
+        }
 
         val intent = PendingIntent.getService(
-            context,
-            0,
-            Intent(context, ContactShieldIntentService::class.java),
-            PendingIntent.FLAG_UPDATE_CURRENT
+                context,
+                0,
+                Intent(context, ContactShieldIntentService::class.java),
+                PendingIntent.FLAG_UPDATE_CURRENT
         )
 
-        return resultFromRunning<Unit> {
-            engine.putSharedKeyFiles(intent, files, config.toDiagnosisConfiguration(), token).await()
-        }
+        engine.putSharedKeyFiles(intent, files, config.toDiagnosisConfiguration(), token).await()
     }
 
     override suspend fun getTemporaryExposureKeys() = resultFromRunning {
