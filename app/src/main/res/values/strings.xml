@@ -178,7 +178,7 @@
     <string name="enable_note">Enable COVID-19 exposure notifications</string>
 
     <string name="enable_err_title">Exposure notifications could not be turned on</string>
-    <string name="enable_err_hms_location_permission">In order to use exposure notification on your device, HMS Core requires permission to access device location. Please grant permission in device settings.</string>
+    <string name="enable_err_hms_location_permission">HMS Core needs permission to use your device\'s location before exposure notifications can be turned on. You can allow this in your device\'s settings.</string>
     <string name="enable_err_missing_capability">Your device is not supported</string>
     <string name="enable_err_api_not_supported">Unfortunately Google Play Services exposure notifications are not available for your device.\n\n%s</string>
     <string name="enable_err_not_owner">You are not logged into your phone as the device owner. Koronavilkku only works with the device owner\'s user profile.\n\nYou can switch between profiles by swiping down from the top of the home screen with two fingers and tapping the Switch User button.</string>
