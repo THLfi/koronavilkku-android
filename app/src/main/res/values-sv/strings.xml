@@ -276,7 +276,7 @@
     <string name="summary_consent_travel_body">Du har rest i dessa länder under de senaste 14 dygnen:</string>
     <string name="summary_consent_travel_body_none">Du har inte rest utomlands under de senaste 14 dygnen.</string>
     <string name="summary_consent_accept_header">Samtycke</string>
-    <string name="summary_consent_accept_use">Mina mötesuppgifter samt information om min sannolika smittsamhetsperiod får lämnas ut för användning av Coronablinker-applikationen för att bryta smittkedjorna. Jag ger mitt samtycke frivilligt. Mitt samtycke har inte krävts i en kundbetjäningssituation inom hälso- och sjukvården eller i ett myndighetsförfarande.</string>
+    <string name="summary_consent_accept_use">Mina mötesuppgifter samt information om min sannolika smittsamhetsperiod får lämnas ut för användning av Coronablinker-applikationen för att bryta smittkedjorna.\n\nJag ger mitt samtycke frivilligt. Mitt samtycke har inte krävts i en kundbetjäningssituation inom hälso- och sjukvården eller i ett myndighetsförfarande.</string>
     <string name="summary_consent_accept_share">Mina mötesuppgifter, ovan valda reseuppgifter samt information om min sannolika smittsamhetsperiod får lämnas ut för användning av corona-applikationer i EU- och EES-länderna samt Schweiz för att bryta smittkedjorna.</string>
     <string name="summary_consent_no_cancellation">Du kan inte återkalla ditt samtycke efter att du har skickat uppgifterna.</string>
 

@@ -302,7 +302,7 @@
     <string name="summary_consent_travel_body">You have visited these countries within the past 14 days: </string>
     <string name="summary_consent_travel_body_none">You have not travelled abroad within the past 14 days.</string>
     <string name="summary_consent_accept_header">Consent</string>
-    <string name="summary_consent_accept_use">Data on my encounters and the estimated period of when I can have infected others may be shared with the Koronavilkku app for the purpose of breaking transmission chains.I give this consent voluntarily. Giving the consent was not demanded of me in a health care customer service situation or during official proceedings.</string>
+    <string name="summary_consent_accept_use">Data on my encounters and the estimated period of when I can have infected others may be shared with the Koronavilkku app for the purpose of breaking transmission chains.\n\nI give this consent voluntarily. Giving the consent was not demanded of me in a health care customer service situation or during official proceedings.</string>
     <string name="summary_consent_accept_share">Data on my encounters, the travel information I have selected above, and the estimated period of when I can have infected others may be shared to the coronavirus applications used in the EU, EEA and Switzerland for the purpose of breaking transmission chains.</string>
     <string name="summary_consent_no_cancellation">You cannot withdraw your consent after sending the information.</string>
 
