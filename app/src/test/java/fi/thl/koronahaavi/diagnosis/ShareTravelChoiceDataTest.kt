@@ -82,22 +82,6 @@ class ShareTravelChoiceDataTest {
     }
 
     @Test
-    fun participatingCountriesValidated() {
-        every { settingsRepository.getExposureConfiguration() } returns TestData.exposureConfiguration().copy(
-            participatingCountries = listOf("DE", "IE", "", "X", "test", "FI", " ", "3", "dk", "IT")
-        )
-
-        data = ShareTravelChoiceData(settingsRepository)
-
-        data.countries.test().assertValue {
-            it.size == 3 &&
-            it.any { c -> c.code == "IT" } &&
-            it.any { c -> c.code == "DE" } &&
-            it.any { c -> c.code == "IE" }
-        }
-    }
-
-    @Test
     fun summaryShowCountries() {
         val observer = data.summaryShowCountries.test()
         observer.assertNoValue()
