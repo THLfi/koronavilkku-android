@@ -16,11 +16,11 @@
     <string name="all_continue">Fortsätt</string>
 
     <string name="diagnosis_title">Meddela din smitta</string>
-    <string name="diagnosis_body1">Om du har testats och konstaterats ha coronavirusinfektion får du en startkod från hälsovården eller i ett textmeddelande från THL. Med startkoden kan du anonymt förmedla information om din smitta.</string>
-    <string name="diagnosis_body2">Coronablinkern meddelar om eventuell exponering till de användare som har varit i din närhet under perioden som du sannolikt har varit smittsam. På det här sättet kan smittkedjan brytas. Ange startkoden i den telefon som du vanligtvis har med dig.</string>
+    <string name="diagnosis_body1">För att meddela om din smitta behöver du en startkod. Du får startkoden från en yrkesperson inom hälso- och sjukvården eller per textmeddelande från THL, om du i ett coronavirustest i Finland har konstateras vara smittad.</string>
+    <string name="diagnosis_body2">Ange startkoden i den telefon som du vanligtvis har med dig. Coronablinkern meddelar om eventuell exponering till de användare av applikationen som har varit i din närhet under perioden som du sannolikt har varit smittsam. Det är inte möjligt att identifiera dig med hjälp av startkoden.</string>
     <string name="diagnosis_page_title">Meddela om din smitta</string>
     <string name="diagnosis_code_entry">Meddela om smitta</string>
-    <string name="diagnosis_en_disabled">Exponeringsmeddelandena måste vara påkopplade för att du ska kunna meddela att du har blivit smittad. Gå tillbaka till hemsidan där du kan koppla på dem.</string>
+    <string name="diagnosis_en_disabled">Exponeringsmeddelandena måste vara påkopplade för att du ska kunna meddela att du har blivit smittad. Koppla på exponeringsmeddelandena i Coronablinkerns hemvy.</string>
 
     <string name="diagnosis_locked_title">Du har redan meddelat om din smitta</string>
     <string name="diagnosis_locked_body1">De uppgifter du angett bidrar till att bekämpa coronavirusepidemin. Coronablinkern samlar inte längre information om närliggande telefoner. Krya på dig!</string>
@@ -29,7 +29,7 @@
     <string name="diagnosis_instructions_1">För att meddela smittan behöver du en startkod. Det är inte möjligt att identifiera dig med hjälp av startkoden.</string>
 
     <string name="code_entry_title">Ange din startkod</string>
-    <string name="code_entry_submit">Meddela om din smitta</string>
+    <string name="code_entry_submit">Skicka</string>
     <string name="code_entry_invalid">Startkoden är felaktig eller har gått ut. Kontrollera att du har angett koden korrekt.</string>
     <string name="code_entry_submit_failed">Det gick inte att meddela om din smitta eftersom servern inte kunde nås. Försök igen om ett ögonblick.</string>
     <string name="code_entry_en_disabled">Exponeringsmeddelandena måste vara påkopplade för att du ska kunna meddela att du har blivit smittad. Gå tillbaka till hemsidan där du kan koppla på dem.</string>
@@ -114,14 +114,14 @@
     <string name="exposure_detail_instructions_title">Gör så här</string>
     <string name="exposure_detail_instructions_subtitle">Följ dessa anvisningar i 10 dagar:</string>
     <string name="exposure_detail_instructions_1">Var uppmärksam på hur du mår. Om du har ens ett av symtomen som passar in på coronavirusinfektion, ta så snabbt som möjligt kontakt med hälsovården i din kommun för att bli testad. Symtom som kan tyda på coronavirusinfektion är förändringar i lukt- eller smaksinnet, andningssvårigheter, hosta, halsont, snuva, feber, huvudvärk, muskelvärk samt diarré eller magont utan annan uppenbar orsak.</string>
-    <string name="exposure_detail_contact_instructions_1">Sök dig genast till test om du får symtom</string>
-    <string name="exposure_detail_instructions_2">Undvik att träffa människor.</string>
+    <string name="exposure_detail_contact_instructions_1">Om du har symtom ska du söka dig för testning</string>
+    <string name="exposure_detail_instructions_2">Undvik att träffa andra människor.</string>
     <string name="exposure_detail_instructions_3">Var noggrann med din handhygien.</string>
-    <string name="exposure_detail_instructions_4">Undvik offentliga platser och kollektivtrafik. Om du är tvungen att vistas på offentliga platser ska du hålla ett avstånd på minst två meter till andra människor. Om du inte kan hålla ett tillräckligt långt, avstånd använd ansiktsmask.</string>
+    <string name="exposure_detail_instructions_4">Undvik offentliga platser och kollektivtrafik. Om du är tvungen att vistas på offentliga platser ska du hålla ett avstånd på minst två meter till andra människor. Om du inte kan hålla ett tillräckligt långt avstånd, använd ansiktsmask.</string>
     <string name="exposure_detail_instructions_5">Låt en annan person handla mat och sköta andra ärenden utanför hemmet, om möjligt.</string>
-    <string name="exposure_detail_instructions_6">Om du hostar eller nyser ska du skydda din mun och näsa med en engångsnäsduk. Kasta den använda näsduken i soporna och tvätta dina händer med tvål och vatten eller använd handdesinfektionsmedel. Om du inte har någon näsduk ska du hosta och nysa i ärmen.</string>
+    <string name="exposure_detail_instructions_6">Om du hostar eller nyser ska du skydda din mun och näsa med en engångsnäsduk. Kasta den använda näsduken i soporna och tvätta dina händer med tvål och vatten eller använd handdesinfektionsmedel. Om du inte har en näsduk till hands, hosta eller nys i armvecket.</string>
     <string name="exposure_detail_instructions_7">Arbeta på distans, om möjligt.</string>
-    <string name="exposure_detail_instructions_8">Om du inte befinner dig i Finland ska du följa den lokala myndighetens anvisningar.</string>
+    <string name="exposure_detail_instructions_8">Om du inte befinner dig i Finland ska du följa lokala myndigheternas anvisningar.</string>
 
     <string name="notification_list_title">Exponerings\u00ADmeddelandena</string>
     <string name="notification_list_disclaimer">Bedömningen om exponeringen bygger på den information om möten som Coronablinkern har samlat in under de senaste 10 dygnen. Coronablinkern ger ingen exakt bedömning av hur stor smittorisken är.</string>
@@ -217,13 +217,13 @@
     <string name="municipality_no_results">Inga kommuner som börjar med söktexten hittades</string>
 
     <string name="contact_evaluation_title">Gör en bedömning av dina symtom i Omaolo</string>
-    <string name="contact_evaluation_body">Vi rekommenderar att du kontaktar hälsovården via Omaolos symtombedömning eftersom det underlättar hälsovårdens arbete och är lätt för dig att göra på nätet.</string>
+    <string name="contact_evaluation_body">Vi rekommenderar att du kontaktar hälsovården genom att göra en symtombedömning eftersom det underlättar hälso- och sjukvårdens arbete och är lätt för dig att göra på nätet. Det tar cirka 5–10 minuter att göra en symtombedömning.</string>
     <string name="contact_evaluation_start">Gör en symtombedömning</string>
-    <string name="contact_evaluation_footer">Det tar cirka 5–10 minuter att göra en symtombedömning. Personer under 16 år ska kontakta hälsovården per telefon.</string>
-    <string name="contact_evaluation_other_title">Alternativa kontaktmetoder</string>
+    <string name="contact_evaluation_footer">Om du är under 15 år, be din vårdnadshavare sköta dina ärenden i Omaolo för dig.</string>
+    <string name="contact_evaluation_other_title">Övriga kontaktmetoder</string>
     <string name="contact_evaluation_other_sub_title">Alternativt kan du kontakta hälsovården i din kommun på annat sätt:</string>
-    <string name="card_contact_request_title">Lämna en kontaktförfrågan till hälsovården</string>
-    <string name="card_contact_request_link_name">Avsett endast för 16 år fyllda, symtomfria personer</string>
+    <string name="card_contact_request_title">Skicka kontaktbegäran</string>
+    <string name="card_contact_request_link_name">Endast för symtomfria personer (som fyllt 15 år)</string>
     <string name="info_icon">Info</string>
 
     <string name="pre_web_contact_title_evaluation">Symtom\u00ADbedömning i Omaolo</string>
@@ -255,10 +255,10 @@
     <string name="exposure_check_error_title">Det gick inte att ladda exponeringsdata</string>
     <string name="exposure_check_error_message">Exponeringsdata kunde inte laddas. Kontrollera din nätverksanslutning och försök på nytt.</string>
 
-    <string name="share_consent_eu">För användare av Coronablinkern och andra europeiska coronaapplikationer. </string>
+    <string name="share_consent_eu">För användare av Coronablinkern och andra europeiska corona-applikationer.</string>
     <string name="share_consent_finland">Endast för användare av Coronablinkern.</string>
     <string name="share_consent_header">Vem vill du meddela din smitta till?</string>
-    <string name="share_consent_code_saved">Coronablinkern har mottagit din startkod.</string>
+    <string name="share_consent_code_saved">Coronablinkern fick din startkod från textmeddelandet.</string>
 
     <string name="travel_disclosure_header">Har du rest utomlands under de senaste 14 dygnen?</string>
     <string name="travel_disclosure_no">Nej.</string>
@@ -270,15 +270,15 @@
 
     <string name="summary_consent_header">Bekräfta och sänd</string>
     <string name="summary_consent_continue">Ange din startkod</string>
-    <string name="summary_consent_body_eu">Informationen om din smitta förmedlas anonymt till de som använder Coronablinkern samt till de som använder coronaapplikationer i andra EU- och EES-länder samt Schweiz.</string>
+    <string name="summary_consent_body_eu">Information om din smitta meddelas anonymt till de som använder Coronablinkern och andra europeiska corona-applikationer.</string>
     <string name="summary_consent_body_finland">Informationen om din smitta förmedlas anonymt till de som använder Coronablinkern.</string>
     <string name="summary_consent_travel_header">Reseuppgifter</string>
     <string name="summary_consent_travel_body">Du har rest i dessa länder under de senaste 14 dygnen:</string>
     <string name="summary_consent_travel_body_none">Du har inte rest utomlands under de senaste 14 dygnen.</string>
     <string name="summary_consent_accept_header">Samtycke</string>
-    <string name="summary_consent_accept_use">Mina mötesuppgifter samt information om min sannolika smittsamhetsperiod får lämnas ut för användning av Coronablinker-applikationen för att bryta smittkedjorna.\n\nJag ger mitt samtycke frivilligt. Mitt samtycke har inte krävts i en kundbetjäningssituation inom hälso- och sjukvården eller i ett myndighetsförfarande.</string>
-    <string name="summary_consent_accept_share">Mina mötesuppgifter, ovan valda reseuppgifter samt information om min sannolika smittsamhetsperiod får lämnas ut för användning av corona-applikationer i EU- och EES-länderna samt Schweiz för att bryta smittkedjorna.</string>
-    <string name="summary_consent_no_cancellation">Du kan inte återkalla ditt samtycke efter att du har skickat uppgifterna.</string>
+    <string name="summary_consent_accept_use">Mina mötesuppgifter samt information om min sannolika smittsamhetsperiod får lämnas ut för användning i Coronablinker-applikationen i syfte att bryta smittkedjorna.\n\nJag ger mitt samtycke frivilligt. Mitt samtycke har inte krävts i en kundbetjäningssituation inom hälso- och sjukvården eller i ett myndighetsförfarande.</string>
+    <string name="summary_consent_accept_share">Mina mötesuppgifter, ovan valda reseuppgifter och information om min sannolika smittsamhetsperiod får lämnas ut för användning av corona-applikationer i EU- och EES-länderna samt Schweiz och Storbritannien i syfte att bryta smittkedjorna.</string>
+    <string name="summary_consent_no_cancellation">När du sänt uppgifterna kan du inte längre återkalla ditt samtycke.</string>
 
     <plurals name="exposure_notification_count">
         <item quantity="one">%d meddelande</item>
