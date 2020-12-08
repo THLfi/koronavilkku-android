@@ -6,7 +6,6 @@ import androidx.lifecycle.map
 import fi.thl.koronahaavi.common.ChoiceData
 import fi.thl.koronahaavi.common.combineWith
 import fi.thl.koronahaavi.data.SettingsRepository
-import java.util.*
 
 /**
  * View model data elements for diagnosis data share to EU and travel
@@ -39,10 +38,7 @@ class ShareTravelChoiceData(settingsRepository: SettingsRepository) {
         use == true && (share == true || shareSelected == false)
     }
 
-    private val allCountries = settingsRepository.getExposureConfiguration()?.participatingCountries?.filter {
-        // Validate codes as additional security measure
-        Locale.getISOCountries().contains(it) && it != "FI"
-    }
+    private val allCountries = settingsRepository.getExposureConfiguration()?.participatingCountries
 
     private val selectedCountries = MutableLiveData<Set<String>>(setOf())
 
