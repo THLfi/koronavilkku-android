@@ -10,7 +10,7 @@ Clone the repository, and open in Android Studio 4.0 or later (or build directly
 Choose a build variant:
 * simGoogleDebug for a simulated exposure notification system which provides dummy responses and allows running the app in emulator
 * liveGoogleDebug for Google Play Services exposure notification system on a device. Note that using the exposure notification system is restricted by app id.
-* liveHuaweiDebug for Huawei Contact Shield or Google Play Services exposure notification system on a device. Note that using Contact Shield requires configuration files not included in this repository.
+* liveHuaweiDebug for Huawei Contact Shield exposure notification system on a device. Note that using Contact Shield requires configuration files not included in this repository.
 
 Configure the app for your local environment by creating a local.properties file in project root directory with entries that override defaults from gradle.properties. For example:
 

@@ -8,10 +8,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 - User consent and travel information choices required for EFGS interoperability
+- Huawei only: exposure key archive signature verification
 
 ### Changed
 - Backend API provides country codes and accepts EFGS share consent and travel selections
 - UI changes to share diagnosis screen and navigation
+- Huawei only: Always use Contact Shield for app gallery distribution
 
 ## [1.3.0](https://github.com/THLfi/koronavilkku-android/compare/v1.2.1...v1.3.0) - 2020-11-24
 
