@@ -141,10 +141,20 @@ class DiagnosisKeyService @Inject constructor (
     }
 
 
-    private suspend fun reloadExposureConfig(): ExposureConfigurationData =
-        backendService.getConfiguration().also {
-            settingsRepository.updateExposureConfiguration(it)
-        }
+    private suspend fun reloadExposureConfig(): ExposureConfigurationData {
+        val config = backendService.getConfiguration()
+
+        // Exclude invalid country codes as additional security measure
+        val validatedCountries = config.participatingCountries?.filter { it.isValidCountryCode() }
+
+        val validatedConfig = config.copy(
+            participatingCountries = validatedCountries
+        )
+        settingsRepository.updateExposureConfiguration(validatedConfig)
+        return validatedConfig
+    }
+
+    private fun String.isValidCountryCode() = Locale.getISOCountries().contains(this) && this != FINLAND_CODE
 
     private fun createTempLocalFile(): File {
         val filename = "${UUID.randomUUID()}.tmp"
@@ -168,6 +178,7 @@ class DiagnosisKeyService @Inject constructor (
         const val FAKE_INTERVAL_NUM = 2650847
         const val FAKE_TOKEN = "000000000000"
         private val AUTH_HTTP_ERRORS = setOf(400, 403)
+        const val FINLAND_CODE = "FI"
     }
 }
 

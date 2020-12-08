@@ -156,6 +156,25 @@ class DiagnosisKeyServiceTest {
         }
     }
 
+    @Test
+    fun countryCodesFiltered() {
+        coEvery { backendService.getConfiguration() } returns TestData.exposureConfiguration().copy(
+            participatingCountries = listOf("DE", "IE", "", "X", "test", "FI", " ", "&&", "3", "dk", "IT")
+        )
+
+        val expectedCountries = listOf("DE", "IE", "IT")
+
+        runBlocking {
+            val result = diagnosisKeyService.downloadDiagnosisKeyFiles()
+
+            assertEquals(expectedCountries, result.exposureConfig.participatingCountries)
+
+            val savedConfig = slot<ExposureConfigurationData>()
+            verify { settingsRepository.updateExposureConfiguration(capture(savedConfig)) }
+            assertEquals(expectedCountries, savedConfig.captured.participatingCountries)
+        }
+    }
+
     private fun fakeKeyList() = listOf(fakeExposureKey(), fakeExposureKey())
 
     private fun fakeExposureKey() = TemporaryExposureKey.TemporaryExposureKeyBuilder()
