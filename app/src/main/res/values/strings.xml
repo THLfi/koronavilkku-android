@@ -118,15 +118,15 @@
 
     <string name="exposure_detail_instructions_title">What to do</string>
     <string name="exposure_detail_instructions_subtitle">Follow these instructions for 10 days:</string>
-    <string name="exposure_detail_instructions_1">Monitor your condition. If you observe even one symptom matching the coronavirus disease, contact your municipality\'s health care services as soon as possible and get tested. Symptoms matching the coronavirus disease include a change in your sense of smell or taste, respiratory difficulty, cough, throat pain, head cold, fever, headache, muscle pain and diarrhoea or abdominal pain for no other obvious reason.</string>
-    <string name="exposure_detail_contact_instructions_1">If you start experiencing symptoms, get tested</string>
+    <string name="exposure_detail_instructions_1">Monitor your health. If you develop any symptom consistent with COVID-19, contact your municipality\'s health care services as soon as possible and get tested. Symptoms consistent with the coronavirus disease include a change in your sense of smell or taste, shortness of breath, cough, throat pain, head cold, fever, headache, muscle pain, unexplained diarrhoea or abdominal pain.</string>
+    <string name="exposure_detail_contact_instructions_1">If you develop symptoms, get tested</string>
     <string name="exposure_detail_instructions_2">Avoid contact with other people.</string>
-    <string name="exposure_detail_instructions_3">Take care of good hand hygiene.</string>
-    <string name="exposure_detail_instructions_4">Avoid public spaces and transport. If you are forced to go to public spaces, maintain a minimum distance of two metres to other people. If you cannot maintain a sufficient safe distance, wear a mask.</string>
-    <string name="exposure_detail_instructions_5">Ask someone else to get you groceries and run other necessary errands outside your home, if possible.</string>
+    <string name="exposure_detail_instructions_3">Maintain good hand hygiene.</string>
+    <string name="exposure_detail_instructions_4">Avoid public spaces and transport. If you have to visit public places, keep at least a two-meter distance to other people. If you cannot keep a sufficient distance, use a face mask.</string>
+    <string name="exposure_detail_instructions_5">If possible, ask someone else to handle food shopping and other errands outside the home.</string>
     <string name="exposure_detail_instructions_6">If you cough or sneeze, use a disposable tissue to cover your mouth and nose. Throw the used tissue in a waste bin and wash your hands with water and soap or use hand sanitiser. If you do not have a tissue, cough or sneeze into your sleeve.</string>
     <string name="exposure_detail_instructions_7">Work remotely when possible.</string>
-    <string name="exposure_detail_instructions_8">If you are not in Finland, follow local authorities’ instructions.</string>
+    <string name="exposure_detail_instructions_8">If you are not in Finland, follow the instructions by local authorities.</string>
 
     <string name="notification_list_title">Exposure notifications</string>
     <string name="notification_list_disclaimer">The assessment of your exposure is based on encounters that Koronavilkku has collected during the last 10 days. The intensity of exposure cannot be accurately assessed.</string>
@@ -222,9 +222,9 @@
     <string name="municipality_no_results">"No municipality found "</string>
 
 
-    <string name="contact_evaluation_title">Fill in the symptom checker in Omaolo</string>
-    <string name="contact_evaluation_body">We recommend that you contact health care by filling in the symptom checker. This makes it easy for you to get health care services involved online and make it easier for health care professionals to do their jobs. Filling in the symptom checker takes approximately 5–10 minutes.</string>
-    <string name="contact_evaluation_start">Fill in the symptom checker</string>
+    <string name="contact_evaluation_title">Take a symptom assessment in Omaolo</string>
+    <string name="contact_evaluation_body">We recommend that you contact healthcare services by taking the COVID-19 symptom assessment in Omaolo. This makes it easy for you to get healthcare services involved online and also helps healthcare professionals in their work. It takes approximately 5–10 minutes to take the symptom assessment.</string>
+    <string name="contact_evaluation_start">Take assessment</string>
     <string name="contact_evaluation_footer">If you are under 15 years old, ask your guardian to use Omaolo on your behalf.</string>
     <string name="contact_evaluation_other_title">Other contact methods</string>
     <string name="contact_evaluation_other_sub_title">Alternatively, you can contact your municipality\'s health care in other ways:</string>

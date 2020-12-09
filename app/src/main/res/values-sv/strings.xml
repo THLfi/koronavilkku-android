@@ -114,14 +114,14 @@
     <string name="exposure_detail_instructions_title">Gör så här</string>
     <string name="exposure_detail_instructions_subtitle">Följ dessa anvisningar i 10 dagar:</string>
     <string name="exposure_detail_instructions_1">Var uppmärksam på hur du mår. Om du har ens ett av symtomen som passar in på coronavirusinfektion, ta så snabbt som möjligt kontakt med hälsovården i din kommun för att bli testad. Symtom som kan tyda på coronavirusinfektion är förändringar i lukt- eller smaksinnet, andningssvårigheter, hosta, halsont, snuva, feber, huvudvärk, muskelvärk samt diarré eller magont utan annan uppenbar orsak.</string>
-    <string name="exposure_detail_contact_instructions_1">Om du har symtom ska du söka dig för testning</string>
+    <string name="exposure_detail_contact_instructions_1">Om du har symtom ska du söka dig till testning</string>
     <string name="exposure_detail_instructions_2">Undvik att träffa andra människor.</string>
     <string name="exposure_detail_instructions_3">Var noggrann med din handhygien.</string>
     <string name="exposure_detail_instructions_4">Undvik offentliga platser och kollektivtrafik. Om du är tvungen att vistas på offentliga platser ska du hålla ett avstånd på minst två meter till andra människor. Om du inte kan hålla ett tillräckligt långt avstånd, använd ansiktsmask.</string>
     <string name="exposure_detail_instructions_5">Låt en annan person handla mat och sköta andra ärenden utanför hemmet, om möjligt.</string>
     <string name="exposure_detail_instructions_6">Om du hostar eller nyser ska du skydda din mun och näsa med en engångsnäsduk. Kasta den använda näsduken i soporna och tvätta dina händer med tvål och vatten eller använd handdesinfektionsmedel. Om du inte har en näsduk till hands, hosta eller nys i armvecket.</string>
     <string name="exposure_detail_instructions_7">Arbeta på distans, om möjligt.</string>
-    <string name="exposure_detail_instructions_8">Om du inte befinner dig i Finland ska du följa lokala myndigheternas anvisningar.</string>
+    <string name="exposure_detail_instructions_8">Om du inte befinner dig i Finland ska du följa de lokala myndigheternas anvisningar.</string>
 
     <string name="notification_list_title">Exponerings\u00ADmeddelandena</string>
     <string name="notification_list_disclaimer">Bedömningen om exponeringen bygger på den information om möten som Coronablinkern har samlat in under de senaste 10 dygnen. Coronablinkern ger ingen exakt bedömning av hur stor smittorisken är.</string>
@@ -218,7 +218,7 @@
 
     <string name="contact_evaluation_title">Gör en bedömning av dina symtom i Omaolo</string>
     <string name="contact_evaluation_body">Vi rekommenderar att du kontaktar hälsovården genom att göra en symtombedömning eftersom det underlättar hälso- och sjukvårdens arbete och är lätt för dig att göra på nätet. Det tar cirka 5–10 minuter att göra en symtombedömning.</string>
-    <string name="contact_evaluation_start">Gör en symtombedömning</string>
+    <string name="contact_evaluation_start">Börja</string>
     <string name="contact_evaluation_footer">Om du är under 15 år, be din vårdnadshavare sköta dina ärenden i Omaolo för dig.</string>
     <string name="contact_evaluation_other_title">Övriga kontaktmetoder</string>
     <string name="contact_evaluation_other_sub_title">Alternativt kan du kontakta hälsovården i din kommun på annat sätt:</string>
