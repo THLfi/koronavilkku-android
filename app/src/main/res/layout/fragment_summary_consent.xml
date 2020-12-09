@@ -34,7 +34,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/summary_consent_header"
                     android:layout_marginVertical="10dp"
-                    android:textAppearance="?attr/textAppearanceHeadline3"
+                    android:textAppearance="?attr/textAppearanceHeadline2"
                     />
 
                 <TextView
