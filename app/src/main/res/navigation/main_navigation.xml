@@ -8,10 +8,15 @@
     <action android:id="@+id/to_diagnosis"
         app:destination="@id/diagnosis"/>
 
+    <!-- launchSingleTop prevents multiple code entry screens, when repeating deeplink starts
+         popUpTo share_consent clears possible previous diagnosis flow fragments from back stack
+     -->
     <action
         android:id="@+id/to_share_consent"
         app:destination="@id/diagnosis_share_navigation"
-        app:launchSingleTop="true">  <!-- prevents multiple code entry screens, when repeating deeplink starts -->
+        app:launchSingleTop="true"
+        app:popUpTo="@id/share_consent"
+        app:popUpToInclusive="true">
         <argument
             android:name="code"
             app:argType="string"/>
