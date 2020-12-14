@@ -99,7 +99,9 @@ class HomeViewModel @ViewModelInject constructor(
                 }
                 is ResolvableResult.HmsCanceled -> {
                     enableENErrorEvent.postValue(Event(
-                        EnableENError.UserCanceled(result.step.toUserEnableStep())
+                        EnableENError.UserCanceled(
+                            result.step.toUserEnableStep(enableENErrorEvent)
+                        )
                     ))
                 }
             }

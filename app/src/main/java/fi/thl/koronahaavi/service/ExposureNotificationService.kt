@@ -49,6 +49,7 @@ interface ExposureNotificationService {
     sealed class EnableStep {
         object UserConsent: EnableStep()
         object LocationPermission: EnableStep()
+        data class UpdateRequired(val retry: suspend (activity: Activity) -> ResolvableResult<Unit>): EnableStep()
     }
 
     // Provides methods to check and resolve exposure system availability in the UI

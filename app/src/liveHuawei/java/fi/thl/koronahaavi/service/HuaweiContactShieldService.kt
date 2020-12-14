@@ -35,8 +35,16 @@ class HuaweiContactShieldService(
     private val context: Context
 ) : ExposureNotificationService {
 
-    private val engine by lazy {
-        ContactShield.getContactShieldEngine(context)
+    // Using var since need to replace if HMS update required
+    @Volatile private var engine: ContactShieldEngine? = null
+
+    private fun getEngine(): ContactShieldEngine {
+        synchronized(this) {
+            if (engine == null) {
+                engine = ContactShield.getContactShieldEngine(context)
+            }
+            return engine!!
+        }
     }
 
     private val isEnabledFlow = MutableStateFlow<Boolean?>(null)
@@ -46,21 +54,48 @@ class HuaweiContactShieldService(
         isEnabledFlow.value = isEnabled()
     }
 
-    override suspend fun enable() = resultFromRunning {
-        engine.startContactShield(ContactShieldSetting.DEFAULT).await()
-        isEnabledFlow.value = true
+    override suspend fun enable(): ResolvableResult<Unit> {
+        // First, test if HMS update required by calling some other method than start
+        val result = resultFromRunning<Unit> {
+            getEngine().isContactShieldRunning.await()
+        }
+
+        if (result is ResolvableResult.Failed && result.apiErrorCode == 1212) {
+            Timber.d("Detected update required when starting")
+
+            // Error 1212 means that HMS Core update kit is needed, and an update dialog is shown
+            // automatically when engine is created with an activity. We handle this by returning
+            // a retry function which will be called with current activity, so that we can
+            // recreate engine with activity, and call start with that engine instance.
+            return ResolvableResult.HmsCanceled(EnableStep.UpdateRequired { activity ->
+                resultFromRunning {
+                    Timber.d("Retry start with activity")
+                    engine = ContactShield.getContactShieldEngine(activity)
+                    getEngine().startContactShield(ContactShieldSetting.DEFAULT).await()
+                    isEnabledFlow.value = true
+                }
+            })
+        }
+
+        return resultFromRunning {
+            getEngine().startContactShield(ContactShieldSetting.DEFAULT).await()
+            isEnabledFlow.value = true
+        }
     }
 
     override suspend fun disable() = resultFromRunning {
-        engine.stopContactShield().await()
+        Timber.d("calling stopContactShield")
+        getEngine().stopContactShield().await()
         isEnabledFlow.value = false
     }
 
-    override suspend fun isEnabled(): Boolean =
-        engine.isContactShieldRunning.await()
+    override suspend fun isEnabled(): Boolean {
+        Timber.d("calling isContactShieldRunning")
+        return getEngine().isContactShieldRunning.await()
+    }
 
     override suspend fun getExposureSummary(token: String): ExposureSummary =
-        engine.getContactSketch(token).await().let {
+        getEngine().getContactSketch(token).await().let {
             ExposureSummaryBuilder()
                 .setDaysSinceLastExposure(it.daysSinceLastHit)
                 .setMatchedKeyCount(it.numberOfHits)
@@ -73,7 +108,7 @@ class HuaweiContactShieldService(
     override suspend fun getExposureDetails(token: String): List<Exposure> {
         val createdDate = ZonedDateTime.now()
 
-        return engine.getContactDetail(token).await()
+        return getEngine().getContactDetail(token).await()
                 .map { info ->
                     Timber.d(info.toString())
                     info.toExposure(createdDate)
@@ -86,10 +121,16 @@ class HuaweiContactShieldService(
         config: ExposureConfigurationData
     ): ResolvableResult<Unit> = resultFromRunning<Unit> {
 
-        val verifier = ExposureKeyFileSignatureVerifier()
-        val keyBytes = Base64.decode(BuildConfig.EXPOSURE_FILE_PUBLIC_KEY, Base64.DEFAULT)
-        if (!verifier.verify(files, keyBytes)) {
-            throw Exception("Invalid exposure key file signature")
+        if (!BuildConfig.SKIP_EXPOSURE_FILE_VERIFICATION) {
+            Timber.d("Verifying exposure file signature with public key ${BuildConfig.EXPOSURE_FILE_PUBLIC_KEY}")
+            val verifier = ExposureKeyFileSignatureVerifier()
+            val keyBytes = Base64.decode(BuildConfig.EXPOSURE_FILE_PUBLIC_KEY, Base64.DEFAULT)
+            if (!verifier.verify(files, keyBytes)) {
+                throw Exception("Invalid exposure key file signature")
+            }
+        }
+        else {
+            Timber.d("Skipping exposure key file signature verification")
         }
 
         val intent = PendingIntent.getService(
@@ -99,11 +140,11 @@ class HuaweiContactShieldService(
                 PendingIntent.FLAG_UPDATE_CURRENT
         )
 
-        engine.putSharedKeyFiles(intent, files, config.toDiagnosisConfiguration(), token).await()
+        getEngine().putSharedKeyFiles(intent, files, config.toDiagnosisConfiguration(), token).await()
     }
 
     override suspend fun getTemporaryExposureKeys() = resultFromRunning {
-        engine.periodicKey.await().map {
+        getEngine().periodicKey.await().map {
             TemporaryExposureKey.TemporaryExposureKeyBuilder()
                 .setKeyData(it.content)
                 .setRollingStartIntervalNumber(
@@ -137,7 +178,7 @@ class HuaweiContactShieldService(
             ResolvableResult.Success(block())
         }
         catch (exception: ApiException) {
-            Timber.e(exception, "HMS API call failed")
+            Timber.e(exception, "HMS API call failed, status code ${exception.statusCode}")
             when (exception.statusCode) {
                 ExposureNotificationStatusCodes.FAILED_NOT_SUPPORTED -> {
                     ResolvableResult.MissingCapability(

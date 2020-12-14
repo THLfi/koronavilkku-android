@@ -37,15 +37,8 @@ open class ENEnablerFragment : Fragment() {
         })
 
         statusViewModel.enableErrorEvent().observe(viewLifecycleOwner, Observer {
-            it.getContentIfNotHandled()?.let { reason ->
-                if (reason is EnableENError.UserCanceled && reason.step is UserEnableStep.UserConsent) {
-                    // huawei contact shield reports cancel here instead of activity result through request resolution
-                    onUserRejectedEnable()
-                }
-                else {
-                    context?.showEnableFailureReasonDialog(reason)
-                    onEnableCanceled()
-                }
+            it.getContentIfNotHandled()?.let { error ->
+                onErrorEvent(error)
             }
         })
 
@@ -71,6 +64,21 @@ open class ENEnablerFragment : Fragment() {
         })
     }
 
+    private fun onErrorEvent(error: EnableENError) {
+        if (error is EnableENError.UserCanceled && error.step == UserEnableStep.UserConsent) {
+            // huawei reports cancel here instead of activity result through request resolution
+            onUserRejectedEnable()
+        }
+        else if (error is EnableENError.UserCanceled && error.step is UserEnableStep.UpdateRequired) {
+            // huawei requires specific handling of HMS Core update
+            onHmsUpdateRequired(error.step)
+        }
+        else {
+            context?.showEnableFailureReasonDialog(error)
+            onEnableCanceled()
+        }
+    }
+
     protected fun enableSystem() {
 
         viewLifecycleOwner.lifecycleScope.launch {
@@ -89,6 +97,15 @@ open class ENEnablerFragment : Fragment() {
     }
 
     protected open fun onExposureNotificationsEnabled() {
+    }
+
+    private fun onHmsUpdateRequired(step: UserEnableStep.UpdateRequired) {
+        viewLifecycleOwner.lifecycleScope.launch {
+            if (step.retry(this@ENEnablerFragment.requireActivity())) {
+                Timber.d("Retry successful")
+                onExposureNotificationsEnabled()
+            }
+        }
     }
 
     /**

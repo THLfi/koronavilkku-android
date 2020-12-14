@@ -1,5 +1,6 @@
 package fi.thl.koronahaavi.settings
 
+import android.app.Activity
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
@@ -74,7 +75,9 @@ class EnableSystemViewModel @ViewModelInject constructor(
             is ResolvableResult.HmsCanceled -> {
                 Timber.d("got ResolvableResult.Canceled")
                 enableENErrorEvent.postValue(Event(
-                    EnableENError.UserCanceled(result.step.toUserEnableStep())
+                    EnableENError.UserCanceled(
+                        result.step.toUserEnableStep(enableENErrorEvent)
+                    )
                 ))
                 false
             }
@@ -111,10 +114,23 @@ sealed class ENApiError {
 sealed class UserEnableStep() {
     object UserConsent: UserEnableStep()
     object LocationPermission: UserEnableStep()
+    data class UpdateRequired(val retry: suspend (activity: Activity) -> Boolean): UserEnableStep()
 }
 
-fun EnableStep.toUserEnableStep(): UserEnableStep =
+fun EnableStep.toUserEnableStep(errorEvent: MutableLiveData<Event<EnableENError>>): UserEnableStep =
     when(this) {
         is EnableStep.UserConsent -> UserEnableStep.UserConsent
         is EnableStep.LocationPermission -> UserEnableStep.LocationPermission
+        is EnableStep.UpdateRequired -> UserEnableStep.UpdateRequired {
+            when (retry(it)) {
+                is ResolvableResult.Success -> true
+                else -> {
+                    Timber.d("retry with activity failed")
+                    errorEvent.postValue(Event(
+                        EnableENError.UserCanceled(UserEnableStep.UserConsent)
+                    ))
+                    false
+                }
+            }
+        }
     }
