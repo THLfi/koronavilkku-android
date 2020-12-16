@@ -93,6 +93,58 @@ class ExposureSummaryCheckerTest {
         assertEquals(latest, result[0].detectedDate)
     }
 
+    @Test
+    fun filtersOutLowRiskExposures() {
+        val checker = ExposureSummaryChecker(
+            summary().setMaximumRiskScore(200).build(),
+            TestData.exposureConfiguration()
+        )
+
+        val now = ZonedDateTime.now()
+
+        val result = checker.filterExposures(listOf(
+            Exposure(1, now.minus(Duration.ofDays(1)), now, 0),
+            Exposure(2, now.minus(Duration.ofDays(2)), now, 200),
+            Exposure(3, now.minus(Duration.ofDays(2)), now, 180),
+            Exposure(4, now.minus(Duration.ofDays(3)), now, 0),
+            Exposure(5, now.minus(Duration.ofDays(3)), now, 0)
+        ))
+
+        assertEquals(2, result.size)
+    }
+
+    @Test
+    fun fallbackWhenFiltersAllExposures() {
+        val checker = ExposureSummaryChecker(
+            summary().setMaximumRiskScore(200).build(),
+            TestData.exposureConfiguration()
+        )
+
+        val now = ZonedDateTime.now()
+        val latest = now.minus(Duration.ofDays(1))
+
+        val result = checker.filterExposures(listOf(
+            Exposure(1, now.minus(Duration.ofDays(2)), now, 0),
+            Exposure(2, latest, now, 0),
+            Exposure(3, now.minus(Duration.ofDays(3)), now, 0)
+        ))
+
+        assertEquals(1, result.size)
+        assertEquals(latest, result[0].detectedDate)
+    }
+
+    @Test
+    fun filterEmptyDetails() {
+        // verify that checker can handle unexpected data without exposure details
+        val checker = ExposureSummaryChecker(
+            summary().setMaximumRiskScore(200).build(),
+            TestData.exposureConfiguration()
+        )
+
+        val result = checker.filterExposures(listOf())
+        assertTrue(result.isEmpty())
+    }
+
     private fun summary() = ExposureSummary.ExposureSummaryBuilder()
         .setMatchedKeyCount(1)
         .setMaximumRiskScore(200)

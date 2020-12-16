@@ -32,11 +32,25 @@ class ExposureSummaryChecker(
         return if (result == Result.DURATION_LONG) {
             // only include latest since exposure was accumulated and is therefore
             // represented better as a single exposure
-            exposures.sortedBy { it.detectedDate }.takeLast(1)
+            getLatestExposure(exposures)
         } else {
-            exposures
+            // EN returns all exposure details, so we need to filter out low risk exposures
+            // At this point summary has indicated high risk, so one of the exposures
+            // should be high risk as well, but if not for some reason, fallback to latest exposure
+
+            val highRiskExposures = exposures.filter {
+                it.totalRiskScore >= config.minimumRiskScore
+            }
+
+            if (highRiskExposures.isNotEmpty())
+                highRiskExposures
+            else
+                getLatestExposure(exposures)
         }
     }
+
+    private fun getLatestExposure(exposures: List<Exposure>) =
+        exposures.sortedBy { it.detectedDate }.takeLast(1)
 
     private fun ExposureSummary.isRiskHigh(): Boolean =
         maximumRiskScore >= config.minimumRiskScore
