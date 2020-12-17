@@ -346,4 +346,25 @@
         <sha1>998caa30623f73223194a8b657abd2baec4880ea</sha1>
         <cve>CVE-2020-15824</cve>
     </suppress>
+    <suppress>
+        <notes><![CDATA[
+   file name: jetified-failureaccess-1.0.1.jar
+   ]]></notes>
+        <sha1>1dcf1de382a0bf95a3d8b0849546c88bac1292c9</sha1>
+        <cve>CVE-2020-8908</cve>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+   file name: jetified-guava-27.0.1-jre.jar
+   ]]></notes>
+        <sha1>bd41a290787b5301e63929676d792c507bbc00ae</sha1>
+        <cve>CVE-2020-8908</cve>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+   file name: jetified-guava-27.1-jre.jar
+   ]]></notes>
+        <sha1>e47b59c893079b87743cdcfb6f17ca95c08c592c</sha1>
+        <cve>CVE-2020-8908</cve>
+    </suppress>
 </suppressions>
