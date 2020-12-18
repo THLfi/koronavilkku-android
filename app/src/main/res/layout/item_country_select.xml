@@ -16,11 +16,12 @@
         app:contentPaddingLeft="20dp"
         app:contentPaddingRight="20dp">
 
-        <CheckBox
+        <com.google.android.material.checkbox.MaterialCheckBox
             android:id="@+id/checkbox_country"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@{label}"
+            android:textColor="@color/choice_radio_button_text"
             android:checked="@={selected}"
             android:paddingVertical="20dp"
             tools:text="@tools:sample/lorem"/>
