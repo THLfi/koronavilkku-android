@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-        <variable name="otherCountrySelected" type="Boolean"/>
+        <variable name="model" type="fi.thl.koronahaavi.diagnosis.ShareTravelChoiceData" />
     </data>
 
     <LinearLayout
@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="20dp"
             app:label="@{@string/country_selection_other}"
-            app:selected="@={otherCountrySelected}"
+            app:selected="@={model.otherCountrySelected}"
             />
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button_country_selection_continue"

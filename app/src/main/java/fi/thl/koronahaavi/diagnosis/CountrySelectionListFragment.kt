@@ -30,7 +30,7 @@ class CountrySelectionListFragment : Fragment(), CountryItemListener {
         defaultViewModelProviderFactory
     }
 
-    private val listAdapter by lazy { CountryAdapter(this) }
+    private val listAdapter by lazy { CountryAdapter(this, viewModel.shareData) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -108,8 +108,10 @@ interface CountryItemListener {
     fun onContinue()
 }
 
-class CountryAdapter(private val itemListener: CountryItemListener)
-    : ListAdapter<CountryItemData, RecyclerView.ViewHolder>(CountryItemDiff()) {
+class CountryAdapter(
+    private val itemListener: CountryItemListener,
+    private val data: ShareTravelChoiceData
+) : ListAdapter<CountryItemData, RecyclerView.ViewHolder>(CountryItemDiff()) {
 
     override fun getItemViewType(position: Int) = when (getItem(position)) {
         CountryItemData.Header -> R.layout.item_country_list_header
@@ -155,10 +157,11 @@ class CountryAdapter(private val itemListener: CountryItemListener)
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         Timber.d("onBindViewHolder $position")
-        if (holder is CountryViewHolder) {
-            (getItem(position) as? CountryItemData.Country)?.let {
-                holder.bind(it, itemListener)
+        when (holder) {
+            is CountryViewHolder -> (getItem(position) as? CountryItemData.Country)?.let {
+                holder.bind(it)
             }
+            is CountryListFooterHolder -> holder.bind(data)
         }
     }
 
@@ -182,12 +185,18 @@ class CountryAdapter(private val itemListener: CountryItemListener)
 
 class CountryListHeaderHolder(v: View) : RecyclerView.ViewHolder(v)
 
-class CountryListFooterHolder(val binding: ItemCountryListFooterBinding) : RecyclerView.ViewHolder(binding.root)
+class CountryListFooterHolder(val binding: ItemCountryListFooterBinding)
+    : RecyclerView.ViewHolder(binding.root) {
+
+    fun bind(data: ShareTravelChoiceData) {
+        binding.model = data
+    }
+}
 
 class CountryViewHolder(val binding: ItemCountrySelectBinding)
     : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(data: CountryItemData.Country, itemListener: CountryItemListener) {
+    fun bind(data: CountryItemData.Country) {
         binding.label = data.name
         binding.selected = data.isSelected
     }
