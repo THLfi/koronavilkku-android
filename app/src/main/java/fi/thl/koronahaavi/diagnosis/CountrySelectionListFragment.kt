@@ -18,7 +18,9 @@ import fi.thl.koronahaavi.R
 import fi.thl.koronahaavi.common.FormatExtensions.convertToCountryName
 import fi.thl.koronahaavi.common.navigateSafe
 import fi.thl.koronahaavi.databinding.FragmentCountrySelectionListBinding
+import fi.thl.koronahaavi.databinding.ItemCountryListFooterBinding
 import fi.thl.koronahaavi.databinding.ItemCountrySelectBinding
+import timber.log.Timber
 
 @AndroidEntryPoint
 class CountrySelectionListFragment : Fragment(), CountryItemListener {
@@ -53,77 +55,144 @@ class CountrySelectionListFragment : Fragment(), CountryItemListener {
             recyclerviewCountrySelection.apply {
                 adapter = listAdapter
                 layoutManager = LinearLayoutManager(context)
-            }
-
-            buttonCountrySelectionContinue.setOnClickListener {
-                findNavController().navigateSafe(CountrySelectionListFragmentDirections.toSummaryConsent())
+                setHasFixedSize(true)
             }
         }
 
         viewModel.shareData.countries.observe(viewLifecycleOwner, Observer {
-            // convert to display name and sort here instead of view model, so that list is
-            // updated if fragment recreated due to language change
-            listAdapter.submitList(
-                it.map { c -> c.toItemData() }.sortedBy(CountryItemData::name)
-            )
+            updateList(it)
         })
     }
 
-    override fun onSelectedChanged(c: CountryItemData, isSelected: Boolean) {
+    override fun onSelectedChanged(c: CountryItemData.Country, isSelected: Boolean) {
+        Timber.d("onSelectedChanged ${c.name} is $isSelected")
         viewModel.shareData.setCountrySelection(c.code, isSelected)
     }
 
-    private fun CountryData.toItemData(): CountryItemData =
-        CountryItemData(
+    override fun onContinue() {
+        findNavController().navigateSafe(CountrySelectionListFragmentDirections.toSummaryConsent())
+    }
+
+    private fun updateList(countries: List<CountryData>) {
+        // convert to display name and sort here instead of view model, so that list is
+        // updated if fragment recreated due to language change
+        val sortedCountries = countries.map { c -> c.toItemData() }.sortedBy { c -> c.name }
+
+        val displayList = mutableListOf<CountryItemData>(CountryItemData.Header)
+        displayList.addAll(sortedCountries)
+        displayList.add(CountryItemData.Footer)
+
+        listAdapter.submitList(displayList.toList())
+    }
+
+    private fun CountryData.toItemData(): CountryItemData.Country =
+        CountryItemData.Country(
             code = code,
             name = code.convertToCountryName(),
             isSelected = isSelected
         )
 }
 
-data class CountryItemData(
-    val code: String,
-    val name: String,
-    val isSelected: Boolean
-)
+sealed class CountryItemData {
+    object Header : CountryItemData()
+    object Footer : CountryItemData()
+    data class Country(
+            val code: String,
+            val name: String,
+            val isSelected: Boolean
+    ) : CountryItemData()
+}
 
 interface CountryItemListener {
-    fun onSelectedChanged(c: CountryItemData, isSelected: Boolean)
+    fun onSelectedChanged(c: CountryItemData.Country, isSelected: Boolean)
+    fun onContinue()
 }
 
 class CountryAdapter(private val itemListener: CountryItemListener)
-    : ListAdapter<CountryItemData, CountryViewHolder>(CountryItemDiff()) {
+    : ListAdapter<CountryItemData, RecyclerView.ViewHolder>(CountryItemDiff()) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CountryViewHolder {
-        val inflater = LayoutInflater.from(parent.context)
-        val binding = ItemCountrySelectBinding.inflate(inflater, parent, false)
-        return CountryViewHolder(binding)
+    override fun getItemViewType(position: Int) = when (getItem(position)) {
+        CountryItemData.Header -> R.layout.item_country_list_header
+        CountryItemData.Footer -> R.layout.item_country_list_footer
+        is CountryItemData.Country -> R.layout.item_country_select
     }
 
-    override fun onBindViewHolder(holder: CountryViewHolder, position: Int) {
-        holder.bind(getItem(position), itemListener)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        Timber.d("onCreateViewHolder")
+        val inflater = LayoutInflater.from(parent.context)
+
+        return when (viewType) {
+            R.layout.item_country_list_header -> {
+                val view = inflater.inflate(viewType, parent, false)
+                CountryListHeaderHolder(view)
+            }
+            R.layout.item_country_list_footer -> {
+                val binding = ItemCountryListFooterBinding.inflate(inflater, parent, false)
+                binding.buttonCountrySelectionContinue.setOnClickListener {
+                    itemListener.onContinue()
+                }
+                CountryListFooterHolder(binding)
+            }
+            else -> {
+                val binding = ItemCountrySelectBinding.inflate(inflater, parent, false)
+                val holder = CountryViewHolder(binding)
+
+                binding.checkboxCountry.setOnClickListener {
+                    (getItem(holder.adapterPosition) as? CountryItemData.Country)?.let { data ->
+                        itemListener.onSelectedChanged(data, binding.checkboxCountry.isChecked)
+                    }
+                }
+
+                holder
+            }
+        }
+    }
+
+    override fun onViewRecycled(holder: RecyclerView.ViewHolder) {
+        Timber.d("onViewRecycled")
+        (holder as? CountryViewHolder)?.clear()
+    }
+
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        Timber.d("onBindViewHolder $position")
+        if (holder is CountryViewHolder) {
+            (getItem(position) as? CountryItemData.Country)?.let {
+                holder.bind(it, itemListener)
+            }
+        }
     }
 
     class CountryItemDiff : DiffUtil.ItemCallback<CountryItemData>() {
-        override fun areItemsTheSame(oldItem: CountryItemData, newItem: CountryItemData)
-                = oldItem.code == newItem.code
+        override fun areItemsTheSame(oldItem: CountryItemData, newItem: CountryItemData): Boolean {
+            // this matches header and footer, and countries with same contents
+            if (oldItem == newItem) return true
+
+            // this matches same countries but different content
+            return (oldItem as? CountryItemData.Country)?.let { oldCountry ->
+                (newItem as? CountryItemData.Country)?.let { newCountry ->
+                    oldCountry.code == newCountry.code
+                }
+            } ?: false
+        }
 
         override fun areContentsTheSame(oldItem: CountryItemData, newItem: CountryItemData)
                 = oldItem == newItem
     }
 }
 
+class CountryListHeaderHolder(v: View) : RecyclerView.ViewHolder(v)
+
+class CountryListFooterHolder(val binding: ItemCountryListFooterBinding) : RecyclerView.ViewHolder(binding.root)
+
 class CountryViewHolder(val binding: ItemCountrySelectBinding)
     : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(data: CountryItemData, itemListener: CountryItemListener) {
-        with (binding) {
-            label = data.name
-            selected = data.isSelected
+    fun bind(data: CountryItemData.Country, itemListener: CountryItemListener) {
+        binding.label = data.name
+        binding.selected = data.isSelected
+    }
 
-            checkboxCountry.setOnClickListener {
-                itemListener.onSelectedChanged(data, checkboxCountry.isChecked)
-            }
-        }
+    fun clear() {
+        binding.selected = false
     }
 }
