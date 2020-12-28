@@ -7,6 +7,7 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.IntentSender
 import android.util.Base64
 import com.google.android.gms.nearby.exposurenotification.ExposureNotificationStatusCodes
 import com.google.android.gms.nearby.exposurenotification.ExposureSummary
@@ -14,6 +15,7 @@ import com.google.android.gms.nearby.exposurenotification.ExposureSummary.Exposu
 import com.google.android.gms.nearby.exposurenotification.TemporaryExposureKey
 import com.huawei.hms.api.HuaweiApiAvailability
 import com.huawei.hms.common.ApiException
+import com.huawei.hms.common.ResolvableApiException
 import com.huawei.hms.contactshield.*
 import fi.thl.koronahaavi.service.ExposureNotificationService.ResolvableResult
 import fi.thl.koronahaavi.BuildConfig
@@ -60,26 +62,14 @@ class HuaweiContactShieldService(
             getEngine().isContactShieldRunning.await()
         }
 
-        if (result is ResolvableResult.Failed && result.apiErrorCode == 1212) {
-            Timber.d("Detected update required when starting")
-
-            // Error 1212 means that HMS Core update kit is needed, and an update dialog is shown
-            // automatically when engine is created with an activity. We handle this by returning
-            // a retry function which will be called with current activity, so that we can
-            // recreate engine with activity, and call start with that engine instance.
-            return ResolvableResult.HmsCanceled(EnableStep.UpdateRequired { activity ->
-                resultFromRunning {
-                    Timber.d("Retry start with activity")
-                    engine = ContactShield.getContactShieldEngine(activity)
-                    getEngine().startContactShield(ContactShieldSetting.DEFAULT).await()
-                    isEnabledFlow.value = true
-                }
-            })
-        }
-
-        return resultFromRunning {
-            getEngine().startContactShield(ContactShieldSetting.DEFAULT).await()
-            isEnabledFlow.value = true
+        return if (result is ResolvableResult.ResolutionRequired) {
+            Timber.d("Detected resolution required when starting")
+            result
+        } else {
+            resultFromRunning {
+                getEngine().startContactShield(ContactShieldSetting.DEFAULT).await()
+                isEnabledFlow.value = true
+            }
         }
     }
 
@@ -176,6 +166,12 @@ class HuaweiContactShieldService(
     private suspend fun <T> resultFromRunning(block: suspend () -> T): ResolvableResult<T> {
         return try {
             ResolvableResult.Success(block())
+        }
+        catch (resolvable: ResolvableApiException) {
+            Timber.e("HMS API call failed with resolvable exception, message: ${resolvable.localizedMessage}")
+            ResolvableResult.ResolutionRequired(
+                HuaweiApiErrorResolver(resolvable)
+            )
         }
         catch (exception: ApiException) {
             Timber.e(exception, "HMS API call failed, status code ${exception.statusCode}")
@@ -283,4 +279,18 @@ class HuaweiAvailabilityResolver : ExposureNotificationService.AvailabilityResol
                                          cancelListener: (dialog: DialogInterface) -> Unit) =
         apiAvailability.showErrorDialogFragment(activity, errorCode, requestCode, cancelListener)
 
+}
+
+//
+// https://developer.huawei.com/consumer/en/doc/development/HMSCore-Guides-V5/contactshield-faq-0000001059216978-V5#EN-US_TOPIC_0000001059216978__section185841314165113
+//
+class HuaweiApiErrorResolver(private val resolvable: ResolvableApiException) : ExposureNotificationService.ApiErrorResolver {
+    override fun startResolutionForResult(activity: Activity, resultCode: Int) {
+        try {
+            resolvable.startResolutionForResult(activity, resultCode)
+        }
+        catch (e: IntentSender.SendIntentException) {
+            Timber.e(e, "Failed to start resolution")
+        }
+    }
 }

@@ -16,6 +16,7 @@ import fi.thl.koronahaavi.exposure.ExposureState
 import fi.thl.koronahaavi.exposure.ExposureStateLiveData
 import fi.thl.koronahaavi.exposure.ManualCheckShownLiveData
 import fi.thl.koronahaavi.service.ExposureNotificationService
+import fi.thl.koronahaavi.service.ExposureNotificationService.ApiErrorResolver
 import fi.thl.koronahaavi.service.ExposureNotificationService.ResolvableResult
 import fi.thl.koronahaavi.service.WorkDispatcher
 import fi.thl.koronahaavi.service.WorkState
@@ -34,8 +35,8 @@ class HomeViewModel @ViewModelInject constructor(
 
     val isLocked = appStateRepository.lockedAfterDiagnosis().asLiveData()
 
-    private val enableResolutionRequiredEvent = MutableLiveData<Event<Status>>()
-    fun enableResolutionRequired(): LiveData<Event<Status>> = enableResolutionRequiredEvent
+    private val enableResolutionRequiredEvent = MutableLiveData<Event<ApiErrorResolver>>()
+    fun enableResolutionRequired(): LiveData<Event<ApiErrorResolver>> = enableResolutionRequiredEvent
 
     private val enableENErrorEvent = MutableLiveData<Event<EnableENError>>()
     fun enableErrorEvent(): LiveData<Event<EnableENError>> = enableENErrorEvent
@@ -80,7 +81,7 @@ class HomeViewModel @ViewModelInject constructor(
             when (val result = exposureNotificationService.enable()) {
                 is ResolvableResult.ResolutionRequired -> {
                     // fragment needs to trigger the flow to resolve request
-                    enableResolutionRequiredEvent.postValue(Event(result.status))
+                    enableResolutionRequiredEvent.postValue(Event(result.errorResolver))
                 }
                 is ResolvableResult.Failed -> {
                     enableENErrorEvent.postValue(Event(

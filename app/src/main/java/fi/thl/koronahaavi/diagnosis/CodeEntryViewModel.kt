@@ -8,6 +8,7 @@ import fi.thl.koronahaavi.common.Event
 import fi.thl.koronahaavi.data.AppStateRepository
 import fi.thl.koronahaavi.data.SettingsRepository
 import fi.thl.koronahaavi.service.*
+import fi.thl.koronahaavi.service.ExposureNotificationService.ApiErrorResolver
 import fi.thl.koronahaavi.service.ExposureNotificationService.ResolvableResult.*
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -27,8 +28,8 @@ class CodeEntryViewModel @ViewModelInject constructor(
 
     val maxCodeLength = settingsRepository.appConfiguration.tokenLength
 
-    private val keyHistoryResolutionMutableEvent = MutableLiveData<Event<Status>>()
-    fun keyHistoryResolutionEvent(): LiveData<Event<Status>> = keyHistoryResolutionMutableEvent
+    private val keyHistoryResolutionMutableEvent = MutableLiveData<Event<ApiErrorResolver>>()
+    fun keyHistoryResolutionEvent(): LiveData<Event<ApiErrorResolver>> = keyHistoryResolutionMutableEvent
 
     private val enEnabled = exposureNotificationService.isEnabledFlow().asLiveData()
     private val lockedAfterDiagnosis = appStateRepository.lockedAfterDiagnosis().asLiveData()
@@ -95,7 +96,7 @@ class CodeEntryViewModel @ViewModelInject constructor(
             }
             is ResolutionRequired -> {
                 // fragment needs to trigger the flow to resolve request
-                keyHistoryResolutionMutableEvent.postValue(Event(result.status))
+                keyHistoryResolutionMutableEvent.postValue(Event(result.errorResolver))
             }
             is Failed -> {
                 Timber.e("Failed to get exposure keys")

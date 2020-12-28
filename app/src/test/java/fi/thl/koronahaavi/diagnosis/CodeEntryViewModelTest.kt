@@ -1,5 +1,6 @@
 package fi.thl.koronahaavi.diagnosis
 
+import android.app.Activity
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.google.android.gms.common.api.CommonStatusCodes
 import com.google.android.gms.common.api.Status
@@ -76,7 +77,9 @@ class CodeEntryViewModelTest {
     @Test
     fun resolutionOnSubmit() {
         coEvery { exposureNotificationService.getTemporaryExposureKeys() } returns
-                ResolutionRequired(Status(CommonStatusCodes.RESOLUTION_REQUIRED))
+                ResolutionRequired(object : ExposureNotificationService.ApiErrorResolver {
+                    override fun startResolutionForResult(activity: Activity, resultCode: Int) {}
+                })
 
         runBlocking {
             viewModel.code.postValue("1234")
