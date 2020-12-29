@@ -173,8 +173,8 @@ class HuaweiContactShieldService(
                         exception.localizedMessage
                     )
                 }
-                StatusCode.STATUS_INTERNAL_ERROR -> ResolvableResult.HmsCanceled(EnableStep.LocationPermission)
-                StatusCode.STATUS_FAILURE -> ResolvableResult.HmsCanceled(EnableStep.UserConsent)
+                8103 -> ResolvableResult.HmsCanceled(EnableStep.LocationPermission) // STATUS_MISSING_PERMISSION_LOCATION
+                StatusCode.STATUS_UNAUTHORIZED -> ResolvableResult.HmsCanceled(EnableStep.UserConsent)
                 else -> {
                     ResolvableResult.Failed(
                         apiErrorCode = exception.statusCode,
