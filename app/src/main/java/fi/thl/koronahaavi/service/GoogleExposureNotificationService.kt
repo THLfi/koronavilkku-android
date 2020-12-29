@@ -12,10 +12,7 @@ import com.google.android.gms.common.GoogleApiAvailability
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.CommonStatusCodes
 import com.google.android.gms.nearby.Nearby
-import com.google.android.gms.nearby.exposurenotification.ExposureConfiguration
-import com.google.android.gms.nearby.exposurenotification.ExposureInformation
-import com.google.android.gms.nearby.exposurenotification.ExposureNotificationStatusCodes
-import com.google.android.gms.nearby.exposurenotification.ExposureSummary
+import com.google.android.gms.nearby.exposurenotification.*
 import fi.thl.koronahaavi.BuildConfig
 import fi.thl.koronahaavi.data.Exposure
 import fi.thl.koronahaavi.service.ExposureNotificationService.ConnectionError
@@ -63,6 +60,7 @@ class GoogleExposureNotificationService(
         return client.isEnabled.await()
     }
 
+    /*
     override suspend fun getExposureSummary(token: String): ExposureSummary {
         return client.getExposureSummary(token).await()
     }
@@ -77,14 +75,33 @@ class GoogleExposureNotificationService(
                 info.toExposure(createdDate)
             }
     }
+     */
 
-    override suspend fun provideDiagnosisKeyFiles(token: String, files: List<File>, config: ExposureConfigurationData)
-            : ResolvableResult<Unit> {
-        Timber.d("Token $token, config: ${config.toExposureConfiguration()}")
+    override suspend fun getDailySummaries(config: ExposureConfigurationData): List<DailySummary>
+            = client.getDailySummaries(createDailyConfig()).await()
+
+    // .. temp copy from reference app
+    private fun createDailyConfig() = DailySummariesConfig.DailySummariesConfigBuilder()
+        .setAttenuationBuckets(
+            listOf(30, 50, 60),
+            listOf(1.5, 1.0, 0.5, 0.0)
+        )
+        .setInfectiousnessWeight(Infectiousness.STANDARD, 1.0)
+        .setInfectiousnessWeight(Infectiousness.HIGH, 1.0)
+        .setReportTypeWeight(ReportType.CONFIRMED_CLINICAL_DIAGNOSIS, 1.0)
+        .setReportTypeWeight(ReportType.CONFIRMED_TEST, 1.0)
+        .setReportTypeWeight(ReportType.SELF_REPORT, 1.0)
+        .setDaysSinceExposureThreshold(10)
+        .build()
+
+    override suspend fun getExposureWindows(): List<ExposureWindow>
+            = client.exposureWindows.await()
+
+    override suspend fun provideDiagnosisKeyFiles(files: List<File>): ResolvableResult<Unit> {
         Timber.d("Providing %d key files", files.size)
 
         return resultFromRunning<Unit> {
-            client.provideDiagnosisKeys(files, config.toExposureConfiguration(), token).await()
+            client.provideDiagnosisKeys(DiagnosisKeyFileProvider(files)).await()
         }
     }
 

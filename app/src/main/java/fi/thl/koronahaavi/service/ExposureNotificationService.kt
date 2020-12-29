@@ -6,7 +6,9 @@ import android.app.Activity
 import android.content.Context
 import android.content.DialogInterface
 import com.google.android.gms.common.api.Status
+import com.google.android.gms.nearby.exposurenotification.DailySummary
 import com.google.android.gms.nearby.exposurenotification.ExposureSummary
+import com.google.android.gms.nearby.exposurenotification.ExposureWindow
 import com.google.android.gms.nearby.exposurenotification.TemporaryExposureKey
 import fi.thl.koronahaavi.data.Exposure
 import kotlinx.coroutines.flow.StateFlow
@@ -16,9 +18,14 @@ interface ExposureNotificationService {
     suspend fun enable(): ResolvableResult<Unit>
     suspend fun disable(): ResolvableResult<Unit>
     suspend fun isEnabled(): Boolean
-    suspend fun getExposureSummary(token: String): ExposureSummary
-    suspend fun getExposureDetails(token: String): List<Exposure>
-    suspend fun provideDiagnosisKeyFiles(token: String, files: List<File>, config: ExposureConfigurationData): ResolvableResult<Unit>
+
+    //suspend fun getExposureSummary(token: String): ExposureSummary
+    //suspend fun getExposureDetails(token: String): List<Exposure>
+    suspend fun getDailySummaries(config: ExposureConfigurationData): List<DailySummary>
+    suspend fun getExposureWindows(): List<ExposureWindow>
+
+    suspend fun provideDiagnosisKeyFiles(files: List<File>): ResolvableResult<Unit>
+
     suspend fun getTemporaryExposureKeys(): ResolvableResult<List<TemporaryExposureKey>>
     fun deviceSupportsLocationlessScanning(): Boolean
     fun getAvailabilityResolver(): AvailabilityResolver

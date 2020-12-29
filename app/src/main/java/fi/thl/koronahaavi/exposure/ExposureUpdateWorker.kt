@@ -1,16 +1,19 @@
-@file:Suppress("DEPRECATION")
-
 package fi.thl.koronahaavi.exposure
 
 import android.content.Context
 import androidx.hilt.Assisted
 import androidx.hilt.work.WorkerInject
 import androidx.work.*
-import com.google.android.gms.nearby.exposurenotification.ExposureSummary
+import com.google.android.gms.nearby.exposurenotification.DailySummariesConfig
 import fi.thl.koronahaavi.data.*
 import fi.thl.koronahaavi.service.ExposureNotificationService
 import timber.log.Timber
 
+/*
+Synchronizes exposure state from ENS daily summaries into local database
+Database entities for exposure and key group token are maintained to keep UX
+the same as with original exposure summary and details API
+*/
 class ExposureUpdateWorker @WorkerInject constructor(
     @Assisted context: Context,
     @Assisted workerParams: WorkerParameters,
@@ -23,21 +26,22 @@ class ExposureUpdateWorker @WorkerInject constructor(
     override suspend fun doWork(): Result {
         Timber.i("Starting")
 
-        val token = inputData.getString(TOKEN_KEY)
-        if (token == null) {
-            Timber.e("No input token")
-            return Result.failure()
-        }
-
         if (appStateRepository.lockedAfterDiagnosis().value) {
             Timber.i("App locked, ignoring exposure update")
             return Result.success()
         }
 
-        val summary = exposureNotificationService.getExposureSummary(token)
-                .also { Timber.d(it.toString()) }
-        var exposures: List<Exposure>? = null
+        // todo get config from backend
+        val config = settingsRepository.requireExposureConfiguration()
+        val dailySummaries = exposureNotificationService.getDailySummaries(config)
+                .also { Timber.d("Daily summaries $it") }
 
+
+        //val windows = exposureNotificationService.getExposureWindows()
+        //        .also { it.forEach { w -> Timber.d("$w") }  }
+
+        /*
+        var exposures: List<Exposure>? = null
         if (summary.matchedKeyCount > 0) {
             val config = settingsRepository.requireExposureConfiguration()
             val checker = ExposureSummaryChecker(summary, config)
@@ -60,9 +64,12 @@ class ExposureUpdateWorker @WorkerInject constructor(
         }
 
         exposureRepository.saveKeyGroupToken(createKeyGroupToken(token, summary, exposures))
+         */
+
         return Result.success()
     }
 
+    /*
     private fun createKeyGroupToken(token: String, summary: ExposureSummary, exposures: List<Exposure>?) =
             KeyGroupToken(
                 token = token,
@@ -72,18 +79,14 @@ class ExposureUpdateWorker @WorkerInject constructor(
                 latestExposureDate = exposures?.map { it.detectedDate }?.max()
             )
 
+     */
+
     companion object {
-        const val TOKEN_KEY = "token_key"
         const val TAG = "fi.thl.koronahaavi.exposure.ExposureUpdateWorker"
 
-        fun start(context: Context, token: String) {
+        fun start(context: Context) {
             WorkManager.getInstance(context).enqueue(
                 OneTimeWorkRequest.Builder(ExposureUpdateWorker::class.java)
-                    .setInputData(
-                        Data.Builder()
-                            .putString(TOKEN_KEY, token)
-                            .build()
-                    )
                     .addTag(TAG)
                     .build()
             )

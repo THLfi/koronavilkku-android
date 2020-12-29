@@ -10,7 +10,7 @@ data class Exposure (
     @PrimaryKey(autoGenerate = true)
     val id: Long = 0,
 
-    // epoch ms rounded to the day (assuming in UTC?) when EN has detected the exposure
+    // Beginning of detection day in UTC
     @ColumnInfo(name = "detected_date")
     val detectedDate: ZonedDateTime,
 

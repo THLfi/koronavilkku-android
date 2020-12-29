@@ -81,17 +81,15 @@ class DiagnosisKeyUpdateWorker @WorkerInject constructor(
      */
     private suspend fun processFiles(downloadResult: DownloadResult): Boolean {
         Timber.i("Processing ${downloadResult.files.size} key files")
+
         // give files to exposure system to process, and save token so it can be retrieved
         // when processing is done and exposure receiver is called
-        val token = UUID.randomUUID().toString()
-        exposureRepository.saveKeyGroupToken(KeyGroupToken((token)))
+        //val token = UUID.randomUUID().toString()
+        //exposureRepository.saveKeyGroupToken(KeyGroupToken((token)))
 
         val processResult = when (
-            val result = exposureNotificationService.provideDiagnosisKeyFiles(
-                token,
-                downloadResult.files,
-                downloadResult.exposureConfig
-            )) {
+            val result = exposureNotificationService.provideDiagnosisKeyFiles(downloadResult.files)
+            ) {
 
             is ResolvableResult.Success -> {
                 true
