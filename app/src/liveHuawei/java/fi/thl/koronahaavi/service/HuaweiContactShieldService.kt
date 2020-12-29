@@ -13,12 +13,14 @@ import com.google.android.gms.nearby.exposurenotification.ExposureNotificationSt
 import com.google.android.gms.nearby.exposurenotification.ExposureSummary
 import com.google.android.gms.nearby.exposurenotification.ExposureSummary.ExposureSummaryBuilder
 import com.google.android.gms.nearby.exposurenotification.TemporaryExposureKey
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.huawei.hms.api.HuaweiApiAvailability
 import com.huawei.hms.common.ApiException
 import com.huawei.hms.common.ResolvableApiException
 import com.huawei.hms.contactshield.*
 import fi.thl.koronahaavi.service.ExposureNotificationService.ResolvableResult
 import fi.thl.koronahaavi.BuildConfig
+import fi.thl.koronahaavi.R
 import fi.thl.koronahaavi.data.Exposure
 import fi.thl.koronahaavi.service.ExposureNotificationService.EnableStep
 import kotlinx.coroutines.CancellationException
@@ -37,17 +39,7 @@ class HuaweiContactShieldService(
     private val context: Context
 ) : ExposureNotificationService {
 
-    // Using var since need to replace if HMS update required
-    @Volatile private var engine: ContactShieldEngine? = null
-
-    private fun getEngine(): ContactShieldEngine {
-        synchronized(this) {
-            if (engine == null) {
-                engine = ContactShield.getContactShieldEngine(context)
-            }
-            return engine!!
-        }
-    }
+    private val engine by lazy { ContactShield.getContactShieldEngine(context) }
 
     private val isEnabledFlow = MutableStateFlow<Boolean?>(null)
     override fun isEnabledFlow(): StateFlow<Boolean?> = isEnabledFlow
@@ -59,7 +51,7 @@ class HuaweiContactShieldService(
     override suspend fun enable(): ResolvableResult<Unit> {
         // First, test if HMS update required by calling some other method than start
         val result = resultFromRunning<Unit> {
-            getEngine().isContactShieldRunning.await()
+            engine.isContactShieldRunning.await()
         }
 
         return if (result is ResolvableResult.ResolutionRequired) {
@@ -67,7 +59,7 @@ class HuaweiContactShieldService(
             result
         } else {
             resultFromRunning {
-                getEngine().startContactShield(ContactShieldSetting.DEFAULT).await()
+                engine.startContactShield(ContactShieldSetting.DEFAULT).await()
                 isEnabledFlow.value = true
             }
         }
@@ -75,17 +67,17 @@ class HuaweiContactShieldService(
 
     override suspend fun disable() = resultFromRunning {
         Timber.d("calling stopContactShield")
-        getEngine().stopContactShield().await()
+        engine.stopContactShield().await()
         isEnabledFlow.value = false
     }
 
     override suspend fun isEnabled(): Boolean {
         Timber.d("calling isContactShieldRunning")
-        return getEngine().isContactShieldRunning.await()
+        return engine.isContactShieldRunning.await()
     }
 
     override suspend fun getExposureSummary(token: String): ExposureSummary =
-        getEngine().getContactSketch(token).await().let {
+        engine.getContactSketch(token).await().let {
             ExposureSummaryBuilder()
                 .setDaysSinceLastExposure(it.daysSinceLastHit)
                 .setMatchedKeyCount(it.numberOfHits)
@@ -98,7 +90,7 @@ class HuaweiContactShieldService(
     override suspend fun getExposureDetails(token: String): List<Exposure> {
         val createdDate = ZonedDateTime.now()
 
-        return getEngine().getContactDetail(token).await()
+        return engine.getContactDetail(token).await()
                 .map { info ->
                     Timber.d(info.toString())
                     info.toExposure(createdDate)
@@ -130,11 +122,11 @@ class HuaweiContactShieldService(
                 PendingIntent.FLAG_UPDATE_CURRENT
         )
 
-        getEngine().putSharedKeyFiles(intent, files, config.toDiagnosisConfiguration(), token).await()
+        engine.putSharedKeyFiles(intent, files, config.toDiagnosisConfiguration(), token).await()
     }
 
     override suspend fun getTemporaryExposureKeys() = resultFromRunning {
-        getEngine().periodicKey.await().map {
+        engine.periodicKey.await().map {
             TemporaryExposureKey.TemporaryExposureKeyBuilder()
                 .setKeyData(it.content)
                 .setRollingStartIntervalNumber(
@@ -270,15 +262,30 @@ class HuaweiAvailabilityResolver : ExposureNotificationService.AvailabilityResol
     private val apiAvailability = HuaweiApiAvailability.getInstance()
 
     override fun isSystemAvailable(context: Context): Int =
-        apiAvailability.isHuaweiMobileServicesAvailable(context)
+        apiAvailability.isHuaweiMobileServicesAvailable(context, MIN_HMS_CORE_VERSION)
 
     override fun isUserResolvableError(errorCode: Int) =
         apiAvailability.isUserResolvableError(errorCode)
 
     override fun showErrorDialogFragment(activity: Activity, errorCode: Int, requestCode: Int,
-                                         cancelListener: (dialog: DialogInterface) -> Unit) =
-        apiAvailability.showErrorDialogFragment(activity, errorCode, requestCode, cancelListener)
+                                         cancelListener: (dialog: DialogInterface) -> Unit): Boolean {
+        // apiAvailability.showErrorDialogFragment does not work with the latest sdk, so we are
+        // only displaying a message to update hms core manually
+        MaterialAlertDialogBuilder(activity)
+                .setTitle(R.string.enable_err_title)
+                .setMessage(R.string.enable_err_hms_update_required)
+                .setOnCancelListener(cancelListener)
+                .setPositiveButton(R.string.enable_err_dismiss) { dialog: DialogInterface, _: Int ->
+                    cancelListener.invoke(dialog)
+                }
+                .show()
+        return true
+    }
 
+    companion object {
+        // 5.0.5.300 required due to Contact Shield incompatibility with earlier HMS core versions
+        const val MIN_HMS_CORE_VERSION = 50005300
+    }
 }
 
 //
