@@ -184,6 +184,7 @@
     <string name="enable_err_generic">Okänt fel</string>
     <string name="enable_error_api_code">Ett oväntat fel uppstod, felkod: %1$d (%2$d)</string>
     <string name="enable_err_dismiss">Stäng</string>
+    <string name="enable_err_hms_update">Update</string>
 
     <string name="onboarding_done">Klar att användas!</string>
 

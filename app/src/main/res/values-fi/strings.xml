@@ -184,6 +184,7 @@
     <string name="enable_err_generic">Tapahtui tuntematon virhe.</string>
     <string name="enable_error_api_code">Tapahtui odottamaton virhe.\n\nVirhe: %1$d (%2$d)</string>
     <string name="enable_err_dismiss">Sulje</string>
+    <string name="enable_err_hms_update">Päivitä</string>
 
     <string name="onboarding_done">Käyttöönotto valmis!</string>
 

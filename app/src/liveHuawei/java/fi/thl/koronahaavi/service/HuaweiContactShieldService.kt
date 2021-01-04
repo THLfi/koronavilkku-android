@@ -8,7 +8,7 @@ import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
 import android.content.IntentSender
-import android.util.Base64
+import android.net.Uri
 import com.google.android.gms.nearby.exposurenotification.ExposureNotificationStatusCodes
 import com.google.android.gms.nearby.exposurenotification.ExposureSummary
 import com.google.android.gms.nearby.exposurenotification.ExposureSummary.ExposureSummaryBuilder
@@ -18,11 +18,12 @@ import com.huawei.hms.api.HuaweiApiAvailability
 import com.huawei.hms.common.ApiException
 import com.huawei.hms.common.ResolvableApiException
 import com.huawei.hms.contactshield.*
-import fi.thl.koronahaavi.service.ExposureNotificationService.ResolvableResult
+import com.huawei.hms.utils.HMSPackageManager
 import fi.thl.koronahaavi.BuildConfig
 import fi.thl.koronahaavi.R
 import fi.thl.koronahaavi.data.Exposure
 import fi.thl.koronahaavi.service.ExposureNotificationService.EnableStep
+import fi.thl.koronahaavi.service.ExposureNotificationService.ResolvableResult
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -30,7 +31,9 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.suspendCancellableCoroutine
 import timber.log.Timber
 import java.io.File
-import java.time.*
+import java.time.LocalDate
+import java.time.ZoneOffset
+import java.time.ZonedDateTime
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.math.min
@@ -49,7 +52,8 @@ class HuaweiContactShieldService(
     }
 
     override suspend fun enable(): ResolvableResult<Unit> {
-        // First, test if HMS update required by calling some other method than start
+        // First, test if HMS update required by calling some other method than start, because
+        // startContactShield does not return update required error code
         val result = resultFromRunning<Unit> {
             engine.isContactShieldRunning.await()
         }
@@ -103,26 +107,26 @@ class HuaweiContactShieldService(
         config: ExposureConfigurationData
     ): ResolvableResult<Unit> = resultFromRunning<Unit> {
 
-        if (!BuildConfig.SKIP_EXPOSURE_FILE_VERIFICATION) {
-            Timber.d("Verifying exposure file signature with public key ${BuildConfig.EXPOSURE_FILE_PUBLIC_KEY}")
-            val verifier = ExposureKeyFileSignatureVerifier()
-            val keyBytes = Base64.decode(BuildConfig.EXPOSURE_FILE_PUBLIC_KEY, Base64.DEFAULT)
-            if (!verifier.verify(files, keyBytes)) {
-                throw Exception("Invalid exposure key file signature")
-            }
-        }
-        else {
-            Timber.d("Skipping exposure key file signature verification")
-        }
-
         val intent = PendingIntent.getService(
                 context,
                 0,
                 Intent(context, ContactShieldIntentService::class.java),
                 PendingIntent.FLAG_UPDATE_CURRENT
         )
+        val apiConfig = config.toDiagnosisConfiguration()
 
-        engine.putSharedKeyFiles(intent, files, config.toDiagnosisConfiguration(), token).await()
+        val task = if (BuildConfig.SKIP_EXPOSURE_FILE_VERIFICATION) {
+            // use this for local backend when you don't have the signature public key
+            Timber.d("Skipping exposure key file signature verification")
+            engine.putSharedKeyFiles(intent, files, apiConfig, token)
+        }
+        else {
+            val publicKeys = listOf(BuildConfig.EXPOSURE_FILE_PUBLIC_KEY)
+            Timber.d("putSharedKeyFiles with $publicKeys")
+            engine.putSharedKeyFiles(intent, files, publicKeys, apiConfig, token)
+        }
+
+        task.await()
     }
 
     override suspend fun getTemporaryExposureKeys() = resultFromRunning {
@@ -168,12 +172,8 @@ class HuaweiContactShieldService(
         catch (exception: ApiException) {
             Timber.e(exception, "HMS API call failed, status code ${exception.statusCode}")
             when (exception.statusCode) {
-                ExposureNotificationStatusCodes.FAILED_NOT_SUPPORTED -> {
-                    ResolvableResult.MissingCapability(
-                        exception.localizedMessage
-                    )
-                }
-                8103 -> ResolvableResult.HmsCanceled(EnableStep.LocationPermission) // STATUS_MISSING_PERMISSION_LOCATION
+                ExposureNotificationStatusCodes.FAILED_NOT_SUPPORTED -> ResolvableResult.MissingCapability(exception.localizedMessage)
+                StatusCode.STATUS_MISSING_PERMISSION_LOCATION -> ResolvableResult.HmsCanceled(EnableStep.LocationPermission)
                 StatusCode.STATUS_UNAUTHORIZED -> ResolvableResult.HmsCanceled(EnableStep.UserConsent)
                 else -> {
                     ResolvableResult.Failed(
@@ -275,11 +275,35 @@ class HuaweiAvailabilityResolver : ExposureNotificationService.AvailabilityResol
                 .setTitle(R.string.enable_err_title)
                 .setMessage(R.string.enable_err_hms_update_required)
                 .setOnCancelListener(cancelListener)
-                .setPositiveButton(R.string.enable_err_dismiss) { dialog: DialogInterface, _: Int ->
+                .setPositiveButton(R.string.enable_err_hms_update) { dialog: DialogInterface, _ ->
+                    tryStartAppGallery(activity)
                     cancelListener.invoke(dialog)
                 }
                 .show()
         return true
+    }
+
+    /**
+     * Start app gallery activity for HMS Core so that user can easily update
+     */
+    private fun tryStartAppGallery(activity: Activity) {
+        try {
+            val hmsPackageName = HMSPackageManager.getInstance(activity).hmsPackageName
+            val intent = Intent(Intent.ACTION_VIEW).apply {
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                data = Uri.parse("appmarket://details?id=$hmsPackageName")
+            }
+
+            if (intent.resolveActivity(activity.packageManager) != null) {
+                activity.startActivity(intent)
+            }
+            else {
+                Timber.e("Could not resolve activity for ${intent.dataString}")
+            }
+        }
+        catch (t: Throwable) {
+            Timber.e(t, "Failed to start app gallery activity")
+        }
     }
 
     companion object {
