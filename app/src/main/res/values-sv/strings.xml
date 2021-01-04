@@ -174,7 +174,7 @@
 
     <string name="enable_err_title">Det gick inte att aktivera exponerings\u00ADmeddelanden</string>
     <string name="enable_err_hms_location_permission">För att aktivera exponeringsmeddelanden på din Huawei-enhet behöver HMS Core tillstånd för att använda enhetens platsinformation. Du kan tillåt det i enhetens inställningar.</string>
-    <string name="enable_err_hms_update_required">Koronavilkku requires a more recent version of HMS Core. Please update it in your device\'s App Gallery.</string>
+    <string name="enable_err_hms_update_required">Du måste ladda ner den senaste versionen av Huawei HMS Core från App Gallery för att aktivera exponeringsmeddelanden.</string>
     <string name="enable_err_missing_capability">Din enhet stöds inte</string>
     <string name="enable_err_api_not_supported">Tyvärr är exponeringsmeddelanden från Google Play-tjänster inte tillgängliga för din enhet.\n\n%s</string>
     <string name="enable_err_not_owner">Du är inloggad på enheten med en användarprofil som inte är enhetens ägarprofil. Coronablinkern fungerar bara med enhetens ägarprofil.\n\nFör att ändra profil, svep med två fingrar från toppen av startskärmen. Tryck sedan på knappen Byt användare.</string>
@@ -184,7 +184,7 @@
     <string name="enable_err_generic">Okänt fel</string>
     <string name="enable_error_api_code">Ett oväntat fel uppstod, felkod: %1$d (%2$d)</string>
     <string name="enable_err_dismiss">Stäng</string>
-    <string name="enable_err_hms_update">Update</string>
+    <string name="enable_err_hms_update">Uppdatera nu</string>
 
     <string name="onboarding_done">Klar att användas!</string>
 
