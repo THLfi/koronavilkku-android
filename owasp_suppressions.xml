@@ -367,4 +367,25 @@
         <sha1>e47b59c893079b87743cdcfb6f17ca95c08c592c</sha1>
         <cve>CVE-2020-8908</cve>
     </suppress>
+    <suppress>
+        <notes><![CDATA[
+   file name: guava-28.1-jre.jar
+   ]]></notes>
+        <packageUrl regex="true">^pkg:maven/com\.google\.guava/guava@.*$</packageUrl>
+        <vulnerabilityName>CVE-2020-8908</vulnerabilityName>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+   file name: jetified-guava-27.0.1-jre.jar (shaded: com.google.guava:guava:27.0.1-jre)
+   ]]></notes>
+        <packageUrl regex="true">^pkg:maven/com\.google\.guava/guava@.*$</packageUrl>
+        <vulnerabilityName>CVE-2020-8908</vulnerabilityName>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+   file name: jetified-guava-27.1-jre.jar (shaded: com.google.guava:guava:27.1-jre)
+   ]]></notes>
+        <packageUrl regex="true">^pkg:maven/com\.google\.guava/guava@.*$</packageUrl>
+        <vulnerabilityName>CVE-2020-8908</vulnerabilityName>
+    </suppress>
 </suppressions>
