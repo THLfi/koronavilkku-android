@@ -6,14 +6,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## [2.0.0](https://github.com/THLfi/koronavilkku-android/compare/v1.2.1...v2.0.0) - 2021-01-07
+
 ### Added
 - User consent and travel information choices required for EFGS interoperability
-- Huawei only: exposure key archive signature verification
+- Huawei only (unreleased): Contact Shield exposure notification system implementation
 
 ### Changed
 - Backend API provides country codes and accepts EFGS share consent and travel selections
 - UI changes to share diagnosis screen and navigation
-- Huawei only: Always use Contact Shield for app gallery distribution
 
 ### Fixed
 - Exposure count in notification detail shows only high risk exposures
