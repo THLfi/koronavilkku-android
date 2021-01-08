@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### Changed
+- Http client timeouts increased to allow for network congestion
+
 ## [2.0.0](https://github.com/THLfi/koronavilkku-android/compare/v1.2.1...v2.0.0) - 2021-01-07
 
 ### Added
