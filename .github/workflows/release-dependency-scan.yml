@@ -2,7 +2,7 @@ name: Check latest release dependencies
 
 on:
   schedule:
-    - cron:  "30 5 * * *" # this is utc time
+    - cron:  "31 5 * * *" # this is utc time
 
 jobs:
   release-dependency-scan:
