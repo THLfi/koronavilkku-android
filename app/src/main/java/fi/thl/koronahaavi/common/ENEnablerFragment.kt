@@ -31,6 +31,7 @@ open class ENEnablerFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         statusViewModel.enableResolutionRequired().observe(viewLifecycleOwner, Observer {
+            Timber.d("startResolutionForResult")
             it.getContentIfNotHandled()?.startResolutionForResult(
                 requireActivity(), RequestResolutionViewModel.REQUEST_CODE_ENABLE
             )

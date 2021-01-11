@@ -7,18 +7,23 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
-import android.util.Base64
+import android.content.IntentSender
+import android.net.Uri
 import com.google.android.gms.nearby.exposurenotification.ExposureNotificationStatusCodes
 import com.google.android.gms.nearby.exposurenotification.ExposureSummary
 import com.google.android.gms.nearby.exposurenotification.ExposureSummary.ExposureSummaryBuilder
 import com.google.android.gms.nearby.exposurenotification.TemporaryExposureKey
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.huawei.hms.api.HuaweiApiAvailability
 import com.huawei.hms.common.ApiException
+import com.huawei.hms.common.ResolvableApiException
 import com.huawei.hms.contactshield.*
-import fi.thl.koronahaavi.service.ExposureNotificationService.ResolvableResult
+import com.huawei.hms.utils.HMSPackageManager
 import fi.thl.koronahaavi.BuildConfig
+import fi.thl.koronahaavi.R
 import fi.thl.koronahaavi.data.Exposure
 import fi.thl.koronahaavi.service.ExposureNotificationService.EnableStep
+import fi.thl.koronahaavi.service.ExposureNotificationService.ResolvableResult
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -26,7 +31,9 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.suspendCancellableCoroutine
 import timber.log.Timber
 import java.io.File
-import java.time.*
+import java.time.LocalDate
+import java.time.ZoneOffset
+import java.time.ZonedDateTime
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.math.min
@@ -35,17 +42,7 @@ class HuaweiContactShieldService(
     private val context: Context
 ) : ExposureNotificationService {
 
-    // Using var since need to replace if HMS update required
-    @Volatile private var engine: ContactShieldEngine? = null
-
-    private fun getEngine(): ContactShieldEngine {
-        synchronized(this) {
-            if (engine == null) {
-                engine = ContactShield.getContactShieldEngine(context)
-            }
-            return engine!!
-        }
-    }
+    private val engine by lazy { ContactShield.getContactShieldEngine(context) }
 
     private val isEnabledFlow = MutableStateFlow<Boolean?>(null)
     override fun isEnabledFlow(): StateFlow<Boolean?> = isEnabledFlow
@@ -55,47 +52,36 @@ class HuaweiContactShieldService(
     }
 
     override suspend fun enable(): ResolvableResult<Unit> {
-        // First, test if HMS update required by calling some other method than start
+        // First, test if HMS update required by calling some other method than start, because
+        // startContactShield does not return update required error code
         val result = resultFromRunning<Unit> {
-            getEngine().isContactShieldRunning.await()
+            engine.isContactShieldRunning.await()
         }
 
-        if (result is ResolvableResult.Failed && result.apiErrorCode == 1212) {
-            Timber.d("Detected update required when starting")
-
-            // Error 1212 means that HMS Core update kit is needed, and an update dialog is shown
-            // automatically when engine is created with an activity. We handle this by returning
-            // a retry function which will be called with current activity, so that we can
-            // recreate engine with activity, and call start with that engine instance.
-            return ResolvableResult.HmsCanceled(EnableStep.UpdateRequired { activity ->
-                resultFromRunning {
-                    Timber.d("Retry start with activity")
-                    engine = ContactShield.getContactShieldEngine(activity)
-                    getEngine().startContactShield(ContactShieldSetting.DEFAULT).await()
-                    isEnabledFlow.value = true
-                }
-            })
-        }
-
-        return resultFromRunning {
-            getEngine().startContactShield(ContactShieldSetting.DEFAULT).await()
-            isEnabledFlow.value = true
+        return if (result is ResolvableResult.ResolutionRequired) {
+            Timber.d("Detected resolution required when starting")
+            result
+        } else {
+            resultFromRunning {
+                engine.startContactShield(ContactShieldSetting.DEFAULT).await()
+                isEnabledFlow.value = true
+            }
         }
     }
 
     override suspend fun disable() = resultFromRunning {
         Timber.d("calling stopContactShield")
-        getEngine().stopContactShield().await()
+        engine.stopContactShield().await()
         isEnabledFlow.value = false
     }
 
     override suspend fun isEnabled(): Boolean {
         Timber.d("calling isContactShieldRunning")
-        return getEngine().isContactShieldRunning.await()
+        return engine.isContactShieldRunning.await()
     }
 
     override suspend fun getExposureSummary(token: String): ExposureSummary =
-        getEngine().getContactSketch(token).await().let {
+        engine.getContactSketch(token).await().let {
             ExposureSummaryBuilder()
                 .setDaysSinceLastExposure(it.daysSinceLastHit)
                 .setMatchedKeyCount(it.numberOfHits)
@@ -108,7 +94,7 @@ class HuaweiContactShieldService(
     override suspend fun getExposureDetails(token: String): List<Exposure> {
         val createdDate = ZonedDateTime.now()
 
-        return getEngine().getContactDetail(token).await()
+        return engine.getContactDetail(token).await()
                 .map { info ->
                     Timber.d(info.toString())
                     info.toExposure(createdDate)
@@ -121,30 +107,30 @@ class HuaweiContactShieldService(
         config: ExposureConfigurationData
     ): ResolvableResult<Unit> = resultFromRunning<Unit> {
 
-        if (!BuildConfig.SKIP_EXPOSURE_FILE_VERIFICATION) {
-            Timber.d("Verifying exposure file signature with public key ${BuildConfig.EXPOSURE_FILE_PUBLIC_KEY}")
-            val verifier = ExposureKeyFileSignatureVerifier()
-            val keyBytes = Base64.decode(BuildConfig.EXPOSURE_FILE_PUBLIC_KEY, Base64.DEFAULT)
-            if (!verifier.verify(files, keyBytes)) {
-                throw Exception("Invalid exposure key file signature")
-            }
-        }
-        else {
-            Timber.d("Skipping exposure key file signature verification")
-        }
-
         val intent = PendingIntent.getService(
                 context,
                 0,
                 Intent(context, ContactShieldIntentService::class.java),
                 PendingIntent.FLAG_UPDATE_CURRENT
         )
+        val apiConfig = config.toDiagnosisConfiguration()
 
-        getEngine().putSharedKeyFiles(intent, files, config.toDiagnosisConfiguration(), token).await()
+        val task = if (BuildConfig.SKIP_EXPOSURE_FILE_VERIFICATION) {
+            // use this for local backend when you don't have the signature public key
+            Timber.d("Skipping exposure key file signature verification")
+            engine.putSharedKeyFiles(intent, files, apiConfig, token)
+        }
+        else {
+            val publicKeys = listOf(BuildConfig.EXPOSURE_FILE_PUBLIC_KEY)
+            Timber.d("putSharedKeyFiles with $publicKeys")
+            engine.putSharedKeyFiles(intent, files, publicKeys, apiConfig, token)
+        }
+
+        task.await()
     }
 
     override suspend fun getTemporaryExposureKeys() = resultFromRunning {
-        getEngine().periodicKey.await().map {
+        engine.periodicKey.await().map {
             TemporaryExposureKey.TemporaryExposureKeyBuilder()
                 .setKeyData(it.content)
                 .setRollingStartIntervalNumber(
@@ -177,16 +163,18 @@ class HuaweiContactShieldService(
         return try {
             ResolvableResult.Success(block())
         }
+        catch (resolvable: ResolvableApiException) {
+            Timber.e("HMS API call failed with resolvable exception, message: ${resolvable.localizedMessage}")
+            ResolvableResult.ResolutionRequired(
+                HuaweiApiErrorResolver(resolvable)
+            )
+        }
         catch (exception: ApiException) {
             Timber.e(exception, "HMS API call failed, status code ${exception.statusCode}")
             when (exception.statusCode) {
-                ExposureNotificationStatusCodes.FAILED_NOT_SUPPORTED -> {
-                    ResolvableResult.MissingCapability(
-                        exception.localizedMessage
-                    )
-                }
-                StatusCode.STATUS_INTERNAL_ERROR -> ResolvableResult.HmsCanceled(EnableStep.LocationPermission)
-                StatusCode.STATUS_FAILURE -> ResolvableResult.HmsCanceled(EnableStep.UserConsent)
+                ExposureNotificationStatusCodes.FAILED_NOT_SUPPORTED -> ResolvableResult.MissingCapability(exception.localizedMessage)
+                StatusCode.STATUS_MISSING_PERMISSION_LOCATION -> ResolvableResult.HmsCanceled(EnableStep.LocationPermission)
+                StatusCode.STATUS_UNAUTHORIZED -> ResolvableResult.HmsCanceled(EnableStep.UserConsent)
                 else -> {
                     ResolvableResult.Failed(
                         apiErrorCode = exception.statusCode,
@@ -274,13 +262,66 @@ class HuaweiAvailabilityResolver : ExposureNotificationService.AvailabilityResol
     private val apiAvailability = HuaweiApiAvailability.getInstance()
 
     override fun isSystemAvailable(context: Context): Int =
-        apiAvailability.isHuaweiMobileServicesAvailable(context)
+        apiAvailability.isHuaweiMobileServicesAvailable(context, MIN_HMS_CORE_VERSION)
 
     override fun isUserResolvableError(errorCode: Int) =
         apiAvailability.isUserResolvableError(errorCode)
 
     override fun showErrorDialogFragment(activity: Activity, errorCode: Int, requestCode: Int,
-                                         cancelListener: (dialog: DialogInterface) -> Unit) =
-        apiAvailability.showErrorDialogFragment(activity, errorCode, requestCode, cancelListener)
+                                         cancelListener: (dialog: DialogInterface) -> Unit): Boolean {
+        // apiAvailability.showErrorDialogFragment does not work with the latest sdk, so we are
+        // only displaying a message to update hms core manually
+        MaterialAlertDialogBuilder(activity)
+                .setTitle(R.string.enable_err_title)
+                .setMessage(R.string.enable_err_hms_update_required)
+                .setOnCancelListener(cancelListener)
+                .setPositiveButton(R.string.enable_err_hms_update) { dialog: DialogInterface, _ ->
+                    tryStartAppGallery(activity)
+                    cancelListener.invoke(dialog)
+                }
+                .show()
+        return true
+    }
 
+    /**
+     * Start app gallery activity for HMS Core so that user can easily update
+     */
+    private fun tryStartAppGallery(activity: Activity) {
+        try {
+            val hmsPackageName = HMSPackageManager.getInstance(activity).hmsPackageName
+            val intent = Intent(Intent.ACTION_VIEW).apply {
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                data = Uri.parse("appmarket://details?id=$hmsPackageName")
+            }
+
+            if (intent.resolveActivity(activity.packageManager) != null) {
+                activity.startActivity(intent)
+            }
+            else {
+                Timber.e("Could not resolve activity for ${intent.dataString}")
+            }
+        }
+        catch (t: Throwable) {
+            Timber.e(t, "Failed to start app gallery activity")
+        }
+    }
+
+    companion object {
+        // 5.0.5.300 required due to Contact Shield incompatibility with earlier HMS core versions
+        const val MIN_HMS_CORE_VERSION = 50005300
+    }
+}
+
+//
+// https://developer.huawei.com/consumer/en/doc/development/HMSCore-Guides-V5/contactshield-faq-0000001059216978-V5#EN-US_TOPIC_0000001059216978__section185841314165113
+//
+class HuaweiApiErrorResolver(private val resolvable: ResolvableApiException) : ExposureNotificationService.ApiErrorResolver {
+    override fun startResolutionForResult(activity: Activity, resultCode: Int) {
+        try {
+            resolvable.startResolutionForResult(activity, resultCode)
+        }
+        catch (e: IntentSender.SendIntentException) {
+            Timber.e(e, "Failed to start resolution")
+        }
+    }
 }

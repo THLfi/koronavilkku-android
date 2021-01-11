@@ -11,6 +11,7 @@ import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.CommonStatusCodes
+import com.google.android.gms.common.api.Status
 import com.google.android.gms.nearby.Nearby
 import com.google.android.gms.nearby.exposurenotification.ExposureConfiguration
 import com.google.android.gms.nearby.exposurenotification.ExposureInformation
@@ -112,7 +113,9 @@ class GoogleExposureNotificationService(
 
             if (exception.status.hasResolution()) {
                 Timber.d("Got ApiException with a resolution")
-                return ResolvableResult.ResolutionRequired(exception.status)
+                return ResolvableResult.ResolutionRequired(
+                    GoogleApiErrorResolver(exception.status)
+                )
             }
 
             Timber.e(exception, "Exposure notification API call failed")
@@ -196,5 +199,11 @@ class GoogleAvailabilityResolver : ExposureNotificationService.AvailabilityResol
 
     companion object {
         const val MIN_GOOGLE_PLAY_VERSION = 201813000   // v20.18.13
+    }
+}
+
+class GoogleApiErrorResolver(private val status: Status) : ExposureNotificationService.ApiErrorResolver {
+    override fun startResolutionForResult(activity: Activity, resultCode: Int) {
+        status.startResolutionForResult(activity, resultCode)
     }
 }

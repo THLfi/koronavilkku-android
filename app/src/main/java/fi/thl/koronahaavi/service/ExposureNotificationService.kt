@@ -29,7 +29,7 @@ interface ExposureNotificationService {
     // represents different EN API method results: success, needs user resolution or failed
     sealed class ResolvableResult<T> {
         data class HmsCanceled<T>(val step: EnableStep) : ResolvableResult<T>()
-        data class ResolutionRequired<T>(val status: Status) : ResolvableResult<T>()
+        data class ResolutionRequired<T>(val errorResolver: ApiErrorResolver) : ResolvableResult<T>()
         data class Success<T>(val data: T) : ResolvableResult<T>()
         data class MissingCapability<T>(val error: String?) : ResolvableResult<T>()
         data class ApiNotSupported<T>(val connectionError: ConnectionError?) : ResolvableResult<T>()
@@ -57,5 +57,9 @@ interface ExposureNotificationService {
         fun isSystemAvailable(context: Context): Int
         fun isUserResolvableError(errorCode: Int): Boolean
         fun showErrorDialogFragment(activity: Activity, errorCode: Int, requestCode: Int, cancelListener: (dialog: DialogInterface) -> Unit): Boolean
+    }
+
+    interface ApiErrorResolver {
+        fun startResolutionForResult(activity: Activity, resultCode: Int)
     }
 }
