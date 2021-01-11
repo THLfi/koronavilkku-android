@@ -247,6 +247,7 @@
     <string name="test_open_en_settings" translatable="false">EN asetukset</string>
     <string name="test_check_play_services" translatable="false">Play services tarkistus</string>
     <string name="test_update_municipalities" translatable="false">Päivitä kuntalista</string>
+    <string name="test_daily_summaries" translatable="false">Daily summaries</string>
 
     <string name="pre_web_contact_title_evaluation">Omaolo symptom assessment</string>
     <string name="pre_web_contact_title_no_evaluation">Send a contact request</string>

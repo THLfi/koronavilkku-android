@@ -129,10 +129,6 @@ class TestFragment : Fragment() {
             appStateRepository.setLastExposureCheckTime(ZonedDateTime.now().minusDays(2))
         }
 
-        binding.buttonTestOpenEnSettings.setOnClickListener {
-            context?.openExposureNotificationSettings()
-        }
-
         binding.buttonTestCheckPlayServices.setOnClickListener {
             val gaa = GoogleApiAvailability.getInstance()
 
@@ -167,6 +163,10 @@ class TestFragment : Fragment() {
                     Toast.makeText(activity, "Play services available, no action needed ($result)", Toast.LENGTH_LONG).show()
                 }
             }
+        }
+
+        binding.buttonTestDailySummaries.setOnClickListener {
+            findNavController().navigateSafe(TestFragmentDirections.toTestDailySummaries())
         }
 
         exposureRepository.flowHandledKeyGroupTokens().asLiveData().observe(viewLifecycleOwner, Observer {

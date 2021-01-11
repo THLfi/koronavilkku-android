@@ -114,7 +114,16 @@
         <action
             android:id="@+id/to_onboarding"
             app:destination="@id/onboarding" />
+        <action
+            android:id="@+id/to_test_daily_summaries"
+            app:destination="@id/test_daily_summaries"/>
     </fragment>
+
+    <fragment
+        android:id="@+id/test_daily_summaries"
+        android:name="fi.thl.koronahaavi.test.TestDailySummariesFragment"
+        android:label="Test Daily Summaries"
+        tools:layout="@layout/fragment_test_daily_summaries" />
 
     <action
         android:id="@+id/to_onboarding"

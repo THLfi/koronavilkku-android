@@ -111,18 +111,18 @@
                 android:text="@string/test_set_old_update" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/button_test_open_en_settings"
+                android:id="@+id/button_test_daily_summaries"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@+id/button_test_set_old_update"
                 app:layout_constraintStart_toStartOf="parent"
-                android:text="@string/test_open_en_settings" />
+                android:text="@string/test_daily_summaries" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/button_test_check_play_services"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@+id/button_test_open_en_settings"
+                app:layout_constraintTop_toBottomOf="@+id/button_test_daily_summaries"
                 app:layout_constraintStart_toStartOf="parent"
                 android:text="@string/test_check_play_services" />
 
