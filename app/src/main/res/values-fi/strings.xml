@@ -26,8 +26,6 @@
     <string name="diagnosis_locked_body1">Ilmoittamasi tiedot auttavat koronavirusepidemian taltuttamisessa. Sovellus on nyt lukittu eikä enää kerää tietoja kohtaamisista. Pikaista paranemista!</string>
     <string name="diagnosis_locked_image_description">Lukittu</string>
 
-    <string name="diagnosis_instructions_1">Ilmoittaaksesi tartunnasta tarvitset avauskoodin. Avauskoodista ei voi tunnistaa henkilöllisyyttäsi.</string>
-
     <string name="code_entry_title">Syötä avauskoodisi</string>
     <string name="code_entry_submit">Lähetä</string>
     <string name="code_entry_invalid">Avauskoodi on virheellinen tai sen voimassaolo on päättynyt. Tarkistathan, että olet syöttänyt koodin täsmälleen oikein.</string>

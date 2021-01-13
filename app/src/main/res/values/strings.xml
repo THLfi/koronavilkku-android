@@ -30,8 +30,6 @@
     <string name="diagnosis_locked_body1">The information you have reported will help to tackle the coronavirus epidemic. The app is now locked and no longer collects information about nearby phones. We wish you a quick recovery!</string>
     <string name="diagnosis_locked_image_description">Locked</string>
 
-    <string name="diagnosis_instructions_1">You will need a key code to report your infection. The key code does not reveal your identity.</string>
-
     <string name="code_entry_title">Enter your key code</string>
     <string name="code_entry_submit">Send</string>
     <string name="code_entry_invalid">The key code is invalid or has expired. Please check that you have entered the exact code you received.</string>

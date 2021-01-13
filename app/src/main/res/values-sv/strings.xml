@@ -26,8 +26,6 @@
     <string name="diagnosis_locked_body1">De uppgifter du angett bidrar till att bekämpa coronavirusepidemin. Coronablinkern samlar inte längre information om närliggande telefoner. Krya på dig!</string>
     <string name="diagnosis_locked_image_description">Låst</string>
 
-    <string name="diagnosis_instructions_1">För att meddela smittan behöver du en startkod. Det är inte möjligt att identifiera dig med hjälp av startkoden.</string>
-
     <string name="code_entry_title">Ange din startkod</string>
     <string name="code_entry_submit">Skicka</string>
     <string name="code_entry_invalid">Startkoden är felaktig eller har gått ut. Kontrollera att du har angett koden korrekt.</string>
