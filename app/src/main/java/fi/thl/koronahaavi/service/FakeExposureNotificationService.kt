@@ -11,6 +11,7 @@ import android.content.Intent
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.nearby.exposurenotification.*
 import com.google.android.gms.nearby.exposurenotification.TemporaryExposureKey.TemporaryExposureKeyBuilder
+import fi.thl.koronahaavi.data.DailyExposure
 import fi.thl.koronahaavi.data.Exposure
 import fi.thl.koronahaavi.exposure.ExposureStateUpdatedReceiver
 import fi.thl.koronahaavi.service.ExposureNotificationService.ResolvableResult
@@ -88,11 +89,7 @@ class FakeExposureNotificationService(
     }
      */
 
-    override suspend fun getDailySummaries(config: ExposureConfigurationData): List<DailySummary> {
-        return listOf()
-    }
-
-    override suspend fun getExposureWindows(): List<ExposureWindow> {
+    override suspend fun getDailyExposures(config: ExposureConfigurationData): List<DailyExposure> {
         return listOf()
     }
 

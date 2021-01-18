@@ -14,6 +14,7 @@ import com.google.android.gms.common.api.CommonStatusCodes
 import com.google.android.gms.nearby.Nearby
 import com.google.android.gms.nearby.exposurenotification.*
 import fi.thl.koronahaavi.BuildConfig
+import fi.thl.koronahaavi.data.DailyExposure
 import fi.thl.koronahaavi.data.Exposure
 import fi.thl.koronahaavi.service.ExposureNotificationService.ConnectionError
 import fi.thl.koronahaavi.service.ExposureNotificationService.ResolvableResult
@@ -23,8 +24,10 @@ import kotlinx.coroutines.tasks.await
 import timber.log.Timber
 import java.io.File
 import java.time.Instant
+import java.time.LocalDate
 import java.time.ZoneOffset
 import java.time.ZonedDateTime
+import kotlin.math.roundToInt
 
 class GoogleExposureNotificationService(
     private val context: Context
@@ -60,25 +63,16 @@ class GoogleExposureNotificationService(
         return client.isEnabled.await()
     }
 
-    /*
-    override suspend fun getExposureSummary(token: String): ExposureSummary {
-        return client.getExposureSummary(token).await()
-    }
-
-    override suspend fun getExposureDetails(token: String): List<Exposure> {
-        val createdDate = ZonedDateTime.now()
-
-        // this call will show a system notification to user
-        return client.getExposureInformation(token).await()
-            .map { info ->
-                Timber.d(info.toString())
-                info.toExposure(createdDate)
+    override suspend fun getDailyExposures(config: ExposureConfigurationData): List<DailyExposure> =
+        client.getDailySummaries(createDailyConfig())
+            .await()
+            .map { summary ->
+                Timber.d(summary.toString())
+                DailyExposure(
+                    day = LocalDate.ofEpochDay(summary.daysSinceEpoch.toLong()),
+                    score = summary.summaryData.scoreSum.roundToInt()
+                )
             }
-    }
-     */
-
-    override suspend fun getDailySummaries(config: ExposureConfigurationData): List<DailySummary>
-            = client.getDailySummaries(createDailyConfig()).await()
 
     // .. temp copy from reference app
     private fun createDailyConfig() = DailySummariesConfig.DailySummariesConfigBuilder()
@@ -93,9 +87,6 @@ class GoogleExposureNotificationService(
         .setReportTypeWeight(ReportType.SELF_REPORT, 1.0)
         .setDaysSinceExposureThreshold(10)
         .build()
-
-    override suspend fun getExposureWindows(): List<ExposureWindow>
-            = client.exposureWindows.await()
 
     override suspend fun provideDiagnosisKeyFiles(files: List<File>): ResolvableResult<Unit> {
         Timber.d("Providing %d key files", files.size)

@@ -4,10 +4,12 @@ import android.content.Context
 import androidx.hilt.Assisted
 import androidx.hilt.work.WorkerInject
 import androidx.work.*
-import com.google.android.gms.nearby.exposurenotification.DailySummariesConfig
 import fi.thl.koronahaavi.data.*
 import fi.thl.koronahaavi.service.ExposureNotificationService
 import timber.log.Timber
+import java.time.ZoneId
+import java.time.ZonedDateTime
+import java.util.*
 
 /*
 Synchronizes exposure state from ENS daily summaries into local database
@@ -33,53 +35,58 @@ class ExposureUpdateWorker @WorkerInject constructor(
 
         // todo get config from backend
         val config = settingsRepository.requireExposureConfiguration()
-        val dailySummaries = exposureNotificationService.getDailySummaries(config)
-                .also { Timber.d("Daily summaries $it") }
 
+        // todo wip code to experiment with v2 api
+        val currentExposures = exposureNotificationService.getDailyExposures(config)
+            .filter { it.score > 900 }
+            .map { it.toExposure() }
 
-        //val windows = exposureNotificationService.getExposureWindows()
-        //        .also { it.forEach { w -> Timber.d("$w") }  }
+        val previousExposures = exposureRepository.getAllExposures()
+            .groupBy { it.detectedDate }
 
-        /*
-        var exposures: List<Exposure>? = null
-        if (summary.matchedKeyCount > 0) {
-            val config = settingsRepository.requireExposureConfiguration()
-            val checker = ExposureSummaryChecker(summary, config)
-
-            Timber.d("Configuration minimum risk score ${config.minimumRiskScore}")
-
-            if (checker.hasHighRisk()) {
-                Timber.d("High risk detected")
-
-                // this call will trigger EN system notifications
-                exposures = exposureNotificationService.getExposureDetails(token).let {
-                    checker.filterExposures(it)
+        var newExposureCount = 0
+        currentExposures.forEach { e ->
+            if (!previousExposures.containsKey(e.detectedDate)) {
+                Timber.d("New daily exposure ${e.detectedDate.toLocalDate()}")
+                exposureRepository.saveExposure(e)
+                newExposureCount++
+            }
+            else {
+                // todo old version total risk scores are lower than exposure window scores.. should we add a new field?
+                val previousScore = previousExposures[e.detectedDate]?.sumBy { it.totalRiskScore } ?: 0
+                if (e.totalRiskScore - previousScore > 900) {
+                    Timber.d("Increased daily exposure ${e.detectedDate.toLocalDate()}, from $previousScore to ${e.totalRiskScore}")
+                    // todo which exposure to update?
+                    //exposureRepository.saveExposure(dailyExposure)
+                    newExposureCount++
                 }
-
-                exposures.forEach { exposureRepository.saveExposure(it) }
             }
         }
-        else {
-            Timber.i("No exposure matches found")
-        }
 
-        exposureRepository.saveKeyGroupToken(createKeyGroupToken(token, summary, exposures))
-         */
+        if (newExposureCount > 0) {
+            exposureRepository.saveKeyGroupToken(
+                createKeyGroupToken(newExposureCount)
+            )
+
+            // send notifications
+        }
 
         return Result.success()
     }
 
-    /*
-    private fun createKeyGroupToken(token: String, summary: ExposureSummary, exposures: List<Exposure>?) =
-            KeyGroupToken(
-                token = token,
-                matchedKeyCount = summary.matchedKeyCount,
-                maximumRiskScore = summary.maximumRiskScore,
-                exposureCount = exposures?.size,
-                latestExposureDate = exposures?.map { it.detectedDate }?.max()
-            )
+    private fun DailyExposure.toExposure() =
+        Exposure(
+            createdDate = ZonedDateTime.now(),
+            detectedDate = day.atStartOfDay(ZoneId.of("Z")),
+            totalRiskScore = score
+        )
 
-     */
+    private fun createKeyGroupToken(exposureCount: Int) =
+            KeyGroupToken(
+                token = UUID.randomUUID().toString(), // legacy db schema support
+                matchedKeyCount = exposureCount,
+                exposureCount = exposureCount
+            )
 
     companion object {
         const val TAG = "fi.thl.koronahaavi.exposure.ExposureUpdateWorker"

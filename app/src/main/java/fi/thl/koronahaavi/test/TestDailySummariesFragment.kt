@@ -11,6 +11,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.gms.nearby.exposurenotification.DailySummary
 import com.google.android.gms.nearby.exposurenotification.ReportType.CONFIRMED_TEST
 import dagger.hilt.android.AndroidEntryPoint
+import fi.thl.koronahaavi.data.DailyExposure
 import fi.thl.koronahaavi.data.SettingsRepository
 import fi.thl.koronahaavi.databinding.FragmentTestDailySummariesBinding
 import fi.thl.koronahaavi.service.ExposureConfigurationData
@@ -53,21 +54,14 @@ class TestDailySummariesFragment : Fragment() {
 
     private fun updateDailySummaries() {
         viewLifecycleOwner.lifecycleScope.launch {
-            val summaries = exposureNotificationService.getDailySummaries(config())
+            val summaries = exposureNotificationService.getDailyExposures(config())
 
             binding.textDailySummaries.text = if (summaries.isEmpty()) "No data" else
                     summaries.joinToString(separator = "\n") { summary ->
                         Timber.d(summary.toString())
-                        summary.formatForDisplay()
+                        "${summary.day}, ${summary.score}"
                     }
         }
-    }
-
-    private fun DailySummary.formatForDisplay(): String {
-        val day = LocalDate.ofEpochDay(daysSinceEpoch.toLong()).toString()
-        val data = getSummaryDataForReportType(CONFIRMED_TEST)
-
-        return "$day, max:${data.maximumScore.roundToLong()}, score_sum:${data.scoreSum.roundToLong()}, dur_sum:${data.weightedDurationSum.roundToLong()}"
     }
 
     private fun config() = ExposureConfigurationData(
