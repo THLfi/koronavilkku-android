@@ -6,6 +6,7 @@ import androidx.hilt.work.WorkerInject
 import androidx.work.*
 import fi.thl.koronahaavi.data.*
 import fi.thl.koronahaavi.service.ExposureNotificationService
+import fi.thl.koronahaavi.service.NotificationService
 import timber.log.Timber
 import java.time.ZoneId
 import java.time.ZonedDateTime
@@ -22,7 +23,8 @@ class ExposureUpdateWorker @WorkerInject constructor(
     private val exposureNotificationService: ExposureNotificationService,
     private val exposureRepository: ExposureRepository,
     private val appStateRepository: AppStateRepository,
-    private val settingsRepository: SettingsRepository
+    private val settingsRepository: SettingsRepository,
+    private val notificationService: NotificationService
 ) : CoroutineWorker(context, workerParams) {
 
     override suspend fun doWork(): Result {
@@ -37,38 +39,27 @@ class ExposureUpdateWorker @WorkerInject constructor(
         val config = settingsRepository.requireExposureConfiguration()
 
         // todo wip code to experiment with v2 api
-        val currentExposures = exposureNotificationService.getDailyExposures(config)
+
+        // due to legacy implementation, current exposures can contain each individual exposure, or new daily exposure
+        val currentExposures = exposureRepository.getAllExposures()
+
+        // compare to existing and find new days with exposure
+        // todo need to detect increase to existing days?
+        val newExposures = exposureNotificationService.getDailyExposures(config)
             .filter { it.score > 900 }
+            .filter { currentExposures.none { c -> c.detectedDate.toLocalDate() == it.day } } // nothing for this day
             .map { it.toExposure() }
 
-        val previousExposures = exposureRepository.getAllExposures()
-            .groupBy { it.detectedDate }
-
-        var newExposureCount = 0
-        currentExposures.forEach { e ->
-            if (!previousExposures.containsKey(e.detectedDate)) {
-                Timber.d("New daily exposure ${e.detectedDate.toLocalDate()}")
-                exposureRepository.saveExposure(e)
-                newExposureCount++
-            }
-            else {
-                // todo old version total risk scores are lower than exposure window scores.. should we add a new field?
-                val previousScore = previousExposures[e.detectedDate]?.sumBy { it.totalRiskScore } ?: 0
-                if (e.totalRiskScore - previousScore > 900) {
-                    Timber.d("Increased daily exposure ${e.detectedDate.toLocalDate()}, from $previousScore to ${e.totalRiskScore}")
-                    // todo which exposure to update?
-                    //exposureRepository.saveExposure(dailyExposure)
-                    newExposureCount++
-                }
-            }
+        newExposures.forEach {
+            Timber.d("New daily exposure ${it.detectedDate.toLocalDate()}")
+            exposureRepository.saveExposure(it)
         }
 
-        if (newExposureCount > 0) {
+        if (newExposures.isNotEmpty()) {
             exposureRepository.saveKeyGroupToken(
-                createKeyGroupToken(newExposureCount)
+                createKeyGroupToken(newExposures.size)
             )
-
-            // send notifications
+            notificationService.notifyExposure()
         }
 
         return Result.success()

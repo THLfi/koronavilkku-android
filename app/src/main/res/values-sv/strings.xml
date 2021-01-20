@@ -130,6 +130,11 @@
     <string name="notification_item_count_label">Eventuella exponeringar</string>
     <string name="notification_item_time_range_label">Tids\u00ADperiod</string>
 
+    <string name="notification_channel_name">Exposure notification</string>
+    <string name="notification_channel_description">Notifications for possible COVID-19 exposures.</string>
+    <string name="notification_exposure_title">Possible COVID-19 exposure</string>
+    <string name="notification_exposure_message">Possible COVID-19 exposure</string>
+
     <string name="guide_title">Om Coronablinkern</string>
     <string name="guide_p1_text">Coronablinkern är en applikation (app) som Institutet för hälsa och välfärd ansvarar för. Appen analyserar om du eventuellt har blivit utsatt för coronaviruset. Om du har konstaterats ha en coronavirusinfektion, kan du meddela om det här anonymt via appen. Appen skyddar effektivt din identitet.</string>
 
