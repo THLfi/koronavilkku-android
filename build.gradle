@@ -43,7 +43,12 @@ allprojects {
     repositories {
         google()
         jcenter()
-        maven {url 'https://developer.huawei.com/repo/'}
+        maven {
+            url 'https://developer.huawei.com/repo/'
+            content {
+                includeGroupByRegex 'com\\.huawei.*'
+            }
+        }
     }
 
     apply plugin: 'org.owasp.dependencycheck'
