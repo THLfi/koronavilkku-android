@@ -47,6 +47,9 @@
             app:exitAnim="@anim/fragment_fade_exit"
             app:popEnterAnim="@anim/fragment_fade_enter"
             app:popExitAnim="@anim/fragment_fade_exit" />
+        <action
+            android:id="@+id/to_notification_guide"
+            app:destination="@id/notification_guide" />
     </fragment>
 
     <fragment
@@ -105,6 +108,11 @@
         android:id="@+id/select_language"
         android:name="fi.thl.koronahaavi.settings.SelectLanguageFragment"
         tools:layout="@layout/fragment_select_language" />
+
+    <fragment
+        android:id="@+id/notification_guide"
+        android:name="fi.thl.koronahaavi.guide.NotificationGuideFragment"
+        tools:layout="@layout/fragment_notification_guide" />
 
     <fragment
         android:id="@+id/test"

@@ -33,13 +33,12 @@ class HomeFragment : Fragment() {
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
-    ): View? {
-        val root = inflater.inflate(R.layout.fragment_home, container, false)
-        binding = FragmentHomeBinding.bind(root).apply {
-            this.model = viewModel
+    ): View {
+        binding = FragmentHomeBinding.inflate(inflater, container, false).apply {
+            model = viewModel
+            lifecycleOwner = viewLifecycleOwner
         }
 
-        binding.lifecycleOwner = this.viewLifecycleOwner
         return binding.root
     }
 

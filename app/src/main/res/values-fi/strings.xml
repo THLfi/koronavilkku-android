@@ -279,6 +279,12 @@
     <string name="summary_consent_accept_use">Kohtaamistietoni sekä tiedon todennäköisestä tartuttavuusajastani saa luovuttaa Koronavilkku-sovelluksen käyttöön tartuntaketjujen katkaisemiseksi.\n\nAnnan suostumukseni vapaaehtoisesti. Minulta ei ole vaadittu suostumusta terveydenhuollon asiakaspalvelutilanteessa eikä viranomaismenettelyssä.</string>
     <string name="summary_consent_accept_share">Kohtaamistietoni, edellä valitsemani matkustustiedot ja tiedon todennäköisestä tartuttavuusajastani saa luovuttaa EU- ja Eta-maiden sekä Sveitsin ja Iso-Britannian koronasovellusten käyttöön tartuntaketjujen katkaisemiseksi.</string>
     <string name="summary_consent_no_cancellation">Kun olet lähettänyt tiedot, et voi enää peruuttaa antamaasi suostumusta.</string>
+    <string name="notification_guide_title">Toimi näin, jos saat altistumisilmoituksen</string>
+    <string name="notification_guide_text_1">Jos olet ollut lähellä henkilöä, joka on ilmoittanut sovelluksella koronatartunnastaan, saat puhelimeesi ilmoituksen mahdollisesta altistumisesta. Ilmoituksen painaminen avaa Koronavilkun.</string>
+    <string name="notification_guide_text_2">Paina punaista Katso toimintaohjeet -painiketta Koronavilkun kotinäytöllä.</string>
+    <string name="notification_guide_text_3">Saat toimintaohjeet jatkotartuntojen ehkäisemiseen sekä ohjeet siitä, kuinka ottaa yhteyttä terveydenhuoltoon. Tutustu ohjeisiin ja paina Ota yhteyttä -painiketta.</string>
+    <string name="notification_guide_text_4">Valitse asiointikunta. Voit ottaa yhteyttä kunnan tarjoamilla yhteydenottotavoilla, esimerkiksi puhelimitse tai Omaolo-verkkopalvelussa.</string>
+    <string name="notification_guide_text_5">Saat terveydenhuollosta tarkemmat toimintaohjeet ja arvion koronavirustestin tarpeellisuudesta.</string>
 
     <plurals name="exposure_notification_count">
         <item quantity="one">%d ilmoitus</item>

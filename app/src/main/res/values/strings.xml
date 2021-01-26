@@ -306,6 +306,13 @@
     <string name="summary_consent_accept_share">My encounter data, the travel information I have selected above, and the estimated period of when I could have infected others may be shared to COVID-19 applications used in the EU, EEA, Switzerland and the United Kingdom for the purpose of breaking transmission chains.</string>
     <string name="summary_consent_no_cancellation">Once you have sent the information, you cannot withdraw your consent.</string>
 
+    <string name="notification_guide_title">Toimi näin, jos saat altistumisilmoituksen</string>
+    <string name="notification_guide_text_1">Jos olet ollut lähellä henkilöä, joka on ilmoittanut sovelluksella koronatartunnastaan, saat puhelimeesi ilmoituksen mahdollisesta altistumisesta. Ilmoituksen painaminen avaa Koronavilkun.</string>
+    <string name="notification_guide_text_2">Paina punaista Katso toimintaohjeet -painiketta Koronavilkun kotinäytöllä.</string>
+    <string name="notification_guide_text_3">Saat toimintaohjeet jatkotartuntojen ehkäisemiseen sekä ohjeet siitä, kuinka ottaa yhteyttä terveydenhuoltoon. Tutustu ohjeisiin ja paina Ota yhteyttä -painiketta.</string>
+    <string name="notification_guide_text_4">Valitse asiointikunta. Voit ottaa yhteyttä kunnan tarjoamilla yhteydenottotavoilla, esimerkiksi puhelimitse tai Omaolo-verkkopalvelussa.</string>
+    <string name="notification_guide_text_5">Saat terveydenhuollosta tarkemmat toimintaohjeet ja arvion koronavirustestin tarpeellisuudesta.</string>
+
     <plurals name="exposure_notification_count">
         <item quantity="one">%d notification</item>
         <item quantity="other">%d notifications</item>

@@ -22,7 +22,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavDirections
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import fi.thl.koronahaavi.R
-import fi.thl.koronahaavi.settings.GuideFragment
+import fi.thl.koronahaavi.guide.AppGuideFragment
 import timber.log.Timber
 
 fun Fragment.hideKeyboard() = view?.let { activity?.hideKeyboard(it) }
@@ -55,7 +55,7 @@ fun Fragment.openLink(url: String) {
 }
 
 fun FragmentActivity.openGuide() {
-    GuideFragment().show(supportFragmentManager, "guide")
+    AppGuideFragment().show(supportFragmentManager, "guide")
 }
 
 @ColorInt
