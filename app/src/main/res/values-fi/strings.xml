@@ -94,7 +94,7 @@
     <string name="terms_url">https://koronavilkku.fi/kayttoehdot/</string>
 
     <string name="exposure_detail_title">Mahdollinen altistuminen</string>
-    <string name="exposure_detail_message">Olet ollut viimeisten 10 vuorokauden aikana lähellä henkilöä, joka on ilmoittanut koronatartunnastaan sovelluksen kautta.</string>
+    <string name="exposure_detail_message">Olet ollut viimeisten 14 vuorokauden aikana lähellä henkilöä, joka on ilmoittanut koronatartunnastaan sovelluksen kautta.</string>
 
     <string name="exposure_detail_contact_title">Ota yhteyttä terveyden\u00ADhuoltoon</string>
     <string name="exposure_detail_contact_subtitle">Tieto mahdollisesta altistumisestasi ei välity terveydenhuoltoon, jollet itse ota yhteyttä.</string>
@@ -102,7 +102,7 @@
 
     <string name="exposure_detail_title_none">Ei havaittuja altistumisia</string>
 
-    <string name="exposure_detail_message_none">Koronavilkku ei ole havainnut altistumista koronavirukselle viimeisten 10 päivän aikana.</string>
+    <string name="exposure_detail_message_none">Koronavilkku ei ole havainnut altistumista koronavirukselle viimeisten 14 päivän aikana.</string>
     <string name="exposure_detail_disclaimer_none">Sovellus ei kuitenkaan tunnista kaikkia mahdollisia altistumistilanteita.</string>
     <string name="exposure_detail_last_check">Tarkistettu viimeksi %s</string>
     <string name="exposure_detail_no_last_check">Altistumistietoja ei ole vielä tarkistettu</string>
@@ -110,7 +110,7 @@
     <string name="exposure_detail_notifications_title">Katso altistumis\u00ADilmoitukset</string>
 
     <string name="exposure_detail_instructions_title">Toimi näin</string>
-    <string name="exposure_detail_instructions_subtitle">Noudata näitä ohjeita 10 päivän ajan:</string>
+    <string name="exposure_detail_instructions_subtitle">Noudata näitä ohjeita 14 päivän ajan:</string>
     <string name="exposure_detail_instructions_1">Tarkkaile vointiasi. Jos sinulla ilmenee yksikin koronavirustautiin sopiva oire, ota mahdollisimman pian yhteyttä kuntasi terveydenhuoltoon ja hakeudu testiin. Koronavirustautiin sopivia oireita ovat haju- tai makuaistin muutos, hengitysvaikeus, yskä, kurkkukipu, nuha, kuume, päänsärky, lihaskivut sekä ripuli tai vatsakipu ilman muuta ilmeistä syytä.</string>
     <string name="exposure_detail_contact_instructions_1">Jos sinulla ilmenee oireita, hakeudu testiin</string>
     <string name="exposure_detail_instructions_2">Vältä tapaamasta muita ihmisiä.</string>
@@ -122,7 +122,7 @@
     <string name="exposure_detail_instructions_8">Jos et ole Suomessa, noudata paikallisten viranomaisten ohjeita.</string>
 
     <string name="notification_list_title">Altistumis\u00ADilmoitukset</string>
-    <string name="notification_list_disclaimer">Arvio altistumisesta perustuu Koronavilkun keräämiin kohtaamistietoihin viimeisten 10 vuorokauden ajalta. Altistumisen voimakkuutta ei voida täsmällisesti arvioida.</string>
+    <string name="notification_list_disclaimer">Arvio altistumisesta perustuu Koronavilkun keräämiin kohtaamistietoihin viimeisten 14 vuorokauden ajalta. Altistumisen voimakkuutta ei voida täsmällisesti arvioida.</string>
 
     <string name="notification_item_title">Altistumisilmoitus %s</string>
     <string name="notification_item_count_label">Mahdollisia altistumisia</string>
