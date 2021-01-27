@@ -101,7 +101,7 @@
 
     <string name="exposure_detail_title">Potential exposure</string>
 
-    <string name="exposure_detail_message">In the past 10 days, you have been close to a person who has reported a COVID-19 infection.</string>
+    <string name="exposure_detail_message">In the past 14 days, you have been close to a person who has reported a COVID-19 infection.</string>
 
     <string name="exposure_detail_contact_title">Contact healthcare services</string>
     <string name="exposure_detail_contact_subtitle">Information about your potential exposure will only be communicated to healthcare services if you contact them yourself.</string>
@@ -109,7 +109,7 @@
 
     <string name="exposure_detail_title_none">No observed exposures</string>
 
-    <string name="exposure_detail_message_none">Koronavilkku has not detected exposures to the coronavirus in the last 10 days.</string>
+    <string name="exposure_detail_message_none">Koronavilkku has not detected exposures to the coronavirus in the last 14 days.</string>
     <string name="exposure_detail_disclaimer_none">However, the application is not able to identify every situation where exposure may occur.</string>
     <string name="exposure_detail_last_check">Last checked %s</string>
     <string name="exposure_detail_no_last_check">No checks yet</string>
@@ -117,7 +117,7 @@
     <string name="exposure_detail_notifications_title">Show exposure notifications</string>
 
     <string name="exposure_detail_instructions_title">What should I do?</string>
-    <string name="exposure_detail_instructions_subtitle">Follow these instructions for 10 days:</string>
+    <string name="exposure_detail_instructions_subtitle">Follow these instructions for 14 days:</string>
     <string name="exposure_detail_instructions_1">Monitor your health. If you develop any symptom consistent with COVID-19, contact your municipal healthcare service and get tested as soon as possible. Symptoms consistent with COVID-19 are change in sense of smell or taste, shortness of breath, cough, sore throat, runny nose, fever, headaches, muscle pain, unexplained diarrhoea or abdominal pain.</string>
     <string name="exposure_detail_contact_instructions_1">If you develop symptoms, get tested</string>
     <string name="exposure_detail_instructions_2">Avoid meeting other people.</string>
@@ -129,7 +129,7 @@
     <string name="exposure_detail_instructions_8">If you are not in Finland, follow any instructions given by local authorities.</string>
 
     <string name="notification_list_title">Exposure notifications</string>
-    <string name="notification_list_disclaimer">The assessment of your exposure is based on encounters that Koronavilkku has collected during the last 10 days. The intensity of exposure cannot be accurately assessed.</string>
+    <string name="notification_list_disclaimer">The assessment of your exposure is based on encounters that Koronavilkku has collected during the last 14 days. The intensity of exposure cannot be accurately assessed.</string>
 
     <string name="notification_item_title">Notification about potential exposure %s</string>
     <string name="notification_item_count_label">Potential exposures:</string>

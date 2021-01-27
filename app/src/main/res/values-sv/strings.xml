@@ -96,7 +96,7 @@
 
     <string name="exposure_detail_title">Eventuell exponering</string>
 
-    <string name="exposure_detail_message">Du har under de senaste 10 dygnen varit i närheten av en person som meddelat om sin coronasmitta via applikationen.</string>
+    <string name="exposure_detail_message">Du har under de senaste 14 dygnen varit i närheten av en person som meddelat om sin coronasmitta via applikationen.</string>
 
     <string name="exposure_detail_contact_title">Kontakta hälsovården</string>
     <string name="exposure_detail_contact_subtitle">Information om en eventuell exponering förmedlas till hälsovården endast om du själv tar kontakt.</string>
@@ -104,7 +104,7 @@
 
     <string name="exposure_detail_title_none">Ingen exponering har upptäckts</string>
 
-    <string name="exposure_detail_message_none">Coronablinkern har inte observerat någon exponering för coronaviruset under de senaste 10 dagarna.</string>
+    <string name="exposure_detail_message_none">Coronablinkern har inte observerat någon exponering för coronaviruset under de senaste 14 dagarna.</string>
     <string name="exposure_detail_disclaimer_none">Appen kan emellertid inte identifiera alla eventuella exponeringar.</string>
     <string name="exposure_detail_last_check">Senast granskad %s</string>
     <string name="exposure_detail_no_last_check">Ingen kontroll ännu</string>
@@ -112,7 +112,7 @@
     <string name="exposure_detail_notifications_title">Visa exponerings\u00ADmeddelandena</string>
 
     <string name="exposure_detail_instructions_title">Gör så här</string>
-    <string name="exposure_detail_instructions_subtitle">Följ dessa anvisningar i 10 dagar:</string>
+    <string name="exposure_detail_instructions_subtitle">Följ dessa anvisningar i 14 dagar:</string>
     <string name="exposure_detail_instructions_1">Var uppmärksam på hur du mår. Om du har ens ett av symtomen som passar in på coronavirusinfektion, ta så snabbt som möjligt kontakt med hälsovården i din kommun för att bli testad. Symtom som kan tyda på coronavirusinfektion är förändringar i lukt- eller smaksinnet, andningssvårigheter, hosta, halsont, snuva, feber, huvudvärk, muskelvärk samt diarré eller magont utan annan uppenbar orsak.</string>
     <string name="exposure_detail_contact_instructions_1">Om du har symtom ska du söka dig till testning</string>
     <string name="exposure_detail_instructions_2">Undvik att träffa andra människor.</string>
@@ -124,7 +124,7 @@
     <string name="exposure_detail_instructions_8">Om du inte befinner dig i Finland ska du följa de lokala myndigheternas anvisningar.</string>
 
     <string name="notification_list_title">Exponerings\u00ADmeddelandena</string>
-    <string name="notification_list_disclaimer">Bedömningen om exponeringen bygger på den information om möten som Coronablinkern har samlat in under de senaste 10 dygnen. Coronablinkern ger ingen exakt bedömning av hur stor smittorisken är.</string>
+    <string name="notification_list_disclaimer">Bedömningen om exponeringen bygger på den information om möten som Coronablinkern har samlat in under de senaste 14 dygnen. Coronablinkern ger ingen exakt bedömning av hur stor smittorisken är.</string>
 
     <string name="notification_item_title">Meddelande om eventuell exponering %s</string>
     <string name="notification_item_count_label">Eventuella exponeringar</string>
