@@ -17,7 +17,7 @@ import fi.thl.koronahaavi.R
 import fi.thl.koronahaavi.databinding.FragmentNotificationGuideBinding
 import timber.log.Timber
 
-class NotificationGuideFragment : BottomSheetDialogFragment() {
+class NotificationGuideFragment : Fragment() {
 
     private var _binding: FragmentNotificationGuideBinding? = null
     private val binding get() = _binding!!
@@ -41,12 +41,14 @@ class NotificationGuideFragment : BottomSheetDialogFragment() {
 
             viewpagerNotificationGuide.adapter = GuidePagerAdapter(this@NotificationGuideFragment, viewModel)
             viewpagerNotificationGuide.setCurrentItem(viewModel.currentPage, false)
+            pageIndicatorNotificationGuide.setStep(viewModel.currentPage)
 
             viewpagerNotificationGuide.registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
                     Timber.d("page selected $position")
                     viewModel.currentPage = position
+                    pageIndicatorNotificationGuide.setStep(position)
                 }
             } )
         }
