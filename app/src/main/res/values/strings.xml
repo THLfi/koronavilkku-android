@@ -117,7 +117,6 @@
     <string name="exposure_detail_instructions_title">What should I do?</string>
     <string name="exposure_detail_instructions_subtitle">Follow these instructions for 14 days:</string>
     <string name="exposure_detail_instructions_1">Monitor your health. If you develop any symptom consistent with COVID-19, contact your municipal healthcare service and get tested as soon as possible. Symptoms consistent with COVID-19 are change in sense of smell or taste, shortness of breath, cough, sore throat, runny nose, fever, headaches, muscle pain, unexplained diarrhoea or abdominal pain.</string>
-    <string name="exposure_detail_contact_instructions_1">If you develop symptoms, get tested</string>
     <string name="exposure_detail_instructions_2">Avoid meeting other people.</string>
     <string name="exposure_detail_instructions_3">Maintain good hand hygiene.</string>
     <string name="exposure_detail_instructions_4">Avoid public places and public transport. If you have to visit public places, keep at least a two-meter distance to other people. If you cannot keep a sufficient distance, use a face mask.</string>
@@ -234,6 +233,11 @@
     <string name="contact_evaluation_other_sub_title">Alternatively, you can contact your municipal healthcare services in another way:</string>
     <string name="card_contact_request_title">Send a contact request</string>
     <string name="card_contact_request_link_name">Only for people without symptoms (not for children under 15)</string>
+    <string name="contact_title">Contact healthcare services</string>
+    <string name="contact_body">Contact healthcare services even if you do not have any symptoms consistent with COVID-19. Healthcare services will give you instructions and evaluate your need for a coronavirus test.</string>
+    <string name="contact_instructions_title">First contact healthcare services by phone or online</string>
+    <string name="contact_instructions_body">Contact healthcare services by phone or online before going to a healthcare facility.\n\nIf your condition is very poor, contact an emergency clinic. If your life is in danger, call the emergency number 112.</string>
+
     <string name="info_icon">Info</string>
 
     <string name="test_title" translatable="false">Testi</string>
