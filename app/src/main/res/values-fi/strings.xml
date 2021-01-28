@@ -122,7 +122,7 @@
 
     <string name="exposure_detail_more_instructions_title">Katso tarkemmat ohjeet</string>
     <string name="exposure_detail_more_instructions_link_name">thl.fi</string>
-    <string name="exposure_detail_more_instructions_link">https://thl.fi</string>
+    <string name="exposure_detail_more_instructions_link">https://thl.fi/fi/web/infektiotaudit-ja-rokotukset/ajankohtaista/ajankohtaista-koronaviruksesta-covid-19/oireet-ja-hoito-koronavirus</string>
 
     <string name="notification_list_title">Altistumis\u00ADilmoitukset</string>
     <string name="notification_list_disclaimer">Arvio altistumisesta perustuu Koronavilkun keräämiin kohtaamistietoihin viimeisten 14 vuorokauden ajalta. Altistumisen voimakkuutta ei voida täsmällisesti arvioida.</string>

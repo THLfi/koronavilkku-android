@@ -122,7 +122,7 @@
 
     <string name="exposure_detail_more_instructions_title">Se närmare anvisningar</string>
     <string name="exposure_detail_more_instructions_link_name">thl.fi</string>
-    <string name="exposure_detail_more_instructions_link">https://thl.fi/sv/web/thlfi-sv</string>
+    <string name="exposure_detail_more_instructions_link">https://thl.fi/sv/web/infektionssjukdomar-och-vaccinationer/aktuellt/aktuellt-om-coronaviruset-covid-19/symtom-och-behandling-coronaviruset</string>
 
     <string name="notification_list_title">Exponerings\u00ADmeddelandena</string>
     <string name="notification_list_disclaimer">Bedömningen om exponeringen bygger på den information om möten som Coronablinkern har samlat in under de senaste 14 dygnen. Coronablinkern ger ingen exakt bedömning av hur stor smittorisken är.</string>
