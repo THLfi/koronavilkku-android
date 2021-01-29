@@ -166,6 +166,22 @@
         <item name="android:paddingEnd">10dp</item>
     </style>
 
+    <style name="Widget.Vilkku.TextView.Link" parent="@style/Widget.MaterialComponents.TextView">
+        <item name="drawableEndCompat">@drawable/ic_chevron_right</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="Widget.Vilkku.TextView.Link.TopBorder">
+        <item name="android:paddingTop">15dp</item>
+        <item name="android:background">@drawable/top_border</item>
+    </style>
+
+    <style name="Widget.Vilkku.TextView.Link.VerticalBorders">
+        <item name="android:paddingTop">15dp</item>
+        <item name="android:paddingBottom">15dp</item>
+        <item name="android:background">@drawable/vertical_borders</item>
+    </style>
+
     <style name="Widget.Vilkku.ImageView.Exposure" parent="">
         <item name="android:background">@drawable/shape_circle</item>
         <item name="android:padding">10dp</item>

@@ -50,11 +50,11 @@ class HomeFragment : Fragment() {
                 findNavController().navigateSafe(HomeFragmentDirections.toSymptoms())
             }
 
-            cardHomePrevention.cardContainer.setOnClickListener {
+            textHomePrevention.setOnClickListener {
                 openLink(getString(R.string.home_prevention_url))
             }
 
-            cardHomeStatistics.cardContainer.setOnClickListener {
+            textHomeStatistics.setOnClickListener {
                 openLink(getString(R.string.home_statistics_url))
             }
 
@@ -76,12 +76,16 @@ class HomeFragment : Fragment() {
                 enableSystem()
             }
 
-            buttonHomeAppGuide.setOnClickListener {
+            textHomeAppGuide.setOnClickListener {
                 activity?.openGuide()
             }
 
             layoutButtonHomeExposureCheck.button.setOnClickListener {
                 startManualExposureCheck()
+            }
+
+            textHomeShowNotificationGuide.setOnClickListener {
+                findNavController().navigateSafe(HomeFragmentDirections.toNotificationGuide())
             }
         }
 

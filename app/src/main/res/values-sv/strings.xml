@@ -45,6 +45,7 @@
     <string name="home_no_exposure_sub_label">Du har inte varit i närheten av en person som meddelat om smitta</string>
     <string name="home_exposure_instructions">Se anvisningar</string>
     <string name="home_exposure_check">Kontrollera nu</string>
+    <string name="home_show_notification_guide">Toimi näin, jos saat altistumisilmoituksen</string>
 
     <string name="home_symptom_label">Misstänker du smitta?</string>
     <string name="home_prevention_label">Skydda dig mot smitta</string>

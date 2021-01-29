@@ -45,6 +45,7 @@
     <string name="home_no_exposure_sub_label">Et ole ollut tartunnasta ilmoittaneen henkilön lähellä</string>
     <string name="home_exposure_instructions">Katso toimintaohjeet</string>
     <string name="home_exposure_check">Käynnistä tarkistus</string>
+    <string name="home_show_notification_guide">Toimi näin, jos saat altistumisilmoituksen</string>
 
     <string name="home_symptom_label">Epäiletkö tartuntaa?</string>
     <string name="home_prevention_label">Näin suojaudut</string>
