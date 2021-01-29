@@ -24,12 +24,11 @@ class StepIndicatorView @JvmOverloads constructor(
         val numSteps = a.getInteger(R.styleable.StepIndicatorView_numSteps, 0)
         a.recycle()
 
-        stepImages = (0 until numSteps)
-                .map {
-                    LayoutInflater.from(context)
-                            .inflate(R.layout.item_step_indicator, this, false)
-                            .also { addView(it) }
-                }
+        stepImages = List(numSteps) {
+            LayoutInflater.from(context).inflate(R.layout.item_step_indicator, this, false)
+        }
+
+        stepImages.forEach { addView(it) }
     }
 
     fun setStep (step: Int) {

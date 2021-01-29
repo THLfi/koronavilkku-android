@@ -32,4 +32,6 @@
 
     <dimen name="radio_button_card_padding">20dp</dimen>
 
+    <dimen name="notification_guide_image_max_height">200dp</dimen>
+
 </resources>
