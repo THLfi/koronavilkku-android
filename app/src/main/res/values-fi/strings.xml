@@ -43,7 +43,7 @@
     <string name="home_pending_check_label">Altistumistietojen tarkistus ei ole onnistunut yli 24 tuntiin. Sovellus yrittää tarkistaa tiedot myöhemmin. Voit myös käynnistää tarkistuksen nyt.</string>
     <string name="home_exposure_sub_label">Olet saattanut altistua koronavirukselle</string>
     <string name="home_no_exposure_sub_label">Et ole ollut tartunnasta ilmoittaneen henkilön lähellä</string>
-    <string name="home_exposure_instructions">Katso toimintaohjeet</string>
+    <string name="home_exposure_instructions">Katso toiminta\u00ADohjeet</string>
     <string name="home_exposure_check">Käynnistä tarkistus</string>
 
     <string name="home_symptom_label">Epäiletkö tartuntaa?</string>
