@@ -53,7 +53,7 @@
     <string name="home_show_notification_guide">Toimi näin, jos saat altistumisilmoituksen</string>
 
     <string name="home_symptom_label">Do you think you may have COVID-19?</string>
-    <string name="home_prevention_label">Protect yourself</string>
+    <string name="home_prevention_label">How to protect yourself from an infection</string>
     <string name="home_prevention_url">https://thl.fi/en/web/infectious-diseases-and-vaccinations/what-s-new/coronavirus-covid-19-latest-updates/transmission-and-protection-coronavirus</string>
     <string name="home_statistics_label">COVID-19 in Finland</string>
     <string name="home_statistics_url">https://thl.fi/en/web/infectious-diseases-and-vaccinations/what-s-new/coronavirus-covid-19-latest-updates/situation-update-on-coronavirus</string>

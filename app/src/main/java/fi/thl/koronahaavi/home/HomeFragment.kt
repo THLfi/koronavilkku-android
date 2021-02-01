@@ -36,9 +36,9 @@ class HomeFragment : Fragment() {
     ): View {
         binding = FragmentHomeBinding.inflate(inflater, container, false).apply {
             model = viewModel
-            lifecycleOwner = viewLifecycleOwner
         }
 
+        binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
 

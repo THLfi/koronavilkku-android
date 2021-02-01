@@ -65,6 +65,8 @@ class HomeViewModel @ViewModelInject constructor(
         }
     }
 
+    fun showNotificationGuide(): LiveData<Boolean> = exposureState.map { it is ExposureState.Clear.Updated }
+
     val notificationCount: LiveData<String?> = exposureNotifications.map {
         if (it.isEmpty()) null else it.size.toString()
     }

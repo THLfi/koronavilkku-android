@@ -7,4 +7,11 @@
         android:drawable="?android:attr/listDivider"
         android:height="1dp"
         android:gravity="bottom" />
+    <item>
+        <ripple android:color="?attr/colorControlHighlight">
+            <!-- this is a mask for ripple effect and not drawn -->
+            <item android:id="@android:id/mask"
+                android:drawable="@color/darkGrey" />
+        </ripple>
+    </item>
 </layer-list>

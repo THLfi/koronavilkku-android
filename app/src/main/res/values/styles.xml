@@ -169,6 +169,8 @@
     <style name="Widget.Vilkku.TextView.Link" parent="@style/Widget.MaterialComponents.TextView">
         <item name="drawableEndCompat">@drawable/ic_chevron_right</item>
         <item name="android:gravity">center_vertical</item>
+        <item name="android:textAppearance">?attr/textAppearanceCaption</item>
+        <item name="android:textColor">@color/textDarkGrey</item>
     </style>
 
     <style name="Widget.Vilkku.TextView.Link.TopBorder">
