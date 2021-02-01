@@ -39,9 +39,11 @@ class NotificationGuideFragment : Fragment() {
         with (binding) {
             layoutToolbar.toolbar.setupWithNavController(findNavController())
 
+            pageIndicatorNotificationGuide.setNumSteps(viewModel.pages.size)
+            pageIndicatorNotificationGuide.setStep(viewModel.currentPage)
+
             viewpagerNotificationGuide.adapter = GuidePagerAdapter(this@NotificationGuideFragment, viewModel)
             viewpagerNotificationGuide.setCurrentItem(viewModel.currentPage, false)
-            pageIndicatorNotificationGuide.setStep(viewModel.currentPage)
 
             viewpagerNotificationGuide.registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
@@ -68,7 +70,11 @@ class GuidePagerAdapter(
     override fun getItemCount(): Int = viewModel.pages.size
 
     override fun createFragment(position: Int): Fragment =
-            NotificationGuidePageFragment(viewModel.pages.getOrNull(position)
-                ?: throw Exception("Invalid fragment position $position"))
+        viewModel.pages.getOrNull(position)?.let {
+            NotificationGuidePageFragment.create(
+                it.textResId,
+                it.imageResId
+            )
+        } ?: throw Exception("Invalid fragment position $position")
 }
 
