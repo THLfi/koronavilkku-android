@@ -12,5 +12,10 @@
 
     <declare-styleable name="StepIndicatorView">
         <attr name="numSteps" format="integer" />
+        <attr name="indicatorSize" format="dimension" />
     </declare-styleable>
+    <declare-styleable name="StepIndicatorViewCustomTheme">
+        <attr name="stepIndicatorViewStyle" format="reference"/>
+    </declare-styleable>
+
 </resources>

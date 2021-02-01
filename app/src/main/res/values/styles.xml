@@ -190,6 +190,10 @@
         <item name="android:tint">?attr/colorOnPrimary</item>
     </style>
 
+    <style name="Widget.Vilkku.StepIndicatorView" parent="">
+        <item name="indicatorSize">10dp</item>
+    </style>
+
     <style name="TextAppearance.Vilkku.Heading1" parent="TextAppearance.MaterialComponents.Headline1">
         <item name="fontFamily">@font/source_sans_pro_black</item>
         <item name="android:textSize">34sp</item>

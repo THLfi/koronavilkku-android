@@ -32,6 +32,7 @@
 
     <dimen name="radio_button_card_padding">20dp</dimen>
 
+    <!-- this is overridden when screen height large enough to show full image -->
     <dimen name="notification_guide_image_max_height">200dp</dimen>
 
 </resources>
