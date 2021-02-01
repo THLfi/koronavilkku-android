@@ -130,6 +130,7 @@
                     android:layout_marginHorizontal="20dp"
                     android:text="@string/contact_title"
                     android:textAppearance="?attr/textAppearanceHeadline2"
+                    android:hyphenationFrequency="normal"
                     android:visibility="@{municipality.showOmaoloSymptomAssessment ? View.GONE : View.VISIBLE}"
                     tools:visibility="gone" />
 
