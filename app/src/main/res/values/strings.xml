@@ -102,7 +102,7 @@
     <string name="exposure_detail_message">In the past 14 days, you have been close to a person who has reported a COVID-19 infection.</string>
 
     <string name="exposure_detail_contact_title">Contact healthcare services</string>
-    <string name="exposure_detail_contact_subtitle">Information about your potential exposure will only be communicated to healthcare services if you contact them yourself.</string>
+    <string name="exposure_detail_contact_subtitle">Contact healthcare services even if you do not have any symptoms consistent with COVID-19. Healthcare services will give you instructions and evaluate your need for a coronavirus test.</string>
     <string name="exposure_detail_contact_start">Contact</string>
 
     <string name="exposure_detail_title_none">No observed exposures</string>
@@ -115,11 +115,11 @@
     <string name="exposure_detail_notifications_title">Show exposure notifications</string>
 
     <string name="exposure_detail_instructions_title">What should I do?</string>
-    <string name="exposure_detail_instructions_subtitle">Follow these instructions for 14 days:</string>
-    <string name="exposure_detail_instructions_1">Monitor your health. If you develop any symptom consistent with COVID-19, contact your municipal healthcare service and get tested as soon as possible. Symptoms consistent with COVID-19 are change in sense of smell or taste, shortness of breath, cough, sore throat, runny nose, fever, headaches, muscle pain, unexplained diarrhoea or abdominal pain.</string>
+    <string name="exposure_detail_instructions_subtitle">Follow the instructions below for 14 days. Continue to follow the instructions even if you receive a negative coronavirus test result.</string>
+    <string name="exposure_detail_instructions_1">Monitor your health. If you develop any symptom consistent with COVID-19, get tested for the coronavirus even if you have already been tested. Symptoms consistent with COVID-19 are change in sense of smell or taste, shortness of breath, cough, sore throat, runny nose, fever, headaches, muscle pain, unexplained diarrhoea or abdominal pain.</string>
     <string name="exposure_detail_instructions_2">Avoid meeting other people.</string>
     <string name="exposure_detail_instructions_3">Maintain good hand hygiene.</string>
-    <string name="exposure_detail_instructions_4">Avoid public places and public transport. If you have to visit public places, keep at least a two-meter distance to other people. If you cannot keep a sufficient distance, use a face mask.</string>
+    <string name="exposure_detail_instructions_4">Avoid public places and public transport. If you have to visit public places, keep at least a two-meter distance to other people. Also use a face mask.</string>
     <string name="exposure_detail_instructions_5">If possible, let someone else handle food shopping and other errands outside the home.</string>
     <string name="exposure_detail_instructions_6">If you cough or sneeze, use a disposable tissue to cover your mouth and nose. Put the used tissue in a waste bin and wash your hands with water and soap or use hand sanitiser. If you do not have a tissue, cough or sneeze into your sleeve.</string>
     <string name="exposure_detail_instructions_7">Work remotely if possible.</string>
@@ -225,12 +225,12 @@
     <string name="municipality_no_results">"No municipality found "</string>
 
 
-    <string name="contact_evaluation_title">Take a symptom assessment in Omaolo</string>
-    <string name="contact_evaluation_body">We recommend that you contact healthcare services by taking the COVID-19 symptom assessment in Omaolo. This is a quick and easy way to make initial contact online and helps the healthcare professionals in their work. It takes approximately 5–10 minutes to take the symptom assessment.</string>
-    <string name="contact_evaluation_start">Take assessment</string>
+    <string name="contact_evaluation_title">Contact healthcare via the Omaolo symptom assessment</string>
+    <string name="contact_evaluation_body">Complete a symptom assessment in the Omaolo service; after this, you will be given instructions and an evaluation of whether you need a coronavirus test.  Complete a symptom assessment even if you do not have any symptoms suitable for the coronavirus disease. Filling in the symptom checker takes approximately 5–10 minutes.</string>
+    <string name="contact_evaluation_start">Fill in the symptom checker</string>
     <string name="contact_evaluation_footer">If you are under 15 years old, ask your guardian to use Omaolo on your behalf.</string>
     <string name="contact_evaluation_other_title">Other contact methods</string>
-    <string name="contact_evaluation_other_sub_title">Alternatively, you can contact your municipal healthcare services in another way:</string>
+    <string name="contact_evaluation_other_sub_title">Alternatively, you can contact the municipal healthcare services in another way:</string>
     <string name="card_contact_request_title">Send a contact request</string>
     <string name="card_contact_request_link_name">Only for people without symptoms (not for children under 15)</string>
     <string name="contact_title">Contact healthcare services</string>
