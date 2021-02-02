@@ -41,9 +41,9 @@
     <string name="home_exposure_label">Mahdollinen altistuminen</string>
     <string name="home_no_exposure_label">Ei havaittuja altistumisia</string>
     <string name="home_pending_check_label">Altistumistietojen tarkistus ei ole onnistunut yli 24 tuntiin. Sovellus yrittää tarkistaa tiedot myöhemmin. Voit myös käynnistää tarkistuksen nyt.</string>
-    <string name="home_exposure_sub_label">Olet saattanut altistua virukselle</string>
+    <string name="home_exposure_sub_label">Olet saattanut altistua koronavirukselle</string>
     <string name="home_no_exposure_sub_label">Et ole ollut tartunnasta ilmoittaneen henkilön lähellä</string>
-    <string name="home_exposure_instructions">Katso toimintaohjeet</string>
+    <string name="home_exposure_instructions">Katso toiminta\u00ADohjeet</string>
     <string name="home_exposure_check">Käynnistä tarkistus</string>
     <string name="home_show_notification_guide">Toimi näin, jos saat altistumisilmoituksen</string>
 
@@ -95,15 +95,15 @@
     <string name="terms_url">https://koronavilkku.fi/kayttoehdot/</string>
 
     <string name="exposure_detail_title">Mahdollinen altistuminen</string>
-    <string name="exposure_detail_message">Olet ollut viimeisten 10 vuorokauden aikana lähellä henkilöä, joka on ilmoittanut koronatartunnastaan sovelluksen kautta.</string>
+    <string name="exposure_detail_message">Olet ollut viimeisten 14 vuorokauden aikana lähellä henkilöä, joka on ilmoittanut koronatartunnastaan sovelluksen kautta.</string>
 
     <string name="exposure_detail_contact_title">Ota yhteyttä terveyden\u00ADhuoltoon</string>
-    <string name="exposure_detail_contact_subtitle">Tieto mahdollisesta altistumisestasi ei välity terveydenhuoltoon, jollet itse ota yhteyttä.</string>
+    <string name="exposure_detail_contact_subtitle">Ota yhteyttä terveydenhuoltoon, vaikka sinulla ei olisikaan koronavirustautiin sopivia oireita. Saat terveydenhuollosta toimintaohjeet ja arvion koronavirustestin tarpeellisuudesta.</string>
     <string name="exposure_detail_contact_start">Ota yhteyttä</string>
 
     <string name="exposure_detail_title_none">Ei havaittuja altistumisia</string>
 
-    <string name="exposure_detail_message_none">Koronavilkku ei ole havainnut altistumista koronavirukselle viimeisten 10 päivän aikana.</string>
+    <string name="exposure_detail_message_none">Koronavilkku ei ole havainnut altistumista koronavirukselle viimeisten 14 päivän aikana.</string>
     <string name="exposure_detail_disclaimer_none">Sovellus ei kuitenkaan tunnista kaikkia mahdollisia altistumistilanteita.</string>
     <string name="exposure_detail_last_check">Tarkistettu viimeksi %s</string>
     <string name="exposure_detail_no_last_check">Altistumistietoja ei ole vielä tarkistettu</string>
@@ -111,19 +111,22 @@
     <string name="exposure_detail_notifications_title">Katso altistumis\u00ADilmoitukset</string>
 
     <string name="exposure_detail_instructions_title">Toimi näin</string>
-    <string name="exposure_detail_instructions_subtitle">Noudata näitä ohjeita 10 päivän ajan:</string>
-    <string name="exposure_detail_instructions_1">Tarkkaile vointiasi. Jos sinulla ilmenee yksikin koronavirustautiin sopiva oire, ota mahdollisimman pian yhteyttä kuntasi terveydenhuoltoon ja hakeudu testiin. Koronavirustautiin sopivia oireita ovat haju- tai makuaistin muutos, hengitysvaikeus, yskä, kurkkukipu, nuha, kuume, päänsärky, lihaskivut sekä ripuli tai vatsakipu ilman muuta ilmeistä syytä.</string>
-    <string name="exposure_detail_contact_instructions_1">Jos sinulla ilmenee oireita, hakeudu testiin</string>
+    <string name="exposure_detail_instructions_subtitle">Noudata seuraavia ohjeita 14 päivän ajan. Jatka ohjeiden noudattamista, vaikka saisit negatiivisen koronatestituloksen.</string>
+    <string name="exposure_detail_instructions_1">Tarkkaile vointiasi. Jos sinulla ilmenee yksikin koronavirustautiin sopiva oire, hakeudu koronavirustestiin, vaikka sinulle olisi tehty testi jo aiemmin. Koronavirustautiin sopivia oireita ovat haju- tai makuaistin muutos, hengitysvaikeus, yskä, kurkkukipu, nuha, kuume, päänsärky, lihaskivut, ripuli tai vatsakipu ilman muuta ilmeistä syytä.</string>
     <string name="exposure_detail_instructions_2">Vältä tapaamasta muita ihmisiä.</string>
     <string name="exposure_detail_instructions_3">Huolehdi käsihygieniastasi.</string>
-    <string name="exposure_detail_instructions_4">Vältä julkisia paikkoja ja liikennevälineitä. Jos joudut liikkumaan julkisilla paikoilla, pidä muihin ihmisiin etäisyyttä vähintään kaksi metriä. Jos et pysty pitämään riittävästi etäisyyttä, käytä kasvomaskia.</string>
+    <string name="exposure_detail_instructions_4">Vältä julkisia paikkoja ja liikennevälineitä. Jos joudut liikkumaan julkisilla paikoilla, pidä muihin ihmisiin etäisyyttä vähintään kaksi metriä. Käytä lisäksi kasvomaskia.</string>
     <string name="exposure_detail_instructions_5">Anna toisen henkilön hoitaa ruokaostokset ja muu asiointi kodin ulkopuolella, jos mahdollista.</string>
     <string name="exposure_detail_instructions_6">Jos yskit tai aivastat, suojaa suusi ja nenäsi kertakäyttönenäliinalla. Laita käytetty nenäliina jäteastiaan ja pese kätesi vedellä ja saippualla tai käytä käsihuuhdetta. Jos sinulla ei ole nenäliinaa, yski tai aivasta hihaan.</string>
     <string name="exposure_detail_instructions_7">Tee etätyötä, jos mahdollista.</string>
     <string name="exposure_detail_instructions_8">Jos et ole Suomessa, noudata paikallisten viranomaisten ohjeita.</string>
 
+    <string name="exposure_detail_more_instructions_title">Katso tarkemmat ohjeet</string>
+    <string name="exposure_detail_more_instructions_link_name">thl.fi</string>
+    <string name="exposure_detail_more_instructions_link">https://thl.fi/fi/web/infektiotaudit-ja-rokotukset/ajankohtaista/ajankohtaista-koronaviruksesta-covid-19/oireet-ja-hoito-koronavirus</string>
+
     <string name="notification_list_title">Altistumis\u00ADilmoitukset</string>
-    <string name="notification_list_disclaimer">Arvio altistumisesta perustuu Koronavilkun keräämiin kohtaamistietoihin viimeisten 10 vuorokauden ajalta. Altistumisen voimakkuutta ei voida täsmällisesti arvioida.</string>
+    <string name="notification_list_disclaimer">Arvio altistumisesta perustuu Koronavilkun keräämiin kohtaamistietoihin viimeisten 14 vuorokauden ajalta. Altistumisen voimakkuutta ei voida täsmällisesti arvioida.</string>
 
     <string name="notification_item_title">Altistumisilmoitus %s</string>
     <string name="notification_item_count_label">Mahdollisia altistumisia</string>
@@ -198,7 +201,7 @@
     <string name="accept_terms_personal_title">Henkilötiedot</string>
     <string name="accept_terms_personal_text">Koronavilkku ei tallenna nimeäsi, syntymäaikaasi tai yhteystietojasi. Se ei pysty selvittämään sinun tai tapaamiesi ihmisten henkilöllisyyttä.\n\nSovellus ei kerää sijaintitietoja.</string>
     <string name="accept_terms_usage_title">Sovelluksen käyttötiedot</string>
-    <string name="accept_terms_usage_text">Sovellus välittää palvelimelle tiedon siitä, että sovellus on toiminnassa. Jos otat yhteyttä terveydenhuoltoon sovelluksen kautta, sovellus välittää lisäksi tiedon, oletko mahdollisesti altistunut tartunnalle.\n\nKaikki tietoliikenne Koronavilkun ja palvelimen välillä on salattu.\n\nTiedot tallennetaan nimettömänä palvelimelle, joka sijaitsee Suomessa. Palvelinta hallinnoivat julkishallinnon toimijat. Tiedot poistetaan, kun niitä ei enää tarvita. Viimeistään tiedot poistetaan 31.3.2021.</string>
+    <string name="accept_terms_usage_text">Sovellus välittää palvelimelle tiedon siitä, että sovellus on toiminnassa. Jos otat yhteyttä terveydenhuoltoon sovelluksen kautta, sovellus välittää lisäksi tiedon, oletko mahdollisesti altistunut tartunnalle.\n\nKaikki tietoliikenne Koronavilkun ja palvelimen välillä on salattu.\n\nTiedot tallennetaan nimettömänä palvelimelle, joka sijaitsee Suomessa. Palvelinta hallinnoivat julkishallinnon toimijat. Tietojärjestelmä on käytössä vain tartuntatautilain määräämän ajan. Tietojärjestelmä ja sen tiedot poistetaan, kun järjestelmää ei enää tarvita.</string>
     <string name="accept_terms_voluntary_title">Käyttö on vapaaehtoista</string>
     <string name="accept_terms_voluntary_text">Koronavilkun käyttö ei ole pakollista. Voit milloin tahansa lopettaa käytön poistamalla sovelluksen puhelimestasi.</string>
 
@@ -217,14 +220,19 @@
     <string name="municipality_search_hint">Etsi</string>
     <string name="municipality_no_results">Hakutekstillä alkavia kuntia ei löytynyt</string>
 
-    <string name="contact_evaluation_title">Tee oirearvio Omaolossa</string>
-    <string name="contact_evaluation_body">Suosittelemme, että otat yhteyttä terveydenhuoltoon tekemällä oirearvion. Näin saat asiasi helposti vireille verkossa ja helpotat terveydenhuollon ammattilaisten tekemää työtä. Oirearvion tekemiseen kuluu noin 5–10 minuuttia.</string>
+    <string name="contact_evaluation_title">Ota yhteyttä Omaolon oirearvion avulla</string>
+    <string name="contact_evaluation_body">Tee oirearvio Omaolo-palvelussa, niin saat toimintaohjeet ja arvion koronavirustestin tarpeellisuudesta. Tee oirearvio, vaikka sinulla ei olisikaan koronavirustautiin sopivia oireita. Oirearvion tekemiseen kuluu noin 5–10 minuuttia.</string>
     <string name="contact_evaluation_start">Tee oirearvio</string>
     <string name="contact_evaluation_footer">Jos olet alle 15-vuotias, pyydä huoltajaasi asioimaan Omaolossa puolestasi.</string>
     <string name="contact_evaluation_other_title">Muut yhteydenottotavat</string>
-    <string name="contact_evaluation_other_sub_title">Vaihtoehtoisesti voit ottaa yhteyttä kuntasi terveydenhuoltoon muilla tavoin:</string>
+    <string name="contact_evaluation_other_sub_title">Vaihtoehtoisesti voit ottaa yhteyttä kunnan terveydenhuoltoon muilla tavoin:</string>
     <string name="card_contact_request_title">Lähetä yhteydenottopyyntö</string>
     <string name="card_contact_request_link_name">Vain oireettomille (ei alle 15-vuotiaille)</string>
+    <string name="contact_title">Ota yhteyttä terveyden\u00ADhuoltoon</string>
+    <string name="contact_body">Ota yhteyttä terveydenhuoltoon, vaikka sinulla ei olisikaan koronavirustautiin sopivia oireita. Saat terveydenhuollosta toimintaohjeet ja arvion koronavirustestin tarpeellisuudesta.</string>
+    <string name="contact_instructions_title">Ota ensin yhteyttä puhelimitse tai sähköisesti</string>
+    <string name="contact_instructions_body">Ota yhteyttä terveydenhuoltoon puhelimitse tai sähköisesti ennen kuin menet terveydenhuollon toimipisteeseen.\n\nJos vointisi on erittäin huono, ota yhteyttä päivystykseen. Henkeä uhkaavassa tilanteessa soita hätänumeroon 112.</string>
+
     <string name="info_icon">Info</string>
 
     <string name="pre_web_contact_title_evaluation">Omaolon oirearvio</string>

@@ -206,6 +206,7 @@
                             android:visibility="@{model.hasExposures==true ? View.VISIBLE : View.GONE}"
                             android:text="@string/home_exposure_instructions"
                             android:theme="@style/ThemeOverlay.Vilkku.Button.Critical"
+                            android:hyphenationFrequency="normal"
                             tools:visibility="gone"/>
 
                         <include
