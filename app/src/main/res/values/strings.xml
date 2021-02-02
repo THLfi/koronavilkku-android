@@ -50,7 +50,7 @@
     <string name="home_exposure_instructions">See instructions</string>
     <string name="home_exposure_check">Check now</string>
     <string name="home_notifications_unknown" translatable="false">!</string>
-    <string name="home_show_notification_guide">Toimi näin, jos saat altistumisilmoituksen</string>
+    <string name="home_show_notification_guide">If you receive an exposure notification follow these instructions</string>
 
     <string name="home_symptom_label">Do you think you may have COVID-19?</string>
     <string name="home_prevention_label">How to protect yourself from an infection</string>
@@ -315,12 +315,12 @@
     <string name="summary_consent_accept_share">My encounter data, the travel information I have selected above, and the estimated period of when I could have infected others may be shared to COVID-19 applications used in the EU, EEA, Switzerland and the United Kingdom for the purpose of breaking transmission chains.</string>
     <string name="summary_consent_no_cancellation">Once you have sent the information, you cannot withdraw your consent.</string>
 
-    <string name="notification_guide_title">Toimi näin, jos saat altistumisilmoituksen</string>
-    <string name="notification_guide_text_1">Jos olet ollut lähellä henkilöä, joka on ilmoittanut sovelluksella koronatartunnastaan, saat puhelimeesi ilmoituksen mahdollisesta altistumisesta. Ilmoituksen painaminen avaa Koronavilkun.</string>
-    <string name="notification_guide_text_2">Paina punaista Katso toimintaohjeet -painiketta Koronavilkun kotinäytöllä.</string>
-    <string name="notification_guide_text_3">Saat toimintaohjeet jatkotartuntojen ehkäisemiseen sekä ohjeet siitä, kuinka ottaa yhteyttä terveydenhuoltoon. Tutustu ohjeisiin ja paina Ota yhteyttä -painiketta.</string>
-    <string name="notification_guide_text_4">Valitse asiointikunta. Voit ottaa yhteyttä kunnan tarjoamilla yhteydenottotavoilla, esimerkiksi puhelimitse tai Omaolo-verkkopalvelussa.</string>
-    <string name="notification_guide_text_5">Saat terveydenhuollosta tarkemmat toimintaohjeet ja arvion koronavirustestin tarpeellisuudesta.</string>
+    <string name="notification_guide_title">If you receive an exposure notification follow these instructions</string>
+    <string name="notification_guide_text_1">If you have been near a person who has reported their coronavirus infection via the application, you will receive a notification of potential exposure to your phone. Tap on the notification to open Koronavilkku.</string>
+    <string name="notification_guide_text_2">Press the red See instructions button.</string>
+    <string name="notification_guide_text_3">You will receive instructions on what to do. You will also receive instructions on how to contact a healthcare provider. Read the instructions and press the Contact button.</string>
+    <string name="notification_guide_text_4">Select the municipality. You can contact the healthcare services via the contact methods provided by the municipality, such as via the Omaolo online service or by telephone.</string>
+    <string name="notification_guide_text_5">The healthcare services will give you more detailed instructions and evaluate your need for a coronavirus test.</string>
 
     <plurals name="exposure_notification_count">
         <item quantity="one">%d notification</item>

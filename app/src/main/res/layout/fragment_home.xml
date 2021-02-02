@@ -235,6 +235,8 @@
                             app:layout_constraintStart_toStartOf="parent"
                             android:padding="20dp"
                             android:text="@string/home_show_notification_guide"
+                            android:hyphenationFrequency="full"
+                            android:drawablePadding="10dp"
                             style="@style/Widget.Vilkku.TextView.Link.TopBorder"
                             android:visibility="@{model.showNotificationGuide() ? View.VISIBLE : View.GONE}"
                             tools:visibility="visible" />

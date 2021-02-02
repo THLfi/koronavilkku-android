@@ -14,9 +14,10 @@
         app:layout_constraintTop_toBottomOf="@id/layout_toolbar"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_margin="20dp"
+        android:layout_marginHorizontal="20dp"
         android:text="@string/notification_guide_title"
-        android:textAppearance="?attr/textAppearanceHeadline2"/>
+        android:textAppearance="?attr/textAppearanceHeadline2"
+        android:hyphenationFrequency="full" />
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/viewpager_notification_guide"
