@@ -4,18 +4,14 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.DrawableRes
-import androidx.annotation.StringRes
+import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import fi.thl.koronahaavi.R
 import fi.thl.koronahaavi.databinding.FragmentNotificationGuideBinding
-import timber.log.Timber
 
 class NotificationGuideFragment : Fragment() {
 
@@ -24,12 +20,31 @@ class NotificationGuideFragment : Fragment() {
 
     private val viewModel by viewModels<NotificationGuideViewModel>()
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        activity?.onBackPressedDispatcher?.addCallback(owner = this) {
+            if (viewModel.currentPage().value == 0) {
+                // on first page, let activity handle the back press
+                isEnabled = false
+                activity?.onBackPressed()
+            }
+            else {
+                viewModel.selectPrevious()
+            }
+        }
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentNotificationGuideBinding.inflate(inflater, container, false)
+        _binding = FragmentNotificationGuideBinding.inflate(inflater, container, false).apply {
+            model = viewModel
+        }
+
+        binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
 
@@ -38,21 +53,25 @@ class NotificationGuideFragment : Fragment() {
 
         with (binding) {
             layoutToolbar.toolbar.setupWithNavController(findNavController())
-
             pageIndicatorNotificationGuide.setNumSteps(viewModel.pages.size)
-            pageIndicatorNotificationGuide.setStep(viewModel.currentPage)
-
             viewpagerNotificationGuide.adapter = GuidePagerAdapter(this@NotificationGuideFragment, viewModel)
-            viewpagerNotificationGuide.setCurrentItem(viewModel.currentPage, false)
 
             viewpagerNotificationGuide.registerOnPageChangeCallback(object: ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
-                    super.onPageSelected(position)
-                    Timber.d("page selected $position")
-                    viewModel.currentPage = position
-                    pageIndicatorNotificationGuide.setStep(position)
+                    // This is required to update view model after user swipes to a new page
+                    // It's also triggered when calling setCurrentItem, but updatePage will ignore if already on correct page
+                    viewModel.updatePage(position)
                 }
             } )
+
+            buttonNotificationGuideNext.setOnClickListener { viewModel.selectNext() }
+            buttonNotificationGuidePrevious.setOnClickListener { viewModel.selectPrevious() }
+
+            viewModel.currentPage().observe(viewLifecycleOwner, { page ->
+                // setCurrentItem is ignored if animation already started to target page
+                viewpagerNotificationGuide.setCurrentItem(page, true)
+                pageIndicatorNotificationGuide.setStep(page)
+            })
         }
     }
 

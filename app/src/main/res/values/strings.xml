@@ -2,6 +2,7 @@
     <string name="app_name">Koronavilkku</string>
 
     <string name="all_next">Next</string>
+    <string name="all_previous">Previous</string>
     <string name="all_cancel">Cancel</string>
     <string name="all_thl_image_description">Finnish Institute for Health and Welfare</string>
     <string name="all_today">today</string>

@@ -2,6 +2,7 @@
     <string name="app_name">Koronavilkku</string>
 
     <string name="all_next">Seuraava</string>
+    <string name="all_previous">Edellinen</string>
     <string name="all_cancel">Peruuta</string>
     <string name="all_thl_image_description">Terveyden ja hyvinvoinnin laitos</string>
     <string name="all_today">tänään</string>
