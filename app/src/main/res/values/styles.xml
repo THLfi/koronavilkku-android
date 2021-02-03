@@ -171,6 +171,14 @@
         <item name="android:paddingEnd">10dp</item>
     </style>
 
+    <style name="Widget.Vilkku.TextView.Badge.Round" parent="@style/Widget.MaterialComponents.TextView">
+        <item name="android:background">@drawable/shape_circle</item>
+        <item name="android:backgroundTint">@color/mainBlue</item>
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+        <item name="android:textAppearance">?attr/textAppearanceHeadline4</item>
+        <item name="android:gravity">center</item>
+    </style>
+
     <style name="Widget.Vilkku.TextView.Link" parent="@style/Widget.MaterialComponents.TextView">
         <item name="drawableEndCompat">@drawable/ic_chevron_right</item>
         <item name="android:gravity">center_vertical</item>

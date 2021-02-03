@@ -21,7 +21,8 @@ class NotificationGuidePageFragment : Fragment() {
         val binding = FragmentNotificationGuidePageBinding.inflate(inflater, container, false)
 
         arguments?.let { args ->
-            binding.textNotificationGuidePage.text = getString(args.getInt(ARG_TEXT_ID))
+            binding.textNotificationGuidePageNumber.text = args.getInt(ARG_PAGE_ID).toString()
+            binding.textNotificationGuidePageBody.text = getString(args.getInt(ARG_TEXT_ID))
             binding.imageNotificationGuidePage.setImageDrawable(getDrawable(args.getInt(ARG_IMAGE_ID)))
         }
 
@@ -29,15 +30,17 @@ class NotificationGuidePageFragment : Fragment() {
     }
 
     companion object {
-        fun create(@StringRes textResId: Int, @DrawableRes imageResId: Int) =
+        fun create(pageNum: Int, @StringRes textResId: Int, @DrawableRes imageResId: Int) =
             NotificationGuidePageFragment().apply {
                 arguments = bundleOf(
-                    ARG_TEXT_ID to textResId,
-                    ARG_IMAGE_ID to imageResId
+                        ARG_PAGE_ID to pageNum,
+                        ARG_TEXT_ID to textResId,
+                        ARG_IMAGE_ID to imageResId
                 )
             }
 
         private const val ARG_TEXT_ID = "text_id"
         private const val ARG_IMAGE_ID = "image_id"
+        private const val ARG_PAGE_ID = "page_id"
     }
 }

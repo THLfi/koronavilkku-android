@@ -35,4 +35,6 @@
     <!-- this is overridden when screen height large enough to show full image -->
     <dimen name="notification_guide_image_max_height">200dp</dimen>
 
+    <dimen name="notification_guide_page_number_size">38dp</dimen>
+
 </resources>

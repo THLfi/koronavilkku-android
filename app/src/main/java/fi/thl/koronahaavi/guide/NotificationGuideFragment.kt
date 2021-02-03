@@ -24,13 +24,14 @@ class NotificationGuideFragment : Fragment() {
         super.onCreate(savedInstanceState)
 
         activity?.onBackPressedDispatcher?.addCallback(owner = this) {
-            if (viewModel.currentPage().value == 0) {
-                // on first page, let activity handle the back press
-                isEnabled = false
-                activity?.onBackPressed()
+            if (viewModel.currentPage().value != 0) {
+                // override back press to keep fragment and select previous page
+                viewModel.selectPrevious()
             }
             else {
-                viewModel.selectPrevious()
+                // on first page, let activity close the fragment
+                isEnabled = false
+                activity?.onBackPressed()
             }
         }
     }
@@ -91,8 +92,9 @@ class GuidePagerAdapter(
     override fun createFragment(position: Int): Fragment =
         viewModel.pages.getOrNull(position)?.let {
             NotificationGuidePageFragment.create(
-                it.textResId,
-                it.imageResId
+                    pageNum = position + 1,
+                    textResId = it.textResId,
+                    imageResId = it.imageResId
             )
         } ?: throw Exception("Invalid fragment position $position")
 }
