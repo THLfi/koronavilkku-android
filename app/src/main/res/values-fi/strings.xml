@@ -60,7 +60,7 @@
     <string name="home_status_system_locked">Koronavilkku lukittu</string>
 
     <string name="home_symptom_sub_label">Tee koronavirustaudin oirearvio</string>
-    <string name="home_app_guide">Tietoa sovelluksesta</string>
+    <string name="home_app_guide">Tietoa Koronavilkusta</string>
 
     <string name="home_status_disabled_explained">Ota altistumisilmoitukset uudelleen käyttöön.</string>
     <string name="home_status_enabled_explained">Sovellus toimii, vaikka suljet sen.</string>
@@ -125,6 +125,8 @@
     <string name="exposure_detail_more_instructions_title">Katso tarkemmat ohjeet</string>
     <string name="exposure_detail_more_instructions_link_name">thl.fi</string>
     <string name="exposure_detail_more_instructions_link">https://thl.fi/fi/web/infektiotaudit-ja-rokotukset/ajankohtaista/ajankohtaista-koronaviruksesta-covid-19/oireet-ja-hoito-koronavirus</string>
+
+    <string name="exposure_detail_app_info">Tietoa Koronavilkusta</string>
 
     <string name="notification_list_title">Altistumis\u00ADilmoitukset</string>
     <string name="notification_list_disclaimer">Arvio altistumisesta perustuu Koronavilkun keräämiin kohtaamistietoihin viimeisten 14 vuorokauden ajalta. Altistumisen voimakkuutta ei voida täsmällisesti arvioida.</string>

@@ -131,6 +131,8 @@
     <string name="exposure_detail_more_instructions_link_name">thl.fi</string>
     <string name="exposure_detail_more_instructions_link">https://thl.fi/en/web/infectious-diseases-and-vaccinations/what-s-new/coronavirus-covid-19-latest-updates/symptoms-and-treatment-coronavirus</string>
 
+    <string name="exposure_detail_app_info">About Koronavilkku</string>
+
     <string name="notification_list_title">Exposure notifications</string>
     <string name="notification_list_disclaimer">The assessment of your exposure is based on encounters that Koronavilkku has collected during the last 14 days. The intensity of exposure cannot be accurately assessed.</string>
 

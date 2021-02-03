@@ -147,6 +147,9 @@
             <action
                 android:id="@+id/to_notification_list"
                 app:destination="@id/notification_list" />
+            <action
+                android:id="@+id/to_notification_guide"
+                app:destination="@id/notification_guide" />
         </fragment>
 
         <dialog
