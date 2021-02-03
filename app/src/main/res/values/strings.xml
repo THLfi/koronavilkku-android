@@ -231,7 +231,7 @@
 
     <string name="contact_evaluation_title">Contact healthcare via the Omaolo symptom assessment</string>
     <string name="contact_evaluation_body">Complete a symptom assessment in the Omaolo service; after this, you will be given instructions and an evaluation of whether you need a coronavirus test.  Complete a symptom assessment even if you do not have any symptoms suitable for the coronavirus disease. Filling in the symptom checker takes approximately 5–10 minutes.</string>
-    <string name="contact_evaluation_start">Fill in the symptom checker</string>
+    <string name="contact_evaluation_start">Take assessment</string>
     <string name="contact_evaluation_footer">If you are under 15 years old, ask your guardian to use Omaolo on your behalf.</string>
     <string name="contact_evaluation_other_title">Other contact methods</string>
     <string name="contact_evaluation_other_sub_title">Alternatively, you can contact the municipal healthcare services in another way:</string>
