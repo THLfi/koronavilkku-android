@@ -109,7 +109,7 @@
 
     <string name="exposure_detail_title_none">No observed exposures</string>
 
-    <string name="exposure_detail_message_none">Koronavilkku has not detected exposures to the coronavirus in the last 14 days.</string>
+    <string name="exposure_detail_message_none">According to the information collected by Koronavilkku, you have not been near a person who has reported an infection within the last 14 days.</string>
     <string name="exposure_detail_disclaimer_none">However, the application is not able to identify every situation where exposure may occur.</string>
     <string name="exposure_detail_last_check">Last checked %s</string>
     <string name="exposure_detail_no_last_check">No checks yet</string>

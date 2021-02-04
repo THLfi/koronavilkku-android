@@ -49,7 +49,7 @@
     <string name="home_show_notification_guide">Jos saat altistumis\u00ADilmoituksen, toimi näin</string>
 
     <string name="home_symptom_label">Epäiletkö tartuntaa?</string>
-    <string name="home_prevention_label">Näin suojaudut</string>
+    <string name="home_prevention_label">Näin suojaudut tartunnalta</string>
     <string name="home_prevention_url">https://thl.fi/fi/web/infektiotaudit-ja-rokotukset/ajankohtaista/ajankohtaista-koronaviruksesta-covid-19/tarttuminen-ja-suojautuminen-koronavirus</string>
     <string name="home_statistics_label">Suomen tautitilanne</string>
     <string name="home_statistics_url">https://thl.fi/fi/web/infektiotaudit-ja-rokotukset/ajankohtaista/ajankohtaista-koronaviruksesta-covid-19/tilannekatsaus-koronaviruksesta</string>
@@ -104,7 +104,7 @@
 
     <string name="exposure_detail_title_none">Ei havaittuja altistumisia</string>
 
-    <string name="exposure_detail_message_none">Koronavilkku ei ole havainnut altistumista koronavirukselle viimeisten 14 päivän aikana.</string>
+    <string name="exposure_detail_message_none">Koronavilkun keräämien tietojen mukaan et ole ollut tartunnasta ilmoittaneen henkilön lähellä viimeisten 14 päivän aikana.</string>
     <string name="exposure_detail_disclaimer_none">Sovellus ei kuitenkaan tunnista kaikkia mahdollisia altistumistilanteita.</string>
     <string name="exposure_detail_last_check">Tarkistettu viimeksi %s</string>
     <string name="exposure_detail_no_last_check">Altistumistietoja ei ole vielä tarkistettu</string>

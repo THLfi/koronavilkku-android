@@ -104,8 +104,8 @@
 
     <string name="exposure_detail_title_none">Ingen exponering har upptäckts</string>
 
-    <string name="exposure_detail_message_none">Coronablinkern har inte observerat någon exponering för coronaviruset under de senaste 14 dagarna.</string>
-    <string name="exposure_detail_disclaimer_none">Appen kan emellertid inte identifiera alla eventuella exponeringar.</string>
+    <string name="exposure_detail_message_none">Enligt uppgifter som samlats in av Coronablinkern har du inte varit i närheten av en person som meddelat om sin coronasmitta under de senaste 14 dagarna.</string>
+    <string name="exposure_detail_disclaimer_none">Appen identifierar dock inte alla eventuella exponeringssituationer.</string>
     <string name="exposure_detail_last_check">Senast granskad %s</string>
     <string name="exposure_detail_no_last_check">Ingen kontroll ännu</string>
 
