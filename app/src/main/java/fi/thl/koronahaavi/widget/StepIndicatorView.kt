@@ -12,7 +12,8 @@ import kotlin.math.roundToInt
 
 /**
  * Compound control that programmatically creates ImageViews inside
- * linear layout to represent a step indicator, for example page index of view pager
+ * linear layout to represent a step indicator, for example page index of view pager.
+ * Currently active image will have isActivated=true which will use a different image tint color
  *
  * Attributes
  * - numSteps: number of step indicators
@@ -26,7 +27,7 @@ class StepIndicatorView @JvmOverloads constructor(
 
     private var stepImages: List<View>
     private var currentStep: Int? = null
-    private val size: Int
+    private val indicatorSize: Int
 
     init {
         val a = context.obtainStyledAttributes(
@@ -37,14 +38,14 @@ class StepIndicatorView @JvmOverloads constructor(
         )
 
         val numSteps = a.getInteger(R.styleable.StepIndicatorView_numSteps, 0)
-        size = a.getDimension(R.styleable.StepIndicatorView_indicatorSize, 10f).roundToInt()
+        indicatorSize = a.getDimension(R.styleable.StepIndicatorView_indicatorSize, 10f).roundToInt()
         a.recycle()
 
         // put a transparent shape between images
-        dividerDrawable = createDividerShape()
+        dividerDrawable = createDividerShape(indicatorSize)
         showDividers = SHOW_DIVIDER_MIDDLE
 
-        stepImages = createImages(numSteps)
+        stepImages = createImages(numSteps, indicatorSize)
     }
 
     fun setStep (step: Int) {
@@ -61,7 +62,7 @@ class StepIndicatorView @JvmOverloads constructor(
 
     fun setNumSteps(count: Int) {
         removeAllViews()
-        stepImages = createImages(count)
+        stepImages = createImages(count, indicatorSize)
 
         // try to restore current step
         currentStep?.let {
@@ -69,13 +70,13 @@ class StepIndicatorView @JvmOverloads constructor(
         }
     }
 
-    private fun createDividerShape() = ShapeDrawable().apply {
+    private fun createDividerShape(size: Int) = ShapeDrawable().apply {
         intrinsicWidth = size
         intrinsicHeight = size
         alpha = 0
     }
 
-    private fun createImages(count: Int): List<View> {
+    private fun createImages(count: Int, size: Int): List<View> {
         val images = List(count) {
             ImageView(context).apply {
                 layoutParams = LayoutParams(size, size)
