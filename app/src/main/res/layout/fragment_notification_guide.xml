@@ -38,6 +38,7 @@
 
         </androidx.viewpager2.widget.ViewPager2>
 
+        <!-- background for bottom controls -->
         <View
             android:id="@+id/view_notification_guide_footer"
             android:layout_width="0dp"
@@ -46,6 +47,15 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
             android:background="?attr/colorSurface" />
+
+        <!-- creates a fade area for scrollable content -->
+        <View
+            android:layout_width="0dp"
+            android:layout_height="30dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/view_notification_guide_footer"
+            android:background="@drawable/shape_background_fade_vertical" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/button_notification_guide_previous"
