@@ -39,8 +39,8 @@ class NotificationGuidePageFragment : Fragment() {
                 )
             }
 
-        private const val ARG_TEXT_ID = "text_id"
-        private const val ARG_IMAGE_ID = "image_id"
-        private const val ARG_PAGE_ID = "page_id"
+        const val ARG_TEXT_ID = "text_id"
+        const val ARG_IMAGE_ID = "image_id"
+        const val ARG_PAGE_ID = "page_id"
     }
 }
