@@ -1,350 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <suppressions xmlns="https://jeremylong.github.io/DependencyCheck/dependency-suppression.1.3.xsd">
-    <!-- FALSE POSITIVES 2020-08-24 -->
+    <!-- 2021-01-22 -->
     <suppress>
         <notes><![CDATA[
-   file name: kotlin-annotation-processing-embeddable-1.2.21.jar
-   ]]></notes>
-        <packageUrl regex="true">^pkg:maven/org\.jetbrains\.kotlin/kotlin\-annotation\-processing\-embeddable@.*$</packageUrl>
-        <cpe>cpe:/a:jetbrains:kotlin</cpe>
-    </suppress>
-    <suppress>
-        <notes><![CDATA[
-   file name: kotlin-annotation-processing-embeddable-1.2.21.jar
-   ]]></notes>
-        <packageUrl regex="true">^pkg:maven/org\.jetbrains\.kotlin/kotlin\-annotation\-processing\-embeddable@.*$</packageUrl>
-        <cve>CVE-2018-1000840</cve>
-    </suppress>
-    <suppress>
-        <notes><![CDATA[
-   file name: kotlin-annotation-processing-gradle-1.3.72.jar
-   ]]></notes>
-        <packageUrl regex="true">^pkg:maven/org\.jetbrains\.kotlin/kotlin\-annotation\-processing\-gradle@.*$</packageUrl>
-        <cpe>cpe:/a:processing:processing</cpe>
-    </suppress>
-    <suppress>
-        <notes><![CDATA[
-   file name: kotlin-annotation-processing-gradle-1.3.72.jar
-   ]]></notes>
-        <packageUrl regex="true">^pkg:maven/org\.jetbrains\.kotlin/kotlin\-annotation\-processing\-gradle@.*$</packageUrl>
-        <cve>CVE-2020-15824</cve>
-    </suppress>
-    <suppress>
-        <notes><![CDATA[
-   file name: kotlin-compiler-embeddable-1.2.21.jar
-   ]]></notes>
-        <packageUrl regex="true">^pkg:maven/org\.jetbrains\.kotlin/kotlin\-compiler\-embeddable@.*$</packageUrl>
-        <cpe>cpe:/a:jetbrains:kotlin</cpe>
-    </suppress>
-    <suppress>
-        <notes><![CDATA[
-   file name: kotlin-compiler-embeddable-1.3.72.jar
-   ]]></notes>
-        <packageUrl regex="true">^pkg:maven/org\.jetbrains\.kotlin/kotlin\-compiler\-embeddable@.*$</packageUrl>
-        <cpe>cpe:/a:jetbrains:kotlin</cpe>
-    </suppress>
-    <suppress>
-        <notes><![CDATA[
-   file name: kotlin-daemon-embeddable-1.3.72.jar
-   ]]></notes>
-        <packageUrl regex="true">^pkg:maven/org\.jetbrains\.kotlin/kotlin\-daemon\-embeddable@.*$</packageUrl>
-        <cpe>cpe:/a:jetbrains:kotlin</cpe>
-    </suppress>
-    <suppress>
-        <notes><![CDATA[
-   file name: kotlin-reflect-1.2.21.jar
-   ]]></notes>
-        <packageUrl regex="true">^pkg:maven/org\.jetbrains\.kotlin/kotlin\-reflect@.*$</packageUrl>
-        <cpe>cpe:/a:jetbrains:kotlin</cpe>
-    </suppress>
-    <suppress>
-        <notes><![CDATA[
-   file name: kotlin-reflect-1.3.72.jar
-   ]]></notes>
-        <packageUrl regex="true">^pkg:maven/org\.jetbrains\.kotlin/kotlin\-reflect@.*$</packageUrl>
-        <cpe>cpe:/a:jetbrains:kotlin</cpe>
-    </suppress>
-    <suppress>
-        <notes><![CDATA[
-   file name: kotlin-script-runtime-1.2.21.jar
-   ]]></notes>
-        <packageUrl regex="true">^pkg:maven/org\.jetbrains\.kotlin/kotlin\-script\-runtime@.*$</packageUrl>
-        <cpe>cpe:/a:jetbrains:kotlin</cpe>
-    </suppress>
-    <suppress>
-        <notes><![CDATA[
-   file name: kotlin-script-runtime-1.3.72.jar
-   ]]></notes>
-        <packageUrl regex="true">^pkg:maven/org\.jetbrains\.kotlin/kotlin\-script\-runtime@.*$</packageUrl>
-        <cpe>cpe:/a:jetbrains:kotlin</cpe>
-    </suppress>
-    <suppress>
-        <notes><![CDATA[
-   file name: kotlin-stdlib-1.3.50.jar
-   ]]></notes>
-        <packageUrl regex="true">^pkg:maven/org\.jetbrains\.kotlin/kotlin\-stdlib@.*$</packageUrl>
-        <cpe>cpe:/a:jetbrains:kotlin</cpe>
-    </suppress>
-    <suppress>
-        <notes><![CDATA[
-   file name: kotlin-stdlib-1.3.72.jar
-   ]]></notes>
-        <packageUrl regex="true">^pkg:maven/org\.jetbrains\.kotlin/kotlin\-stdlib@.*$</packageUrl>
-        <cpe>cpe:/a:jetbrains:kotlin</cpe>
-    </suppress>
-    <suppress>
-        <notes><![CDATA[
-   file name: kotlin-stdlib-common-1.3.50.jar
-   ]]></notes>
-        <packageUrl regex="true">^pkg:maven/org\.jetbrains\.kotlin/kotlin\-stdlib\-common@.*$</packageUrl>
-        <cpe>cpe:/a:jetbrains:kotlin</cpe>
-    </suppress>
-    <suppress>
-        <notes><![CDATA[
-   file name: kotlin-stdlib-common-1.3.72.jar
-   ]]></notes>
-        <packageUrl regex="true">^pkg:maven/org\.jetbrains\.kotlin/kotlin\-stdlib\-common@.*$</packageUrl>
-        <cpe>cpe:/a:jetbrains:kotlin</cpe>
-    </suppress>
-    <suppress>
-        <notes><![CDATA[
-   file name: kotlin-stdlib-jdk7-1.3.72.jar
-   ]]></notes>
-        <packageUrl regex="true">^pkg:maven/org\.jetbrains\.kotlin/kotlin\-stdlib\-jdk7@.*$</packageUrl>
-        <cpe>cpe:/a:jetbrains:kotlin</cpe>
-    </suppress>
-    <suppress>
-        <notes><![CDATA[
-   file name: kotlin-stdlib-jdk8-1.3.72.jar
-   ]]></notes>
-        <packageUrl regex="true">^pkg:maven/org\.jetbrains\.kotlin/kotlin\-stdlib\-jdk8@.*$</packageUrl>
-        <cpe>cpe:/a:jetbrains:kotlin</cpe>
-    </suppress>
-
-    <!-- ANDROID BUILD TOOLS WITH VULNS 2020-08-24 -->
-    <suppress>
-        <notes><![CDATA[
-   file name: bcprov-jdk15on-1.56.jar
-   ]]></notes>
-        <packageUrl regex="true">^pkg:maven/org\.bouncycastle/bcprov\-jdk15on@.*$</packageUrl>
-        <cpe>cpe:/a:bouncycastle:legion-of-the-bouncy-castle-java-crytography-api</cpe>
-    </suppress>
-    <suppress>
-        <notes><![CDATA[
-   file name: bcprov-jdk15on-1.56.jar
-   ]]></notes>
-        <packageUrl regex="true">^pkg:maven/org\.bouncycastle/bcprov\-jdk15on@.*$</packageUrl>
-        <vulnerabilityName>CVE-2017-13098</vulnerabilityName>
-    </suppress>
-    <suppress>
-        <notes><![CDATA[
-   file name: bcprov-jdk15on-1.56.jar
-   ]]></notes>
-        <packageUrl regex="true">^pkg:maven/org\.bouncycastle/bcprov\-jdk15on@.*$</packageUrl>
-        <vulnerabilityName>CVE-2018-1000180</vulnerabilityName>
-    </suppress>
-    <suppress>
-        <notes><![CDATA[
-   file name: bcprov-jdk15on-1.56.jar
-   ]]></notes>
-        <packageUrl regex="true">^pkg:maven/org\.bouncycastle/bcprov\-jdk15on@.*$</packageUrl>
-        <vulnerabilityName>CVE-2018-1000613</vulnerabilityName>
-    </suppress>
-    <suppress>
-        <notes><![CDATA[
-   file name: builder-4.0.1.jar: desugar_deploy.jar (shaded: com.google.guava:guava:21.0)
+   file name: guava-28.1-jre.jar
    ]]></notes>
         <packageUrl regex="true">^pkg:maven/com\.google\.guava/guava@.*$</packageUrl>
-        <cpe>cpe:/a:google:guava</cpe>
+        <vulnerabilityName>CVE-2020-8908</vulnerabilityName>
     </suppress>
     <suppress>
         <notes><![CDATA[
-   file name: builder-4.0.1.jar: desugar_deploy.jar (shaded: com.google.guava:guava:21.0)
+   file name: jetified-bcprov-jdk15on-1.65.jar
    ]]></notes>
-        <packageUrl regex="true">^pkg:maven/com\.google\.guava/guava@.*$</packageUrl>
-        <vulnerabilityName>CVE-2018-10237</vulnerabilityName>
-    </suppress>
-    <suppress>
-        <notes><![CDATA[
-   file name: commons-compress-1.12.jar
-   ]]></notes>
-        <packageUrl regex="true">^pkg:maven/org\.apache\.commons/commons\-compress@.*$</packageUrl>
-        <cpe>cpe:/a:apache:commons-compress</cpe>
-    </suppress>
-    <suppress>
-        <notes><![CDATA[
-   file name: commons-compress-1.12.jar
-   ]]></notes>
-        <packageUrl regex="true">^pkg:maven/org\.apache\.commons/commons\-compress@.*$</packageUrl>
-        <vulnerabilityName>CVE-2018-11771</vulnerabilityName>
-    </suppress>
-    <suppress>
-        <notes><![CDATA[
-   file name: commons-compress-1.12.jar
-   ]]></notes>
-        <packageUrl regex="true">^pkg:maven/org\.apache\.commons/commons\-compress@.*$</packageUrl>
-        <vulnerabilityName>CVE-2018-1324</vulnerabilityName>
-    </suppress>
-    <suppress>
-        <notes><![CDATA[
-   file name: intellij-core-27.0.1.jar (shaded: com.google.protobuf:protobuf-java:2.6.1)
-   ]]></notes>
-        <packageUrl regex="true">^pkg:maven/com\.google\.protobuf/protobuf\-java@.*$</packageUrl>
-        <vulnerabilityName>CVE-2015-5237</vulnerabilityName>
-    </suppress>
-    <suppress>
-        <notes><![CDATA[
-   file name: intellij-core-27.0.1.jar (shaded: log4j:log4j:1.2.17)
-   ]]></notes>
-        <packageUrl regex="true">^pkg:maven/log4j/log4j@.*$</packageUrl>
-        <cpe>cpe:/a:apache:log4j</cpe>
-    </suppress>
-    <suppress>
-        <notes><![CDATA[
-   file name: jetified-ant-1.8.0.jar
-   ]]></notes>
-        <sha1>7b456ca6b93900f96e58cc8371f03d90a9c1c8d1</sha1>
-        <cpe>cpe:/a:apache:ant</cpe>
-    </suppress>
-    <suppress>
-        <notes><![CDATA[
-   file name: jetified-ant-launcher-1.8.0.jar
-   ]]></notes>
-        <sha1>08b53ba16fa62fb1034da8f1de200ddc407c8381</sha1>
-        <cpe>cpe:/a:apache:ant</cpe>
-    </suppress>
-    <suppress>
-        <notes><![CDATA[
-   file name: jetified-bcprov-jdk15on-1.52.jar
-   ]]></notes>
-        <sha1>88a941faf9819d371e3174b5ed56a3f3f7d73269</sha1>
-        <cpe>cpe:/a:bouncycastle:legion-of-the-bouncy-castle-java-crytography-api</cpe>
-    </suppress>
-    <suppress>
-        <notes><![CDATA[
-   file name: jetified-javax.annotation-api-1.3.2.jar
-   ]]></notes>
-        <sha1>934c04d3cfef185a8008e7bf34331b79730a9d43</sha1>
-        <cpe>cpe:/a:oracle:glassfish</cpe>
-    </suppress>
-    <suppress>
-        <notes><![CDATA[
-   file name: jetified-kotlin-stdlib-1.3.72.jar
-   ]]></notes>
-        <sha1>8032138f12c0180bc4e51fe139d4c52b46db6109</sha1>
-        <cpe>cpe:/a:jetbrains:kotlin</cpe>
-    </suppress>
-    <suppress>
-        <notes><![CDATA[
-   file name: jetified-kotlin-stdlib-common-1.3.72.jar
-   ]]></notes>
-        <sha1>6ca8bee3d88957eaaaef077c41c908c9940492d8</sha1>
-        <cpe>cpe:/a:jetbrains:kotlin</cpe>
-    </suppress>
-    <suppress>
-        <notes><![CDATA[
-   file name: jetified-plexus-utils-1.5.15.jar
-   ]]></notes>
-        <sha1>c689598ce1eb94c304817877ed15911099972526</sha1>
-        <cpe>cpe:/a:plexus-utils_project:plexus-utils</cpe>
-    </suppress>
-    <suppress>
-        <notes><![CDATA[
-   file name: jetified-plexus-utils-1.5.15.jar (shaded: org.codehaus.plexus:plexus-utils:1.5.15)
-   ]]></notes>
-        <packageUrl regex="true">^pkg:maven/org\.codehaus\.plexus/plexus\-utils@.*$</packageUrl>
-        <cpe>cpe:/a:plexus-utils_project:plexus-utils</cpe>
-    </suppress>
-    <suppress>
-        <notes><![CDATA[
-   file name: jetified-shadows-framework-4.3.1.jar: sqlite4java.dll
-   ]]></notes>
-        <sha1>78215ca7b1c87b4f7be3b7da5086009c3c95fac6</sha1>
-        <cpe>cpe:/a:sqlite:sqlite</cpe>
-    </suppress>
-    <suppress>
-        <notes><![CDATA[
-   file name: jetified-shadows-framework-4.3.1.jar: sqlite4java.dll
-   ]]></notes>
-        <sha1>ea73fbc9344471a4489792ebd669c9c543ec9844</sha1>
-        <cpe>cpe:/a:sqlite:sqlite</cpe>
-    </suppress>
-    <suppress>
-        <notes><![CDATA[
-   file name: jetified-plexus-utils-1.5.15.jar (shaded: org.codehaus.plexus:plexus-utils:1.5.15)
-   ]]></notes>
-        <packageUrl regex="true">^pkg:maven/org\.codehaus\.plexus/plexus\-utils@.*$</packageUrl>
-        <vulnerabilityName>CVE-2017-1000487</vulnerabilityName>
-    </suppress>
-    <suppress>
-        <notes><![CDATA[
-   file name: jetified-plexus-utils-1.5.15.jar (shaded: org.codehaus.plexus:plexus-utils:1.5.15)
-   ]]></notes>
-        <packageUrl regex="true">^pkg:maven/org\.codehaus\.plexus/plexus\-utils@.*$</packageUrl>
-        <vulnerabilityName>Directory traversal in org.codehaus.plexus.util.Expand</vulnerabilityName>
-    </suppress>
-    <suppress>
-        <notes><![CDATA[
-   file name: jetified-plexus-utils-1.5.15.jar (shaded: org.codehaus.plexus:plexus-utils:1.5.15)
-   ]]></notes>
-        <packageUrl regex="true">^pkg:maven/org\.codehaus\.plexus/plexus\-utils@.*$</packageUrl>
-        <vulnerabilityName>Possible XML Injection</vulnerabilityName>
-    </suppress>
-    <suppress>
-        <notes><![CDATA[
-   file name: tink-android-1.4.0.jar
-   ]]></notes>
-        <packageUrl regex="true">^pkg:maven/com\.google\.crypto\.tink/tink\-android@.*$</packageUrl>
-        <cve>CVE-2020-8929</cve>
-    </suppress>
-    <suppress>
-        <notes><![CDATA[
-   file name: jetified-kotlin-stdlib-1.4.0.jar
-   ]]></notes>
-        <sha1>63e75298e93d4ae0b299bb869cf0c627196f8843</sha1>
-        <cve>CVE-2020-15824</cve>
-    </suppress>
-    <suppress>
-        <notes><![CDATA[
-   file name: jetified-kotlin-stdlib-common-1.4.0.jar
-   ]]></notes>
-        <sha1>1c752cce0ead8d504ccc88a4fed6471fd83ab0dd</sha1>
-        <cve>CVE-2020-15824</cve>
-    </suppress>
-    <suppress>
-        <notes><![CDATA[
-   file name: jetified-bcprov-jdk15on-1.52.jar
-   ]]></notes>
-        <sha1>88a941faf9819d371e3174b5ed56a3f3f7d73269</sha1>
-        <cve>CVE-2020-26939</cve>
-    </suppress>
-    <suppress>
-        <notes><![CDATA[
-   file name: jetified-kotlin-stdlib-1.4.10.jar
-   ]]></notes>
-        <sha1>ea29e063d2bbe695be13e9d044dcfb0c7add398e</sha1>
-        <cve>CVE-2020-15824</cve>
-    </suppress>
-    <suppress>
-        <notes><![CDATA[
-   file name: jetified-kotlin-stdlib-common-1.4.10.jar
-   ]]></notes>
-        <sha1>6229be3465805c99db1142ad75e6c6ddeac0b04c</sha1>
-        <cve>CVE-2020-15824</cve>
-    </suppress>
-    <suppress>
-        <notes><![CDATA[
-   file name: jetified-kotlin-stdlib-jdk7-1.4.10.jar
-   ]]></notes>
-        <sha1>30e46450b0bb3dbf43898d2f461be4a942784780</sha1>
-        <cve>CVE-2020-15824</cve>
-    </suppress>
-    <suppress>
-        <notes><![CDATA[
-   file name: jetified-kotlin-stdlib-jdk8-1.4.10.jar
-   ]]></notes>
-        <sha1>998caa30623f73223194a8b657abd2baec4880ea</sha1>
-        <cve>CVE-2020-15824</cve>
+        <sha1>320b989112f00a63a3bcfa5a98f31a4f865a20fa</sha1>
+        <cve>CVE-2020-28052</cve>
     </suppress>
     <suppress>
         <notes><![CDATA[
@@ -369,13 +38,6 @@
     </suppress>
     <suppress>
         <notes><![CDATA[
-   file name: guava-28.1-jre.jar
-   ]]></notes>
-        <packageUrl regex="true">^pkg:maven/com\.google\.guava/guava@.*$</packageUrl>
-        <vulnerabilityName>CVE-2020-8908</vulnerabilityName>
-    </suppress>
-    <suppress>
-        <notes><![CDATA[
    file name: jetified-guava-27.0.1-jre.jar (shaded: com.google.guava:guava:27.0.1-jre)
    ]]></notes>
         <packageUrl regex="true">^pkg:maven/com\.google\.guava/guava@.*$</packageUrl>
@@ -387,5 +49,132 @@
    ]]></notes>
         <packageUrl regex="true">^pkg:maven/com\.google\.guava/guava@.*$</packageUrl>
         <vulnerabilityName>CVE-2020-8908</vulnerabilityName>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+   file name: jetified-kotlin-stdlib-1.4.21.jar
+   ]]></notes>
+        <sha1>4a668382d7c38688d3490afde93b6a113ed46698</sha1>
+        <cve>CVE-2020-15824</cve>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+   file name: jetified-kotlin-stdlib-common-1.4.21.jar
+   ]]></notes>
+        <sha1>7f48a062aa4b53215998780f7c245a4276828e1d</sha1>
+        <cve>CVE-2020-15824</cve>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+   file name: jetified-kotlin-stdlib-jdk7-1.4.10.jar
+   ]]></notes>
+        <sha1>30e46450b0bb3dbf43898d2f461be4a942784780</sha1>
+        <cve>CVE-2020-15824</cve>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+   file name: jetified-kotlin-stdlib-jdk8-1.4.10.jar
+   ]]></notes>
+        <sha1>998caa30623f73223194a8b657abd2baec4880ea</sha1>
+        <cve>CVE-2020-15824</cve>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+   file name: tink-android-1.4.0.jar
+   ]]></notes>
+        <packageUrl regex="true">^pkg:maven/com\.google\.crypto\.tink/tink\-android@.*$</packageUrl>
+        <cve>CVE-2020-8929</cve>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+   file name: kotlin-reflect-1.4.21.jar
+   ]]></notes>
+        <packageUrl regex="true">^pkg:maven/org\.jetbrains\.kotlin/kotlin\-reflect@.*$</packageUrl>
+        <cve>CVE-2020-15824</cve>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+   file name: kotlin-script-runtime-1.4.21.jar
+   ]]></notes>
+        <packageUrl regex="true">^pkg:maven/org\.jetbrains\.kotlin/kotlin\-script\-runtime@.*$</packageUrl>
+        <cve>CVE-2020-15824</cve>
+    </suppress>
+    <!-- 2021-02-09 -->
+    <suppress>
+        <notes><![CDATA[
+   file name: kotlin-reflect-1.4.21.jar
+   ]]></notes>
+        <packageUrl regex="true">^pkg:maven/org\.jetbrains\.kotlin/kotlin\-reflect@.*$</packageUrl>
+        <cve>CVE-2020-29582</cve>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+   file name: jetified-kotlin-stdlib-1.4.21.jar
+   ]]></notes>
+        <sha1>4a668382d7c38688d3490afde93b6a113ed46698</sha1>
+        <cve>CVE-2020-29582</cve>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+   file name: jetified-kotlin-stdlib-common-1.4.21.jar
+   ]]></notes>
+        <sha1>7f48a062aa4b53215998780f7c245a4276828e1d</sha1>
+        <cve>CVE-2020-29582</cve>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+   file name: jetified-kotlin-stdlib-jdk7-1.4.10.jar
+   ]]></notes>
+        <sha1>30e46450b0bb3dbf43898d2f461be4a942784780</sha1>
+        <cve>CVE-2020-29582</cve>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+   file name: jetified-kotlin-stdlib-jdk8-1.4.10.jar
+   ]]></notes>
+        <sha1>998caa30623f73223194a8b657abd2baec4880ea</sha1>
+        <cve>CVE-2020-29582</cve>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+   file name: kotlin-script-runtime-1.4.21.jar
+   ]]></notes>
+        <packageUrl regex="true">^pkg:maven/org\.jetbrains\.kotlin/kotlin\-script\-runtime@.*$</packageUrl>
+        <cve>CVE-2020-29582</cve>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+   file name: kotlin-stdlib-1.3.50.jar
+   ]]></notes>
+        <packageUrl regex="true">^pkg:maven/org\.jetbrains\.kotlin/kotlin\-stdlib@.*$</packageUrl>
+        <cve>CVE-2020-29582</cve>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+   file name: kotlin-stdlib-common-1.3.50.jar
+   ]]></notes>
+        <packageUrl regex="true">^pkg:maven/org\.jetbrains\.kotlin/kotlin\-stdlib\-common@.*$</packageUrl>
+        <cve>CVE-2020-29582</cve>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+   file name: kotlin-stdlib-common-1.3.72.jar
+   ]]></notes>
+        <packageUrl regex="true">^pkg:maven/org\.jetbrains\.kotlin/kotlin\-stdlib\-common@.*$</packageUrl>
+        <cve>CVE-2020-29582</cve>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+   file name: kotlin-stdlib-jdk7-1.3.72.jar
+   ]]></notes>
+        <packageUrl regex="true">^pkg:maven/org\.jetbrains\.kotlin/kotlin\-stdlib\-jdk7@.*$</packageUrl>
+        <cve>CVE-2020-29582</cve>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+   file name: kotlin-stdlib-jdk8-1.3.72.jar
+   ]]></notes>
+        <packageUrl regex="true">^pkg:maven/org\.jetbrains\.kotlin/kotlin\-stdlib\-jdk8@.*$</packageUrl>
+        <cve>CVE-2020-29582</cve>
     </suppress>
 </suppressions>
