@@ -63,7 +63,7 @@ object AppModule {
 
         return OkHttpClient.Builder().apply {
             if (BuildConfig.DEBUG) {
-                addInterceptor(HttpLoggingInterceptor().apply { setLevel(HttpLoggingInterceptor.Level.BODY) })
+                addNetworkInterceptor(HttpLoggingInterceptor().apply { setLevel(HttpLoggingInterceptor.Level.BODY) })
             }
             addInterceptor(UserAgentInterceptor())
             certificatePinner(pinnerBuilder.build())
