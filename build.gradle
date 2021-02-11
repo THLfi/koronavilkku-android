@@ -58,7 +58,7 @@ allprojects {
         suppressionFile = 'owasp_suppressions.xml'
         allprojects {
             configurations.all {
-                if (it.name.startsWith('implementation') || it.name.startsWith('huawei') || it.name.startsWith('api') || it.name.startsWith('liveGoogleRelease') || it.name.startsWith('liveHuaweiRelease')) {
+                if (it.name.startsWith('implementation') || it.name.startsWith('huawei') || it.name.startsWith('api') || it.name.startsWith('liveGoogleReleaseRuntimeClasspath') || it.name.startsWith('liveGoogleReleaseCompileClasspath') || it.name.startsWith('liveHuaweiReleaseCompileClasspath') || it.name.startsWith('liveHuaweiReleaseRuntimeClasspath')) {
                     scanConfigurations << it.name
                 }
             }
