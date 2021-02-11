@@ -8,7 +8,9 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
-import fi.thl.koronahaavi.common.getDrawable
+import fi.thl.koronahaavi.R
+import fi.thl.koronahaavi.common.safeGetDrawable
+import fi.thl.koronahaavi.common.safeGetString
 import fi.thl.koronahaavi.databinding.FragmentNotificationGuidePageBinding
 
 class NotificationGuidePageFragment : Fragment() {
@@ -21,19 +23,30 @@ class NotificationGuidePageFragment : Fragment() {
         val binding = FragmentNotificationGuidePageBinding.inflate(inflater, container, false)
 
         arguments?.let { args ->
-            binding.textNotificationGuidePageNumber.text = args.getInt(ARG_PAGE_ID).toString()
-            binding.textNotificationGuidePageBody.text = getString(args.getInt(ARG_TEXT_ID))
-            binding.imageNotificationGuidePage.setImageDrawable(getDrawable(args.getInt(ARG_IMAGE_ID)))
+            val pageNum = args.getInt(ARG_CURRENT_PAGE_ID)
+            val pageCount = args.getInt(ARG_PAGE_COUNT_ID)
+            binding.textNotificationGuidePageNumber.text = pageNum.toString()
+
+            // set page number to content description to help with accessibility
+            binding.textNotificationGuidePageNumber.contentDescription =
+                getString(R.string.notification_guide_page_content_description, pageNum, pageCount)
+
+            binding.textNotificationGuidePageBody.text = context?.safeGetString(args.getInt(ARG_TEXT_ID))
+
+            binding.imageNotificationGuidePage.setImageDrawable(
+                    context?.safeGetDrawable(args.getInt(ARG_IMAGE_ID))
+            )
         }
 
         return binding.root
     }
 
     companion object {
-        fun create(pageNum: Int, @StringRes textResId: Int, @DrawableRes imageResId: Int) =
+        fun create(pageNum: Int, pageCount: Int, @StringRes textResId: Int, @DrawableRes imageResId: Int) =
             NotificationGuidePageFragment().apply {
                 arguments = bundleOf(
-                        ARG_PAGE_ID to pageNum,
+                        ARG_CURRENT_PAGE_ID to pageNum,
+                        ARG_PAGE_COUNT_ID to pageCount,
                         ARG_TEXT_ID to textResId,
                         ARG_IMAGE_ID to imageResId
                 )
@@ -41,6 +54,7 @@ class NotificationGuidePageFragment : Fragment() {
 
         const val ARG_TEXT_ID = "text_id"
         const val ARG_IMAGE_ID = "image_id"
-        const val ARG_PAGE_ID = "page_id"
+        const val ARG_CURRENT_PAGE_ID = "current_page_id"
+        const val ARG_PAGE_COUNT_ID = "page_count_id"
     }
 }

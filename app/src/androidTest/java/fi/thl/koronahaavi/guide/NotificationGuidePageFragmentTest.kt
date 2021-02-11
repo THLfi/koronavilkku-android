@@ -31,7 +31,8 @@ class NotificationGuidePageFragmentTest {
     @Test
     fun test() {
         launchFragmentInHiltContainer<NotificationGuidePageFragment>(fragmentArgs = bundleOf(
-                NotificationGuidePageFragment.ARG_PAGE_ID to 1,
+                NotificationGuidePageFragment.ARG_CURRENT_PAGE_ID to 1,
+                NotificationGuidePageFragment.ARG_PAGE_COUNT_ID to 5,
                 NotificationGuidePageFragment.ARG_TEXT_ID to R.string.notification_guide_text_1,
                 NotificationGuidePageFragment.ARG_IMAGE_ID to R.drawable.notification_guide_1
         ))

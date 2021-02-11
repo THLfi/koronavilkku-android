@@ -6,12 +6,14 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.net.Uri
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.annotation.AttrRes
 import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.use
 import androidx.fragment.app.Fragment
@@ -66,6 +68,24 @@ fun Context.themeColor(@AttrRes themeAttrId: Int): Int {
         it.getColor(0, Color.GREEN)
     }
 }
+
+fun Context.safeGetString(@StringRes resId: Int): String? =
+        try {
+            resources.getString(resId)
+        }
+        catch (t: Throwable) {
+            Timber.e(t, "Failed to get string for resource id $resId")
+            null
+        }
+
+fun Context.safeGetDrawable(@DrawableRes resId: Int): Drawable? =
+        try {
+            ContextCompat.getDrawable(this, resId)
+        }
+        catch (t: Throwable) {
+            Timber.e(t, "Failed to get drawable for resource id $resId")
+            null
+        }
 
 fun NavController.navigateSafe(directions: NavDirections) {
     // Prevents "IllegalArgumentException: navigation destination is unknown" error when navigate

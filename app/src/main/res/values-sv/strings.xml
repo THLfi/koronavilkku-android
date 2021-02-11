@@ -299,6 +299,8 @@
     <string name="notification_guide_text_4">Välj kommun. Du kan kontakta hälsovården på det sätt som kommunen erbjuder, till exempel via webbtjänsten Omaolo eller per telefon.</string>
     <string name="notification_guide_text_5">Hälsovården ger dig närmare anvisningar och bedömmer behovet av ett coronavirustest.</string>
 
+    <string name="notification_guide_page_content_description">Steg %1$d av %2$d</string>
+
     <plurals name="exposure_notification_count">
         <item quantity="one">%d meddelande</item>
         <item quantity="other">%d meddelanden</item>

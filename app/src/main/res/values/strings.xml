@@ -325,6 +325,8 @@
     <string name="notification_guide_text_4">Select the municipality. You can contact the healthcare services via the contact methods provided by the municipality, such as via the Omaolo online service or by telephone.</string>
     <string name="notification_guide_text_5">The healthcare services will give you more detailed instructions and evaluate your need for a coronavirus test.</string>
 
+    <string name="notification_guide_page_content_description">Step %1$d of %2$d</string>
+
     <plurals name="exposure_notification_count">
         <item quantity="one">%d notification</item>
         <item quantity="other">%d notifications</item>

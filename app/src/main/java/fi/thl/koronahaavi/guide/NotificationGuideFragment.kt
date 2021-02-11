@@ -93,6 +93,7 @@ class GuidePagerAdapter(
         viewModel.pages.getOrNull(position)?.let {
             NotificationGuidePageFragment.create(
                     pageNum = position + 1,
+                    pageCount = itemCount,
                     textResId = it.textResId,
                     imageResId = it.imageResId
             )
