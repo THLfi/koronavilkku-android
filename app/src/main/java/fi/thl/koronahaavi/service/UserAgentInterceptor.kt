@@ -17,7 +17,7 @@ class UserAgentInterceptor: Interceptor {
 }
 
 private fun generateUserAgentString(): String {
-    var tmp = "Koronavilkku/${BuildConfig.VERSION_NAME}"
+    var tmp = "Koronavilkku/${BuildConfig.VERSION_NAME}/${BuildConfig.FLAVOR_system}"
 
     if (BuildConfig.DEBUG) {
         tmp += " (Android ${Build.VERSION.RELEASE}; ${Build.MANUFACTURER} ${Build.MODEL})"

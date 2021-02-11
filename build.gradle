@@ -11,7 +11,7 @@ buildscript {
         hiltAndroidXVersion = '1.0.0-alpha02'
         navigationVersion = '2.3.2'
         lifecycleVersion = '2.2.0'
-        workVersion = '2.5.0-rc01'
+        workVersion = '2.5.0'
         materialVersion = '1.2.1'
         playVersion = '17.5.0'
         roomVersion = '2.3.0-alpha04'
@@ -31,7 +31,7 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
         classpath "com.google.dagger:hilt-android-gradle-plugin:$hiltVersion"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$navigationVersion"
-        classpath 'org.owasp:dependency-check-gradle:6.0.3'
+        classpath 'org.owasp:dependency-check-gradle:6.1.0'
         classpath 'com.google.android.gms:oss-licenses-plugin:0.10.2'
 
         // Huawei App Gallery Connect build plugin, only used for huawei build variant
@@ -54,9 +54,15 @@ allprojects {
     apply plugin: 'org.owasp.dependencycheck'
 
     dependencyCheck {
-        failBuildOnCVSS=0
+        failBuildOnCVSS = 0
         suppressionFile = 'owasp_suppressions.xml'
-        skipConfigurations += 'lintClassPath'
+        allprojects {
+            configurations.all {
+                if ((it.name.startsWith('sim') || it.name.startsWith('kapt') || it.name.startsWith('test') || it.name.startsWith('androidTest') || it.name.startsWith('lint')) && !(it.name in skipConfigurations)) {
+                    skipConfigurations << it.name
+                }
+            }
+        }
     }
 }
 
