@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### Added
+- Guide fragment for displaying pages of exposure notification instructions
+
+### Changed
+- Home and exposure screen UI layout and elements
+- Google exposure notification sdk and work manager dependency update
+
 ## [2.0.2](https://github.com/THLfi/koronavilkku-android/compare/v2.0.1...v2.0.2) - 2021-02-01
 
 ### Changed
