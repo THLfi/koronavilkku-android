@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:drawable="?android:attr/listDivider"
+        android:height="1dp" />
+    <item>
+        <ripple android:color="?attr/colorControlHighlight">
+            <!-- this is a mask for ripple effect and not drawn -->
+            <item android:id="@android:id/mask"
+                android:drawable="@color/darkGrey" />
+        </ripple>
+    </item>
+</layer-list>

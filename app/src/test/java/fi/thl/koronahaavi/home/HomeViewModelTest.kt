@@ -111,7 +111,7 @@ class HomeViewModelTest {
 
     @Test
     fun exposureSubLabelShown() {
-        viewModel.hideExposureSubLabel().test().assertValue(false)
+        viewModel.showExposureSubLabel().test().assertValue(false)
     }
 
     @Test
@@ -119,7 +119,7 @@ class HomeViewModelTest {
         lastCheckTime.value = ZonedDateTime.now().minusDays(2)
         enEnabledFlow.value = false
 
-        viewModel.hideExposureSubLabel().test().assertValue(true)
+        viewModel.showExposureSubLabel().test().assertValue(false)
     }
 
     @Test

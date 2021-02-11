@@ -2,6 +2,7 @@
     <string name="app_name">Koronavilkku</string>
 
     <string name="all_next">Seuraava</string>
+    <string name="all_previous">Edellinen</string>
     <string name="all_cancel">Peruuta</string>
     <string name="all_thl_image_description">Terveyden ja hyvinvoinnin laitos</string>
     <string name="all_today">tänään</string>
@@ -45,9 +46,10 @@
     <string name="home_no_exposure_sub_label">Et ole ollut tartunnasta ilmoittaneen henkilön lähellä</string>
     <string name="home_exposure_instructions">Katso toiminta\u00ADohjeet</string>
     <string name="home_exposure_check">Käynnistä tarkistus</string>
+    <string name="home_show_notification_guide">Jos saat altistumis\u00ADilmoituksen, toimi näin</string>
 
     <string name="home_symptom_label">Epäiletkö tartuntaa?</string>
-    <string name="home_prevention_label">Näin suojaudut</string>
+    <string name="home_prevention_label">Näin suojaudut tartunnalta</string>
     <string name="home_prevention_url">https://thl.fi/fi/web/infektiotaudit-ja-rokotukset/ajankohtaista/ajankohtaista-koronaviruksesta-covid-19/tarttuminen-ja-suojautuminen-koronavirus</string>
     <string name="home_statistics_label">Suomen tautitilanne</string>
     <string name="home_statistics_url">https://thl.fi/fi/web/infektiotaudit-ja-rokotukset/ajankohtaista/ajankohtaista-koronaviruksesta-covid-19/tilannekatsaus-koronaviruksesta</string>
@@ -58,7 +60,7 @@
     <string name="home_status_system_locked">Koronavilkku lukittu</string>
 
     <string name="home_symptom_sub_label">Tee koronavirustaudin oirearvio</string>
-    <string name="home_app_guide">Tietoa sovelluksesta</string>
+    <string name="home_app_guide">Tietoa Koronavilkusta</string>
 
     <string name="home_status_disabled_explained">Ota altistumisilmoitukset uudelleen käyttöön.</string>
     <string name="home_status_enabled_explained">Sovellus toimii, vaikka suljet sen.</string>
@@ -102,7 +104,7 @@
 
     <string name="exposure_detail_title_none">Ei havaittuja altistumisia</string>
 
-    <string name="exposure_detail_message_none">Koronavilkku ei ole havainnut altistumista koronavirukselle viimeisten 14 päivän aikana.</string>
+    <string name="exposure_detail_message_none">Koronavilkun keräämien tietojen mukaan et ole ollut tartunnasta ilmoittaneen henkilön lähellä viimeisten 14 päivän aikana.</string>
     <string name="exposure_detail_disclaimer_none">Sovellus ei kuitenkaan tunnista kaikkia mahdollisia altistumistilanteita.</string>
     <string name="exposure_detail_last_check">Tarkistettu viimeksi %s</string>
     <string name="exposure_detail_no_last_check">Altistumistietoja ei ole vielä tarkistettu</string>
@@ -123,6 +125,8 @@
     <string name="exposure_detail_more_instructions_title">Katso tarkemmat ohjeet</string>
     <string name="exposure_detail_more_instructions_link_name">thl.fi</string>
     <string name="exposure_detail_more_instructions_link">https://thl.fi/fi/web/infektiotaudit-ja-rokotukset/ajankohtaista/ajankohtaista-koronaviruksesta-covid-19/oireet-ja-hoito-koronavirus</string>
+
+    <string name="exposure_detail_app_info">Tietoa Koronavilkusta</string>
 
     <string name="notification_list_title">Altistumis\u00ADilmoitukset</string>
     <string name="notification_list_disclaimer">Arvio altistumisesta perustuu Koronavilkun keräämiin kohtaamistietoihin viimeisten 14 vuorokauden ajalta. Altistumisen voimakkuutta ei voida täsmällisesti arvioida.</string>
@@ -287,6 +291,15 @@
     <string name="summary_consent_accept_use">Kohtaamistietoni sekä tiedon todennäköisestä tartuttavuusajastani saa luovuttaa Koronavilkku-sovelluksen käyttöön tartuntaketjujen katkaisemiseksi.\n\nAnnan suostumukseni vapaaehtoisesti. Minulta ei ole vaadittu suostumusta terveydenhuollon asiakaspalvelutilanteessa eikä viranomaismenettelyssä.</string>
     <string name="summary_consent_accept_share">Kohtaamistietoni, edellä valitsemani matkustustiedot ja tiedon todennäköisestä tartuttavuusajastani saa luovuttaa EU- ja Eta-maiden sekä Sveitsin ja Iso-Britannian koronasovellusten käyttöön tartuntaketjujen katkaisemiseksi.</string>
     <string name="summary_consent_no_cancellation">Kun olet lähettänyt tiedot, et voi enää peruuttaa antamaasi suostumusta.</string>
+
+    <string name="notification_guide_title">Jos saat altistumis\u00ADilmoituksen, toimi näin</string>
+    <string name="notification_guide_text_1">Jos olet ollut sellaisen henkilön lähellä, joka on ilmoittanut sovelluksella koronatartunnastaan, saat puhelimeesi ilmoituksen mahdollisesta altistumisesta. Paina ilmoitusta, niin Koronavilkku aukeaa.</string>
+    <string name="notification_guide_text_2">Paina punaista Katso toimintaohjeet -painiketta.</string>
+    <string name="notification_guide_text_3">Saat toimintaohjeet. Lisäksi saat ohjeet siitä, miten voit ottaa yhteyttä terveydenhuoltoon. Tutustu ohjeisiin ja paina Ota yhteyttä -painiketta.</string>
+    <string name="notification_guide_text_4">Valitse kunta. Voit ottaa yhteyttä terveydenhuoltoon kunnan tarjoamilla yhteydenottotavoilla, esimerkiksi Omaolo-verkkopalvelussa tai puhelimitse.</string>
+    <string name="notification_guide_text_5">Saat terveydenhuollosta tarkemmat toimintaohjeet ja arvion koronavirustestin tarpeellisuudesta.</string>
+
+    <string name="notification_guide_page_content_description">Vaihe %1$d/%2$d</string>
 
     <plurals name="exposure_notification_count">
         <item quantity="one">%d ilmoitus</item>

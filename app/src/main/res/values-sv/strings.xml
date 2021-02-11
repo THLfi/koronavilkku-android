@@ -2,6 +2,7 @@
     <string name="app_name">Coronablinkern</string>
 
     <string name="all_next">Nästa</string>
+    <string name="all_previous">Föregående</string>
     <string name="all_cancel">Avbryt</string>
     <string name="all_thl_image_description">Institutet för hälsa och välfärd</string>
     <string name="all_today">idag</string>
@@ -45,6 +46,7 @@
     <string name="home_no_exposure_sub_label">Du har inte varit i närheten av en person som meddelat om smitta</string>
     <string name="home_exposure_instructions">Se anvisningar</string>
     <string name="home_exposure_check">Kontrollera nu</string>
+    <string name="home_show_notification_guide">Om du får ett exponerings\u00ADmeddelande, gör så här</string>
 
     <string name="home_symptom_label">Misstänker du smitta?</string>
     <string name="home_prevention_label">Skydda dig mot smitta</string>
@@ -102,8 +104,8 @@
 
     <string name="exposure_detail_title_none">Ingen exponering har upptäckts</string>
 
-    <string name="exposure_detail_message_none">Coronablinkern har inte observerat någon exponering för coronaviruset under de senaste 14 dagarna.</string>
-    <string name="exposure_detail_disclaimer_none">Appen kan emellertid inte identifiera alla eventuella exponeringar.</string>
+    <string name="exposure_detail_message_none">Enligt uppgifter som samlats in av Coronablinkern har du inte varit i närheten av en person som meddelat om sin coronasmitta under de senaste 14 dagarna.</string>
+    <string name="exposure_detail_disclaimer_none">Appen identifierar dock inte alla eventuella exponeringssituationer.</string>
     <string name="exposure_detail_last_check">Senast granskad %s</string>
     <string name="exposure_detail_no_last_check">Ingen kontroll ännu</string>
 
@@ -123,6 +125,8 @@
     <string name="exposure_detail_more_instructions_title">Se närmare anvisningar</string>
     <string name="exposure_detail_more_instructions_link_name">thl.fi</string>
     <string name="exposure_detail_more_instructions_link">https://thl.fi/sv/web/infektionssjukdomar-och-vaccinationer/aktuellt/aktuellt-om-coronaviruset-covid-19/symtom-och-behandling-coronaviruset</string>
+
+    <string name="exposure_detail_app_info">Information om Coronablinkern</string>
 
     <string name="notification_list_title">Exponerings\u00ADmeddelandena</string>
     <string name="notification_list_disclaimer">Bedömningen om exponeringen bygger på den information om möten som Coronablinkern har samlat in under de senaste 14 dygnen. Coronablinkern ger ingen exakt bedömning av hur stor smittorisken är.</string>
@@ -287,6 +291,15 @@
     <string name="summary_consent_accept_use">Mina mötesuppgifter samt information om min sannolika smittsamhetsperiod får lämnas ut för användning i Coronablinker-applikationen i syfte att bryta smittkedjorna.\n\nJag ger mitt samtycke frivilligt. Mitt samtycke har inte krävts i en kundbetjäningssituation inom hälso- och sjukvården eller i ett myndighetsförfarande.</string>
     <string name="summary_consent_accept_share">Mina mötesuppgifter, ovan valda reseuppgifter och information om min sannolika smittsamhetsperiod får lämnas ut för användning av corona-applikationer i EU- och EES-länderna samt Schweiz och Storbritannien i syfte att bryta smittkedjorna.</string>
     <string name="summary_consent_no_cancellation">När du sänt uppgifterna kan du inte längre återkalla ditt samtycke.</string>
+
+    <string name="notification_guide_title">Om du får ett exponerings\u00ADmeddelande, gör så här</string>
+    <string name="notification_guide_text_1">Om du har varit i närheten av en person som har anmält om sin coronainfektion via appen får du ett meddelande om eventuell exponering till din telefon. Tryck på meddelandet så öppnas Coronablinkern.</string>
+    <string name="notification_guide_text_2">Tryck på den röda knappen Se anvisningar.</string>
+    <string name="notification_guide_text_3">Du får anvisningar om hur du ska förfara. Dessutom får du anvisningar om hur du kan kontakta hälsovården. Läs anvisningarna och tryck på Ta kontakt.</string>
+    <string name="notification_guide_text_4">Välj kommun. Du kan kontakta hälsovården på det sätt som kommunen erbjuder, till exempel via webbtjänsten Omaolo eller per telefon.</string>
+    <string name="notification_guide_text_5">Hälsovården ger dig närmare anvisningar och bedömmer behovet av ett coronavirustest.</string>
+
+    <string name="notification_guide_page_content_description">Steg %1$d av %2$d</string>
 
     <plurals name="exposure_notification_count">
         <item quantity="one">%d meddelande</item>

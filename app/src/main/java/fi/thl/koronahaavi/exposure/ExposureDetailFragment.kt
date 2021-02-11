@@ -59,8 +59,12 @@ class ExposureDetailFragment : Fragment() {
                 findNavController().navigateSafe(ExposureDetailFragmentDirections.toSelectMunicipality())
             }
 
-            buttonExposureDetailAppInfo.setOnClickListener {
+            textExposureDetailAppInfo.setOnClickListener {
                 activity?.openGuide()
+            }
+
+            textExposureDetailNotificationGuide.setOnClickListener {
+                findNavController().navigateSafe(ExposureDetailFragmentDirections.toNotificationGuide())
             }
 
             layoutButtonExposureDetailCheck.button.setOnClickListener {

@@ -57,7 +57,15 @@ class HomeViewModel @ViewModelInject constructor(
     fun systemState(): LiveData<SystemState?> = systemState.distinctUntilChanged()
     fun exposureState(): LiveData<ExposureState?> = exposureState.distinctUntilChanged()
     fun showManualCheck(): LiveData<Boolean> = showManualCheck.distinctUntilChanged()
-    fun hideExposureSubLabel(): LiveData<Boolean> = exposureState.map { it is ExposureState.Clear.Disabled }
+
+    fun showExposureSubLabel(): LiveData<Boolean> = exposureState.map {
+        when (it) {
+            is ExposureState.Clear.Disabled, is ExposureState.Clear.Updated -> false
+            else -> true
+        }
+    }
+
+    fun showNotificationGuide(): LiveData<Boolean> = exposureState.map { it is ExposureState.Clear.Updated }
 
     val notificationCount: LiveData<String?> = exposureNotifications.map {
         if (it.isEmpty()) null else it.size.toString()

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="notification_guide_image_max_height">2000dp</dimen>
+</resources>
