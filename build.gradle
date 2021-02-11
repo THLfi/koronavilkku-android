@@ -53,8 +53,8 @@ allprojects {
         suppressionFile = 'owasp_suppressions.xml'
         allprojects {
             configurations.all {
-                if ((it.name.startsWith('sim') || it.name.startsWith('kapt') || it.name.startsWith('test') || it.name.startsWith('androidTest') || it.name.startsWith('lint')) && !(it.name in skipConfigurations)) {
-                    skipConfigurations << it.name
+                if (it.name.startsWith('implementation') || it.name.startsWith('huawei') || it.name.startsWith('api') || it.name.startsWith('liveGoogleReleaseRuntimeClasspath') || it.name.startsWith('liveGoogleReleaseCompileClasspath') || it.name.startsWith('liveHuaweiReleaseCompileClasspath') || it.name.startsWith('liveHuaweiReleaseRuntimeClasspath')) {
+                    scanConfigurations << it.name
                 }
             }
         }
