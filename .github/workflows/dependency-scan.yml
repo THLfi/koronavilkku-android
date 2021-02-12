@@ -38,7 +38,7 @@ jobs:
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         with:
-          text: "OWASP dependency check"
+          text: "OWASP dependency check - trunk"
           status: ${{job.status}}
       - name: Notify by email
         if: ${{ github.event_name == 'schedule' && failure() }}
