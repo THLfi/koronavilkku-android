@@ -1,11 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="fi.thl.koronahaavi">
 
     <application>
         <!-- required for huawei contact shield callbacks -->
         <service android:name=".service.ContactShieldIntentService"
             android:exported="false"/>
+
+        <!-- Contact Shield always shows key permission dialog using the first activity that used the api,
+             so we need to restrict launchMode to singleTask. Otherwise another activity instance opened from SMS
+             Messaging app would not get the permission dialog correctly. -->
+        <activity
+            android:name=".MainActivity"
+            android:launchMode="singleTask"
+            tools:replace="android:launchMode"/>
+
     </application>
 
 </manifest>
