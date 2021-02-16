@@ -23,6 +23,11 @@ class SystemOperations @Inject constructor (
             createNewFile()
         }
 
+    fun listFilesInPersistedStorage(endingWith: String): Array<File>? =
+        context.filesDir.listFiles { _, name ->
+            name.endsWith(endingWith)
+        }
+
     fun fileExistsInPersistedStorage(filename: String): Boolean =
         File(context.filesDir, filename).exists()
 

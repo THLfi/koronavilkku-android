@@ -95,6 +95,9 @@ class DiagnosisKeyService @Inject constructor (
         val keyFiles = mutableListOf<File>()
 
         return withContext(Dispatchers.IO) {
+            // delete files possibly left over from previous downloads, if deleting after download failed
+            removeOldFiles()
+
             val lastBatchId = appStateRepository.getDiagnosisKeyBatchId()
             Timber.d("Checking for new key files, last batch id: %s", lastBatchId)
 
@@ -122,6 +125,17 @@ class DiagnosisKeyService @Inject constructor (
                 files = keyFiles,
                 exposureConfig = reloadExposureConfig()
             )
+        }
+    }
+
+    private fun removeOldFiles() {
+        try {
+            systemOperations.listFilesInPersistedStorage(".$KEY_FILE_EXTENSION")?.forEach {
+                Timber.d("Deleting old file: ${it.absolutePath}")
+                it.delete()
+            }
+        } catch (t: Throwable) {
+            Timber.e(t, "Failed to delete old key files")
         }
     }
 
@@ -157,7 +171,7 @@ class DiagnosisKeyService @Inject constructor (
     private fun String.isValidCountryCode() = Locale.getISOCountries().contains(this) && this != FINLAND_CODE
 
     private fun createLocalFile(): File {
-        val filename = "${UUID.randomUUID()}.tmp"
+        val filename = "${UUID.randomUUID()}.$KEY_FILE_EXTENSION"
         return systemOperations.createFileInPersistedStorage(filename)
     }
 
@@ -179,6 +193,7 @@ class DiagnosisKeyService @Inject constructor (
         const val FAKE_TOKEN = "000000000000"
         private val AUTH_HTTP_ERRORS = setOf(400, 403)
         const val FINLAND_CODE = "FI"
+        const val KEY_FILE_EXTENSION = "tmp"
     }
 }
 

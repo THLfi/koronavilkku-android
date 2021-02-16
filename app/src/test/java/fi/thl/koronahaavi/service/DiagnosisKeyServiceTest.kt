@@ -7,8 +7,7 @@ import fi.thl.koronahaavi.utils.TestData
 import io.mockk.*
 import kotlinx.coroutines.runBlocking
 import okhttp3.ResponseBody.Companion.toResponseBody
-import org.junit.Assert.assertEquals
-import org.junit.Assert.assertTrue
+import org.junit.Assert.*
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -42,6 +41,7 @@ class DiagnosisKeyServiceTest {
         coEvery { backendService.listDiagnosisKeyBatches(any()) } returns DiagnosisKeyBatches(batches)
         coEvery { backendService.getDiagnosisKeyFile(any()) } returns "test".toResponseBody()
         every { systemOperations.createFileInPersistedStorage(any()) } returns folder.newFile()
+        every { systemOperations.listFilesInPersistedStorage(any()) } returns emptyArray()
         coEvery { backendService.getConfiguration() } returns TestData.exposureConfiguration()
         every { settingsRepository.appConfiguration } returns TestData.appConfig
 
@@ -172,6 +172,18 @@ class DiagnosisKeyServiceTest {
             val savedConfig = slot<ExposureConfigurationData>()
             verify { settingsRepository.updateExposureConfiguration(capture(savedConfig)) }
             assertEquals(expectedCountries, savedConfig.captured.participatingCountries)
+        }
+    }
+
+    @Test
+    fun deletesOldFile() {
+        val old = folder.newFile("old.tmp")
+        every { systemOperations.listFilesInPersistedStorage(any()) } returns arrayOf(old)
+
+        runBlocking {
+            assertTrue(old.exists())
+            diagnosisKeyService.downloadDiagnosisKeyFiles()
+            assertFalse(old.exists())
         }
     }
 
