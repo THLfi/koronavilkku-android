@@ -102,7 +102,7 @@ class DiagnosisKeyService @Inject constructor (
             Timber.d("List batches returned ${listBatchesResult.batches.size} batches to download")
 
             listBatchesResult.batches.forEach { batchId ->
-                createTempLocalFile().let { file ->
+                createLocalFile().let { file ->
                     file.outputStream().use { output ->
                         Timber.d("Downloading batch $batchId to file ${file.absolutePath}")
                         if (safeFileDownload(batchId, output)) {
@@ -156,9 +156,9 @@ class DiagnosisKeyService @Inject constructor (
 
     private fun String.isValidCountryCode() = Locale.getISOCountries().contains(this) && this != FINLAND_CODE
 
-    private fun createTempLocalFile(): File {
+    private fun createLocalFile(): File {
         val filename = "${UUID.randomUUID()}.tmp"
-        return systemOperations.createFileInCache(filename)
+        return systemOperations.createFileInPersistedStorage(filename)
     }
 
     private suspend fun safeFileDownload(batchId: BatchId, out: FileOutputStream): Boolean {
