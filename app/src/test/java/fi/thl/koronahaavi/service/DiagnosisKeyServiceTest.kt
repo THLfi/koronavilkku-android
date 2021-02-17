@@ -41,7 +41,7 @@ class DiagnosisKeyServiceTest {
         coEvery { appStateRepository.getDiagnosisKeyBatchId() } returns "batch_id"
         coEvery { backendService.listDiagnosisKeyBatches(any()) } returns DiagnosisKeyBatches(batches)
         coEvery { backendService.getDiagnosisKeyFile(any()) } returns "test".toResponseBody()
-        every { systemOperations.createFileInPersistedStorage(any()) } returns folder.newFile()
+        every { systemOperations.createFileInCache(any()) } returns folder.newFile()
         coEvery { backendService.getConfiguration() } returns TestData.exposureConfiguration()
         every { settingsRepository.appConfiguration } returns TestData.appConfig
 
