@@ -94,7 +94,8 @@ class GuidePagerAdapter(
             NotificationGuidePageFragment.create(
                     pageNum = position + 1,
                     pageCount = itemCount,
-                    textResId = it.textResId,
+                    bodyTextResId = it.bodyTextResId,
+                    titleTextResId = it.titleTextResId,
                     imageResId = it.imageResId
             )
         } ?: throw Exception("Invalid fragment position $position")

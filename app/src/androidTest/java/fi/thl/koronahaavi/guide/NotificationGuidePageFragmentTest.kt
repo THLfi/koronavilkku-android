@@ -8,6 +8,7 @@ import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
 import fi.thl.koronahaavi.R
 import fi.thl.koronahaavi.checkHasText
+import fi.thl.koronahaavi.checkIsGone
 import fi.thl.koronahaavi.di.AppModule
 import fi.thl.koronahaavi.di.DatabaseModule
 import fi.thl.koronahaavi.di.ExposureNotificationModule
@@ -29,11 +30,11 @@ class NotificationGuidePageFragmentTest {
     }
 
     @Test
-    fun test() {
+    fun pageWithoutTitle() {
         launchFragmentInHiltContainer<NotificationGuidePageFragment>(fragmentArgs = bundleOf(
-                NotificationGuidePageFragment.ARG_CURRENT_PAGE_ID to 1,
+                NotificationGuidePageFragment.ARG_CURRENT_PAGE_ID to 2,
                 NotificationGuidePageFragment.ARG_PAGE_COUNT_ID to 5,
-                NotificationGuidePageFragment.ARG_TEXT_ID to R.string.notification_guide_text_1,
+                NotificationGuidePageFragment.ARG_BODY_TEXT_ID to R.string.notification_guide_text_1,
                 NotificationGuidePageFragment.ARG_IMAGE_ID to R.drawable.notification_guide_1
         ))
 
@@ -41,6 +42,29 @@ class NotificationGuidePageFragmentTest {
                 .checkHasText(R.string.notification_guide_text_1)
 
         onView(withId(R.id.text_notification_guide_page_number))
-                .checkHasText("1")
+                .checkHasText("2")
+
+        onView(withId(R.id.text_notification_guide_page_title)).checkIsGone()
     }
+
+    @Test
+    fun pageWithTitle() {
+        launchFragmentInHiltContainer<NotificationGuidePageFragment>(fragmentArgs = bundleOf(
+            NotificationGuidePageFragment.ARG_CURRENT_PAGE_ID to 1,
+            NotificationGuidePageFragment.ARG_PAGE_COUNT_ID to 5,
+            NotificationGuidePageFragment.ARG_BODY_TEXT_ID to R.string.notification_guide_text_1,
+            NotificationGuidePageFragment.ARG_TITLE_TEXT_ID to R.string.notification_guide_title,
+            NotificationGuidePageFragment.ARG_IMAGE_ID to R.drawable.notification_guide_1
+        ))
+
+        onView(withId(R.id.text_notification_guide_page_body))
+            .checkHasText(R.string.notification_guide_text_1)
+
+        onView(withId(R.id.text_notification_guide_page_number))
+            .checkHasText("1")
+
+        onView(withId(R.id.text_notification_guide_page_title))
+            .checkHasText(R.string.notification_guide_title)
+    }
+
 }
