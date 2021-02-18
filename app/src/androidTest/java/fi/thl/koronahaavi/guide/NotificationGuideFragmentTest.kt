@@ -41,7 +41,7 @@ class NotificationGuideFragmentTest {
 
     @Test
     fun initialState() {
-        onView(withId(R.id.text_notification_guide_title))
+        onView(withId(R.id.text_notification_guide_page_title))
             .checkHasText(R.string.notification_guide_title)
 
         onView(withId(R.id.page_indicator_notification_guide))

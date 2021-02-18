@@ -27,15 +27,32 @@ class NotificationGuideViewModel : ViewModel() {
     val showPrevious: LiveData<Boolean> = currentPage.map { it > 0 }
 
     val pages = listOf(
-            PageContent(R.drawable.notification_guide_1, R.string.notification_guide_text_1),
-            PageContent(R.drawable.notification_guide_2, R.string.notification_guide_text_2),
-            PageContent(R.drawable.notification_guide_3, R.string.notification_guide_text_3),
-            PageContent(R.drawable.notification_guide_4, R.string.notification_guide_text_4),
-            PageContent(R.drawable.notification_guide_5, R.string.notification_guide_text_5)
+            PageContent(
+                    imageResId = R.drawable.notification_guide_1,
+                    bodyTextResId = R.string.notification_guide_text_1,
+                    titleTextResId = R.string.notification_guide_title
+            ),
+            PageContent(
+                    imageResId = R.drawable.notification_guide_2,
+                    bodyTextResId = R.string.notification_guide_text_2
+            ),
+            PageContent(
+                    imageResId = R.drawable.notification_guide_3,
+                    bodyTextResId = R.string.notification_guide_text_3
+            ),
+            PageContent(
+                    imageResId = R.drawable.notification_guide_4,
+                    bodyTextResId = R.string.notification_guide_text_4
+            ),
+            PageContent(
+                    imageResId = R.drawable.notification_guide_5,
+                    bodyTextResId = R.string.notification_guide_text_5
+            )
     )
 }
 
 data class PageContent(
         @DrawableRes val imageResId: Int,
-        @StringRes val textResId: Int,
+        @StringRes val bodyTextResId: Int,
+        @StringRes val titleTextResId: Int? = null
 )
