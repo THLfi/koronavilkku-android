@@ -1,15 +1,17 @@
 package fi.thl.koronahaavi.service
 
 import android.content.Context
-import androidx.hilt.Assisted
-import androidx.hilt.work.WorkerInject
+import androidx.hilt.work.HiltWorker
 import androidx.work.*
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedInject
 import fi.thl.koronahaavi.data.AppStateRepository
 import timber.log.Timber
 import java.security.SecureRandom
 import java.util.concurrent.TimeUnit
 
-class DiagnosisKeySendTrafficCoverWorker @WorkerInject constructor(
+@HiltWorker
+class DiagnosisKeySendTrafficCoverWorker @AssistedInject constructor(
     @Assisted private val context: Context,
     @Assisted workerParams: WorkerParameters,
     private val exposureNotificationService: ExposureNotificationService,

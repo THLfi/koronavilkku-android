@@ -190,6 +190,7 @@ dependencies {
     kapt "com.google.dagger:hilt-android-compiler:$hiltVersion"
     implementation "androidx.hilt:hilt-lifecycle-viewmodel:$hiltAndroidXVersion"
     implementation "androidx.hilt:hilt-work:$hiltAndroidXVersion"
+    implementation "androidx.hilt:hilt-navigation-fragment:$hiltAndroidXVersion"
     kapt "androidx.hilt:hilt-compiler:$hiltAndroidXVersion"
 
     kaptTest "androidx.hilt:hilt-compiler:$hiltAndroidXVersion"
@@ -202,7 +203,7 @@ dependencies {
     // Google Play (also aar file included from libs folder)
     implementation "com.google.android.gms:play-services-base:$playVersion"
     implementation "com.google.android.gms:play-services-basement:$playVersion"
-    implementation 'com.google.android.gms:play-services-tasks:17.2.0'
+    implementation 'com.google.android.gms:play-services-tasks:17.2.1'
     implementation 'com.google.android.gms:play-services-oss-licenses:17.0.0'
 
     // Security

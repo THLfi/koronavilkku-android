@@ -1,11 +1,13 @@
 package fi.thl.koronahaavi.diagnosis
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
+import dagger.hilt.android.lifecycle.HiltViewModel
 import fi.thl.koronahaavi.data.AppStateRepository
 import fi.thl.koronahaavi.service.ExposureNotificationService
+import javax.inject.Inject
 
-class DiagnosisViewModel @ViewModelInject constructor(
+@HiltViewModel
+class DiagnosisViewModel @Inject constructor(
     appStateRepository: AppStateRepository,
     exposureNotificationService: ExposureNotificationService
 ) : ViewModel() {
