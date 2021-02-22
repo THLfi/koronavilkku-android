@@ -62,8 +62,11 @@
                     text_exposure_detail_instructions_6,
                     text_exposure_detail_instructions_7,
                     text_exposure_detail_instructions_8,
+                    card_exposure_detail_more_instructions,
+                    view_exposure_detail_bottom_spacer,
                     text_exposure_detail_disclaimer_none" />
 
+                <!-- elements shown when have exposures -->
                 <androidx.constraintlayout.widget.Group
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -79,18 +82,33 @@
                     text_exposure_detail_instructions_5,
                     text_exposure_detail_instructions_6,
                     text_exposure_detail_instructions_7,
-                    text_exposure_detail_instructions_8"
+                    text_exposure_detail_instructions_8,
+                    card_exposure_detail_more_instructions,
+                    view_exposure_detail_bottom_spacer"
                     android:visibility="@{model.hasExposures ? View.VISIBLE : View.GONE}"
-                    tools:visibility="visible"/>
+                    tools:visibility="gone"/>
+
+                <!-- elements shown when do not have exposures -->
+                <androidx.constraintlayout.widget.Group
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:constraint_referenced_ids="
+                        text_exposure_detail_none_title,
+                        text_exposure_detail_last_check,
+                        view_exposure_detail_spacer,
+                        text_exposure_detail_disclaimer_none,
+                        text_exposure_detail_notification_guide,
+                        text_exposure_detail_app_info"
+                    android:visibility="@{model.hasExposures ? View.GONE : View.VISIBLE}"
+                    tools:visibility="visible"
+                    />
 
                 <TextView
                     android:id="@+id/text_exposure_detail_none_title"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:textAppearance="?attr/textAppearanceHeadline2"
-                    android:text="@string/exposure_detail_title_none"
-                    android:visibility="@{model.hasExposures ? View.GONE : View.VISIBLE}"
-                    tools:visibility="gone"/>
+                    android:text="@string/exposure_detail_title_none"/>
 
                 <TextView
                     android:id="@+id/text_exposure_detail_last_check"
@@ -98,9 +116,7 @@
                     android:layout_height="wrap_content"
                     android:paddingBottom="15dp"
                     android:textAppearance="?attr/textAppearanceBody2"
-                    android:visibility="@{model.hasExposures ? View.GONE : View.VISIBLE}"
-                    tools:text="@string/exposure_detail_last_check"
-                    tools:visibility="gone"/>
+                    tools:text="@string/exposure_detail_last_check" />
 
                 <com.google.android.material.card.MaterialCardView
                     android:id="@+id/card_exposure_detail_check_delayed"
@@ -143,9 +159,7 @@
                 <View
                     android:id="@+id/view_exposure_detail_spacer"
                     android:layout_width="0dp"
-                    android:layout_height="10dp"
-                    android:visibility="@{model.hasExposures ? View.GONE : View.VISIBLE}"
-                    tools:visibility="gone"/>
+                    android:layout_height="10dp" />
 
                 <TextView
                     android:id="@+id/text_exposure_detail_message"
@@ -164,7 +178,8 @@
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="20dp">
+                        android:padding="20dp"
+                        android:clipToPadding="false">
 
                         <androidx.constraintlayout.helper.widget.Flow
                             android:layout_width="0dp"
@@ -282,6 +297,7 @@
                     android:id="@+id/text_exposure_detail_instructions_7"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:paddingBottom="10dp"
                     android:text="@string/exposure_detail_instructions_7"
                     android:textAppearance="?attr/textAppearanceBody2"
                     />
@@ -290,31 +306,57 @@
                     android:id="@+id/text_exposure_detail_instructions_8"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:paddingBottom="20dp"
+                    android:paddingBottom="10dp"
                     android:text="@string/exposure_detail_instructions_8"
                     android:textAppearance="?attr/textAppearanceBody2"
+                    />
+
+                <include
+                    android:id="@+id/card_exposure_detail_more_instructions"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    layout="@layout/link_item_card"
+                    app:label="@{@string/exposure_detail_more_instructions_title}"
+                    app:link="@{@string/exposure_detail_more_instructions_link_name}"
+                    />
+
+                <View
+                    android:id="@+id/view_exposure_detail_bottom_spacer"
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
                     />
 
                 <TextView
                     android:id="@+id/text_exposure_detail_disclaimer_none"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:visibility="@{model.hasExposures ? View.GONE : View.VISIBLE}"
                     android:text="@string/exposure_detail_disclaimer_none"
                     android:textAppearance="?attr/textAppearanceBody2"
-                    tools:visibility="visible"
                     />
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/button_exposure_detail_app_info"
-                    android:layout_width="wrap_content"
+                <TextView
+                    android:id="@+id/text_exposure_detail_notification_guide"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    app:layout_constraintTop_toBottomOf="@+id/flow_exposure_detail_body"
+                    app:layout_constraintTop_toBottomOf="@id/flow_exposure_detail_body"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    android:visibility="@{model.hasExposures ? View.GONE : View.VISIBLE}"
-                    style="?attr/borderlessButtonStyle"
-                    android:text="@string/all_app_additional_info"
-                    tools:visibility="visible"/>
+                    android:layout_marginTop="30dp"
+                    android:paddingBottom="15dp"
+                    android:text="@string/home_show_notification_guide"
+                    style="@style/Widget.Vilkku.TextView.Link.TopBorder"
+                    />
+                <TextView
+                    android:id="@+id/text_exposure_detail_app_info"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintTop_toBottomOf="@id/text_exposure_detail_notification_guide"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:paddingBottom="15dp"
+                    android:text="@string/exposure_detail_app_info"
+                    style="@style/Widget.Vilkku.TextView.Link.VerticalBorders"
+                    />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>

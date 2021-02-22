@@ -7,13 +7,37 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## Unreleased
 
 ### Added
+- Guide fragment for displaying pages of exposure notification instructions
+
+### Changed
+- Home and exposure screen UI layout and elements
+- Google exposure notification sdk and work manager dependency update
+
+## [2.1.0](https://github.com/THLfi/koronavilkku-android/compare/v2.0.2...v2.1.0) - 2021-02-15
+This is an initial release to Huawei App Gallery, and version update is not deployed to Google Play Store.
+
+### Changed
+- Modify http client user agent for Huawei build
+
+## [2.0.2](https://github.com/THLfi/koronavilkku-android/compare/v2.0.1...v2.0.2) - 2021-02-01
+
+### Changed
+- UI text and background functionality updates related to quarantine time changing from 10 to 14 days in national guidelines for COVID-19
+
+## [2.0.1](https://github.com/THLfi/koronavilkku-android/compare/v2.0.0...v2.0.1) - 2021-01-13
+
+### Changed
+- Http client timeouts increased to allow for network congestion
+
+## [2.0.0](https://github.com/THLfi/koronavilkku-android/compare/v1.2.1...v2.0.0) - 2021-01-07
+
+### Added
 - User consent and travel information choices required for EFGS interoperability
-- Huawei only: exposure key archive signature verification
+- Huawei only (unreleased): Contact Shield exposure notification system implementation
 
 ### Changed
 - Backend API provides country codes and accepts EFGS share consent and travel selections
 - UI changes to share diagnosis screen and navigation
-- Huawei only: Always use Contact Shield for app gallery distribution
 
 ### Fixed
 - Exposure count in notification detail shows only high risk exposures

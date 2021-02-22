@@ -35,13 +35,12 @@ class HomeFragment : Fragment() {
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
-    ): View? {
-        val root = inflater.inflate(R.layout.fragment_home, container, false)
-        binding = FragmentHomeBinding.bind(root).apply {
-            this.model = viewModel
+    ): View {
+        binding = FragmentHomeBinding.inflate(inflater, container, false).apply {
+            model = viewModel
         }
 
-        binding.lifecycleOwner = this.viewLifecycleOwner
+        binding.lifecycleOwner = viewLifecycleOwner
         return binding.root
     }
 
@@ -53,11 +52,11 @@ class HomeFragment : Fragment() {
                 findNavController().navigateSafe(HomeFragmentDirections.toSymptoms())
             }
 
-            cardHomePrevention.cardContainer.setOnClickListener {
+            textHomePrevention.setOnClickListener {
                 openLink(getString(R.string.home_prevention_url))
             }
 
-            cardHomeStatistics.cardContainer.setOnClickListener {
+            textHomeStatistics.setOnClickListener {
                 openLink(getString(R.string.home_statistics_url))
             }
 
@@ -79,12 +78,16 @@ class HomeFragment : Fragment() {
                 enableSystem()
             }
 
-            buttonHomeAppGuide.setOnClickListener {
+            textHomeAppGuide.setOnClickListener {
                 activity?.openGuide()
             }
 
             layoutButtonHomeExposureCheck.button.setOnClickListener {
                 startManualExposureCheck()
+            }
+
+            textHomeShowNotificationGuide.setOnClickListener {
+                findNavController().navigateSafe(HomeFragmentDirections.toNotificationGuide())
             }
         }
 

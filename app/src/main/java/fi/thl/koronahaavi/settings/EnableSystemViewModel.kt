@@ -18,8 +18,8 @@ class EnableSystemViewModel @ViewModelInject constructor(
     deviceStateRepository: DeviceStateRepository
 ) : ViewModel() {
 
-    private val enableResolutionRequiredEvent = MutableLiveData<Event<Status>>()
-    fun enableResolutionRequired(): LiveData<Event<Status>> = enableResolutionRequiredEvent
+    private val enableResolutionRequiredEvent = MutableLiveData<Event<ApiErrorResolver>>()
+    fun enableResolutionRequired(): LiveData<Event<ApiErrorResolver>> = enableResolutionRequiredEvent
 
     private val enableENErrorEvent = MutableLiveData<Event<EnableENError>>()
     fun enableErrorEvent(): LiveData<Event<EnableENError>> = enableENErrorEvent
@@ -48,7 +48,7 @@ class EnableSystemViewModel @ViewModelInject constructor(
         return when (val result = exposureNotificationService.enable()) {
             is ResolvableResult.Success -> true
             is ResolvableResult.ResolutionRequired -> {
-                enableResolutionRequiredEvent.postValue(Event(result.status))
+                enableResolutionRequiredEvent.postValue(Event(result.errorResolver))
                 false
             }
             is ResolvableResult.Failed -> {

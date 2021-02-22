@@ -106,6 +106,11 @@
         <item name="android:paddingRight">0dp</item>
     </style>
 
+    <style name="Widget.Vilkku.Button.PageNav" parent="Widget.MaterialComponents.Button.TextButton">
+        <item name="android:textAppearance">@style/TextAppearance.Vilkku.LabelSecondary</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
     <style name="Widget.Vilkku.Button.SmallButton" parent="Widget.MaterialComponents.Button">
         <item name="shapeAppearance">@style/ShapeAppearance.MaterialComponents.SmallComponent</item>
         <item name="cornerRadius">8dp</item>
@@ -166,10 +171,40 @@
         <item name="android:paddingEnd">10dp</item>
     </style>
 
+    <style name="Widget.Vilkku.TextView.Badge.Round" parent="@style/Widget.MaterialComponents.TextView">
+        <item name="android:background">@drawable/shape_circle</item>
+        <item name="android:backgroundTint">@color/mainBlue</item>
+        <item name="android:textColor">?attr/colorOnPrimary</item>
+        <item name="android:textAppearance">?attr/textAppearanceHeadline4</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <style name="Widget.Vilkku.TextView.Link" parent="@style/Widget.MaterialComponents.TextView">
+        <item name="drawableEndCompat">@drawable/ic_chevron_right</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textAppearance">?attr/textAppearanceCaption</item>
+        <item name="android:textColor">@color/textDarkGrey</item>
+    </style>
+
+    <style name="Widget.Vilkku.TextView.Link.TopBorder">
+        <item name="android:paddingTop">15dp</item>
+        <item name="android:background">@drawable/top_border</item>
+    </style>
+
+    <style name="Widget.Vilkku.TextView.Link.VerticalBorders">
+        <item name="android:paddingTop">15dp</item>
+        <item name="android:paddingBottom">15dp</item>
+        <item name="android:background">@drawable/vertical_borders</item>
+    </style>
+
     <style name="Widget.Vilkku.ImageView.Exposure" parent="">
         <item name="android:background">@drawable/shape_circle</item>
         <item name="android:padding">10dp</item>
         <item name="android:tint">?attr/colorOnPrimary</item>
+    </style>
+
+    <style name="Widget.Vilkku.StepIndicatorView" parent="">
+        <item name="indicatorSize">10dp</item>
     </style>
 
     <style name="TextAppearance.Vilkku.Heading1" parent="TextAppearance.MaterialComponents.Headline1">

@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="none">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/image_notification_guide_page"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHeight_max="@dimen/notification_guide_image_max_height"
+            android:layout_marginTop="20dp"
+            android:layout_marginHorizontal="30dp"
+            android:contentDescription="@null"
+            tools:src="@drawable/notification_guide_3"
+            />
+        <TextView
+            android:id="@+id/text_notification_guide_page_number"
+            android:layout_width="@dimen/notification_guide_page_number_size"
+            android:layout_height="@dimen/notification_guide_page_number_size"
+            app:layout_constraintTop_toTopOf="@id/image_notification_guide_page"
+            app:layout_constraintStart_toStartOf="@id/image_notification_guide_page"
+            android:layout_marginStart="10dp"
+            style="@style/Widget.Vilkku.TextView.Badge.Round"
+            tools:text="1"
+            />
+        <TextView
+            android:id="@+id/text_notification_guide_page_title"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/image_notification_guide_page"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:paddingHorizontal="20dp"
+            tools:text="@tools:sample/lorem/random"
+            tools:lines="2"
+            android:textAppearance="?attr/textAppearanceHeadline2"
+            android:hyphenationFrequency="normal"
+            />
+        <TextView
+            android:id="@+id/text_notification_guide_page_body"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/text_notification_guide_page_title"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="10dp"
+            app:layout_goneMarginTop="0dp"
+            android:paddingHorizontal="20dp"
+            android:paddingBottom="20dp"
+            tools:text="@tools:sample/lorem/random"
+            tools:lines="10"
+            android:textAppearance="?attr/textAppearanceBody2"
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

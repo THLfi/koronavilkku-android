@@ -2,6 +2,7 @@
     <string name="app_name">Koronavilkku</string>
 
     <string name="all_next">Next</string>
+    <string name="all_previous">Previous</string>
     <string name="all_cancel">Cancel</string>
     <string name="all_thl_image_description">Finnish Institute for Health and Welfare</string>
     <string name="all_today">today</string>
@@ -30,8 +31,6 @@
     <string name="diagnosis_locked_body1">The information you have reported will help to tackle the coronavirus epidemic. The app is now locked and no longer collects information about nearby phones. We wish you a quick recovery!</string>
     <string name="diagnosis_locked_image_description">Locked</string>
 
-    <string name="diagnosis_instructions_1">You will need a key code to report your infection. The key code does not reveal your identity.</string>
-
     <string name="code_entry_title">Enter your key code</string>
     <string name="code_entry_submit">Send</string>
     <string name="code_entry_invalid">The key code is invalid or has expired. Please check that you have entered the exact code you received.</string>
@@ -52,9 +51,10 @@
     <string name="home_exposure_instructions">See instructions</string>
     <string name="home_exposure_check">Check now</string>
     <string name="home_notifications_unknown" translatable="false">!</string>
+    <string name="home_show_notification_guide">If you receive an exposure notification follow these instructions</string>
 
     <string name="home_symptom_label">Do you think you may have COVID-19?</string>
-    <string name="home_prevention_label">Protect yourself</string>
+    <string name="home_prevention_label">How to protect yourself from an infection</string>
     <string name="home_prevention_url">https://thl.fi/en/web/infectious-diseases-and-vaccinations/what-s-new/coronavirus-covid-19-latest-updates/transmission-and-protection-coronavirus</string>
     <string name="home_statistics_label">COVID-19 in Finland</string>
     <string name="home_statistics_url">https://thl.fi/en/web/infectious-diseases-and-vaccinations/what-s-new/coronavirus-covid-19-latest-updates/situation-update-on-coronavirus</string>
@@ -103,15 +103,15 @@
 
     <string name="exposure_detail_title">Potential exposure</string>
 
-    <string name="exposure_detail_message">In the past 10 days, you have been close to a person who has reported a COVID-19 infection.</string>
+    <string name="exposure_detail_message">In the past 14 days, you have been close to a person who has reported a COVID-19 infection.</string>
 
     <string name="exposure_detail_contact_title">Contact healthcare services</string>
-    <string name="exposure_detail_contact_subtitle">Information about your potential exposure will only be communicated to healthcare services if you contact them yourself.</string>
+    <string name="exposure_detail_contact_subtitle">Contact healthcare services even if you do not have any symptoms consistent with COVID-19. Healthcare services will give you instructions and evaluate your need for a coronavirus test.</string>
     <string name="exposure_detail_contact_start">Contact</string>
 
     <string name="exposure_detail_title_none">No observed exposures</string>
 
-    <string name="exposure_detail_message_none">Koronavilkku has not detected exposures to the coronavirus in the last 10 days.</string>
+    <string name="exposure_detail_message_none">According to the information collected by Koronavilkku, you have not been near a person who has reported an infection within the last 14 days.</string>
     <string name="exposure_detail_disclaimer_none">However, the application is not able to identify every situation where exposure may occur.</string>
     <string name="exposure_detail_last_check">Last checked %s</string>
     <string name="exposure_detail_no_last_check">No checks yet</string>
@@ -119,19 +119,24 @@
     <string name="exposure_detail_notifications_title">Show exposure notifications</string>
 
     <string name="exposure_detail_instructions_title">What should I do?</string>
-    <string name="exposure_detail_instructions_subtitle">Follow these instructions for 10 days:</string>
-    <string name="exposure_detail_instructions_1">Monitor your health. If you develop any symptom consistent with COVID-19, contact your municipal healthcare service and get tested as soon as possible. Symptoms consistent with COVID-19 are change in sense of smell or taste, shortness of breath, cough, sore throat, runny nose, fever, headaches, muscle pain, unexplained diarrhoea or abdominal pain.</string>
-    <string name="exposure_detail_contact_instructions_1">If you develop symptoms, get tested</string>
+    <string name="exposure_detail_instructions_subtitle">Follow the instructions below for 14 days. Continue to follow the instructions even if you receive a negative coronavirus test result.</string>
+    <string name="exposure_detail_instructions_1">Monitor your health. If you develop any symptom consistent with COVID-19, get tested for the coronavirus even if you have already been tested. Symptoms consistent with COVID-19 are change in sense of smell or taste, shortness of breath, cough, sore throat, runny nose, fever, headaches, muscle pain, unexplained diarrhoea or abdominal pain.</string>
     <string name="exposure_detail_instructions_2">Avoid meeting other people.</string>
     <string name="exposure_detail_instructions_3">Maintain good hand hygiene.</string>
-    <string name="exposure_detail_instructions_4">Avoid public places and public transport. If you have to visit public places, keep at least a two-meter distance to other people. If you cannot keep a sufficient distance, use a face mask.</string>
+    <string name="exposure_detail_instructions_4">Avoid public places and public transport. If you have to visit public places, keep at least a two-meter distance to other people. Also use a face mask.</string>
     <string name="exposure_detail_instructions_5">If possible, let someone else handle food shopping and other errands outside the home.</string>
     <string name="exposure_detail_instructions_6">If you cough or sneeze, use a disposable tissue to cover your mouth and nose. Put the used tissue in a waste bin and wash your hands with water and soap or use hand sanitiser. If you do not have a tissue, cough or sneeze into your sleeve.</string>
     <string name="exposure_detail_instructions_7">Work remotely if possible.</string>
     <string name="exposure_detail_instructions_8">If you are not in Finland, follow any instructions given by local authorities.</string>
 
+    <string name="exposure_detail_more_instructions_title">See more detailed instructions</string>
+    <string name="exposure_detail_more_instructions_link_name">thl.fi</string>
+    <string name="exposure_detail_more_instructions_link">https://thl.fi/en/web/infectious-diseases-and-vaccinations/what-s-new/coronavirus-covid-19-latest-updates/symptoms-and-treatment-coronavirus</string>
+
+    <string name="exposure_detail_app_info">About Koronavilkku</string>
+
     <string name="notification_list_title">Exposure notifications</string>
-    <string name="notification_list_disclaimer">The assessment of your exposure is based on encounters that Koronavilkku has collected during the last 10 days. The intensity of exposure cannot be accurately assessed.</string>
+    <string name="notification_list_disclaimer">The assessment of your exposure is based on encounters that Koronavilkku has collected during the last 14 days. The intensity of exposure cannot be accurately assessed.</string>
 
     <string name="notification_item_title">Notification about potential exposure %s</string>
     <string name="notification_item_count_label">Potential exposures:</string>
@@ -185,7 +190,8 @@
     <string name="enable_note">Enable COVID-19 exposure notifications</string>
 
     <string name="enable_err_title">Exposure notifications could not be turned on</string>
-    <string name="enable_err_hms_location_permission">HMS Core needs permission to use your device\'s location before exposure notifications can be turned on. You can allow this in your device\'s settings.</string>
+    <string name="enable_err_hms_location_permission">You must allow Huawei\'s HMS Core services to use the location of your phone in order to enable exposure notifications. You can allow this in your phone\'s settings.</string>
+    <string name="enable_err_hms_update_required">You must update Huawei\'s HMS Core via App Gallery in order to enable exposure notifications.</string>
     <string name="enable_err_missing_capability">Your device is not supported</string>
     <string name="enable_err_api_not_supported">Unfortunately Google Play Services exposure notifications are not available for your device.\n\n%s</string>
     <string name="enable_err_not_owner">You are not logged into your phone as the device owner. Koronavilkku only works with the device owner\'s user profile.\n\nYou can switch between profiles by swiping down from the top of the home screen with two fingers and tapping the Switch User button.</string>
@@ -195,6 +201,7 @@
     <string name="enable_err_generic">Unknown error</string>
     <string name="enable_error_api_code">An unexpected exception occurred, error code: %1$d (%2$d)</string>
     <string name="enable_err_dismiss">Close</string>
+    <string name="enable_err_hms_update">Update now</string>
 
     <string name="onboarding_done">Set-up complete!</string>
 
@@ -209,7 +216,7 @@
     <string name="accept_terms_personal_title">About personal information</string>
     <string name="accept_terms_personal_text">Koronavilkku does not store your name, date of birth or contact information. It cannot determine your identity or the identity of the people you come close to.\n\nThe application does not collect location data.</string>
     <string name="accept_terms_usage_title">How the app uses your data</string>
-    <string name="accept_terms_usage_text">The app informs the server that the app is running. If you contact healthcare services through the app, the app will also provide information that you may have been exposed to COVID-19.\n\nAll communication between Koronavilkku and the server is encrypted.\n\nThe data is stored anonymously on a server located in Finland, and this server is managed by public administration bodies. The data is deleted when it is no longer needed. At the latest, it is deleted on 31 March 2021.</string>
+    <string name="accept_terms_usage_text">The app informs the server that the app is running. If you contact healthcare services through the app, the app will also provide information that you may have been exposed to COVID-19.\n\nAll communication between Koronavilkku and the server is encrypted.\n\nThe data is stored anonymously on a server located in Finland, and this server is managed by public administration bodies. The information system is only in use for the period specified in the Communicable Diseases Act. The information system and its data will be deleted when the system is no longer needed.</string>
     <string name="accept_terms_voluntary_title">Use is voluntary</string>
     <string name="accept_terms_voluntary_text">You do not have to use Koronavilkku. You can stop using it at any time by removing the app from your phone.</string>
 
@@ -229,14 +236,19 @@
     <string name="municipality_no_results">"No municipality found "</string>
 
 
-    <string name="contact_evaluation_title">Take a symptom assessment in Omaolo</string>
-    <string name="contact_evaluation_body">We recommend that you contact healthcare services by taking the COVID-19 symptom assessment in Omaolo. This is a quick and easy way to make initial contact online and helps the healthcare professionals in their work. It takes approximately 5–10 minutes to take the symptom assessment.</string>
+    <string name="contact_evaluation_title">Contact healthcare via the Omaolo symptom assessment</string>
+    <string name="contact_evaluation_body">Complete a symptom assessment in the Omaolo service; after this, you will be given instructions and an evaluation of whether you need a coronavirus test.  Complete a symptom assessment even if you do not have any symptoms suitable for the coronavirus disease. Filling in the symptom checker takes approximately 5–10 minutes.</string>
     <string name="contact_evaluation_start">Take assessment</string>
     <string name="contact_evaluation_footer">If you are under 15 years old, ask your guardian to use Omaolo on your behalf.</string>
     <string name="contact_evaluation_other_title">Other contact methods</string>
-    <string name="contact_evaluation_other_sub_title">Alternatively, you can contact your municipal healthcare services in another way:</string>
+    <string name="contact_evaluation_other_sub_title">Alternatively, you can contact the municipal healthcare services in another way:</string>
     <string name="card_contact_request_title">Send a contact request</string>
     <string name="card_contact_request_link_name">Only for people without symptoms (not for children under 15)</string>
+    <string name="contact_title">Contact healthcare services</string>
+    <string name="contact_body">Contact healthcare services even if you do not have any symptoms consistent with COVID-19. Healthcare services will give you instructions and evaluate your need for a coronavirus test.</string>
+    <string name="contact_instructions_title">First contact healthcare services by phone or online</string>
+    <string name="contact_instructions_body">Contact healthcare services by phone or online before going to a healthcare facility.\n\nIf your condition is very poor, contact an emergency clinic. If your life is in danger, call the emergency number 112.</string>
+
     <string name="info_icon">Info</string>
 
     <string name="test_title" translatable="false">Testi</string>
@@ -313,6 +325,15 @@
     <string name="summary_consent_accept_use">My encounter data and the estimated period of when I could have infected others may be shared with Koronavilkku for the purpose of breaking transmission chains.\n\nI give this consent voluntarily. My consent has not been required in a healthcare customer service situation nor in a procedure of authority.</string>
     <string name="summary_consent_accept_share">My encounter data, the travel information I have selected above, and the estimated period of when I could have infected others may be shared to COVID-19 applications used in the EU, EEA, Switzerland and the United Kingdom for the purpose of breaking transmission chains.</string>
     <string name="summary_consent_no_cancellation">Once you have sent the information, you cannot withdraw your consent.</string>
+
+    <string name="notification_guide_title">If you receive an exposure notification follow these instructions</string>
+    <string name="notification_guide_text_1">If you have been near a person who has reported their coronavirus infection via the application, you will receive a notification of potential exposure to your phone. Tap on the notification to open Koronavilkku.</string>
+    <string name="notification_guide_text_2">Press the red See instructions button.</string>
+    <string name="notification_guide_text_3">You will receive instructions on what to do. You will also receive instructions on how to contact a healthcare provider. Read the instructions and press the Contact button.</string>
+    <string name="notification_guide_text_4">Select the municipality. You can contact the healthcare services via the contact methods provided by the municipality, such as via the Omaolo online service or by telephone.</string>
+    <string name="notification_guide_text_5">The healthcare services will give you more detailed instructions and evaluate your need for a coronavirus test.</string>
+
+    <string name="notification_guide_page_content_description">Step %1$d of %2$d</string>
 
     <plurals name="exposure_notification_count">
         <item quantity="one">%d notification</item>

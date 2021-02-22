@@ -98,8 +98,10 @@ data class AppConfiguration(
     val exposureValidDays: Int
 )
 
+@JsonClass(generateAdapter = true)
 data class InitialBatchId(val current: BatchId)
 
+@JsonClass(generateAdapter = true)
 data class DiagnosisKeyBatches(val batches: List<BatchId>)
 
 class NumericBooleanAdapter{

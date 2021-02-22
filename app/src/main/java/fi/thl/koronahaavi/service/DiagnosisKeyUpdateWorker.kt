@@ -108,7 +108,7 @@ class DiagnosisKeyUpdateWorker @WorkerInject constructor(
             }
             is ResolvableResult.ResolutionRequired -> {
                 // this should not occur from provideDiagnosisKeys API call but handling it anyway
-                Timber.e("provideDiagnosisKeys call failed requiring resolution, status code: %d", result.status.statusCode)
+                Timber.e("provideDiagnosisKeys call failed requiring resolution")
                 false
             }
             is ResolvableResult.HmsCanceled -> false

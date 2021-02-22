@@ -2,7 +2,7 @@ name: Check latest release dependencies
 
 on:
   schedule:
-    - cron:  "30 5 * * *" # this is utc time
+    - cron:  "31 5 * * *" # this is utc time
 
 jobs:
   release-dependency-scan:
@@ -18,7 +18,7 @@ jobs:
       - name: Checkout latest release
         run: |
           git fetch --all --tags --prune
-          export LATEST_TAG=$(git tag | sed '/-/d' | sort -t "." -k1,1n -k2,2n -k3,3n | tail -1)
+          export LATEST_TAG=$(git tag | sed '/-/d' | sort -t "." -k1,1 -k2,2n -k3,3n | tail -1)
           export OWASP_UPDATES_BRANCH=$(git ls-remote --heads origin ${LATEST_TAG}_owasp_updates)
           if [[ -z ${OWASP_UPDATES_BRANCH} ]]; then git checkout "tags/${LATEST_TAG}" -b latest_release; else git checkout "${LATEST_TAG}_owasp_updates"; fi
       - name: Cache Gradle cache and wrapper
@@ -45,7 +45,7 @@ jobs:
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
         with:
-          text: "OWASP dependency check"
+          text: "OWASP dependency check - release"
           status: ${{job.status}}
       - name: Notify by email
         if: ${{ failure() }}

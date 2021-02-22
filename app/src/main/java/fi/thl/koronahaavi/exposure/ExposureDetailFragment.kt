@@ -31,10 +31,9 @@ class ExposureDetailFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val root = inflater.inflate(R.layout.fragment_exposure_detail, container, false)
-        binding = FragmentExposureDetailBinding.bind(root).apply {
-            this.model = viewModel
+    ): View {
+        binding = FragmentExposureDetailBinding.inflate(inflater, container, false).apply {
+            model = viewModel
         }
 
         binding.lifecycleOwner = this.viewLifecycleOwner
@@ -60,8 +59,12 @@ class ExposureDetailFragment : Fragment() {
                 findNavController().navigateSafe(ExposureDetailFragmentDirections.toSelectMunicipality())
             }
 
-            buttonExposureDetailAppInfo.setOnClickListener {
+            textExposureDetailAppInfo.setOnClickListener {
                 activity?.openGuide()
+            }
+
+            textExposureDetailNotificationGuide.setOnClickListener {
+                findNavController().navigateSafe(ExposureDetailFragmentDirections.toNotificationGuide())
             }
 
             layoutButtonExposureDetailCheck.button.setOnClickListener {
@@ -74,6 +77,10 @@ class ExposureDetailFragment : Fragment() {
 
             layoutExposureDetailNotifications.linkItemCard.setOnClickListener {
                 findNavController().navigateSafe(ExposureDetailFragmentDirections.toNotificationList())
+            }
+
+            cardExposureDetailMoreInstructions.linkItemCard.setOnClickListener {
+                openLink(getString(R.string.exposure_detail_more_instructions_link))
             }
         }
 

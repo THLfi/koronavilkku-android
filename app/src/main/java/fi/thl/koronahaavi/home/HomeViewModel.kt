@@ -16,6 +16,7 @@ import fi.thl.koronahaavi.exposure.ExposureState
 import fi.thl.koronahaavi.exposure.ExposureStateLiveData
 import fi.thl.koronahaavi.exposure.ManualCheckShownLiveData
 import fi.thl.koronahaavi.service.ExposureNotificationService
+import fi.thl.koronahaavi.service.ExposureNotificationService.ApiErrorResolver
 import fi.thl.koronahaavi.service.ExposureNotificationService.ResolvableResult
 import fi.thl.koronahaavi.service.NotificationService
 import fi.thl.koronahaavi.service.WorkDispatcher
@@ -36,8 +37,8 @@ class HomeViewModel @ViewModelInject constructor(
 
     val isLocked = appStateRepository.lockedAfterDiagnosis().asLiveData()
 
-    private val enableResolutionRequiredEvent = MutableLiveData<Event<Status>>()
-    fun enableResolutionRequired(): LiveData<Event<Status>> = enableResolutionRequiredEvent
+    private val enableResolutionRequiredEvent = MutableLiveData<Event<ApiErrorResolver>>()
+    fun enableResolutionRequired(): LiveData<Event<ApiErrorResolver>> = enableResolutionRequiredEvent
 
     private val enableENErrorEvent = MutableLiveData<Event<EnableENError>>()
     fun enableErrorEvent(): LiveData<Event<EnableENError>> = enableENErrorEvent
@@ -60,7 +61,15 @@ class HomeViewModel @ViewModelInject constructor(
     fun currentSystemState(): SystemState? = systemState.value
     fun exposureState(): LiveData<ExposureState?> = exposureState.distinctUntilChanged()
     fun showManualCheck(): LiveData<Boolean> = showManualCheck.distinctUntilChanged()
-    fun hideExposureSubLabel(): LiveData<Boolean> = exposureState.map { it is ExposureState.Clear.Disabled }
+
+    fun showExposureSubLabel(): LiveData<Boolean> = exposureState.map {
+        when (it) {
+            is ExposureState.Clear.Disabled, is ExposureState.Clear.Updated -> false
+            else -> true
+        }
+    }
+
+    fun showNotificationGuide(): LiveData<Boolean> = exposureState.map { it is ExposureState.Clear.Updated }
 
     val notificationCount: LiveData<String?> = exposureNotifications.map {
         if (it.isEmpty()) null else it.size.toString()
@@ -84,7 +93,7 @@ class HomeViewModel @ViewModelInject constructor(
             when (val result = exposureNotificationService.enable()) {
                 is ResolvableResult.ResolutionRequired -> {
                     // fragment needs to trigger the flow to resolve request
-                    enableResolutionRequiredEvent.postValue(Event(result.status))
+                    enableResolutionRequiredEvent.postValue(Event(result.errorResolver))
                 }
                 is ResolvableResult.Failed -> {
                     enableENErrorEvent.postValue(Event(
