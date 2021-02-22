@@ -8,9 +8,13 @@ import android.content.Intent
 import android.os.Build
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
+import androidx.core.app.NotificationManagerCompat.IMPORTANCE_NONE
 import dagger.hilt.android.qualifiers.ApplicationContext
 import fi.thl.koronahaavi.MainActivity
 import fi.thl.koronahaavi.R
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import timber.log.Timber
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -18,31 +22,49 @@ import javax.inject.Singleton
 class NotificationService @Inject constructor (
     @ApplicationContext private val context: Context
 ) {
-    private val notificationManager by lazy {
-        context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+    private val notificationManager by lazy { NotificationManagerCompat.from(context) }
+
+    private val isEnabledFlow = MutableStateFlow<Boolean?>(null)
+    fun isEnabled(): StateFlow<Boolean?> = isEnabledFlow
+
+    fun refreshIsEnabled() {
+        isEnabledFlow.value = notificationManager.areNotificationsEnabled() && isNotificationChannelEnabled()
+        Timber.d("Set enabled to ${isEnabledFlow.value}")
+    }
+
+    // channels only available in sdk 26
+    private fun isNotificationChannelEnabled() = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        notificationManager.getNotificationChannel(CHANNEL_ID)?.importance != IMPORTANCE_NONE
+    } else {
+        true
     }
 
     fun notifyExposure() {
-        createChannel()
+        // make sure channel has been created
+        initialize()
+
         val intent = Intent(context, MainActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
         val pendingIntent = PendingIntent.getActivity(context, 0, intent, 0)
+        val title = context.getString(R.string.notification_exposure_title)
         val message = context.getString(R.string.notification_exposure_message)
+
         val builder = NotificationCompat.Builder(context, CHANNEL_ID)
-            .setContentTitle(context.getString(R.string.notification_exposure_title))
+            .setContentTitle(title)
             .setContentText(message)
             .setStyle(NotificationCompat.BigTextStyle().bigText(message))
             .setSmallIcon(R.drawable.ic_alert_octagon) // todo
             .setPriority(NotificationCompat.PRIORITY_MAX)
             .setContentIntent(pendingIntent)
             .setOnlyAlertOnce(true)
-            .setAutoCancel(true)
+            .setAutoCancel(true) // remove when clicked
             .setVisibility(NotificationCompat.VISIBILITY_SECRET)  // Do not reveal on secure lockscreen
-        NotificationManagerCompat.from(context).notify(0, builder.build())
+
+        notificationManager.notify(0, builder.build())
     }
 
-    private fun createChannel() {
+    fun initialize() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val name = context.getString(R.string.notification_channel_name)
             val descriptionText = context.getString(R.string.notification_channel_description)

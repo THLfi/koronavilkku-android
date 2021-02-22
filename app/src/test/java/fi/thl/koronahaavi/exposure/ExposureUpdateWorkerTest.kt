@@ -17,6 +17,7 @@ import fi.thl.koronahaavi.data.ExposureRepository
 import fi.thl.koronahaavi.data.KeyGroupToken
 import fi.thl.koronahaavi.data.SettingsRepository
 import fi.thl.koronahaavi.service.ExposureNotificationService
+import fi.thl.koronahaavi.service.NotificationService
 import fi.thl.koronahaavi.utils.TestData
 import io.mockk.*
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -37,6 +38,7 @@ class ExposureUpdateWorkerTest {
     private lateinit var exposureRepository: ExposureRepository
     private lateinit var appStateRepository: AppStateRepository
     private lateinit var settingsRepository: SettingsRepository
+    private lateinit var notificationService: NotificationService
     val lockedFlow = MutableStateFlow(false)
 
     lateinit var worker: ListenableWorker
@@ -49,6 +51,7 @@ class ExposureUpdateWorkerTest {
         exposureRepository = mockk(relaxed = true)
         appStateRepository = mockk(relaxed = true)
         settingsRepository = mockk(relaxed = true)
+        notificationService = mockk(relaxed = true)
 
         every { appStateRepository.lockedAfterDiagnosis() } returns lockedFlow
         every { settingsRepository.requireExposureConfiguration() } returns TestData.exposureConfiguration()
@@ -163,7 +166,7 @@ class ExposureUpdateWorkerTest {
             workerParameters: WorkerParameters
         ): ListenableWorker? {
             return ExposureUpdateWorker(appContext, workerParameters, exposureNotificationService,
-                exposureRepository, appStateRepository, settingsRepository)
+                exposureRepository, appStateRepository, settingsRepository, notificationService)
         }
     }
 }

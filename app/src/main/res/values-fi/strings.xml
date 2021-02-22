@@ -58,6 +58,7 @@
     <string name="home_status_system_enabled">Koronavilkku käytössä</string>
     <string name="home_status_system_disabled">Koronavilkku ei käytössä</string>
     <string name="home_status_system_locked">Koronavilkku lukittu</string>
+    <string name="home_status_notifications_blocked">Ilmoitukset eivät ole käytössä</string>
 
     <string name="home_symptom_sub_label">Tee koronavirustaudin oirearvio</string>
     <string name="home_app_guide">Tietoa sovelluksesta</string>
@@ -65,6 +66,7 @@
     <string name="home_status_disabled_explained">Ota altistumisilmoitukset uudelleen käyttöön.</string>
     <string name="home_status_enabled_explained">Sovellus toimii, vaikka suljet sen.</string>
     <string name="home_status_locked_explained">Kiitos, että ilmoitit tartunnastasi. Sovellus ei enää kerää tietoja kohtaamisista. Pikaista paranemista!</string>
+    <string name="home_status_notifications_blocked_explained">Ota ilmoitukset käyttöön, jotta Koronavilkku voi ilmoittaa sinulle mahdollisesta altistumisesta.</string>
 
     <string name="symptoms_title">Koronavirustaudin oirearvio</string>
     <string name="symptoms_info">Tee oirearvio Omaolo-palvelussa, jos epäilet saaneesi koronavirustartunnan. Saat vastaustesi perusteella lisäohjeita. Vastaaminen kestää noin 10 minuuttia.</string>

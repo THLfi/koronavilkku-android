@@ -63,6 +63,7 @@
     <string name="home_status_system_enabled">Koronavilkku is active</string>
     <string name="home_status_system_disabled">Koronavilkku is disabled</string>
     <string name="home_status_system_locked">Koronavilkku is locked</string>
+    <string name="home_status_notifications_blocked">Notifications blocked</string>
 
     <string name="home_symptom_sub_label">Take an online medical COVID-19 symptom check-up</string>
     <string name="home_app_guide">About Koronavilkku</string>
@@ -70,6 +71,7 @@
     <string name="home_status_disabled_explained">Re-enable exposure notifications.</string>
     <string name="home_status_enabled_explained">The app works even if you close it.</string>
     <string name="home_status_locked_explained">Thank you for reporting your infection. The app will no longer collect information about encounters. We wish you a quick recovery!</string>
+    <string name="home_status_notifications_blocked_explained">TODO</string>
 
     <string name="symptoms_title">COVID-19 symptom assessment</string>
     <string name="symptoms_info">If you suspect that you have COVID-19, take an online COVID-19 symptom assessment in the Omaolo service. You will receive additional instructions based on your answers. It takes approximately 10 minutes to complete the assessment.</string>
@@ -135,7 +137,7 @@
     <string name="notification_item_count_label">Potential exposures:</string>
     <string name="notification_item_time_range_label">Time period:</string>
 
-    <string name="notification_channel_name">Exposure notification</string>
+    <string name="notification_channel_name">Exposure notifications</string>
     <string name="notification_channel_description">Notifications for possible COVID-19 exposures.</string>
     <string name="notification_exposure_title">Possible COVID-19 exposure</string>
     <string name="notification_exposure_message">Possible COVID-19 exposure</string>

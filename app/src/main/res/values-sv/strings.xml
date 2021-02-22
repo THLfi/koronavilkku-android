@@ -58,6 +58,7 @@
     <string name="home_status_system_enabled">Coronablinkern är påkopplad</string>
     <string name="home_status_system_disabled">Coronablinkern är bortkopplad</string>
     <string name="home_status_system_locked">Coronablinkern är låst</string>
+    <string name="home_status_notifications_blocked">Notifications blocked</string>
 
     <string name="home_symptom_sub_label">Gör en symtombedömning</string>
     <string name="home_app_guide">Om Coronablinkern</string>
@@ -65,6 +66,7 @@
     <string name="home_status_disabled_explained">Koppla på exponeringsmeddelandena på nytt.</string>
     <string name="home_status_enabled_explained">Appen fungerar även om du stänger den.</string>
     <string name="home_status_locked_explained">Tack för att du meddelade om din smitta. Coronablinkern samlar inte längre information om närliggande telefoner. Krya på dig!</string>
+    <string name="home_status_notifications_blocked_explained">TODO</string>
 
     <string name="symptoms_title">Bedömning av coronasymtom</string>
     <string name="symptoms_info">Gör en bedömning av dina symtom i Omaolo, om du misstänker att du smittats av coronaviruset. Du får anvisningar på basen av dina svar. Det tar cirka 5–10 minuter att fylla i bedömningen.</string>

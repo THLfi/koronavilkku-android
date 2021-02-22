@@ -24,6 +24,7 @@ import fi.thl.koronahaavi.data.AppStateRepository
 import fi.thl.koronahaavi.databinding.ActivityMainBinding
 import fi.thl.koronahaavi.device.DeviceStateRepository
 import fi.thl.koronahaavi.service.ExposureNotificationService
+import fi.thl.koronahaavi.service.NotificationService
 import fi.thl.koronahaavi.service.WorkDispatcher
 import fi.thl.koronahaavi.settings.UserPreferences
 import kotlinx.coroutines.launch
@@ -37,6 +38,7 @@ class MainActivity : AppCompatActivity() {
     @Inject lateinit var workDispatcher: WorkDispatcher
     @Inject lateinit var deviceStateRepository: DeviceStateRepository
     @Inject lateinit var userPreferences: UserPreferences
+    @Inject lateinit var notificationService: NotificationService
 
     private val resolutionViewModel by viewModels<RequestResolutionViewModel>()
 
@@ -191,9 +193,12 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
 
-        // EN enabled status needs to be queried when returning to the app since there
+        // EN system and notifications enabled status needs to be queried when returning to the app since there
         // is no listener mechanism, and user could have disabled it in device settings
-        lifecycleScope.launch { exposureNotificationService.refreshEnabledFlow() }
+        lifecycleScope.launch {
+            exposureNotificationService.refreshEnabledFlow()
+            notificationService.refreshIsEnabled()
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {

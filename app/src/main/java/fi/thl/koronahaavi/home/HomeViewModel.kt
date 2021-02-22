@@ -17,6 +17,7 @@ import fi.thl.koronahaavi.exposure.ExposureStateLiveData
 import fi.thl.koronahaavi.exposure.ManualCheckShownLiveData
 import fi.thl.koronahaavi.service.ExposureNotificationService
 import fi.thl.koronahaavi.service.ExposureNotificationService.ResolvableResult
+import fi.thl.koronahaavi.service.NotificationService
 import fi.thl.koronahaavi.service.WorkDispatcher
 import fi.thl.koronahaavi.service.WorkState
 import fi.thl.koronahaavi.settings.EnableENError
@@ -28,6 +29,7 @@ class HomeViewModel @ViewModelInject constructor(
     exposureRepository: ExposureRepository,
     deviceStateRepository: DeviceStateRepository,
     appStateRepository: AppStateRepository,
+    notificationService: NotificationService,
     private val exposureNotificationService: ExposureNotificationService,
     private val workDispatcher: WorkDispatcher
 ) : ViewModel() {
@@ -48,12 +50,14 @@ class HomeViewModel @ViewModelInject constructor(
     private val isENEnabled = exposureNotificationService.isEnabledFlow().asLiveData()
     private val isBluetoothOn = deviceStateRepository.bluetoothOn()
     private val isLocationOn = deviceStateRepository.locationOn()
-    private val systemState = SystemStateLiveData(isENEnabled, isBluetoothOn, isLocationOn, isLocked)
+    private val isNotificationsEnabled = notificationService.isEnabled().asLiveData()
+    private val systemState = SystemStateLiveData(isENEnabled, isBluetoothOn, isLocationOn, isLocked, isNotificationsEnabled)
     private val exposureState = ExposureStateLiveData(hasExposures, lastCheckTime, isLocked, isENEnabled)
     private val showManualCheck = ManualCheckShownLiveData(exposureState, checkInProgress)
     private val newExposureCheckEvent = MutableLiveData<Event<Any>>()
 
     fun systemState(): LiveData<SystemState?> = systemState.distinctUntilChanged()
+    fun currentSystemState(): SystemState? = systemState.value
     fun exposureState(): LiveData<ExposureState?> = exposureState.distinctUntilChanged()
     fun showManualCheck(): LiveData<Boolean> = showManualCheck.distinctUntilChanged()
     fun hideExposureSubLabel(): LiveData<Boolean> = exposureState.map { it is ExposureState.Clear.Disabled }

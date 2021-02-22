@@ -10,6 +10,7 @@ import fi.thl.koronahaavi.data.ExposureRepository
 import fi.thl.koronahaavi.device.DeviceStateRepository
 import fi.thl.koronahaavi.device.SystemState
 import fi.thl.koronahaavi.service.ExposureNotificationService
+import fi.thl.koronahaavi.service.NotificationService
 import fi.thl.koronahaavi.service.WorkDispatcher
 import fi.thl.koronahaavi.service.WorkState
 import fi.thl.koronahaavi.utils.MainCoroutineScopeRule
@@ -34,11 +35,13 @@ class HomeViewModelTest {
     private lateinit var exposureNotificationService: ExposureNotificationService
     private lateinit var appStateRepository: AppStateRepository
     private lateinit var workDispatcher: WorkDispatcher
+    private lateinit var notificationService: NotificationService
 
     val bluetoothOn = MutableLiveData<Boolean>()
     val locationOn = MutableLiveData<Boolean>()
     val enEnabledFlow = MutableStateFlow<Boolean?>(null)
     val lastCheckTime = MutableLiveData<ZonedDateTime?>()
+    val notificationsEnabledFlow = MutableStateFlow<Boolean?>(true)
 
     @Before
     fun init() {
@@ -47,10 +50,12 @@ class HomeViewModelTest {
         exposureNotificationService = mockk(relaxed = true)
         appStateRepository = mockk(relaxed = true)
         workDispatcher = mockk(relaxed = true)
+        notificationService = mockk(relaxed = true)
 
         every { deviceStateRepository.bluetoothOn() } returns bluetoothOn
         every { deviceStateRepository.locationOn() } returns locationOn
         every { exposureNotificationService.isEnabledFlow() } returns enEnabledFlow
+        every { notificationService.isEnabled() } returns notificationsEnabledFlow
         every { exposureRepository.getExposureNotificationsFlow() } returns flowOf(listOf())
         every { exposureRepository.getIsExposedFlow() } returns flowOf(false)
         every { appStateRepository.getLastExposureCheckTimeLive() } returns lastCheckTime
@@ -78,6 +83,13 @@ class HomeViewModelTest {
     @Test
     fun systemEnabledNullAtFirst() {
         viewModel.systemState().test().assertNullValue()
+    }
+
+    @Test
+    fun systemStateNotificationsBlocked() {
+        setSystemOn()
+        notificationsEnabledFlow.value = false
+        viewModel.systemState().test().assertValue(SystemState.NotificationsBlocked)
     }
 
     @Test
@@ -138,7 +150,8 @@ class HomeViewModelTest {
     }
 
     private fun createViewModel() =
-        HomeViewModel(exposureRepository, deviceStateRepository, appStateRepository, exposureNotificationService, workDispatcher)
+        HomeViewModel(exposureRepository, deviceStateRepository, appStateRepository, notificationService,
+                exposureNotificationService, workDispatcher)
 
     private fun setSystemOn() {
         enEnabledFlow.value = true

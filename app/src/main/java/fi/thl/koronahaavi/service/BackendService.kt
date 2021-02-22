@@ -16,10 +16,10 @@ interface BackendService {
     @GET("exposure/configuration/v1")
     suspend fun getConfiguration(): ExposureConfigurationData
 
-    @GET("diagnosis/v1/current")
+    @GET("diagnosis/v1/current?en-api-version=2")
     suspend fun getInitialBatchId(): InitialBatchId
 
-    @GET("diagnosis/v1/list")
+    @GET("diagnosis/v1/list?en-api-version=2")
     suspend fun listDiagnosisKeyBatches(@Query("previous") previous: BatchId): DiagnosisKeyBatches
 
     @Streaming
