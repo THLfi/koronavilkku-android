@@ -59,6 +59,8 @@ class AppStateRepository @Inject constructor (
         updateLastExposureCheckTime()
     }
 
+    fun setLastExposureCheckTimeToNow() = setLastExposureCheckTime(ZonedDateTime.now())
+
     fun isOnboardingComplete() = prefs.getBoolean(onBoardingCompleteKey, false)
 
     fun setOnboardingComplete(complete: Boolean) {

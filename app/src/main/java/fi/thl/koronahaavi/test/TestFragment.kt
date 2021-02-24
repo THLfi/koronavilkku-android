@@ -34,6 +34,7 @@ import fi.thl.koronahaavi.exposure.ExposureUpdateWorker
 import fi.thl.koronahaavi.exposure.MunicipalityUpdateWorker
 import fi.thl.koronahaavi.service.DiagnosisKeyUpdateWorker
 import fi.thl.koronahaavi.service.ExposureNotificationService
+import fi.thl.koronahaavi.service.NotificationService
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
@@ -43,13 +44,13 @@ import java.util.*
 import javax.inject.Inject
 
 @SuppressLint("SetTextI18n")
-@Suppress("DEPRECATION")
 @AndroidEntryPoint
 class TestFragment : Fragment() {
     @Inject lateinit var appStateRepository: AppStateRepository
     @Inject lateinit var exposureRepository: ExposureRepository
     @Inject lateinit var exposureNotificationService: ExposureNotificationService
     @Inject lateinit var settingsRepository: SettingsRepository
+    @Inject lateinit var notificationService: NotificationService
 
     private lateinit var binding: FragmentTestBinding
 
@@ -169,6 +170,10 @@ class TestFragment : Fragment() {
             findNavController().navigateSafe(TestFragmentDirections.toTestDailySummaries())
         }
 
+        binding.buttonTestCreateNotification.setOnClickListener {
+            notificationService.notifyExposure()
+        }
+
         exposureRepository.flowHandledKeyGroupTokens().asLiveData().observe(viewLifecycleOwner, Observer {
             val tokens = it.joinToString { t -> "(${t.matchedKeyCount},${t.maximumRiskScore})" }
             binding.testExposureRiskScores.text = "Updated tokens: $tokens"
@@ -184,7 +189,6 @@ class TestFragment : Fragment() {
             val intent = Intent().apply {
                 component = ComponentName(requireContext(), ExposureStateUpdatedReceiver::class.java)
                 action = ExposureNotificationClient.ACTION_EXPOSURE_STATE_UPDATED
-                putExtra(ExposureNotificationClient.EXTRA_TOKEN, UUID.randomUUID().toString())
             }
             requireContext().sendBroadcast(intent)
         }

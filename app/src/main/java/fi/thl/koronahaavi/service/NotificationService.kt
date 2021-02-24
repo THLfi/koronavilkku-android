@@ -54,7 +54,8 @@ class NotificationService @Inject constructor (
             .setContentTitle(title)
             .setContentText(message)
             .setStyle(NotificationCompat.BigTextStyle().bigText(message))
-            .setSmallIcon(R.drawable.ic_alert_octagon) // todo
+            .setSmallIcon(R.drawable.ic_exposure_notification)
+            .setColor(context.getColor(R.color.mainRed))
             .setPriority(NotificationCompat.PRIORITY_MAX)
             .setContentIntent(pendingIntent)
             .setOnlyAlertOnce(true)
