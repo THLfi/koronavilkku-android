@@ -77,4 +77,37 @@ class BackendServiceTest {
             assertEquals("1", fakeReq.getHeader("KV-Fake-Request"))
         }
     }
+
+    @Test
+    fun loadConfiguration() {
+        mockServer.enqueue(MockResponse().setBody("{\n" +
+                "\"attenuationBucketThresholdDb\": [55,70,80],\n" +
+                "\"attenuationBucketWeights\": [2.0,1.0,0.25,0.0],\n" +
+                "\"availableCountries\": [\"DE\",\"NO\",\"BE\"],\n" +
+                "\"daysSinceExposureThreshold\": 10,\n" +
+                "\"daysSinceOnsetToInfectiousness\": {\"-1\": \"HIGH\",\"-14\": \"NONE\",\"-2\": \"STANDARD\",\"3\": \"HIGH\"},\n" +
+                "\"infectiousnessWeightHigh\": 1.5,\n" +
+                "\"infectiousnessWeightStandard\": 1.5,\n" +
+                "\"infectiousnessWhenDaysSinceOnsetMissing\": \"STANDARD\",\n" +
+                "\"minimumDailyScore\": 900,\n" +
+                "\"minimumWindowScore\": 1.0,\n" +
+                "\"reportTypeWeightConfirmedClinicalDiagnosis\": 0.0,\n" +
+                "\"reportTypeWeightConfirmedTest\": 1.0,\n" +
+                "\"reportTypeWeightRecursive\": 0.0,\n" +
+                "\"reportTypeWeightSelfReport\": 0.0,\n" +
+                "\"version\": 1\n" +
+                "}"
+        ))
+
+        runBlocking {
+            val config = backendService.getConfiguration()
+
+            assertEquals(listOf(55, 70, 80), config.attenuationBucketThresholdDb)
+            assertEquals(InfectiousnessLevel.HIGH, config.daysSinceOnsetToInfectiousness["-1"])
+            assertEquals(InfectiousnessLevel.NONE, config.daysSinceOnsetToInfectiousness["-14"])
+            assertEquals(InfectiousnessLevel.STANDARD, config.daysSinceOnsetToInfectiousness["-2"])
+            assertEquals(InfectiousnessLevel.HIGH, config.daysSinceOnsetToInfectiousness["3"])
+            assertEquals(InfectiousnessLevel.STANDARD, config.infectiousnessWhenDaysSinceOnsetMissing)
+        }
+    }
 }

@@ -1,6 +1,7 @@
 package fi.thl.koronahaavi.di
 
 import android.content.Context
+import com.google.android.gms.nearby.Nearby
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -17,6 +18,7 @@ object ExposureNotificationModule {
     @Singleton
     @Provides
     fun provideExposureNotificationService(@ApplicationContext context: Context): ExposureNotificationService {
-        return GoogleExposureNotificationService(context)
+        val client = Nearby.getExposureNotificationClient(context)
+        return GoogleExposureNotificationService(client)
     }
 }

@@ -12,11 +12,8 @@ import com.google.android.gms.common.GoogleApiAvailability
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.CommonStatusCodes
 import com.google.android.gms.common.api.Status
-import com.google.android.gms.nearby.Nearby
 import com.google.android.gms.nearby.exposurenotification.*
-import fi.thl.koronahaavi.BuildConfig
 import fi.thl.koronahaavi.data.DailyExposure
-import fi.thl.koronahaavi.data.Exposure
 import fi.thl.koronahaavi.service.ExposureNotificationService.ConnectionError
 import fi.thl.koronahaavi.service.ExposureNotificationService.ResolvableResult
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -24,19 +21,18 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.tasks.await
 import timber.log.Timber
 import java.io.File
-import java.time.Instant
 import java.time.LocalDate
-import java.time.ZoneOffset
-import java.time.ZonedDateTime
 import kotlin.math.roundToInt
 
 class GoogleExposureNotificationService(
-    private val context: Context
+    private val client: ExposureNotificationClient
 ) : ExposureNotificationService {
 
+    /*
     private val client by lazy {
         Nearby.getExposureNotificationClient(context)
     }
+     */
 
     private val isEnabledFlow = MutableStateFlow<Boolean?>(null)
     override fun isEnabledFlow(): StateFlow<Boolean?> = isEnabledFlow
@@ -64,8 +60,10 @@ class GoogleExposureNotificationService(
         return client.isEnabled.await()
     }
 
-    override suspend fun getDailyExposures(config: ExposureConfigurationData): List<DailyExposure> =
-        client.getDailySummaries(createDailyConfig())
+    override suspend fun getDailyExposures(config: ExposureConfigurationData): List<DailyExposure> {
+        updateKeyDataMapping(config)
+
+        return client.getDailySummaries(config.toDailySummariesConfig())
             .await()
             .map { summary ->
                 Timber.d(summary.toString())
@@ -74,25 +72,26 @@ class GoogleExposureNotificationService(
                     score = summary.summaryData.scoreSum.roundToInt()
                 )
             }
+    }
 
-    // .. temp copy from reference app
-    private fun createDailyConfig() = DailySummariesConfig.DailySummariesConfigBuilder()
-        .setAttenuationBuckets(
-            listOf(30, 50, 60),
-            listOf(1.5, 1.0, 0.5, 0.0)
-        )
-        .setInfectiousnessWeight(Infectiousness.STANDARD, 1.0)
-        .setInfectiousnessWeight(Infectiousness.HIGH, 1.0)
-        .setReportTypeWeight(ReportType.CONFIRMED_CLINICAL_DIAGNOSIS, 1.0)
-        .setReportTypeWeight(ReportType.CONFIRMED_TEST, 1.0)
-        .setReportTypeWeight(ReportType.SELF_REPORT, 1.0)
-        .setDaysSinceExposureThreshold(10)
-        .build()
+    private suspend fun updateKeyDataMapping(config: ExposureConfigurationData) {
+        // data mapping should only be updated if actually changed, since calls limited to 2 per week
+        val currentDataMapping = client.diagnosisKeysDataMapping.await()
+        val newDataMapping = config.toDiagnosisKeysDataMapping()
+
+        if (newDataMapping != currentDataMapping) {
+            Timber.d("Setting diagnosis keys data mapping")
+            // todo how to handle errors, ignore?
+            resultFromRunning {
+                client.setDiagnosisKeysDataMapping(newDataMapping).await()
+            }
+        }
+    }
 
     override suspend fun provideDiagnosisKeyFiles(files: List<File>): ResolvableResult<Unit> {
         Timber.d("Providing %d key files", files.size)
 
-        return resultFromRunning<Unit> {
+        return resultFromRunning {
             client.provideDiagnosisKeys(DiagnosisKeyFileProvider(files)).await()
         }
     }
@@ -105,13 +104,37 @@ class GoogleExposureNotificationService(
 
     override fun getAvailabilityResolver() = GoogleAvailabilityResolver()
 
-    /**
-     * check if device owner based on https://stackoverflow.com/a/15448131/1467657
-     */
-    private fun isOwnerUserProfile(): Boolean =
-        (context.getSystemService(Context.USER_SERVICE) as? UserManager)?.let {
-            it.getSerialNumberForUser(Process.myUserHandle()) == 0L
-        } ?: false
+    // this maps backend json config object to google EN api daily configuration
+    private fun ExposureConfigurationData.toDailySummariesConfig(): DailySummariesConfig =
+            DailySummariesConfig.DailySummariesConfigBuilder()
+                    .setAttenuationBuckets(attenuationBucketThresholdDb, attenuationBucketWeights)
+                    .setInfectiousnessWeight(Infectiousness.STANDARD, infectiousnessWeightStandard)
+                    .setInfectiousnessWeight(Infectiousness.HIGH, infectiousnessWeightHigh)
+                    .setReportTypeWeight(ReportType.CONFIRMED_CLINICAL_DIAGNOSIS, reportTypeWeightConfirmedClinicalDiagnosis)
+                    .setReportTypeWeight(ReportType.CONFIRMED_TEST, reportTypeWeightConfirmedTest)
+                    .setReportTypeWeight(ReportType.SELF_REPORT, reportTypeWeightSelfReport)
+                    .setReportTypeWeight(ReportType.RECURSIVE, reportTypeWeightRecursive)
+                    .setMinimumWindowScore(minimumWindowScore)
+                    .setDaysSinceExposureThreshold(daysSinceExposureThreshold)
+                    .build()
+
+    private fun ExposureConfigurationData.toDiagnosisKeysDataMapping(): DiagnosisKeysDataMapping =
+            DiagnosisKeysDataMapping.DiagnosisKeysDataMappingBuilder()
+                    .setReportTypeWhenMissing(ReportType.CONFIRMED_TEST)
+                    .setInfectiousnessWhenDaysSinceOnsetMissing(infectiousnessWhenDaysSinceOnsetMissing.toInfectiousness())
+                    .setDaysSinceOnsetToInfectiousness(daysSinceOnsetToInfectiousness.entries.associate {
+                        it.key.toInt() to it.value.toInfectiousness()
+                    })
+                    .build()
+
+    private fun InfectiousnessLevel.toInfectiousness() = when (this) {
+        InfectiousnessLevel.HIGH -> Infectiousness.HIGH
+        InfectiousnessLevel.STANDARD -> Infectiousness.STANDARD
+        InfectiousnessLevel.NONE -> Infectiousness.NONE
+    }
+
+    private suspend fun isOwnerUserProfile(): Boolean =
+        ExposureNotificationStatus.USER_PROFILE_NOT_SUPPORT !in client.status.await()
 
     private suspend fun <T> resultFromRunning(block: suspend () -> T): ResolvableResult<T> {
         try {
@@ -153,44 +176,18 @@ class GoogleExposureNotificationService(
         }
     }
 
-    private fun connectionErrorFrom(connectionResult: ConnectionResult?) =
+    private suspend fun connectionErrorFrom(connectionResult: ConnectionResult?) =
         when (connectionResult?.errorCode) {
-            ExposureNotificationStatusCodes.FAILED_NOT_SUPPORTED -> {
-                // FAILED_NOT_SUPPORTED occurs for both unsupported device and when user profile is not device owner
-                if (isOwnerUserProfile())
-                    ConnectionError.DeviceNotSupported
-                else
-                    ConnectionError.UserIsNotOwner
-            }
+            ExposureNotificationStatusCodes.FAILED_NOT_SUPPORTED -> ConnectionError.DeviceNotSupported
             ExposureNotificationStatusCodes.FAILED_UNAUTHORIZED -> ConnectionError.ClientNotAuthorized
-            else -> ConnectionError.Failed(connectionResult?.errorCode)
+            else -> {
+                if (!isOwnerUserProfile())
+                    ConnectionError.UserIsNotOwner
+                else
+                    ConnectionError.Failed(connectionResult?.errorCode)
+            }
         }
-
-    // this maps backend json object to google EN api configuration
-    private fun ExposureConfigurationData.toExposureConfiguration(): ExposureConfiguration {
-
-        // when test UI is enabled, override minimum risk score so that we get the calculated risk score
-        // from EN api, otherwise it is zeroed out and test UI is not useful
-        val minRiskScore = if (BuildConfig.ENABLE_TEST_UI) 1 else minimumRiskScore
-
-        return ExposureConfiguration.ExposureConfigurationBuilder()
-            .setMinimumRiskScore(minRiskScore)
-            .setAttenuationScores(*attenuationScores.toIntArray())
-            .setDaysSinceLastExposureScores(*daysSinceLastExposureScores.toIntArray())
-            .setDurationScores(*durationScores.toIntArray())
-            .setTransmissionRiskScores(*transmissionRiskScoresAndroid.toIntArray())
-            .setDurationAtAttenuationThresholds(*durationAtAttenuationThresholds.toIntArray())
-            .build()
-    }
 }
-
-private fun ExposureInformation.toExposure(
-    createdDate: ZonedDateTime = ZonedDateTime.now()
-) = Exposure(
-        detectedDate = ZonedDateTime.ofInstant(Instant.ofEpochMilli(this.dateMillisSinceEpoch), ZoneOffset.UTC),
-        totalRiskScore = this.totalRiskScore,
-        createdDate = createdDate
-    )
 
 class GoogleAvailabilityResolver : ExposureNotificationService.AvailabilityResolver {
     private val apiAvailability = GoogleApiAvailability.getInstance()

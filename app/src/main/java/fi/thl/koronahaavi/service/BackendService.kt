@@ -13,7 +13,7 @@ typealias BatchId = String
  */
 interface BackendService {
 
-    @GET("exposure/configuration/v1")
+    @GET("exposure/configuration/v2")
     suspend fun getConfiguration(): ExposureConfigurationData
 
     @GET("diagnosis/v1/current?en-api-version=2")
@@ -49,17 +49,6 @@ interface BackendService {
     }
 }
 
-
-/*
-@JsonClass(generateAdapter = true)
-data class StatusData (
-    val startBatch: BatchId,
-    val batches: List<BatchId>,
-    val exposureConfig: ExposureConfigurationData?
-    val appConfig: AppConfiguration?
-)
- */
-
 @JsonClass(generateAdapter = true)
 data class DiagnosisKey (
     val keyData: String,
@@ -75,18 +64,26 @@ data class DiagnosisKeyList (
     val consentToShareWithEfgs: BackendService.NumericBoolean
 )
 
+// enum name matches json string data
+enum class InfectiousnessLevel { HIGH, STANDARD, NONE }
+
 @JsonClass(generateAdapter = true)
 data class ExposureConfigurationData (
     val version: Int,
-    val minimumRiskScore: Int,
-    val attenuationScores: List<Int>,
-    val daysSinceLastExposureScores: List<Int>,
-    val durationScores: List<Int>,
-    val transmissionRiskScoresAndroid: List<Int>, // <- note specific to android
-    val durationAtAttenuationThresholds: List<Int>,
-    val durationAtAttenuationWeights: List<Float>, // decimal weights for attenuation buckets in summary
-    val exposureRiskDuration: Int,
-    val participatingCountries: List<String>? // country codes for EU interoperability
+    val attenuationBucketThresholdDb: List<Int>,
+    val attenuationBucketWeights: List<Double>,
+    val daysSinceExposureThreshold: Int,
+    val daysSinceOnsetToInfectiousness: Map<String, InfectiousnessLevel>,
+    val infectiousnessWeightHigh: Double,
+    val infectiousnessWeightStandard: Double,
+    val infectiousnessWhenDaysSinceOnsetMissing: InfectiousnessLevel,
+    val minimumDailyScore: Int,
+    val minimumWindowScore: Double,
+    val reportTypeWeightConfirmedClinicalDiagnosis: Double,
+    val reportTypeWeightConfirmedTest: Double,
+    val reportTypeWeightRecursive: Double,
+    val reportTypeWeightSelfReport: Double,
+    val availableCountries: List<String>? // country codes for EU interoperability
 )
 
 @JsonClass(generateAdapter = true)

@@ -67,13 +67,15 @@ class NotificationService @Inject constructor (
 
     fun initialize() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            // we should not apply app language override for the channel name since it appears in
+            // device settings, so we are using application context provided through Hilt annotation
             val name = context.getString(R.string.notification_channel_name)
             val descriptionText = context.getString(R.string.notification_channel_description)
             val importance = NotificationManager.IMPORTANCE_HIGH
-            val mChannel = NotificationChannel(CHANNEL_ID, name, importance).apply {
+            val channel = NotificationChannel(CHANNEL_ID, name, importance).apply {
                 description = descriptionText
             }
-            notificationManager.createNotificationChannel(mChannel)
+            notificationManager.createNotificationChannel(channel)
         }
     }
 

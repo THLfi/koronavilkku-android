@@ -54,26 +54,16 @@ class TestDailySummariesFragment : Fragment() {
 
     private fun updateDailySummaries() {
         viewLifecycleOwner.lifecycleScope.launch {
-            val summaries = exposureNotificationService.getDailyExposures(config())
+            // todo allow user to change config for testing values?
+            val summaries = settingsRepository.getExposureConfiguration()?.let {
+                exposureNotificationService.getDailyExposures(it)
+            }
 
-            binding.textDailySummaries.text = if (summaries.isEmpty()) "No data" else
+            binding.textDailySummaries.text = if (summaries?.isEmpty() != false) "No data" else
                     summaries.joinToString(separator = "\n") { summary ->
                         Timber.d(summary.toString())
                         "${summary.day}, ${summary.score}"
                     }
         }
     }
-
-    private fun config() = ExposureConfigurationData(
-            version = 1,
-            minimumRiskScore = 1,
-            attenuationScores = listOf(),
-            daysSinceLastExposureScores = listOf(),
-            durationScores = listOf(),
-            transmissionRiskScoresAndroid = listOf(),
-            durationAtAttenuationThresholds = listOf(),
-            durationAtAttenuationWeights = listOf(1.0f, 0.5f, 0.0f),
-            exposureRiskDuration = 15,
-            participatingCountries = listOf("DK", "DE", "IE", "IT", "LV", "ES")
-    )
 }

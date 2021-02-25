@@ -84,7 +84,7 @@ class DiagnosisKeyServiceTest {
     @Test
     fun sendVisitedCountries() {
         every { settingsRepository.getExposureConfiguration() } returns TestData.exposureConfiguration().copy(
-            participatingCountries = listOf("aa", "bb", "cc")
+            availableCountries = listOf("aa", "bb", "cc")
         )
 
         runBlocking {
@@ -159,7 +159,7 @@ class DiagnosisKeyServiceTest {
     @Test
     fun countryCodesFiltered() {
         coEvery { backendService.getConfiguration() } returns TestData.exposureConfiguration().copy(
-            participatingCountries = listOf("DE", "IE", "", "X", "test", "FI", " ", "&&", "3", "dk", "IT")
+            availableCountries = listOf("DE", "IE", "", "X", "test", "FI", " ", "&&", "3", "dk", "IT")
         )
 
         val expectedCountries = listOf("DE", "IE", "IT")
@@ -167,11 +167,11 @@ class DiagnosisKeyServiceTest {
         runBlocking {
             val result = diagnosisKeyService.downloadDiagnosisKeyFiles()
 
-            assertEquals(expectedCountries, result.exposureConfig.participatingCountries)
+            assertEquals(expectedCountries, result.exposureConfig.availableCountries)
 
             val savedConfig = slot<ExposureConfigurationData>()
             verify { settingsRepository.updateExposureConfiguration(capture(savedConfig)) }
-            assertEquals(expectedCountries, savedConfig.captured.participatingCountries)
+            assertEquals(expectedCountries, savedConfig.captured.availableCountries)
         }
     }
 

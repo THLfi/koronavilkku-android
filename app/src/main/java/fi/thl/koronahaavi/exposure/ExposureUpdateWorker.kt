@@ -44,9 +44,8 @@ class ExposureUpdateWorker @WorkerInject constructor(
         val currentExposures = exposureRepository.getAllExposures()
 
         // compare to existing and find new days with exposure
-        // todo need to detect increase to existing days?
         val newExposures = exposureNotificationService.getDailyExposures(config)
-            .filter { it.score > 900 }
+            .filter { it.score > config.minimumDailyScore }
             .filter { currentExposures.none { c -> c.detectedDate.toLocalDate() == it.day } } // nothing for this day
             .map { it.toExposure() }
 
