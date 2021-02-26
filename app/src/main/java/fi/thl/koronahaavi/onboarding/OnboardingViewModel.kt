@@ -1,10 +1,12 @@
 package fi.thl.koronahaavi.onboarding
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
+import dagger.hilt.android.lifecycle.HiltViewModel
 import fi.thl.koronahaavi.device.DeviceStateRepository
+import javax.inject.Inject
 
-class OnboardingViewModel @ViewModelInject constructor(
+@HiltViewModel
+class OnboardingViewModel @Inject constructor(
     deviceStateRepository: DeviceStateRepository
 ) : ViewModel() {
 

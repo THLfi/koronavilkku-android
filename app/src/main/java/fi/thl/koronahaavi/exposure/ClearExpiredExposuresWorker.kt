@@ -1,9 +1,10 @@
 package fi.thl.koronahaavi.exposure
 
 import android.content.Context
-import androidx.hilt.Assisted
-import androidx.hilt.work.WorkerInject
+import androidx.hilt.work.HiltWorker
 import androidx.work.*
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedInject
 import fi.thl.koronahaavi.data.ExposureRepository
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
@@ -14,7 +15,8 @@ import java.util.concurrent.TimeUnit
  * this does not send any network communication and also possible exposures should be
  * cleaned up even after the app is locked
  */
-class ClearExpiredExposuresWorker @WorkerInject constructor(
+@HiltWorker
+class ClearExpiredExposuresWorker @AssistedInject constructor(
     @Assisted private val context: Context,
     @Assisted workerParams: WorkerParameters,
     private val exposureRepository: ExposureRepository

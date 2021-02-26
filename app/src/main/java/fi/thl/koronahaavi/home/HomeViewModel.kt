@@ -2,9 +2,9 @@ package fi.thl.koronahaavi.home
 
 import androidx.lifecycle.*
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
 import com.google.android.gms.common.api.Status
+import dagger.hilt.android.lifecycle.HiltViewModel
 import fi.thl.koronahaavi.BuildConfig
 import fi.thl.koronahaavi.common.Event
 import fi.thl.koronahaavi.data.AppStateRepository
@@ -24,8 +24,10 @@ import fi.thl.koronahaavi.settings.EnableENError
 import fi.thl.koronahaavi.settings.toENApiError
 import fi.thl.koronahaavi.settings.toUserEnableStep
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class HomeViewModel @ViewModelInject constructor(
+@HiltViewModel
+class HomeViewModel @Inject constructor(
     exposureRepository: ExposureRepository,
     deviceStateRepository: DeviceStateRepository,
     appStateRepository: AppStateRepository,

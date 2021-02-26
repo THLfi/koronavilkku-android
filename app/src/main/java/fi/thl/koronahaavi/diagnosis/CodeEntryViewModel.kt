@@ -1,9 +1,9 @@
 package fi.thl.koronahaavi.diagnosis
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.google.android.gms.common.api.Status
 import com.google.android.gms.nearby.exposurenotification.TemporaryExposureKey
+import dagger.hilt.android.lifecycle.HiltViewModel
 import fi.thl.koronahaavi.common.Event
 import fi.thl.koronahaavi.data.AppStateRepository
 import fi.thl.koronahaavi.data.SettingsRepository
@@ -12,8 +12,10 @@ import fi.thl.koronahaavi.service.ExposureNotificationService.ApiErrorResolver
 import fi.thl.koronahaavi.service.ExposureNotificationService.ResolvableResult.*
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import javax.inject.Inject
 
-class CodeEntryViewModel @ViewModelInject constructor(
+@HiltViewModel
+class CodeEntryViewModel @Inject constructor(
     private val exposureNotificationService: ExposureNotificationService,
     private val diagnosisKeyService: DiagnosisKeyService,
     private val appStateRepository: AppStateRepository,

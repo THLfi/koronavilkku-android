@@ -5,8 +5,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
+import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.lifecycle.Observer
-import androidx.navigation.navGraphViewModels
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
@@ -24,9 +24,7 @@ import fi.thl.koronahaavi.databinding.ItemNotificationInfoBinding
 class ExposureNotificationListFragment : BottomSheetDialogFragment() {
     private lateinit var binding: FragmentExposureNotificationListBinding
 
-    private val viewModel: ExposureDetailViewModel by navGraphViewModels(R.id.exposure_navigation) {
-        defaultViewModelProviderFactory
-    }
+    private val viewModel: ExposureDetailViewModel by hiltNavGraphViewModels(R.id.exposure_navigation)
     private val listAdapter by lazy { NotificationAdapter() }
 
     override fun onCreate(savedInstanceState: Bundle?) {

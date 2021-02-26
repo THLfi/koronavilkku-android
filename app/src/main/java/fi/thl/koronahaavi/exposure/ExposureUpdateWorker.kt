@@ -3,15 +3,17 @@
 package fi.thl.koronahaavi.exposure
 
 import android.content.Context
-import androidx.hilt.Assisted
-import androidx.hilt.work.WorkerInject
+import androidx.hilt.work.HiltWorker
 import androidx.work.*
 import com.google.android.gms.nearby.exposurenotification.ExposureSummary
+import dagger.assisted.Assisted
+import dagger.assisted.AssistedInject
 import fi.thl.koronahaavi.data.*
 import fi.thl.koronahaavi.service.ExposureNotificationService
 import timber.log.Timber
 
-class ExposureUpdateWorker @WorkerInject constructor(
+@HiltWorker
+class ExposureUpdateWorker @AssistedInject constructor(
     @Assisted context: Context,
     @Assisted workerParams: WorkerParameters,
     private val exposureNotificationService: ExposureNotificationService,

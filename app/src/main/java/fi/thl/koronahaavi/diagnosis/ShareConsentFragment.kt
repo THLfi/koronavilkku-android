@@ -1,8 +1,8 @@
 package fi.thl.koronahaavi.diagnosis
 
 import android.os.Bundle
+import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.navigation.fragment.navArgs
-import androidx.navigation.navGraphViewModels
 import dagger.hilt.android.AndroidEntryPoint
 import fi.thl.koronahaavi.R
 import fi.thl.koronahaavi.common.ChoiceFragment
@@ -10,9 +10,7 @@ import fi.thl.koronahaavi.common.ChoiceData.Choice
 
 @AndroidEntryPoint
 class ShareConsentFragment : ChoiceFragment() {
-    private val viewModel by navGraphViewModels<CodeEntryViewModel>(R.id.diagnosis_share_navigation) {
-        defaultViewModelProviderFactory
-    }
+    private val viewModel: CodeEntryViewModel by hiltNavGraphViewModels(R.id.diagnosis_share_navigation)
 
     private val args by navArgs<ShareConsentFragmentArgs>()
 

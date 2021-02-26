@@ -19,8 +19,8 @@ class ChoiceData(private val positiveChoice: Choice?) {
     val selectedPositive = selectedChoice.map { positiveChoice == it }
 
     // immediate one-time values, not requiring observer
-    fun getSelectedChoice(): Choice? = selectedControl.value?.toChoice()
-    fun isPositive(): Boolean? = positiveChoice?.let { getSelectedChoice() == it }
+    private fun getCurrentSelectedChoice(): Choice? = selectedControl.value?.toChoice()
+    fun isPositive(): Boolean? = positiveChoice?.let { getCurrentSelectedChoice() == it }
     fun setPositive() = positiveChoice?.let { selectedControl.postValue(it.toControl()) }
     fun setNegative() = positiveChoice?.let { selectedControl.postValue(it.invert().toControl()) }
 
