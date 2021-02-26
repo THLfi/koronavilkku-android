@@ -1,11 +1,9 @@
 package fi.thl.koronahaavi.diagnosis
 
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
-import androidx.navigation.navGraphViewModels
 import dagger.hilt.android.AndroidEntryPoint
 import fi.thl.koronahaavi.R
 import fi.thl.koronahaavi.common.ChoiceFragment
-import fi.thl.koronahaavi.common.ChoiceData
 import fi.thl.koronahaavi.common.ChoiceData.Choice
 
 @AndroidEntryPoint
