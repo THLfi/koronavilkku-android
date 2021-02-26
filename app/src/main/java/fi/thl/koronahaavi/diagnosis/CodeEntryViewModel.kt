@@ -1,5 +1,6 @@
 package fi.thl.koronahaavi.diagnosis
 
+import android.annotation.SuppressLint
 import androidx.lifecycle.*
 import com.google.android.gms.common.api.Status
 import com.google.android.gms.nearby.exposurenotification.TemporaryExposureKey
@@ -74,6 +75,8 @@ class CodeEntryViewModel @Inject constructor(
         }
     }
 
+    // false positive since live data is nullable, https://issuetracker.google.com/issues/169249668
+    @SuppressLint("NullSafeMutableLiveData")
     private fun clearError() {
         submitError.value = null
     }
