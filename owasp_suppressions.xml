@@ -64,4 +64,18 @@
         <packageUrl regex="true">^pkg:maven/com\.google\.crypto\.tink/tink\-android@.*$</packageUrl>
         <cve>CVE-2020-8929</cve>
     </suppress>
+    <suppress>
+        <notes><![CDATA[
+   file name: kotlinx-coroutines-play-services-1.4.2.jar
+   ]]></notes>
+        <packageUrl regex="true">^pkg:maven/org\.jetbrains\.kotlinx/kotlinx\-coroutines\-play\-services@.*$</packageUrl>
+        <cve>CVE-2020-22475</cve>
+    </suppress>
+    <suppress>
+        <notes><![CDATA[
+   file name: tasks-1.4.1.300.aar
+   ]]></notes>
+        <packageUrl regex="true">^pkg:maven/com\.huawei\.hmf/tasks@.*$</packageUrl>
+        <cve>CVE-2020-22475</cve>
+    </suppress>
 </suppressions>
