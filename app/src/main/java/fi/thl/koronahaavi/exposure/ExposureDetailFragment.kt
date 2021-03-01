@@ -8,9 +8,9 @@ import android.view.*
 import android.view.WindowManager.LayoutParams
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
+import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.navGraphViewModels
 import androidx.navigation.ui.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint
 import fi.thl.koronahaavi.R
@@ -23,9 +23,7 @@ import java.time.ZonedDateTime
 class ExposureDetailFragment : Fragment() {
     private lateinit var binding: FragmentExposureDetailBinding
 
-    private val viewModel: ExposureDetailViewModel by navGraphViewModels(R.id.exposure_navigation) {
-        defaultViewModelProviderFactory
-    }
+    private val viewModel: ExposureDetailViewModel by hiltNavGraphViewModels(R.id.exposure_navigation)
 
     override fun onCreateView(
         inflater: LayoutInflater,

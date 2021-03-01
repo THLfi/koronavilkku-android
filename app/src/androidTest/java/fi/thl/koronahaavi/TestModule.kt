@@ -5,8 +5,8 @@ import android.content.SharedPreferences
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
-import dagger.hilt.android.components.ApplicationComponent
 import dagger.hilt.android.qualifiers.ApplicationContext
+import dagger.hilt.components.SingletonComponent
 import fi.thl.koronahaavi.data.ExposureRepository
 import fi.thl.koronahaavi.di.DatabaseName
 import fi.thl.koronahaavi.service.*
@@ -15,7 +15,7 @@ import javax.inject.Singleton
 
 // redefine dependencies for android test app
 @Module
-@InstallIn(ApplicationComponent::class)
+@InstallIn(SingletonComponent::class)
 object TestModule {
 
     @Singleton

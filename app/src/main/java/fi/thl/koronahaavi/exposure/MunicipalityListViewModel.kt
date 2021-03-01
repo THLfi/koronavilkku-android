@@ -1,13 +1,15 @@
 package fi.thl.koronahaavi.exposure
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
+import dagger.hilt.android.lifecycle.HiltViewModel
 import fi.thl.koronahaavi.common.RemoteResource
 import fi.thl.koronahaavi.data.MunicipalityRepository
 import kotlinx.coroutines.launch
 import timber.log.Timber
+import javax.inject.Inject
 
-class MunicipalityListViewModel @ViewModelInject constructor(
+@HiltViewModel
+class MunicipalityListViewModel @Inject constructor(
     private val repository: MunicipalityRepository
 ) : ViewModel() {
 

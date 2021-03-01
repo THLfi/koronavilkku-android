@@ -1,19 +1,21 @@
 package fi.thl.koronahaavi.settings
 
 import android.app.Activity
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.android.gms.common.api.Status
+import dagger.hilt.android.lifecycle.HiltViewModel
 import fi.thl.koronahaavi.common.Event
 import fi.thl.koronahaavi.device.DeviceStateRepository
 import fi.thl.koronahaavi.service.ExposureNotificationService
 import fi.thl.koronahaavi.service.ExposureNotificationService.*
 import timber.log.Timber
+import javax.inject.Inject
 
-class EnableSystemViewModel @ViewModelInject constructor(
+@HiltViewModel
+class EnableSystemViewModel @Inject constructor(
     private val exposureNotificationService: ExposureNotificationService,
     deviceStateRepository: DeviceStateRepository
 ) : ViewModel() {

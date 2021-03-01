@@ -5,9 +5,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.navGraphViewModels
 import dagger.hilt.android.AndroidEntryPoint
 import androidx.navigation.ui.setupWithNavController
 import fi.thl.koronahaavi.R
@@ -20,9 +20,7 @@ import fi.thl.koronahaavi.databinding.ItemCountryBulletBinding
 class SummaryConsentFragment : Fragment() {
     private lateinit var binding: FragmentSummaryConsentBinding
 
-    private val viewModel by navGraphViewModels<CodeEntryViewModel>(R.id.diagnosis_share_navigation) {
-        defaultViewModelProviderFactory
-    }
+    private val viewModel: CodeEntryViewModel by hiltNavGraphViewModels(R.id.diagnosis_share_navigation)
 
     override fun onCreateView(
         inflater: LayoutInflater,

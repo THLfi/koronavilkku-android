@@ -1,12 +1,14 @@
 package fi.thl.koronahaavi.settings
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import dagger.hilt.android.lifecycle.HiltViewModel
 import fi.thl.koronahaavi.device.SystemState
 import fi.thl.koronahaavi.device.SystemStateProvider
+import javax.inject.Inject
 
-class SettingsViewModel @ViewModelInject constructor(
+@HiltViewModel
+class SettingsViewModel @Inject constructor(
     private val systemStateProvider: SystemStateProvider
 ) : ViewModel() {
 

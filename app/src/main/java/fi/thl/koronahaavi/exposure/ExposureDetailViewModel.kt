@@ -1,7 +1,7 @@
 package fi.thl.koronahaavi.exposure
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
+import dagger.hilt.android.lifecycle.HiltViewModel
 import fi.thl.koronahaavi.common.Event
 import fi.thl.koronahaavi.data.AppStateRepository
 import fi.thl.koronahaavi.data.ExposureNotification
@@ -11,8 +11,10 @@ import fi.thl.koronahaavi.service.ExposureNotificationService
 import fi.thl.koronahaavi.service.WorkDispatcher
 import fi.thl.koronahaavi.service.WorkState
 import java.time.ZonedDateTime
+import javax.inject.Inject
 
-class ExposureDetailViewModel @ViewModelInject constructor(
+@HiltViewModel
+class ExposureDetailViewModel @Inject constructor(
     exposureRepository: ExposureRepository,
     appStateRepository: AppStateRepository,
     exposureNotificationService: ExposureNotificationService,
