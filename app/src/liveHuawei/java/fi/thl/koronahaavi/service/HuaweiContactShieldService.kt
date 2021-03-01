@@ -21,6 +21,7 @@ import com.huawei.hms.contactshield.*
 import com.huawei.hms.utils.HMSPackageManager
 import fi.thl.koronahaavi.BuildConfig
 import fi.thl.koronahaavi.R
+import fi.thl.koronahaavi.data.DailyExposure
 import fi.thl.koronahaavi.data.Exposure
 import fi.thl.koronahaavi.service.ExposureNotificationService.EnableStep
 import fi.thl.koronahaavi.service.ExposureNotificationService.ResolvableResult
@@ -80,6 +81,12 @@ class HuaweiContactShieldService(
         return engine.isContactShieldRunning.await()
     }
 
+    override suspend fun getDailyExposures(config: ExposureConfigurationData): List<DailyExposure> {
+        // todo
+        return listOf()
+    }
+
+    /*
     override suspend fun getExposureSummary(token: String): ExposureSummary =
         engine.getContactSketch(token).await().let {
             ExposureSummaryBuilder()
@@ -100,12 +107,9 @@ class HuaweiContactShieldService(
                     info.toExposure(createdDate)
                 }
     }
+     */
 
-    override suspend fun provideDiagnosisKeyFiles(
-        token: String,
-        files: List<File>,
-        config: ExposureConfigurationData
-    ): ResolvableResult<Unit> = resultFromRunning<Unit> {
+    override suspend fun provideDiagnosisKeyFiles(files: List<File>): ResolvableResult<Unit> = resultFromRunning {
 
         val intent = PendingIntent.getService(
                 context,
@@ -113,17 +117,17 @@ class HuaweiContactShieldService(
                 Intent(context, ContactShieldIntentService::class.java),
                 PendingIntent.FLAG_UPDATE_CURRENT
         )
-        val apiConfig = config.toDiagnosisConfiguration()
 
         val task = if (BuildConfig.SKIP_EXPOSURE_FILE_VERIFICATION) {
             // use this for local backend when you don't have the signature public key
             Timber.d("Skipping exposure key file signature verification")
-            engine.putSharedKeyFiles(intent, files, apiConfig, token)
+            engine.putSharedKeyFiles(intent, SharedKeyFileProvider(files))
         }
         else {
             val publicKeys = listOf(BuildConfig.EXPOSURE_FILE_PUBLIC_KEY)
             Timber.d("putSharedKeyFiles with $publicKeys")
-            engine.putSharedKeyFiles(intent, files, publicKeys, apiConfig, token)
+            // todo how to provide public keys
+            engine.putSharedKeyFiles(intent, SharedKeyFileProvider(files))
         }
 
         task.await()
@@ -190,6 +194,7 @@ class HuaweiContactShieldService(
         }
     }
 
+    /*
     // this maps backend json object to google EN api configuration
     private fun ExposureConfigurationData.toDiagnosisConfiguration(): DiagnosisConfiguration {
 
@@ -206,6 +211,7 @@ class HuaweiContactShieldService(
             .setAttenuationDurationThresholds(*durationAtAttenuationThresholds.toIntArray())
             .build()
     }
+     */
 
     companion object {
         const val ROLLING_INTERVALS_IN_DAY = 144
