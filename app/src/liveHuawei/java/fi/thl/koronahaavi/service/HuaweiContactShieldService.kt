@@ -9,10 +9,7 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.content.IntentSender
 import android.net.Uri
-import com.google.android.gms.nearby.exposurenotification.ExposureNotificationStatusCodes
-import com.google.android.gms.nearby.exposurenotification.ExposureSummary
-import com.google.android.gms.nearby.exposurenotification.ExposureSummary.ExposureSummaryBuilder
-import com.google.android.gms.nearby.exposurenotification.TemporaryExposureKey
+import com.google.android.gms.nearby.exposurenotification.*
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.huawei.hms.api.HuaweiApiAvailability
 import com.huawei.hms.common.ApiException
@@ -38,6 +35,7 @@ import java.time.ZonedDateTime
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.math.min
+import kotlin.math.roundToInt
 
 class HuaweiContactShieldService(
     private val context: Context
@@ -76,38 +74,39 @@ class HuaweiContactShieldService(
         isEnabledFlow.value = false
     }
 
-    override suspend fun isEnabled(): Boolean {
-        Timber.d("calling isContactShieldRunning")
-        return engine.isContactShieldRunning.await()
-    }
-
-    override suspend fun getDailyExposures(config: ExposureConfigurationData): List<DailyExposure> {
-        // todo
-        return listOf()
-    }
-
-    /*
-    override suspend fun getExposureSummary(token: String): ExposureSummary =
-        engine.getContactSketch(token).await().let {
-            ExposureSummaryBuilder()
-                .setDaysSinceLastExposure(it.daysSinceLastHit)
-                .setMatchedKeyCount(it.numberOfHits)
-                .setMaximumRiskScore(it.maxRiskValue)
-                .setSummationRiskScore(it.summationRiskValue)
-                .setAttenuationDurations(it.attenuationDurations)
-                .build()
+    override suspend fun isEnabled(): Boolean  =
+        when (val result = resultFromRunning { engine.isContactShieldRunning.await() }) {
+            is ResolvableResult.Success -> result.data
+            else -> false
         }
 
-    override suspend fun getExposureDetails(token: String): List<Exposure> {
-        val createdDate = ZonedDateTime.now()
+    override suspend fun getDailyExposures(config: ExposureConfigurationData): List<DailyExposure> {
+        updateKeyDataMapping(config)
 
-        return engine.getContactDetail(token).await()
-                .map { info ->
-                    Timber.d(info.toString())
-                    info.toExposure(createdDate)
-                }
+        return engine.getDailySketch(config.toDailySketchConfiguration())
+            .await()
+            .map { sketch ->
+                Timber.d(sketch.toString())
+                DailyExposure(
+                    day = LocalDate.ofEpochDay(sketch.daysSinceEpoch.toLong()),
+                    score = sketch.sketchData.scoreSum.roundToInt()
+                )
+            }
     }
-     */
+
+    private suspend fun updateKeyDataMapping(config: ExposureConfigurationData) {
+        // data mapping should only be updated if actually changed, since calls limited to 2 per week
+        val currentDataMapping = engine.sharedKeysDataMapping.await()
+        val newDataMapping = config.toSharedKeysDataMapping()
+
+        if (newDataMapping != currentDataMapping) {
+            Timber.d("Setting diagnosis keys data mapping")
+            // todo how to handle errors, ignore?
+            resultFromRunning {
+                engine.setSharedKeysDataMapping(newDataMapping).await()
+            }
+        }
+    }
 
     override suspend fun provideDiagnosisKeyFiles(files: List<File>): ResolvableResult<Unit> = resultFromRunning {
 
@@ -194,24 +193,35 @@ class HuaweiContactShieldService(
         }
     }
 
-    /*
-    // this maps backend json object to google EN api configuration
-    private fun ExposureConfigurationData.toDiagnosisConfiguration(): DiagnosisConfiguration {
-
-        // when test UI is enabled, override minimum risk score so that we get the calculated risk score
-        // from EN api, otherwise it is zeroed out and test UI is not useful
-        val minRiskScore = if (BuildConfig.ENABLE_TEST_UI) 1 else minimumRiskScore
-
-        return DiagnosisConfiguration.Builder()
-            .setMinimumRiskValueThreshold(minRiskScore)
-            .setAttenuationRiskValues(*attenuationScores.toIntArray())
-            .setDaysAfterContactedRiskValues(*daysSinceLastExposureScores.toIntArray())
-            .setDurationRiskValues(*durationScores.toIntArray())
-            .setInitialRiskLevelRiskValues(*transmissionRiskScoresAndroid.toIntArray())
-            .setAttenuationDurationThresholds(*durationAtAttenuationThresholds.toIntArray())
+    private fun ExposureConfigurationData.toDailySketchConfiguration(): DailySketchConfiguration =
+        DailySketchConfiguration.Builder()
+            .setThresholdsOfAttenuationInDb(attenuationBucketThresholdDb, attenuationBucketWeights)
+            .setWeightOfContagiousness(Contagiousness.STANDARD, infectiousnessWeightStandard)
+            .setWeightOfContagiousness(Contagiousness.HIGH, infectiousnessWeightHigh)
+            .setWeightOfReportType(ReportType.CONFIRMED_CLINICAL_DIAGNOSIS, reportTypeWeightConfirmedClinicalDiagnosis)
+            .setWeightOfReportType(ReportType.CONFIRMED_TEST, reportTypeWeightConfirmedTest)
+            .setWeightOfReportType(ReportType.SELF_REPORT, reportTypeWeightSelfReport)
+            .setWeightOfReportType(ReportType.RECURSIVE, reportTypeWeightRecursive)
+            .setMinWindowScore(minimumWindowScore)
+            .setThresholdOfDaysSinceHit(daysSinceExposureThreshold)
             .build()
+
+    // backend api uses the term infectiousness to match google EN implementation
+    // but contact shield uses term contagiousness for the same data
+    private fun ExposureConfigurationData.toSharedKeysDataMapping(): SharedKeysDataMapping =
+        SharedKeysDataMapping.Builder()
+            .setDefaultReportType(ReportType.CONFIRMED_TEST)
+            .setDefaultContagiousness(infectiousnessWhenDaysSinceOnsetMissing.toContagiousness())
+            .setDaysSinceCreationToContagiousness(daysSinceOnsetToInfectiousness.entries.associate {
+                it.key.toInt() to it.value.toContagiousness()
+            })
+            .build()
+
+    private fun InfectiousnessLevel.toContagiousness() = when (this) {
+        InfectiousnessLevel.HIGH -> Contagiousness.HIGH
+        InfectiousnessLevel.STANDARD -> Contagiousness.STANDARD
+        InfectiousnessLevel.NONE -> Contagiousness.NONE
     }
-     */
 
     companion object {
         const val ROLLING_INTERVALS_IN_DAY = 144

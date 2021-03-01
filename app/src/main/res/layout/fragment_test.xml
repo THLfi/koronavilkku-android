@@ -56,7 +56,6 @@
                     android:id="@+id/input_edit_test_batch_id"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="number"
                     />
             </com.google.android.material.textfield.TextInputLayout>
 
