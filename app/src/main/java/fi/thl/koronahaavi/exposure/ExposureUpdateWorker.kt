@@ -38,17 +38,16 @@ class ExposureUpdateWorker @AssistedInject constructor(
             return Result.success()
         }
 
-        // todo get config from backend
+        // configuration is loaded during diagnosis key file download, which must happen
+        // before this worker can be started, so we can rely on config being available
         val config = settingsRepository.requireExposureConfiguration()
-
-        // todo wip code to experiment with v2 api
 
         // due to legacy implementation, current exposures can contain each individual exposure, or new daily exposure
         val currentExposures = exposureRepository.getAllExposures()
 
         // compare to existing and find new days with exposure
         val newExposures = exposureNotificationService.getDailyExposures(config)
-            .filter { it.score > config.minimumDailyScore }
+            .filter { it.score >= config.minimumDailyScore }
             .filter { currentExposures.none { c -> c.detectedDate.toLocalDate() == it.day } } // nothing for this day
             .map { it.toExposure() }
 
@@ -67,6 +66,7 @@ class ExposureUpdateWorker @AssistedInject constructor(
         return Result.success()
     }
 
+    // UTC timezone is used to match EN api v1 exposure detail, and also Converters.longToZonedDateTime
     private fun DailyExposure.toExposure() =
         Exposure(
             createdDate = ZonedDateTime.now(),

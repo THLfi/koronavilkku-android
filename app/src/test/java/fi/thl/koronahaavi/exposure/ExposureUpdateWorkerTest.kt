@@ -5,17 +5,12 @@ import android.app.Application
 import android.content.Context
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import androidx.work.Data
 import androidx.work.ListenableWorker
 import androidx.work.ListenableWorker.Result
 import androidx.work.WorkerFactory
 import androidx.work.WorkerParameters
 import androidx.work.testing.TestListenableWorkerBuilder
-import com.google.android.gms.nearby.exposurenotification.ExposureSummary
-import fi.thl.koronahaavi.data.AppStateRepository
-import fi.thl.koronahaavi.data.ExposureRepository
-import fi.thl.koronahaavi.data.KeyGroupToken
-import fi.thl.koronahaavi.data.SettingsRepository
+import fi.thl.koronahaavi.data.*
 import fi.thl.koronahaavi.service.ExposureNotificationService
 import fi.thl.koronahaavi.service.NotificationService
 import fi.thl.koronahaavi.utils.TestData
@@ -55,6 +50,7 @@ class ExposureUpdateWorkerTest {
 
         every { appStateRepository.lockedAfterDiagnosis() } returns lockedFlow
         every { settingsRepository.requireExposureConfiguration() } returns TestData.exposureConfiguration()
+        coEvery { exposureRepository.getAllExposures() } returns listOf()
         coEvery { exposureNotificationService.isEnabled() } returns true
 
         worker = TestListenableWorkerBuilder<ExposureUpdateWorker>(context)
@@ -62,102 +58,108 @@ class ExposureUpdateWorkerTest {
             .build()
     }
 
-    // todo update tests
-
     @Test
     fun successWhenLocked() {
         lockedFlow.value = true
         runBlocking {
             val result = worker.startWork().get()
             assertEquals(Result.success(), result)
-            ////coVerify(exactly = 0) { exposureNotificationService.getExposureSummary(any()) }
+            coVerify(exactly = 0) { exposureNotificationService.getDailyExposures(any()) }
         }
     }
 
-    /*
     @Test
-    fun successWhenNoMatches() {
-        coEvery { exposureNotificationService.getExposureSummary(any()) } returns
-                ExposureSummary.ExposureSummaryBuilder().setMatchedKeyCount(0).build()
+    fun newExposureNoPrevious() {
+        val exposure = TestData.dailyExposure()
+        coEvery { exposureNotificationService.getDailyExposures(any()) } returns listOf(exposure)
 
         runBlocking {
             val result = worker.startWork().get()
             assertEquals(Result.success(), result)
-            coVerify(exactly = 0) { settingsRepository.requireExposureConfiguration() }
-        }
-    }
 
-    @Test
-    fun successWhenHighRisk() {
-        coEvery { exposureNotificationService.getExposureSummary(any()) } returns
-                ExposureSummary.ExposureSummaryBuilder().setMatchedKeyCount(1).setMaximumRiskScore(200).build()
-
-        coEvery { exposureNotificationService.getExposureDetails(any()) } returns listOf(
-            TestData.exposure().copy(totalRiskScore = 200),
-            TestData.exposure().copy(totalRiskScore = 160)
-        )
-
-        runBlocking {
-            val result = worker.startWork().get()
-            assertEquals(Result.success(), result)
-            coVerify(exactly = 1) { exposureNotificationService.getExposureDetails(any()) }
-            coVerify(exactly = 2) { exposureRepository.saveExposure(any()) }
-        }
-    }
-
-    @Test
-    fun keyGroupTokenUpdated() {
-        coEvery { exposureNotificationService.getExposureSummary(any()) } returns
-                ExposureSummary.ExposureSummaryBuilder().setMatchedKeyCount(1).setMaximumRiskScore(200).build()
-
-        val latestExposure = TestData.exposure(Duration.ofDays(1)).copy(totalRiskScore = 200)
-
-        coEvery { exposureNotificationService.getExposureDetails(any()) } returns listOf(
-            TestData.exposure(Duration.ofDays(2)).copy(totalRiskScore = 200),
-            latestExposure,
-            TestData.exposure(Duration.ofDays(3)).copy(totalRiskScore = 200)
-        )
-
-        runBlocking {
-            worker.startWork().get()
+            val savedExposure = slot<Exposure>()
+            coVerify(exactly = 1) { exposureRepository.saveExposure(capture(savedExposure)) }
+            assertEquals(exposure.day, savedExposure.captured.detectedDate.toLocalDate())
 
             val savedToken = slot<KeyGroupToken>()
             coVerify(exactly = 1) { exposureRepository.saveKeyGroupToken(capture(savedToken)) }
-
-            assertEquals(3, savedToken.captured.exposureCount)
-            assertEquals(latestExposure.detectedDate, savedToken.captured.latestExposureDate)
-        }
-    }
-
-    @Test
-    fun keyGroupTokenUpdatedFiltered() {
-        coEvery { exposureNotificationService.getExposureSummary(any()) } returns
-                ExposureSummary.ExposureSummaryBuilder()
-                    .setMatchedKeyCount(2)
-                    .setMaximumRiskScore(10)
-                    .setAttenuationDurations(intArrayOf(30,0,0))
-                    .build()
-
-        val latestExposure = TestData.exposure(Duration.ofDays(1)).copy(totalRiskScore = 10)
-
-        coEvery { exposureNotificationService.getExposureDetails(any()) } returns listOf(
-            TestData.exposure(Duration.ofDays(2)).copy(totalRiskScore = 10),
-            latestExposure,
-            TestData.exposure(Duration.ofDays(3)).copy(totalRiskScore = 10)
-        )
-
-        runBlocking {
-            worker.startWork().get()
-
-            val savedToken = slot<KeyGroupToken>()
-            coVerify(exactly = 1) { exposureRepository.saveKeyGroupToken(capture(savedToken)) }
-
-            // only the latest is returned since filterd by ExposureSummaryChecker
             assertEquals(1, savedToken.captured.exposureCount)
-            assertEquals(latestExposure.detectedDate, savedToken.captured.latestExposureDate)
+
+            coVerify(exactly = 1) { notificationService.notifyExposure() }
         }
     }
-    */
+
+    @Test
+    fun newExposureOnEarlierDay() {
+        coEvery { exposureRepository.getAllExposures() } returns listOf(
+                TestData.exposure(age = Duration.ZERO, dayOffset = 3).copy(totalRiskScore = 900)
+        )
+
+        coEvery { exposureNotificationService.getDailyExposures(any()) } returns listOf(
+                TestData.dailyExposure(dayOffset = 3),
+                TestData.dailyExposure(dayOffset = 4) // new
+        )
+
+        runBlocking {
+            val result = worker.startWork().get()
+            assertEquals(Result.success(), result)
+
+            coVerify(exactly = 1) { exposureRepository.saveExposure(any()) }
+            coVerify(exactly = 1) { notificationService.notifyExposure() }
+        }
+    }
+
+    @Test
+    fun newExposureOnLaterDay() {
+        coEvery { exposureRepository.getAllExposures() } returns listOf(
+                TestData.exposure(age = Duration.ZERO, dayOffset = 3).copy(totalRiskScore = 900)
+        )
+
+        coEvery { exposureNotificationService.getDailyExposures(any()) } returns listOf(
+                TestData.dailyExposure(dayOffset = 3),
+                TestData.dailyExposure(dayOffset = 2) // new
+        )
+
+        runBlocking {
+            val result = worker.startWork().get()
+            assertEquals(Result.success(), result)
+
+            coVerify(exactly = 1) { exposureRepository.saveExposure(any()) }
+            coVerify(exactly = 1) { notificationService.notifyExposure() }
+        }
+    }
+
+    @Test
+    fun lowExposure() {
+        coEvery { exposureNotificationService.getDailyExposures(any()) } returns listOf(
+            TestData.dailyExposure().copy(score = 10)
+        )
+
+        runBlocking {
+            val result = worker.startWork().get()
+            assertEquals(Result.success(), result)
+            coVerify(exactly = 0) { exposureRepository.saveExposure(any()) }
+            coVerify(exactly = 0) { notificationService.notifyExposure() }
+        }
+    }
+
+    @Test
+    fun increasedExposureForExisting() {
+        coEvery { exposureRepository.getAllExposures() } returns listOf(
+                TestData.exposure(age = Duration.ZERO, dayOffset = 3).copy(totalRiskScore = 900)
+        )
+
+        coEvery { exposureNotificationService.getDailyExposures(any()) } returns listOf(
+                TestData.dailyExposure(dayOffset = 3).copy(score = 1800)
+        )
+
+        runBlocking {
+            val result = worker.startWork().get()
+            assertEquals(Result.success(), result)
+            coVerify(exactly = 0) { exposureRepository.saveExposure(any()) }
+            coVerify(exactly = 0) { notificationService.notifyExposure() }
+        }
+    }
 
     private val fakeFactory = object : WorkerFactory() {
         override fun createWorker(

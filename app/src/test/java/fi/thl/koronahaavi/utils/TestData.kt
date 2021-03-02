@@ -1,5 +1,6 @@
 package fi.thl.koronahaavi.utils
 
+import fi.thl.koronahaavi.data.DailyExposure
 import fi.thl.koronahaavi.data.Exposure
 import fi.thl.koronahaavi.data.OmaoloFeatures
 import fi.thl.koronahaavi.data.ServiceLanguages
@@ -18,11 +19,16 @@ import kotlin.random.Random
 object TestData {
     private val baseCreatedDate = ZonedDateTime.of(2020, 11, 2, 13, 10, 5, 0, ZoneId.of("Z"))
 
-    fun exposure(age: TemporalAmount = Duration.ofDays(2)) = Exposure(
+    fun exposure(age: TemporalAmount = Duration.ofDays(2), dayOffset: Long = 3) = Exposure(
         id = Random.nextLong(),
-        detectedDate = baseCreatedDate.minus(age).minusDays(3),
+        detectedDate = baseCreatedDate.minus(age).minusDays(dayOffset),
         createdDate = baseCreatedDate.minus(age),
         totalRiskScore = 0
+    )
+
+    fun dailyExposure(dayOffset: Long = 3) = DailyExposure(
+        day = baseCreatedDate.toLocalDate().minusDays(dayOffset),
+        score = exposureConfiguration().minimumDailyScore
     )
 
     val appConfig = AppConfiguration(
