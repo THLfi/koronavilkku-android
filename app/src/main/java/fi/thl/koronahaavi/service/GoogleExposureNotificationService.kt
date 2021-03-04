@@ -5,14 +5,14 @@ package fi.thl.koronahaavi.service
 import android.app.Activity
 import android.content.Context
 import android.content.DialogInterface
-import android.os.Process
-import android.os.UserManager
 import com.google.android.gms.common.ConnectionResult
 import com.google.android.gms.common.GoogleApiAvailability
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.CommonStatusCodes
 import com.google.android.gms.common.api.Status
 import com.google.android.gms.nearby.exposurenotification.*
+import com.google.android.gms.nearby.exposurenotification.ExposureNotificationStatusCodes.FAILED_RATE_LIMITED
+import fi.thl.koronahaavi.data.AppStateRepository
 import fi.thl.koronahaavi.data.DailyExposure
 import fi.thl.koronahaavi.service.ExposureNotificationService.ConnectionError
 import fi.thl.koronahaavi.service.ExposureNotificationService.ResolvableResult
@@ -21,18 +21,15 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.tasks.await
 import timber.log.Timber
 import java.io.File
+import java.time.Instant
 import java.time.LocalDate
+import java.time.temporal.ChronoUnit
 import kotlin.math.roundToInt
 
 class GoogleExposureNotificationService(
-    private val client: ExposureNotificationClient
+    private val client: ExposureNotificationClient,
+    private val appStateRepository: AppStateRepository
 ) : ExposureNotificationService {
-
-    /*
-    private val client by lazy {
-        Nearby.getExposureNotificationClient(context)
-    }
-     */
 
     private val isEnabledFlow = MutableStateFlow<Boolean?>(null)
     override fun isEnabledFlow(): StateFlow<Boolean?> = isEnabledFlow
@@ -80,13 +77,34 @@ class GoogleExposureNotificationService(
         val newDataMapping = config.toDiagnosisKeysDataMapping()
 
         if (newDataMapping != currentDataMapping) {
-            Timber.d("Setting diagnosis keys data mapping")
-            // todo how to handle errors, ignore?
-            resultFromRunning {
+            Timber.d("Setting new diagnosis keys data mapping")
+            try {
                 client.setDiagnosisKeysDataMapping(newDataMapping).await()
             }
+            catch (e: ApiException) {
+                // setDiagnosisKeysDataMapping is rate limited to two per week, so ignore rate limit errors unless
+                // it has been over a week since last successful call.
+                // This makes sure the app does not just silently ignore setDiagnosisKeysDataMapping errors
+                // and continue for over a week with outdated parameters
+                if (e.statusCode == FAILED_RATE_LIMITED) {
+                    val lastUpdate = appStateRepository.getLastExposureKeyMappingUpdate()
+                    if (lastUpdate?.isLessThanWeekOld() == true) {
+                        Timber.d("Ignoring rate limiting for setDiagnosisKeysDataMapping")
+                    }
+                    else {
+                        Timber.e("Incorrect rate limiting for setDiagnosisKeysDataMapping, previous update $lastUpdate")
+                        throw e
+                    }
+                }
+                else {
+                    throw e
+                }
+            }
+            appStateRepository.setLastExposureKeyMappingUpdate(Instant.now())
         }
     }
+
+    private fun Instant.isLessThanWeekOld() = isAfter(Instant.now().minus(1, ChronoUnit.WEEKS))
 
     override suspend fun provideDiagnosisKeyFiles(files: List<File>): ResolvableResult<Unit> {
         Timber.d("Providing %d key files", files.size)
@@ -103,35 +121,6 @@ class GoogleExposureNotificationService(
     override fun deviceSupportsLocationlessScanning() = client.deviceSupportsLocationlessScanning()
 
     override fun getAvailabilityResolver() = GoogleAvailabilityResolver()
-
-    // this maps backend json config object to google EN api daily configuration
-    private fun ExposureConfigurationData.toDailySummariesConfig(): DailySummariesConfig =
-            DailySummariesConfig.DailySummariesConfigBuilder()
-                    .setAttenuationBuckets(attenuationBucketThresholdDb, attenuationBucketWeights)
-                    .setInfectiousnessWeight(Infectiousness.STANDARD, infectiousnessWeightStandard)
-                    .setInfectiousnessWeight(Infectiousness.HIGH, infectiousnessWeightHigh)
-                    .setReportTypeWeight(ReportType.CONFIRMED_CLINICAL_DIAGNOSIS, reportTypeWeightConfirmedClinicalDiagnosis)
-                    .setReportTypeWeight(ReportType.CONFIRMED_TEST, reportTypeWeightConfirmedTest)
-                    .setReportTypeWeight(ReportType.SELF_REPORT, reportTypeWeightSelfReport)
-                    .setReportTypeWeight(ReportType.RECURSIVE, reportTypeWeightRecursive)
-                    .setMinimumWindowScore(minimumWindowScore)
-                    .setDaysSinceExposureThreshold(daysSinceExposureThreshold)
-                    .build()
-
-    private fun ExposureConfigurationData.toDiagnosisKeysDataMapping(): DiagnosisKeysDataMapping =
-            DiagnosisKeysDataMapping.DiagnosisKeysDataMappingBuilder()
-                    .setReportTypeWhenMissing(ReportType.CONFIRMED_TEST)
-                    .setInfectiousnessWhenDaysSinceOnsetMissing(infectiousnessWhenDaysSinceOnsetMissing.toInfectiousness())
-                    .setDaysSinceOnsetToInfectiousness(daysSinceOnsetToInfectiousness.entries.associate {
-                        it.key.toInt() to it.value.toInfectiousness()
-                    })
-                    .build()
-
-    private fun InfectiousnessLevel.toInfectiousness() = when (this) {
-        InfectiousnessLevel.HIGH -> Infectiousness.HIGH
-        InfectiousnessLevel.STANDARD -> Infectiousness.STANDARD
-        InfectiousnessLevel.NONE -> Infectiousness.NONE
-    }
 
     private suspend fun isOwnerUserProfile(): Boolean =
         ExposureNotificationStatus.USER_PROFILE_NOT_SUPPORT !in client.status.await()
@@ -211,4 +200,33 @@ class GoogleApiErrorResolver(private val status: Status) : ExposureNotificationS
     override fun startResolutionForResult(activity: Activity, resultCode: Int) {
         status.startResolutionForResult(activity, resultCode)
     }
+}
+
+// this maps backend json config object to google EN api daily configuration
+fun ExposureConfigurationData.toDailySummariesConfig(): DailySummariesConfig =
+        DailySummariesConfig.DailySummariesConfigBuilder()
+                .setAttenuationBuckets(attenuationBucketThresholdDb, attenuationBucketWeights)
+                .setInfectiousnessWeight(Infectiousness.STANDARD, infectiousnessWeightStandard)
+                .setInfectiousnessWeight(Infectiousness.HIGH, infectiousnessWeightHigh)
+                .setReportTypeWeight(ReportType.CONFIRMED_CLINICAL_DIAGNOSIS, reportTypeWeightConfirmedClinicalDiagnosis)
+                .setReportTypeWeight(ReportType.CONFIRMED_TEST, reportTypeWeightConfirmedTest)
+                .setReportTypeWeight(ReportType.SELF_REPORT, reportTypeWeightSelfReport)
+                .setReportTypeWeight(ReportType.RECURSIVE, reportTypeWeightRecursive)
+                .setMinimumWindowScore(minimumWindowScore)
+                .setDaysSinceExposureThreshold(daysSinceExposureThreshold)
+                .build()
+
+fun ExposureConfigurationData.toDiagnosisKeysDataMapping(): DiagnosisKeysDataMapping =
+        DiagnosisKeysDataMapping.DiagnosisKeysDataMappingBuilder()
+                .setReportTypeWhenMissing(ReportType.CONFIRMED_TEST)
+                .setInfectiousnessWhenDaysSinceOnsetMissing(infectiousnessWhenDaysSinceOnsetMissing.toInfectiousness())
+                .setDaysSinceOnsetToInfectiousness(daysSinceOnsetToInfectiousness.entries.associate {
+                    it.key.toInt() to it.value.toInfectiousness()
+                })
+                .build()
+
+fun InfectiousnessLevel.toInfectiousness() = when (this) {
+    InfectiousnessLevel.HIGH -> Infectiousness.HIGH
+    InfectiousnessLevel.STANDARD -> Infectiousness.STANDARD
+    InfectiousnessLevel.NONE -> Infectiousness.NONE
 }

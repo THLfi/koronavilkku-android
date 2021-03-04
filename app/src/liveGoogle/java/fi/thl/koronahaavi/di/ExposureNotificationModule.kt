@@ -7,6 +7,7 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
+import fi.thl.koronahaavi.data.AppStateRepository
 import fi.thl.koronahaavi.service.ExposureNotificationService
 import fi.thl.koronahaavi.service.GoogleExposureNotificationService
 import javax.inject.Singleton
@@ -17,8 +18,9 @@ object ExposureNotificationModule {
 
     @Singleton
     @Provides
-    fun provideExposureNotificationService(@ApplicationContext context: Context): ExposureNotificationService {
+    fun provideExposureNotificationService(@ApplicationContext context: Context,
+                                           appStateRepository: AppStateRepository): ExposureNotificationService {
         val client = Nearby.getExposureNotificationClient(context)
-        return GoogleExposureNotificationService(client)
+        return GoogleExposureNotificationService(client, appStateRepository)
     }
 }

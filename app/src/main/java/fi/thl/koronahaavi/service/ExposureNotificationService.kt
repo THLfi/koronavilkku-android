@@ -10,6 +10,7 @@ import com.google.android.gms.nearby.exposurenotification.TemporaryExposureKey
 import fi.thl.koronahaavi.data.DailyExposure
 import kotlinx.coroutines.flow.StateFlow
 import java.io.File
+import java.time.Instant
 
 interface ExposureNotificationService {
     suspend fun enable(): ResolvableResult<Unit>

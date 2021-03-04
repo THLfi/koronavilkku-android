@@ -134,13 +134,13 @@
     <string name="notification_list_disclaimer">Arvio altistumisesta perustuu Koronavilkun keräämiin kohtaamistietoihin viimeisten 14 vuorokauden ajalta. Altistumisen voimakkuutta ei voida täsmällisesti arvioida.</string>
 
     <string name="notification_item_title">Altistumisilmoitus %s</string>
-    <string name="notification_item_count_label">Mahdollisia altistumisia</string>
+    <string name="notification_item_count_label">Mahdollisia uusia altistumisia</string>
     <string name="notification_item_time_range_label">Aika\u00ADvälillä</string>
 
     <string name="notification_channel_name">Altistumisilmoitukset</string>
     <string name="notification_channel_description">Ilmoitukset mahdollisista altistumisista.</string>
     <string name="notification_exposure_title">Mahdollinen altistuminen</string>
-    <string name="notification_exposure_message">Mahdollinen altistuminen</string>
+    <string name="notification_exposure_message">Olet saattanut altistua koronavirukselle. Katso toimintaohjeet ja ota yhteyttä terveydenhuoltoon.</string>
 
     <string name="guide_title">Tietoa Koronavilkusta</string>
     <string name="guide_p1_text">Koronavilkku on Terveyden ja hyvinvoinnin laitoksen tuottama sovellus, jonka avulla saat tiedon, jos olet sovelluksen arvion mukaan altistunut koronavirukselle. Jos sinulla todetaan tartunta, voit ilmoittaa siitä sovelluksella nimettömästi. Sovelluksessa yksityisyytesi on vahvasti suojattu.</string>

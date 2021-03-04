@@ -8,6 +8,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import fi.thl.koronahaavi.data.ExposureRepository
+import fi.thl.koronahaavi.di.AppStatePreferencesName
 import fi.thl.koronahaavi.di.DatabaseName
 import fi.thl.koronahaavi.service.*
 import fi.thl.koronahaavi.settings.UserPreferences
@@ -51,6 +52,9 @@ object TestModule {
 
     @Singleton @Provides @DatabaseName
     fun databaseName() = "koronavilkku-test-db"
+
+    @Singleton @Provides @AppStatePreferencesName
+    fun appStatePreferencesName() = "fi.thl.koronahaavi.test.app_state_preferences"
 
     const val TEST_SHARED_PREFERENCES_NAME = "fi.thl.koronahaavi.test.prefs"
     const val TEST_USER_PREFERENCES_NAME = "fi.thl.koronahaavi.test.user_prefs"
