@@ -5,6 +5,8 @@ import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import dagger.hilt.android.qualifiers.ApplicationContext
+import fi.thl.koronahaavi.common.getInstant
+import fi.thl.koronahaavi.common.setInstant
 import fi.thl.koronahaavi.di.AppStatePreferencesName
 import fi.thl.koronahaavi.service.BackendService
 import fi.thl.koronahaavi.service.BatchId
@@ -87,13 +89,9 @@ class AppStateRepository @Inject constructor (
         prefs.edit().remove(lastBatchIdKey).apply()
     }
 
-    fun getLastExposureKeyMappingUpdate(): Instant? =
-        appSharedPreferences.getLong(lastExposureKeyMappingUpdateKey, 0)
-                .takeIf { it > 0 }
-                ?.let { Instant.ofEpochSecond(it) }
+    fun getLastExposureKeyMappingUpdate(): Instant? = appSharedPreferences.getInstant(lastExposureKeyMappingUpdateKey)
 
-    fun setLastExposureKeyMappingUpdate(time: Instant) =
-        appSharedPreferences.edit().putLong(lastExposureKeyMappingUpdateKey, time.epochSecond).apply()
+    fun setLastExposureKeyMappingUpdate(time: Instant) = appSharedPreferences.setInstant(lastExposureKeyMappingUpdateKey, time)
 
     private suspend fun getInitialBatchId() : BatchId
             = backendService.getInitialBatchId().current.also { setDiagnosisKeyBatchId(it) }

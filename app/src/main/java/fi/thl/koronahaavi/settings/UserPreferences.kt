@@ -4,6 +4,8 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.core.content.edit
 import dagger.hilt.android.qualifiers.ApplicationContext
+import fi.thl.koronahaavi.common.setBoolean
+import fi.thl.koronahaavi.common.tryBoolean
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -25,22 +27,4 @@ class UserPreferences(
     var powerOptimizationDisableAllowed: Boolean?
         get() = prefs.tryBoolean(keyPowerOptimizationDisabled)
         set(value) = prefs.setBoolean(keyPowerOptimizationDisabled, value)
-}
-
-fun SharedPreferences.tryBoolean(key: String): Boolean? {
-    return if (contains(key)) {
-        getBoolean(key, false)
-    } else {
-        null
-    }
-}
-
-fun SharedPreferences.setBoolean(key: String, value: Boolean?) {
-    edit {
-        if (value != null) {
-            putBoolean(key, value)
-        } else {
-            remove(key)
-        }
-    }
 }
