@@ -3,10 +3,7 @@ package fi.thl.koronahaavi.exposure
 import androidx.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import fi.thl.koronahaavi.common.Event
-import fi.thl.koronahaavi.data.AppStateRepository
-import fi.thl.koronahaavi.data.ExposureNotification
-import fi.thl.koronahaavi.data.ExposureRepository
-import fi.thl.koronahaavi.data.SettingsRepository
+import fi.thl.koronahaavi.data.*
 import fi.thl.koronahaavi.service.ExposureNotificationService
 import fi.thl.koronahaavi.service.WorkDispatcher
 import fi.thl.koronahaavi.service.WorkState
@@ -68,5 +65,5 @@ data class NotificationData(
     val dateTime: ZonedDateTime,
     val exposureRangeStart: ZonedDateTime,
     val exposureRangeEnd: ZonedDateTime,
-    val exposureCount: Int
+    val exposureCount: ExposureCount
 )

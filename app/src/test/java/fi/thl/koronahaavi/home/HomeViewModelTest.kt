@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import com.jraska.livedata.test
 import fi.thl.koronahaavi.common.Event
 import fi.thl.koronahaavi.data.AppStateRepository
+import fi.thl.koronahaavi.data.ExposureCount
 import fi.thl.koronahaavi.data.ExposureNotification
 import fi.thl.koronahaavi.data.ExposureRepository
 import fi.thl.koronahaavi.device.DeviceStateRepository
@@ -142,7 +143,7 @@ class HomeViewModelTest {
     @Test
     fun notificationCountAvailable() {
         every { exposureRepository.getExposureNotificationsFlow() } returns flowOf(listOf(
-            ExposureNotification(ZonedDateTime.now(), 2)
+            ExposureNotification(ZonedDateTime.now(), ExposureCount.ForDetailExposures(2))
         ))
         viewModel = createViewModel()
 

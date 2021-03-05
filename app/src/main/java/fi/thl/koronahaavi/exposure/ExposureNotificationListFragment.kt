@@ -17,6 +17,7 @@ import fi.thl.koronahaavi.R
 import fi.thl.koronahaavi.common.FormatExtensions
 import fi.thl.koronahaavi.common.FormatExtensions.formatDateRange
 import fi.thl.koronahaavi.common.FormatExtensions.formatLastCheckTime
+import fi.thl.koronahaavi.data.ExposureCount
 import fi.thl.koronahaavi.databinding.FragmentExposureNotificationListBinding
 import fi.thl.koronahaavi.databinding.ItemNotificationInfoBinding
 
@@ -97,10 +98,19 @@ class NotificationViewHolder(val binding: ItemNotificationInfoBinding)
     fun bind(data: NotificationData) {
         val dateString = FormatExtensions.formatDate(data.dateTime)
 
+        val countTextResId = when (data.exposureCount) {
+            is ExposureCount.ForDetailExposures -> R.plurals.all_count
+            is ExposureCount.ForDays -> R.plurals.all_day_count
+        }
+        val count = data.exposureCount.value
+
         binding.apply {
             title = itemView.context.getString(R.string.notification_item_title, dateString)
-            count = data.exposureCount
             range = itemView.context.formatDateRange(data.exposureRangeStart, data.exposureRangeEnd)
+
+            textNotificationItemCountValue.text = itemView.context.resources.getQuantityString(
+                countTextResId, count, count
+            )
         }
     }
 }

@@ -3,7 +3,6 @@ package fi.thl.koronahaavi.exposure
 import android.content.Context
 import androidx.hilt.work.HiltWorker
 import androidx.work.*
-import com.google.android.gms.nearby.exposurenotification.ExposureSummary
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import fi.thl.koronahaavi.data.*
@@ -58,7 +57,7 @@ class ExposureUpdateWorker @AssistedInject constructor(
 
         if (newExposures.isNotEmpty()) {
             exposureRepository.saveKeyGroupToken(
-                createKeyGroupToken(newExposures.size)
+                createKeyGroupToken(newExposures)
             )
             notificationService.notifyExposure()
         }
@@ -74,11 +73,11 @@ class ExposureUpdateWorker @AssistedInject constructor(
             totalRiskScore = score
         )
 
-    private fun createKeyGroupToken(exposureCount: Int) =
+    private fun createKeyGroupToken(exposures: List<Exposure>?) =
             KeyGroupToken(
                 token = UUID.randomUUID().toString(), // legacy db schema support
-                matchedKeyCount = exposureCount,
-                exposureCount = exposureCount
+                dayCount = exposures?.size,
+                latestExposureDate = exposures?.map { it.detectedDate }?.maxOrNull()
             )
 
     companion object {

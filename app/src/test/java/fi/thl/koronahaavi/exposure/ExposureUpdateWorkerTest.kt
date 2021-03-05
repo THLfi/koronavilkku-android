@@ -83,7 +83,7 @@ class ExposureUpdateWorkerTest {
 
             val savedToken = slot<KeyGroupToken>()
             coVerify(exactly = 1) { exposureRepository.saveKeyGroupToken(capture(savedToken)) }
-            assertEquals(1, savedToken.captured.exposureCount)
+            assertEquals(1, savedToken.captured.dayCount)
 
             coVerify(exactly = 1) { notificationService.notifyExposure() }
         }

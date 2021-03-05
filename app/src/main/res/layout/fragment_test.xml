@@ -150,14 +150,6 @@
                 android:paddingBottom="8dp"/>
 
             <TextView
-                android:id="@+id/test_exposure_risk_scores"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/test_worker_info"
-                app:layout_constraintStart_toStartOf="parent"
-                android:paddingBottom="8dp"/>
-
-            <TextView
                 android:id="@+id/test_update_tokens"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

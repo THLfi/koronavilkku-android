@@ -15,8 +15,6 @@ class DefaultExposureRepository (
 
     override suspend fun saveKeyGroupToken(token: KeyGroupToken) = keyGroupTokenDao.insert(token)
 
-    override fun flowHandledKeyGroupTokens() = keyGroupTokenDao.getHandledFlow()
-
     override suspend fun deleteKeyGroupToken(token: KeyGroupToken) = keyGroupTokenDao.delete(token)
 
     override suspend fun deleteAllKeyGroupTokens() = keyGroupTokenDao.deleteAll()
@@ -66,13 +64,24 @@ class DefaultExposureRepository (
             groupTokens.filter {
                 it.latestExposureDate?.isAfter(detectionStart) == true
             }.mapNotNull {
-                it.exposureCount?.let { count ->
-                    ExposureNotification(
-                        createdDate = it.updatedDate,
-                        exposureCount = count
-                    )
-                }
+                it.toExposureNotification()
             }
+        }
+
+    private fun KeyGroupToken.toExposureNotification(): ExposureNotification? =
+        // exposureCount is only defined for legacy v1 api mode exposures that
+        // notify of the count of each individual exposure
+        exposureCount?.let { count ->
+            ExposureNotification(
+                createdDate = updatedDate,
+                exposureCount = ExposureCount.ForDetailExposures(count)
+            )
+        } ?:
+        dayCount?.let { count ->
+            ExposureNotification(
+                createdDate = updatedDate,
+                exposureCount = ExposureCount.ForDays(count)
+            )
         }
 
     private fun getDetectionStart(): ZonedDateTime {

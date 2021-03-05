@@ -318,4 +318,8 @@
         <item quantity="other">%d kpl</item>
     </plurals>
 
+    <plurals name="all_day_count">
+        <item quantity="one">%d päivänä</item>
+        <item quantity="other">%d päivänä</item>
+    </plurals>
 </resources>

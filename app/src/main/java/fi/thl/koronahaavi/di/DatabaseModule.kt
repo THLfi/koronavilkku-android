@@ -25,7 +25,7 @@ object DatabaseModule {
     ): AppDatabase {
 
         return Room.databaseBuilder(context.applicationContext, AppDatabase::class.java, databaseName)
-                .addMigrations(migrationThreeToFour)
+                .addMigrations(migrationThreeToFour, migrationFourToFive)
                 .openHelperFactory(SupportFactory(settingsRepository.getOrCreateDatabasePassword()))
                 .build()
     }
@@ -50,9 +50,16 @@ object DatabaseModule {
     // first app version 1.0 had schema version 3, so this is the first migration we need to address
     val migrationThreeToFour = object : Migration(3, 4) {
         override fun migrate(database: SupportSQLiteDatabase) {
-            Timber.d("Migrating from schema 3 to 4")
+            Timber.d("Migrating from schema $startVersion to $endVersion")
             database.execSQL("ALTER TABLE key_group_token ADD COLUMN exposure_count INTEGER")
             database.execSQL("ALTER TABLE key_group_token ADD COLUMN latest_exposure_date INTEGER")
+        }
+    }
+
+    val migrationFourToFive = object : Migration(4, 5) {
+        override fun migrate(database: SupportSQLiteDatabase) {
+            Timber.d("Migrating from schema $startVersion to $endVersion")
+            database.execSQL("ALTER TABLE key_group_token ADD COLUMN day_count INTEGER")
         }
     }
 }

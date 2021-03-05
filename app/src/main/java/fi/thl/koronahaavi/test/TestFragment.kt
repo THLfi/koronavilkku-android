@@ -174,11 +174,6 @@ class TestFragment : Fragment() {
             notificationService.notifyExposure()
         }
 
-        exposureRepository.flowHandledKeyGroupTokens().asLiveData().observe(viewLifecycleOwner, Observer {
-            val tokens = it.joinToString { t -> "(${t.matchedKeyCount},${t.maximumRiskScore})" }
-            binding.testExposureRiskScores.text = "Updated tokens: $tokens"
-        })
-
         binding.testPlayVersion.text = context?.getPlayServicesVersion() ?: "N/A"
     }
 

@@ -21,6 +21,7 @@ import kotlinx.coroutines.flow.StateFlow
 import timber.log.Timber
 import java.io.File
 import java.time.Instant
+import java.time.LocalDate
 import java.time.ZoneOffset
 import java.time.ZonedDateTime
 import kotlin.random.Random
@@ -61,36 +62,10 @@ class FakeExposureNotificationService(
 
     override suspend fun isEnabled() = isEnabled
 
-    /*
-    override suspend fun getExposureSummary(token: String): ExposureSummary {
-        return ExposureSummary.ExposureSummaryBuilder()
-            .setMatchedKeyCount(Random.nextInt(1,4))
-            .setMaximumRiskScore(200)
-            .build()
-    }
-
-    override suspend fun getExposureDetails(token: String): List<Exposure> {
-        // return a few high risk exposures and one low risk, that should be filtered out
-        // simulating EN behavior where it zeroes risk score
-
-        return List(Random.nextInt(1,3)) {
-            Exposure(
-                detectedDate = ZonedDateTime.now().minusDays(Random.nextLong(2,6)),
-                totalRiskScore = 200,
-                createdDate = ZonedDateTime.now()
-            )
-        }.plus(Exposure(
-            detectedDate = ZonedDateTime.now().minusDays(Random.nextLong(2,6)),
-            totalRiskScore = 0,
-            createdDate = ZonedDateTime.now()
-        )).also { list ->
-            list.forEach { Timber.d(it.toString()) }
-        }
-    }
-     */
-
     override suspend fun getDailyExposures(config: ExposureConfigurationData): List<DailyExposure> {
-        return listOf()
+        return List(Random.nextInt(1,3)) { index ->
+            DailyExposure(LocalDate.now().minusDays(index.plus(2L)), 1000)
+        }
     }
 
     override suspend fun provideDiagnosisKeyFiles(files: List<File>): ResolvableResult<Unit> {

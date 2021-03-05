@@ -16,8 +16,11 @@ data class KeyGroupToken (
     @ColumnInfo(name = "matched_key_count") val matchedKeyCount: Int? = null,
     @ColumnInfo(name = "maximum_risk_score") val maximumRiskScore: Int? = null,
 
-    // Count of exposures
+    // Count of individual exposures (v1 api mode)
     @ColumnInfo(name = "exposure_count") val exposureCount: Int? = null,
+
+    // Count of new exposure days detected with this key group (v2 api mode)
+    @ColumnInfo(name = "day_count") val dayCount: Int? = null,
 
     // Detection timestamp for the latest exposure in this group
     @ColumnInfo(name = "latest_exposure_date") val latestExposureDate: ZonedDateTime? = null

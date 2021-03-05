@@ -4,5 +4,10 @@ import java.time.ZonedDateTime
 
 data class ExposureNotification(
     val createdDate: ZonedDateTime,
-    val exposureCount: Int
+    val exposureCount: ExposureCount
 )
+
+sealed class ExposureCount(open val value: Int) {
+    data class ForDetailExposures(override val value: Int) : ExposureCount(value)
+    data class ForDays(override val value: Int) : ExposureCount(value)
+}

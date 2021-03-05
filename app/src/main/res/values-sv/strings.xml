@@ -317,4 +317,9 @@
         <item quantity="one">%d st.</item>
         <item quantity="other">%d st.</item>
     </plurals>
+
+    <plurals name="all_day_count">
+        <item quantity="one">%d dag</item>
+        <item quantity="other">%d dagar</item>
+    </plurals>
 </resources>

@@ -40,7 +40,7 @@ class ExposureDetailViewModelTest {
         every { settingsRepository.appConfiguration } returns TestData.appConfig
 
         every { exposureRepository.getExposureNotificationsFlow() } returns flowOf(listOf(
-            ExposureNotification(notificationCreatedDate, 2)
+            ExposureNotification(notificationCreatedDate, ExposureCount.ForDetailExposures(2))
         ))
 
         every { exposureRepository.getIsExposedFlow() } returns flowOf(true)
@@ -58,7 +58,7 @@ class ExposureDetailViewModelTest {
     @Test
     fun notificationData() {
         viewModel.notifications.test().assertValue {
-            it.size == 1 && it[0].exposureCount == 2 && it[0].dateTime == notificationCreatedDate
+            it.size == 1 && it[0].exposureCount.value == 2 && it[0].dateTime == notificationCreatedDate
         }
     }
 }

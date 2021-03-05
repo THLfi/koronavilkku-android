@@ -345,4 +345,9 @@
         <item quantity="other">%d pcs.</item>
     </plurals>
 
+    <plurals name="all_day_count">
+        <item quantity="one">%d day</item>
+        <item quantity="other">%d days</item>
+    </plurals>
+
 </resources>

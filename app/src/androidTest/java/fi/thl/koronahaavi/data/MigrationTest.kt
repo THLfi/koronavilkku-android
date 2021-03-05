@@ -13,7 +13,10 @@ import java.io.IOException
 @RunWith(AndroidJUnit4::class)
 class MigrationTest {
     private val testDatabase = "migration-test"
-    private val allMigrations = arrayOf(DatabaseModule.migrationThreeToFour)
+    private val allMigrations = arrayOf(
+        DatabaseModule.migrationThreeToFour,
+        DatabaseModule.migrationFourToFive
+    )
 
     @get:Rule
     val helper: MigrationTestHelper = MigrationTestHelper(
