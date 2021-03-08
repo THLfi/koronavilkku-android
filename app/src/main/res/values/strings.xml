@@ -63,7 +63,9 @@
     <string name="home_status_system_enabled">Koronavilkku is active</string>
     <string name="home_status_system_disabled">Koronavilkku is disabled</string>
     <string name="home_status_system_locked">Koronavilkku is locked</string>
-    <string name="home_status_notifications_blocked">Notifications blocked</string>
+    <string name="home_status_notifications_blocked">Notifications are blocked</string>
+
+    <string name="home_status_turn_on">Turn on</string>
 
     <string name="home_symptom_sub_label">Take an online medical COVID-19 symptom check-up</string>
     <string name="home_app_guide">About Koronavilkku</string>
@@ -71,7 +73,7 @@
     <string name="home_status_disabled_explained">Re-enable exposure notifications.</string>
     <string name="home_status_enabled_explained">The app works even if you close it.</string>
     <string name="home_status_locked_explained">Thank you for reporting your infection. The app will no longer collect information about encounters. We wish you a quick recovery!</string>
-    <string name="home_status_notifications_blocked_explained">TODO</string>
+    <string name="home_status_notifications_blocked_explained">Turn on notifications so that Koronavilkku can notify you of potential exposure.</string>
 
     <string name="symptoms_title">COVID-19 symptom assessment</string>
     <string name="symptoms_info">If you suspect that you have COVID-19, take an online COVID-19 symptom assessment in the Omaolo service. You will receive additional instructions based on your answers. It takes approximately 10 minutes to complete the assessment.</string>
@@ -334,6 +336,13 @@
     <string name="notification_guide_text_5">The healthcare services will give you more detailed instructions and evaluate your need for a coronavirus test.</string>
 
     <string name="notification_guide_page_content_description">Step %1$d of %2$d</string>
+
+    <string name="notifications_blocked_title">Notifications are blocked</string>
+    <string name="notifications_blocked_body">If you don\'t turn on notifications, Koronavilkku can\'t notify you of a potential exposure when the app is closed. Follow these instructions to turn notifications on:</string>
+    <string name="notifications_blocked_instructions_1">1. Tap the button below to open notification settings.</string>
+    <string name="notifications_blocked_instructions_2">2. Turn on <b>Show notifications</b>.</string>
+    <string name="notifications_blocked_instructions_3">3. Turn on <b>Exposure notifications</b>.</string>
+    <string name="notifications_blocked_open_settings">Open settings</string>
 
     <plurals name="exposure_notification_count">
         <item quantity="one">%d notification</item>

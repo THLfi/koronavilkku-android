@@ -235,17 +235,23 @@ class HomeFragment : Fragment() {
     }
 
     private fun updateEnableButton(state: SystemState) {
-        binding.buttonHomeAppEnable.visibility = when (state) {
-            SystemState.Off, SystemState.NotificationsBlocked -> View.VISIBLE
-            else -> View.GONE
+        with (binding.buttonHomeAppEnable) {
+            visibility = when (state) {
+                SystemState.Off, SystemState.NotificationsBlocked -> View.VISIBLE
+                else -> View.GONE
+            }
+
+            text = getString(when (state) {
+                SystemState.NotificationsBlocked -> R.string.home_status_turn_on
+                else -> R.string.all_system_enable
+            })
         }
     }
 
     private fun enableSystem() {
         // todo can this decision be moved to view model
         if (viewModel.currentSystemState() == SystemState.NotificationsBlocked) {
-            // todo navigate to instructions page first
-            openNotificationSettings()
+            findNavController().navigateSafe(HomeFragmentDirections.toNotificationsBlocked())
         }
         else {
             viewModel.enableSystem()

@@ -68,6 +68,8 @@
     <string name="home_status_locked_explained">Kiitos, että ilmoitit tartunnastasi. Sovellus ei enää kerää tietoja kohtaamisista. Pikaista paranemista!</string>
     <string name="home_status_notifications_blocked_explained">Ota ilmoitukset käyttöön, jotta Koronavilkku voi ilmoittaa sinulle mahdollisesta altistumisesta.</string>
 
+    <string name="home_status_turn_on">Ota käyttöön</string>
+
     <string name="symptoms_title">Koronavirustaudin oirearvio</string>
     <string name="symptoms_info">Tee oirearvio Omaolo-palvelussa, jos epäilet saaneesi koronavirustartunnan. Saat vastaustesi perusteella lisäohjeita. Vastaaminen kestää noin 10 minuuttia.</string>
     <string name="symptoms_link_title">Tee oirearvio Omaolo-palvelussa</string>
@@ -307,6 +309,12 @@
     <string name="notification_guide_text_5">Saat terveydenhuollosta tarkemmat toimintaohjeet ja arvion koronavirustestin tarpeellisuudesta.</string>
 
     <string name="notification_guide_page_content_description">Vaihe %1$d/%2$d</string>
+    <string name="notifications_blocked_open_settings">Avaa asetukset</string>
+    <string name="notifications_blocked_title">Ilmoitukset estetty</string>
+    <string name="notifications_blocked_body">Jos et ota ilmoituksia käyttöön, Koronavilkku ei voi ilmoittaa mahdollisesta altistumisesta, kun sovellus on suljettu. Ota ilmoitukset käyttöön näin:</string>
+    <string name="notifications_blocked_instructions_1">1. Avaa ilmoitus\u00ADasetukset alla olevasta painikkeesta.</string>
+    <string name="notifications_blocked_instructions_2">2. Laita päälle <b>Näytä ilmoitukset</b>.</string>
+    <string name="notifications_blocked_instructions_3">3. Laita päälle <b>Altistumis\u00ADilmoitukset</b>.</string>
 
     <plurals name="exposure_notification_count">
         <item quantity="one">%d ilmoitus</item>
