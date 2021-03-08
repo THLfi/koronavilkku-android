@@ -42,7 +42,6 @@ class ExposureDetailFragment : Fragment() {
         super.onStart()
 
         requireActivity().window.apply {
-            clearFlags(LayoutParams.FLAG_TRANSLUCENT_STATUS)
             addFlags(LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
         }
     }
