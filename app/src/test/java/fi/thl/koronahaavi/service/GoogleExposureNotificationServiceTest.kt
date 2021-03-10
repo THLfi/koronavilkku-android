@@ -1,5 +1,8 @@
 package fi.thl.koronahaavi.service
 
+import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.common.api.CommonStatusCodes
+import com.google.android.gms.common.api.Status
 import com.google.android.gms.nearby.exposurenotification.*
 import com.google.android.gms.tasks.Tasks
 import fi.thl.koronahaavi.data.AppStateRepository
@@ -9,8 +12,10 @@ import io.mockk.mockk
 import io.mockk.verify
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
+import java.io.File
 import java.time.LocalDate
 
 class GoogleExposureNotificationServiceTest {
@@ -28,8 +33,9 @@ class GoogleExposureNotificationServiceTest {
         )
 
         every { client.setDiagnosisKeysDataMapping(any()) } returns Tasks.forResult(null)
-
         every { client.getDailySummaries(any()) } returns Tasks.forResult(listOf())
+        every { client.status } returns Tasks.forResult(setOf(ExposureNotificationStatus.ACTIVATED))
+        every { client.provideDiagnosisKeys(any<List<File>>()) } returns Tasks.forResult(null)
 
         service = GoogleExposureNotificationService(client, appStateRepository)
     }
@@ -112,6 +118,38 @@ class GoogleExposureNotificationServiceTest {
         runBlocking {
             service.getDailyExposures(config)
             verify(exactly = 1) { client.setDiagnosisKeysDataMapping(any()) }
+        }
+    }
+
+    @Test
+    fun provideFilesFailsForOldVersionException() {
+        every { client.version } returns Tasks.forException(
+                ApiException(Status(CommonStatusCodes.API_NOT_CONNECTED))
+        )
+
+        runBlocking {
+            val result = service.provideDiagnosisKeyFiles(listOf())
+            assertTrue(result is ExposureNotificationService.ResolvableResult.ApiNotSupported)
+        }
+    }
+
+    @Test
+    fun provideFilesFailsForOldVersion() {
+        every { client.version } returns Tasks.forResult(15000000L)
+
+        runBlocking {
+            val result = service.provideDiagnosisKeyFiles(listOf())
+            assertTrue(result is ExposureNotificationService.ResolvableResult.Failed)
+        }
+    }
+
+    @Test
+    fun provideFilesVersionOk() {
+        every { client.version } returns Tasks.forResult(16000000L)
+
+        runBlocking {
+            val result = service.provideDiagnosisKeyFiles(listOf())
+            assertTrue(result is ExposureNotificationService.ResolvableResult.Success)
         }
     }
 

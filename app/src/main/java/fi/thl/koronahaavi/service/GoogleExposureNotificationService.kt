@@ -53,9 +53,11 @@ class GoogleExposureNotificationService(
         isEnabledFlow.value = false
     }
 
-    override suspend fun isEnabled(): Boolean {
-        return client.isEnabled.await()
-    }
+    override suspend fun isEnabled(): Boolean =
+        when (val result = resultFromRunning { client.isEnabled.await() }) {
+            is ResolvableResult.Success -> result.data
+            else -> false
+        }
 
     override suspend fun getDailyExposures(config: ExposureConfigurationData): List<DailyExposure> {
         updateKeyDataMapping(config)
@@ -110,7 +112,21 @@ class GoogleExposureNotificationService(
         Timber.d("Providing %d key files", files.size)
 
         return resultFromRunning {
-            client.provideDiagnosisKeys(DiagnosisKeyFileProvider(files)).await()
+            verifyENVersion()
+            client.provideDiagnosisKeys(files).await()
+        }
+    }
+
+    private suspend fun verifyENVersion() {
+        // EN module version 1.6 is required for getDailySummaries and getVersion methods,
+        // so calling getVersion successfully verifies that we have at least 1.6
+        // Otherwise the method should throw API_NOT_CONNECTED error, but also check returned
+        // version number to make sure it works as expected
+        val fullVersion = client.version.await()
+        Timber.d("EN module version $fullVersion")
+
+        if (fullVersion.toENVersion()?.let { it < MIN_EN_VERSION } == true) {
+            throw Exception("Unsupported EN module version $fullVersion")
         }
     }
 
@@ -176,6 +192,22 @@ class GoogleExposureNotificationService(
                     ConnectionError.Failed(connectionResult?.errorCode)
             }
         }
+
+    private fun Long.toENVersion(): Long? =
+        try {
+            // Parse out first two numbers of full version which are the major and minor
+            // to ignore variance in full version number length and allow for easy comparison
+            // This approach is copied from Google reference implementation
+            this.toString().substring(0, 2).toLong()
+        }
+        catch (t: Throwable) {
+            Timber.e(t)
+            null
+        }
+
+    companion object {
+        const val MIN_EN_VERSION = 16L   // v1.6 for getDailySummaries
+    }
 }
 
 class GoogleAvailabilityResolver : ExposureNotificationService.AvailabilityResolver {
