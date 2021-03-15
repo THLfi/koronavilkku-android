@@ -42,12 +42,14 @@ class ExposureUpdateWorker @AssistedInject constructor(
         val config = settingsRepository.requireExposureConfiguration()
 
         // due to legacy implementation, current exposures can contain each individual exposure, or new daily exposure
-        val currentExposures = exposureRepository.getAllExposures()
+        val latestExposureDate = exposureRepository.getAllExposures().maxOfOrNull {
+            it.detectedDate.toLocalDate()
+        }
 
         // compare to existing and find new days with exposure
         val newExposures = exposureNotificationService.getDailyExposures(config)
             .filter { it.score >= config.minimumDailyScore }
-            .filter { currentExposures.none { c -> c.detectedDate.toLocalDate() == it.day } } // nothing for this day
+            .filter { latestExposureDate?.isBefore(it.day) ?: true }
             .map { it.toExposure() }
 
         newExposures.forEach {

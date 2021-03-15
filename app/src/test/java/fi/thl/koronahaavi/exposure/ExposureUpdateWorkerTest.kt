@@ -104,8 +104,8 @@ class ExposureUpdateWorkerTest {
             val result = worker.startWork().get()
             assertEquals(Result.success(), result)
 
-            coVerify(exactly = 1) { exposureRepository.saveExposure(any()) }
-            coVerify(exactly = 1) { notificationService.notifyExposure() }
+            coVerify(exactly = 0) { exposureRepository.saveExposure(any()) }
+            coVerify(exactly = 0) { notificationService.notifyExposure() }
         }
     }
 
