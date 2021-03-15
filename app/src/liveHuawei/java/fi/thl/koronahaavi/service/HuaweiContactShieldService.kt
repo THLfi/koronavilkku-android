@@ -15,9 +15,12 @@ import com.huawei.hms.api.HuaweiApiAvailability
 import com.huawei.hms.common.ApiException
 import com.huawei.hms.common.ResolvableApiException
 import com.huawei.hms.contactshield.*
+import com.huawei.hms.contactshield.StatusCode.STATUS_APP_QUOTA_LIMITED
 import com.huawei.hms.utils.HMSPackageManager
 import fi.thl.koronahaavi.BuildConfig
 import fi.thl.koronahaavi.R
+import fi.thl.koronahaavi.common.isLessThanWeekOld
+import fi.thl.koronahaavi.data.AppStateRepository
 import fi.thl.koronahaavi.data.DailyExposure
 import fi.thl.koronahaavi.data.Exposure
 import fi.thl.koronahaavi.service.ExposureNotificationService.EnableStep
@@ -29,6 +32,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.suspendCancellableCoroutine
 import timber.log.Timber
 import java.io.File
+import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneOffset
 import java.time.ZonedDateTime
@@ -38,10 +42,10 @@ import kotlin.math.min
 import kotlin.math.roundToInt
 
 class HuaweiContactShieldService(
-    private val context: Context
+    private val context: Context,
+    private val engine: ContactShieldEngine,
+    private val appStateRepository: AppStateRepository
 ) : ExposureNotificationService {
-
-    private val engine by lazy { ContactShield.getContactShieldEngine(context) }
 
     private val isEnabledFlow = MutableStateFlow<Boolean?>(null)
     override fun isEnabledFlow(): StateFlow<Boolean?> = isEnabledFlow
@@ -95,15 +99,34 @@ class HuaweiContactShieldService(
     }
 
     private suspend fun updateKeyDataMapping(config: ExposureConfigurationData) {
-        // data mapping should only be updated if actually changed, since calls limited to 2 per week
-        val currentDataMapping = engine.sharedKeysDataMapping.await()
+        // data mapping should only be updated if actually changed, since calls limited to one per week
+        val currentDataMapping: SharedKeysDataMapping? = engine.sharedKeysDataMapping.await()
         val newDataMapping = config.toSharedKeysDataMapping()
 
-        if (newDataMapping != currentDataMapping) {
+        if (currentDataMapping?.isEqualTo(newDataMapping) != true) {
             Timber.d("Setting diagnosis keys data mapping")
-            // todo how to handle errors, ignore?
-            resultFromRunning {
+            try {
                 engine.setSharedKeysDataMapping(newDataMapping).await()
+                appStateRepository.setLastExposureKeyMappingUpdate(Instant.now())
+            }
+            catch (e: ApiException) {
+                // setSharedKeysDataMapping is rate limited to one per week, so ignore rate limit errors unless
+                // it has been over a week since last successful call.
+                // This makes sure the app does not just silently ignore setSharedKeysDataMapping errors
+                // and continue for over a week with outdated parameters
+                if (e.statusCode == STATUS_APP_QUOTA_LIMITED) {
+                    val lastUpdate = appStateRepository.getLastExposureKeyMappingUpdate()
+                    if (lastUpdate?.isLessThanWeekOld() == true) {
+                        Timber.d("Ignoring rate limiting for setSharedKeysDataMapping")
+                    }
+                    else {
+                        Timber.e("Incorrect rate limiting for setSharedKeysDataMapping, previous update $lastUpdate")
+                        throw e
+                    }
+                }
+                else {
+                    throw e
+                }
             }
         }
     }
@@ -193,35 +216,11 @@ class HuaweiContactShieldService(
         }
     }
 
-    private fun ExposureConfigurationData.toDailySketchConfiguration(): DailySketchConfiguration =
-        DailySketchConfiguration.Builder()
-            .setThresholdsOfAttenuationInDb(attenuationBucketThresholdDb, attenuationBucketWeights)
-            .setWeightOfContagiousness(Contagiousness.STANDARD, infectiousnessWeightStandard)
-            .setWeightOfContagiousness(Contagiousness.HIGH, infectiousnessWeightHigh)
-            .setWeightOfReportType(ReportType.CONFIRMED_CLINICAL_DIAGNOSIS, reportTypeWeightConfirmedClinicalDiagnosis)
-            .setWeightOfReportType(ReportType.CONFIRMED_TEST, reportTypeWeightConfirmedTest)
-            .setWeightOfReportType(ReportType.SELF_REPORT, reportTypeWeightSelfReport)
-            .setWeightOfReportType(ReportType.RECURSIVE, reportTypeWeightRecursive)
-            .setMinWindowScore(minimumWindowScore)
-            .setThresholdOfDaysSinceHit(daysSinceExposureThreshold)
-            .build()
-
-    // backend api uses the term infectiousness to match google EN implementation
-    // but contact shield uses term contagiousness for the same data
-    private fun ExposureConfigurationData.toSharedKeysDataMapping(): SharedKeysDataMapping =
-        SharedKeysDataMapping.Builder()
-            .setDefaultReportType(ReportType.CONFIRMED_TEST)
-            .setDefaultContagiousness(infectiousnessWhenDaysSinceOnsetMissing.toContagiousness())
-            .setDaysSinceCreationToContagiousness(daysSinceOnsetToInfectiousness.entries.associate {
-                it.key.toInt() to it.value.toContagiousness()
-            })
-            .build()
-
-    private fun InfectiousnessLevel.toContagiousness() = when (this) {
-        InfectiousnessLevel.HIGH -> Contagiousness.HIGH
-        InfectiousnessLevel.STANDARD -> Contagiousness.STANDARD
-        InfectiousnessLevel.NONE -> Contagiousness.NONE
-    }
+    // need to compare fields since SharedKeysDataMapping does not define equals
+    private fun SharedKeysDataMapping.isEqualTo(other: SharedKeysDataMapping) =
+        defaultReportType == other.defaultReportType &&
+        defaultContagiousness == other.defaultContagiousness &&
+        daysSinceCreationToContagiousness == other.daysSinceCreationToContagiousness
 
     companion object {
         const val ROLLING_INTERVALS_IN_DAY = 144
@@ -340,4 +339,34 @@ class HuaweiApiErrorResolver(private val resolvable: ResolvableApiException) : E
             Timber.e(e, "Failed to start resolution")
         }
     }
+}
+
+fun ExposureConfigurationData.toDailySketchConfiguration(): DailySketchConfiguration =
+        DailySketchConfiguration.Builder()
+                .setThresholdsOfAttenuationInDb(attenuationBucketThresholdDb, attenuationBucketWeights)
+                .setWeightOfContagiousness(Contagiousness.STANDARD, infectiousnessWeightStandard)
+                .setWeightOfContagiousness(Contagiousness.HIGH, infectiousnessWeightHigh)
+                .setWeightOfReportType(ReportType.CONFIRMED_CLINICAL_DIAGNOSIS, reportTypeWeightConfirmedClinicalDiagnosis)
+                .setWeightOfReportType(ReportType.CONFIRMED_TEST, reportTypeWeightConfirmedTest)
+                .setWeightOfReportType(ReportType.SELF_REPORT, reportTypeWeightSelfReport)
+                .setWeightOfReportType(ReportType.RECURSIVE, reportTypeWeightRecursive)
+                .setMinWindowScore(minimumWindowScore)
+                .setThresholdOfDaysSinceHit(daysSinceExposureThreshold)
+                .build()
+
+// backend api uses the term infectiousness to match google EN implementation
+// but contact shield uses term contagiousness for the same data
+fun ExposureConfigurationData.toSharedKeysDataMapping(): SharedKeysDataMapping =
+        SharedKeysDataMapping.Builder()
+                .setDefaultReportType(ReportType.CONFIRMED_TEST)
+                .setDefaultContagiousness(infectiousnessWhenDaysSinceOnsetMissing.toContagiousness())
+                .setDaysSinceCreationToContagiousness(daysSinceOnsetToInfectiousness.entries.associate {
+                    it.key.toInt() to it.value.toContagiousness()
+                })
+                .build()
+
+fun InfectiousnessLevel.toContagiousness() = when (this) {
+    InfectiousnessLevel.HIGH -> Contagiousness.HIGH
+    InfectiousnessLevel.STANDARD -> Contagiousness.STANDARD
+    InfectiousnessLevel.NONE -> Contagiousness.NONE
 }

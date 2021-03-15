@@ -16,7 +16,9 @@ import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 import java.io.File
+import java.time.Instant
 import java.time.LocalDate
+import java.time.temporal.ChronoUnit
 
 class GoogleExposureNotificationServiceTest {
     private lateinit var service: GoogleExposureNotificationService
@@ -150,6 +152,66 @@ class GoogleExposureNotificationServiceTest {
         runBlocking {
             val result = service.provideDiagnosisKeyFiles(listOf())
             assertTrue(result is ExposureNotificationService.ResolvableResult.Success)
+        }
+    }
+
+    @Test
+    fun keyMappingQuotaLimitAsExpected() {
+        val config = TestData.exposureConfiguration()
+        val mapping = config.toDiagnosisKeysDataMapping()
+
+        every { client.diagnosisKeysDataMapping } returns Tasks.forResult(
+                mapping.cloneBuilder().setReportTypeWhenMissing(ReportType.SELF_REPORT).build()
+        )
+        every { client.setDiagnosisKeysDataMapping(any()) } throws
+                ApiException(Status(ExposureNotificationStatusCodes.FAILED_RATE_LIMITED))
+
+        every { appStateRepository.getLastExposureKeyMappingUpdate() } returns
+                Instant.now().minus(2, ChronoUnit.DAYS)
+
+        runBlocking {
+            service.getDailyExposures(config)
+            verify(exactly = 1) { client.setDiagnosisKeysDataMapping(any()) }
+            verify(exactly = 1) { client.getDailySummaries(any()) }
+        }
+    }
+
+    @Test(expected = ApiException::class)
+    fun keyMappingQuotaLimitError() {
+        val config = TestData.exposureConfiguration()
+        val mapping = config.toDiagnosisKeysDataMapping()
+
+        // trying to update mapping when previous change over a week ago, error critical
+
+        every { client.diagnosisKeysDataMapping } returns Tasks.forResult(
+                mapping.cloneBuilder().setReportTypeWhenMissing(ReportType.SELF_REPORT).build()
+        )
+        every { client.setDiagnosisKeysDataMapping(any()) } throws
+                ApiException(Status(ExposureNotificationStatusCodes.FAILED_RATE_LIMITED))
+
+        every { appStateRepository.getLastExposureKeyMappingUpdate() } returns
+                Instant.now().minus(8, ChronoUnit.DAYS)
+
+        runBlocking {
+            service.getDailyExposures(config)
+        }
+    }
+
+    @Test(expected = ApiException::class)
+    fun keyMappingOtherApiError() {
+        val config = TestData.exposureConfiguration()
+        val mapping = config.toDiagnosisKeysDataMapping()
+
+        // trying to update mapping when previous change over a week ago, error critical
+
+        every { client.diagnosisKeysDataMapping } returns Tasks.forResult(
+                mapping.cloneBuilder().setReportTypeWhenMissing(ReportType.SELF_REPORT).build()
+        )
+        every { client.setDiagnosisKeysDataMapping(any()) } throws
+                ApiException(Status(ExposureNotificationStatusCodes.ERROR))
+
+        runBlocking {
+            service.getDailyExposures(config)
         }
     }
 

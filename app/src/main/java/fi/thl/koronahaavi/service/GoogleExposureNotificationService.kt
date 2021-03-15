@@ -12,6 +12,7 @@ import com.google.android.gms.common.api.CommonStatusCodes
 import com.google.android.gms.common.api.Status
 import com.google.android.gms.nearby.exposurenotification.*
 import com.google.android.gms.nearby.exposurenotification.ExposureNotificationStatusCodes.FAILED_RATE_LIMITED
+import fi.thl.koronahaavi.common.isLessThanWeekOld
 import fi.thl.koronahaavi.data.AppStateRepository
 import fi.thl.koronahaavi.data.DailyExposure
 import fi.thl.koronahaavi.service.ExposureNotificationService.ConnectionError
@@ -82,6 +83,7 @@ class GoogleExposureNotificationService(
             Timber.d("Setting new diagnosis keys data mapping")
             try {
                 client.setDiagnosisKeysDataMapping(newDataMapping).await()
+                appStateRepository.setLastExposureKeyMappingUpdate(Instant.now())
             }
             catch (e: ApiException) {
                 // setDiagnosisKeysDataMapping is rate limited to two per week, so ignore rate limit errors unless
@@ -102,11 +104,8 @@ class GoogleExposureNotificationService(
                     throw e
                 }
             }
-            appStateRepository.setLastExposureKeyMappingUpdate(Instant.now())
         }
     }
-
-    private fun Instant.isLessThanWeekOld() = isAfter(Instant.now().minus(1, ChronoUnit.WEEKS))
 
     override suspend fun provideDiagnosisKeyFiles(files: List<File>): ResolvableResult<Unit> {
         Timber.d("Providing %d key files", files.size)

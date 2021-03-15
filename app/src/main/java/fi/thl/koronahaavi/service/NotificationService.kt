@@ -29,7 +29,6 @@ class NotificationService @Inject constructor (
 
     fun refreshIsEnabled() {
         isEnabledFlow.value = notificationManager.areNotificationsEnabled() && isNotificationChannelEnabled()
-        Timber.d("Set enabled to ${isEnabledFlow.value}")
     }
 
     // channels only available in sdk 26
