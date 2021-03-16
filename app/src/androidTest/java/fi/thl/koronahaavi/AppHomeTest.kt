@@ -145,6 +145,33 @@ class AppHomeTest {
         }
     }
 
+    @Test
+    fun dayExposureNotification() {
+        activityRule.launchActivity(null)
+        onView(withId(R.id.image_home_app_status)).checkIsDisplayed()
+        onView(withId(R.id.button_home_exposure_instructions)).checkIsGone()
+
+        runBlocking {
+            val detected = ZonedDateTime.now().minusDays(4)
+            exposureDao.insert(Exposure(
+                    detectedDate = detected,
+                    createdDate = ZonedDateTime.now(),
+                    totalRiskScore = 1000
+            ))
+
+            keyGroupTokenDao.insert(KeyGroupToken(
+                    token = UUID.randomUUID().toString(),
+                    dayCount = 1,
+                    latestExposureDate = detected
+            ))
+
+            delay(1000) // data binding
+            onView(withId(R.id.button_home_exposure_instructions)).checkIsDisplayed()
+            onView(withId(R.id.text_home_exposure_notification_count)).checkIsDisplayed()
+            onView(withId(R.id.text_home_exposure_notification_count)).checkHasText("1")
+        }
+    }
+
     // insert the data that is created when diagnosis file is downloaded and exposure detected
     private suspend fun insertTokenAndExposure(token: String): Exposure {
         keyGroupTokenDao.insert(KeyGroupToken(token))

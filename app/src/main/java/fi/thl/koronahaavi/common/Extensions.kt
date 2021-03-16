@@ -61,12 +61,14 @@ fun Fragment.openLink(url: String) {
 fun Fragment.openNotificationSettings() {
     val intent = Intent().apply {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            // only available in api level 26
             action = Settings.ACTION_APP_NOTIFICATION_SETTINGS
             context?.let {
                 putExtra(Settings.EXTRA_APP_PACKAGE, it.packageName)
             }
         }
         else {
+            // prior to api 26, need to use different parameters
             action = "android.settings.APP_NOTIFICATION_SETTINGS"
             context?.let {
                 putExtra("app_package", it.packageName)
