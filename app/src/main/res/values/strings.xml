@@ -257,6 +257,7 @@
     <string name="test_title" translatable="false">Test</string>
     <string name="test_update_exposures" translatable="false">Create exposure</string>
     <string name="test_update_exposures_message" translatable="false">Hello, exposure in five seconds</string>
+    <string name="test_notification_message" translatable="false">Hello, notification in five seconds</string>
     <string name="test_reset_onboarding" translatable="false">Start onboarding</string>
     <string name="test_download" translatable="false">Download keys now</string>
     <string name="test_download_message" translatable="false">Hello, download in five seconds</string>

@@ -35,6 +35,7 @@ import fi.thl.koronahaavi.exposure.MunicipalityUpdateWorker
 import fi.thl.koronahaavi.service.DiagnosisKeyUpdateWorker
 import fi.thl.koronahaavi.service.ExposureNotificationService
 import fi.thl.koronahaavi.service.NotificationService
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
@@ -171,7 +172,11 @@ class TestFragment : Fragment() {
         }
 
         binding.buttonTestCreateNotification.setOnClickListener {
-            notificationService.notifyExposure()
+            GlobalScope.launch {
+                delay(5000)
+                notificationService.notifyExposure()
+            }
+            Snackbar.make(it, getString(R.string.test_notification_message), Snackbar.LENGTH_SHORT).show()
         }
 
         binding.testPlayVersion.text = context?.getPlayServicesVersion() ?: "N/A"
