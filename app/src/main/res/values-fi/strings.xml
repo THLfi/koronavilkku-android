@@ -136,7 +136,8 @@
     <string name="notification_list_disclaimer">Arvio altistumisesta perustuu Koronavilkun keräämiin kohtaamistietoihin viimeisten 14 vuorokauden ajalta. Altistumisen voimakkuutta ei voida täsmällisesti arvioida.</string>
 
     <string name="notification_item_title">Altistumisilmoitus %s</string>
-    <string name="notification_item_count_label">Mahdollisia uusia altistumisia</string>
+    <string name="notification_item_count_label">Mahdollisia altistumisia</string>
+    <string name="notification_item_count_days_label">Mahdollisia uusia altistumisia</string>
     <string name="notification_item_time_range_label">Aika\u00ADvälillä</string>
 
     <string name="notification_channel_name">Altistumisilmoitukset</string>

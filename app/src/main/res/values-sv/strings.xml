@@ -136,7 +136,8 @@
     <string name="notification_list_disclaimer">Bedömningen om exponeringen bygger på den information om möten som Coronablinkern har samlat in under de senaste 14 dygnen. Coronablinkern ger ingen exakt bedömning av hur stor smittorisken är.</string>
 
     <string name="notification_item_title">Meddelande om eventuell exponering %s</string>
-    <string name="notification_item_count_label">Eventuella exponeringar</string>
+    <string name="notification_item_count_label">Eventuella exponeringar:</string>
+    <string name="notification_item_count_days_label">Dagar med nya eventuella exponeringar:</string>
     <string name="notification_item_time_range_label">Tids\u00ADperiod</string>
 
     <string name="notification_channel_name">Exponerings\u00ADmeddelandena</string>
@@ -328,7 +329,7 @@
     </plurals>
 
     <plurals name="all_day_count">
-        <item quantity="one">%d dag</item>
-        <item quantity="other">%d dagar</item>
+        <item quantity="one">%d st.</item>
+        <item quantity="other">%d st.</item>
     </plurals>
 </resources>

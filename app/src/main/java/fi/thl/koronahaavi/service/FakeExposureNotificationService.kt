@@ -64,7 +64,9 @@ class FakeExposureNotificationService(
 
     override suspend fun getDailyExposures(config: ExposureConfigurationData): List<DailyExposure> {
         return List(Random.nextInt(1,3)) { index ->
-            DailyExposure(LocalDate.now().minusDays(index.plus(2L)), 1000)
+            val day = LocalDate.now().minusDays(index.plus(2L))
+            Timber.d("Creating fake exposure for $day")
+            DailyExposure(day, 1000)
         }
     }
 

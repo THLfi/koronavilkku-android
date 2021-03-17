@@ -96,20 +96,27 @@ class NotificationViewHolder(val binding: ItemNotificationInfoBinding)
     : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(data: NotificationData) {
+        val context = itemView.context
         val dateString = FormatExtensions.formatDate(data.dateTime)
 
-        val countTextResId = when (data.exposureCount) {
+        val countLabelResId = when (data.exposureCount) {
+            is ExposureCount.ForDetailExposures -> R.string.notification_item_count_label
+            is ExposureCount.ForDays -> R.string.notification_item_count_days_label
+        }
+        val countValueResId = when (data.exposureCount) {
             is ExposureCount.ForDetailExposures -> R.plurals.all_count
             is ExposureCount.ForDays -> R.plurals.all_day_count
         }
         val count = data.exposureCount.value
 
         binding.apply {
-            title = itemView.context.getString(R.string.notification_item_title, dateString)
-            range = itemView.context.formatDateRange(data.exposureRangeStart, data.exposureRangeEnd)
+            title = context.getString(R.string.notification_item_title, dateString)
+            range = context.formatDateRange(data.exposureRangeStart, data.exposureRangeEnd)
 
-            textNotificationItemCountValue.text = itemView.context.resources.getQuantityString(
-                countTextResId, count, count
+            textNotificationItemCountLabel.text = context.resources.getString(countLabelResId)
+
+            textNotificationItemCountValue.text = context.resources.getQuantityString(
+                countValueResId, count, count
             )
         }
     }

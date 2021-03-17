@@ -50,7 +50,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="6dp"
                 android:textAppearance="?attr/textAppearanceBody2"
-                android:text="@string/notification_item_count_label"
+                tools:text="@string/notification_item_count_label"
                 />
 
             <TextView

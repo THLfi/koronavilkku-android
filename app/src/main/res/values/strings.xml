@@ -142,6 +142,7 @@
 
     <string name="notification_item_title">Notification about potential exposure %s</string>
     <string name="notification_item_count_label">Potential exposures:</string>
+    <string name="notification_item_count_days_label">Days with new potential exposures:</string>
     <string name="notification_item_time_range_label">Time period:</string>
 
     <string name="notification_channel_name">Exposure notifications</string>
@@ -355,8 +356,8 @@
     </plurals>
 
     <plurals name="all_day_count">
-        <item quantity="one">%d day</item>
-        <item quantity="other">%d days</item>
+        <item quantity="one">%d pc.</item>
+        <item quantity="other">%d pcs.</item>
     </plurals>
 
 </resources>
