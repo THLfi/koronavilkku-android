@@ -57,7 +57,6 @@ class NotificationService @Inject constructor (
             .setColor(context.getColor(R.color.mainRed))
             .setPriority(NotificationCompat.PRIORITY_MAX)
             .setContentIntent(pendingIntent)
-            .setOnlyAlertOnce(true)
             .setAutoCancel(true) // remove when clicked
             .setVisibility(NotificationCompat.VISIBILITY_SECRET)  // Do not reveal on secure lockscreen
 
