@@ -12,6 +12,7 @@ import androidx.navigation.ui.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint
 import fi.thl.koronahaavi.R
 import fi.thl.koronahaavi.common.changeLanguage
+import fi.thl.koronahaavi.common.viewScopedProperty
 import fi.thl.koronahaavi.databinding.FragmentSelectLanguageBinding
 import fi.thl.koronahaavi.onboarding.OnboardingActivity
 import javax.inject.Inject
@@ -22,15 +23,14 @@ class SelectLanguageFragment: Fragment() {
     @Inject
     lateinit var userPreferences: UserPreferences
 
-    private lateinit var binding: FragmentSelectLanguageBinding
+    private var binding by viewScopedProperty<FragmentSelectLanguageBinding>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val root = inflater.inflate(R.layout.fragment_select_language, container, false)
-        binding = FragmentSelectLanguageBinding.bind(root)
+    ): View {
+        binding = FragmentSelectLanguageBinding.inflate(inflater, container, false)
         return binding.root
     }
 

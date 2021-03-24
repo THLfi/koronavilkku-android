@@ -21,7 +21,7 @@ import java.time.ZonedDateTime
 
 @AndroidEntryPoint
 class ExposureDetailFragment : Fragment() {
-    private lateinit var binding: FragmentExposureDetailBinding
+    private var binding by viewScopedProperty<FragmentExposureDetailBinding>()
 
     private val viewModel: ExposureDetailViewModel by hiltNavGraphViewModels(R.id.exposure_navigation)
 
@@ -82,11 +82,11 @@ class ExposureDetailFragment : Fragment() {
             }
         }
 
-        viewModel.hasExposures.observe(viewLifecycleOwner, Observer { exposed ->
+        viewModel.hasExposures.observe(viewLifecycleOwner, { exposed ->
             updateToolbar(exposed)
         })
 
-        viewModel.lastCheckTime.observe(viewLifecycleOwner, Observer {
+        viewModel.lastCheckTime.observe(viewLifecycleOwner, {
             updateLastCheckTimeLabel(it)
         })
 

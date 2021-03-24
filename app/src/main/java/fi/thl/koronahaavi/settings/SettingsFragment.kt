@@ -13,19 +13,16 @@ import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import fi.thl.koronahaavi.BuildConfig
 import fi.thl.koronahaavi.R
-import fi.thl.koronahaavi.common.fromDeviceState
-import fi.thl.koronahaavi.common.navigateSafe
-import fi.thl.koronahaavi.common.openGuide
-import fi.thl.koronahaavi.common.openLink
 import fi.thl.koronahaavi.databinding.FragmentSettingsBinding
 import fi.thl.koronahaavi.device.SystemState
 import com.google.android.gms.oss.licenses.OssLicensesMenuActivity
+import fi.thl.koronahaavi.common.*
 
 
 @AndroidEntryPoint
 class SettingsFragment : Fragment() {
 
-    private lateinit var binding: FragmentSettingsBinding
+    private var binding by viewScopedProperty<FragmentSettingsBinding>()
     private val viewModel by viewModels<SettingsViewModel>()
     private var toggleServiceStateNavDirections: NavDirections? = null
 
@@ -33,10 +30,8 @@ class SettingsFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-
-        val root = inflater.inflate(R.layout.fragment_settings, container, false)
-        binding = FragmentSettingsBinding.bind(root).apply {
+    ): View {
+        binding = FragmentSettingsBinding.inflate(inflater, container, false).apply {
             this.model = viewModel
         }
 
@@ -62,7 +57,7 @@ class SettingsFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.systemState().observe(viewLifecycleOwner, Observer {
+        viewModel.systemState().observe(viewLifecycleOwner, {
             it?.let { state ->
                 updateStatusItemText(state)
                 updateStatusDirections(state)

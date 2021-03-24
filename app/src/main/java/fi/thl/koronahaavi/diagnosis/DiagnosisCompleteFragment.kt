@@ -6,16 +6,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import fi.thl.koronahaavi.common.viewScopedProperty
 import fi.thl.koronahaavi.databinding.FragmentDiagnosisCompleteBinding
 
 class DiagnosisCompleteFragment : Fragment() {
-    private lateinit var binding: FragmentDiagnosisCompleteBinding
+    private var binding by viewScopedProperty<FragmentDiagnosisCompleteBinding>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentDiagnosisCompleteBinding.inflate(inflater, container, false)
         return binding.root
     }

@@ -11,7 +11,6 @@ import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import fi.thl.koronahaavi.R
 import fi.thl.koronahaavi.common.*
@@ -20,11 +19,10 @@ import fi.thl.koronahaavi.databinding.FragmentHomeBinding
 import fi.thl.koronahaavi.device.SystemState
 import fi.thl.koronahaavi.exposure.ExposureState
 import timber.log.Timber
-import java.time.ZonedDateTime
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
-    private lateinit var binding: FragmentHomeBinding
+    private var binding by viewScopedProperty<FragmentHomeBinding>()
 
     private val viewModel by viewModels<HomeViewModel>()
     private val requestResolutionViewModel by activityViewModels<RequestResolutionViewModel>()
@@ -89,14 +87,14 @@ class HomeFragment : Fragment() {
             }
         }
 
-        viewModel.enableResolutionRequired().observe(viewLifecycleOwner, Observer {
+        viewModel.enableResolutionRequired().observe(viewLifecycleOwner, {
             Timber.d("Got enableResolutionRequired event, starting request")
             it.getContentIfNotHandled()?.startResolutionForResult(
                 requireActivity(), RequestResolutionViewModel.REQUEST_CODE_ENABLE
             )
         })
 
-        requestResolutionViewModel.enableResolvedEvent().observe(viewLifecycleOwner, Observer {
+        requestResolutionViewModel.enableResolvedEvent().observe(viewLifecycleOwner, {
             it.getContentIfNotHandled()?.let { accepted ->
                 if (accepted) {
                     Timber.d("Enable request accepted, trying again")
@@ -105,13 +103,13 @@ class HomeFragment : Fragment() {
             }
         })
 
-        viewModel.enableErrorEvent().observe(viewLifecycleOwner, Observer {
+        viewModel.enableErrorEvent().observe(viewLifecycleOwner, {
             it.getContentIfNotHandled()?.let { reason ->
                 context?.showEnableFailureReasonDialog(reason)
             }
         })
 
-        viewModel.systemState().observe(viewLifecycleOwner, Observer {
+        viewModel.systemState().observe(viewLifecycleOwner, {
             it?.let { state ->
                 updateStatusIcon(state)
                 updateStatusText(state)
@@ -119,7 +117,7 @@ class HomeFragment : Fragment() {
             }
         })
 
-        viewModel.exposureState().observe(viewLifecycleOwner, Observer {
+        viewModel.exposureState().observe(viewLifecycleOwner, {
             it?.let { state ->
                 updateExposureLabels(state)
                 updateExposureIcon(state)

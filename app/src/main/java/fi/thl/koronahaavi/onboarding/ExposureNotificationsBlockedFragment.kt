@@ -10,6 +10,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import fi.thl.koronahaavi.R
 import fi.thl.koronahaavi.common.ENEnablerFragment
 import fi.thl.koronahaavi.common.navigateSafe
+import fi.thl.koronahaavi.common.viewScopedProperty
 import fi.thl.koronahaavi.data.AppStateRepository
 import fi.thl.koronahaavi.databinding.FragmentEnBlockedBinding
 import javax.inject.Inject
@@ -21,16 +22,14 @@ class ExposureNotificationsBlockedFragment: ENEnablerFragment() {
     lateinit var appStateRepository: AppStateRepository
 
     private val viewModel by activityViewModels<OnboardingViewModel>()
-
-    private lateinit var binding: FragmentEnBlockedBinding
+    private var binding by viewScopedProperty<FragmentEnBlockedBinding>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val root = inflater.inflate(R.layout.fragment_en_blocked, container, false)
-        binding = FragmentEnBlockedBinding.bind(root).apply {
+    ): View {
+        binding = FragmentEnBlockedBinding.inflate(inflater, container, false).apply {
             this.model = viewModel
         }
 

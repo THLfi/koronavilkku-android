@@ -176,6 +176,7 @@ dependencies {
 
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-common-java8:$lifecycleVersion"
 
     // Navigation
     implementation "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
@@ -219,6 +220,9 @@ dependencies {
 
     // Huawei bluetooth tracing
     huaweiImplementation 'com.huawei.hms:contactshield:5.1.0.300'
+
+    // Memory leak detection
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.6'
 
     // Testing
     testImplementation "junit:junit:$junitVersion"

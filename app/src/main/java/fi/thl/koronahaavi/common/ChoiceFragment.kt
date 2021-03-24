@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.StringRes
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
@@ -19,7 +18,7 @@ import fi.thl.koronahaavi.databinding.FragmentChoiceBinding
  */
 @AndroidEntryPoint
 abstract class ChoiceFragment : Fragment() {
-    private lateinit var binding: FragmentChoiceBinding
+    private var binding by viewScopedProperty<FragmentChoiceBinding>()
     private lateinit var viewModel: ChoiceData
 
     override fun onCreateView(

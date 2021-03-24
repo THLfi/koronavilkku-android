@@ -12,6 +12,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import dagger.hilt.android.AndroidEntryPoint
 import fi.thl.koronahaavi.R
+import fi.thl.koronahaavi.common.viewScopedProperty
 import fi.thl.koronahaavi.databinding.FragmentDisableServiceBinding
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -19,14 +20,14 @@ import timber.log.Timber
 @AndroidEntryPoint
 class DisableServiceFragment : Fragment() {
 
-    private lateinit var binding: FragmentDisableServiceBinding
+    private var binding by viewScopedProperty<FragmentDisableServiceBinding>()
     private val viewModel by viewModels<EnableSystemViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentDisableServiceBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this.viewLifecycleOwner
         return binding.root

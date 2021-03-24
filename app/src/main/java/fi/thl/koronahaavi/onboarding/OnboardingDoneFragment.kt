@@ -16,14 +16,12 @@ import kotlinx.coroutines.launch
 @AndroidEntryPoint
 class OnboardingDoneFragment : Fragment() {
 
-    private lateinit var binding: FragmentOnboardingDoneBinding
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentOnboardingDoneBinding.inflate(inflater, container, false)
+    ): View {
+        val binding = FragmentOnboardingDoneBinding.inflate(inflater, container, false)
         return binding.root
     }
 

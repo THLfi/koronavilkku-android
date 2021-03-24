@@ -8,16 +8,17 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import fi.thl.koronahaavi.common.navigateSafe
 import fi.thl.koronahaavi.common.openGuide
+import fi.thl.koronahaavi.common.viewScopedProperty
 import fi.thl.koronahaavi.databinding.FragmentConceptBinding
 
 class ConceptFragment: Fragment() {
-    private lateinit var binding: FragmentConceptBinding
+    private var binding by viewScopedProperty<FragmentConceptBinding>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentConceptBinding.inflate(inflater, container, false)
         return binding.root
     }

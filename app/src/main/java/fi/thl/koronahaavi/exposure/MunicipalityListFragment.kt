@@ -18,6 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import fi.thl.koronahaavi.R
 import fi.thl.koronahaavi.common.getInputMethodManager
 import fi.thl.koronahaavi.common.navigateSafe
+import fi.thl.koronahaavi.common.viewScopedProperty
 import fi.thl.koronahaavi.databinding.FragmentMunicipalityListBinding
 import fi.thl.koronahaavi.databinding.ItemSimpleTextBinding
 import kotlinx.coroutines.Job
@@ -27,11 +28,10 @@ import timber.log.Timber
 
 @AndroidEntryPoint
 class MunicipalityListFragment : Fragment(), SearchView.OnQueryTextListener {
-    private lateinit var binding: FragmentMunicipalityListBinding
+    private var binding by viewScopedProperty<FragmentMunicipalityListBinding>()
 
     // activity scope because shared data between list and contact fragments
     private val viewModel by activityViewModels<MunicipalityListViewModel>()
-    private val listAdapter by lazy { MunicipalityNameAdapter() }
 
     private var searchJob: Job? = null
 
@@ -44,9 +44,8 @@ class MunicipalityListFragment : Fragment(), SearchView.OnQueryTextListener {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val root = inflater.inflate(R.layout.fragment_municipality_list, container, false)
-        binding = FragmentMunicipalityListBinding.bind(root).apply {
+    ): View {
+        binding = FragmentMunicipalityListBinding.inflate(inflater, container, false).apply {
             this.model = viewModel
         }
 
@@ -69,6 +68,7 @@ class MunicipalityListFragment : Fragment(), SearchView.OnQueryTextListener {
             }
         }
 
+        val listAdapter = MunicipalityNameAdapter()
         binding.recyclerviewMunicipality.apply {
             adapter = listAdapter
             layoutManager = LinearLayoutManager(context)
@@ -76,7 +76,7 @@ class MunicipalityListFragment : Fragment(), SearchView.OnQueryTextListener {
             addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL))
         }
 
-        viewModel.filteredNameList().observe(viewLifecycleOwner, Observer {
+        viewModel.filteredNameList().observe(viewLifecycleOwner, {
             listAdapter.submitList(it)
         })
 

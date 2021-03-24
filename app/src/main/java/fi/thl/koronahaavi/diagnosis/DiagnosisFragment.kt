@@ -8,13 +8,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
-import fi.thl.koronahaavi.R
 import fi.thl.koronahaavi.common.navigateSafe
+import fi.thl.koronahaavi.common.viewScopedProperty
 import fi.thl.koronahaavi.databinding.FragmentDiagnosisBinding
 
 @AndroidEntryPoint
 class DiagnosisFragment : Fragment() {
-    private lateinit var binding: FragmentDiagnosisBinding
+    private var binding by viewScopedProperty<FragmentDiagnosisBinding>()
 
     private val viewModel by activityViewModels<DiagnosisViewModel>()
 
@@ -22,9 +22,8 @@ class DiagnosisFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val root = inflater.inflate(R.layout.fragment_diagnosis, container, false)
-        binding = FragmentDiagnosisBinding.bind(root).apply {
+    ): View {
+        binding = FragmentDiagnosisBinding.inflate(inflater, container, false).apply {
             this.model = viewModel
         }
 

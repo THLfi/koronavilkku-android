@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.hilt.navigation.fragment.hiltNavGraphViewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import androidx.navigation.ui.setupWithNavController
@@ -17,24 +16,22 @@ import androidx.recyclerview.widget.RecyclerView
 import fi.thl.koronahaavi.R
 import fi.thl.koronahaavi.common.FormatExtensions.convertToCountryName
 import fi.thl.koronahaavi.common.navigateSafe
+import fi.thl.koronahaavi.common.viewScopedProperty
 import fi.thl.koronahaavi.databinding.FragmentCountrySelectionListBinding
 import fi.thl.koronahaavi.databinding.ItemCountrySelectBinding
 
 @AndroidEntryPoint
 class CountrySelectionListFragment : Fragment(), CountryItemListener {
-    private lateinit var binding: FragmentCountrySelectionListBinding
+    private var binding by viewScopedProperty<FragmentCountrySelectionListBinding>()
 
     private val viewModel: CodeEntryViewModel by hiltNavGraphViewModels(R.id.diagnosis_share_navigation)
-
-    private val listAdapter by lazy { CountryAdapter(this) }
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val root = inflater.inflate(R.layout.fragment_country_selection_list, container, false)
-        binding = FragmentCountrySelectionListBinding.bind(root).apply {
+    ): View {
+        binding = FragmentCountrySelectionListBinding.inflate(inflater, container, false).apply {
             this.model = viewModel.shareData
         }
 
@@ -44,6 +41,8 @@ class CountrySelectionListFragment : Fragment(), CountryItemListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        val listAdapter = CountryAdapter(this)
 
         with (binding) {
             layoutToolbar.toolbar.setupWithNavController(findNavController())
@@ -58,7 +57,7 @@ class CountrySelectionListFragment : Fragment(), CountryItemListener {
             }
         }
 
-        viewModel.shareData.countries.observe(viewLifecycleOwner, Observer {
+        viewModel.shareData.countries.observe(viewLifecycleOwner, {
             // convert to display name and sort here instead of view model, so that list is
             // updated if fragment recreated due to language change
             listAdapter.submitList(

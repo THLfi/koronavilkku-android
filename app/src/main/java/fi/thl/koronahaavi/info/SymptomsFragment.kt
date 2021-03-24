@@ -10,18 +10,19 @@ import androidx.navigation.ui.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint
 import fi.thl.koronahaavi.R
 import fi.thl.koronahaavi.common.openLink
+import fi.thl.koronahaavi.common.viewScopedProperty
 import fi.thl.koronahaavi.databinding.FragmentSymptomsBinding
 
 @AndroidEntryPoint
 class SymptomsFragment : Fragment() {
 
-    private lateinit var binding: FragmentSymptomsBinding
+    private var binding by viewScopedProperty<FragmentSymptomsBinding>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentSymptomsBinding.inflate(inflater, container, false)
         return binding.root
     }

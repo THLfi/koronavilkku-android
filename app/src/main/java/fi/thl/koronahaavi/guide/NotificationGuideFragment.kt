@@ -11,13 +11,12 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
+import fi.thl.koronahaavi.common.viewScopedProperty
 import fi.thl.koronahaavi.databinding.FragmentNotificationGuideBinding
 
 class NotificationGuideFragment : Fragment() {
 
-    private var _binding: FragmentNotificationGuideBinding? = null
-    private val binding get() = _binding!!
-
+    private var binding by viewScopedProperty<FragmentNotificationGuideBinding>()
     private val viewModel by viewModels<NotificationGuideViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,7 +40,7 @@ class NotificationGuideFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = FragmentNotificationGuideBinding.inflate(inflater, container, false).apply {
+        binding = FragmentNotificationGuideBinding.inflate(inflater, container, false).apply {
             model = viewModel
         }
 
@@ -74,11 +73,6 @@ class NotificationGuideFragment : Fragment() {
                 pageIndicatorNotificationGuide.setStep(page)
             })
         }
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
     }
 }
 

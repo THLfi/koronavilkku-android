@@ -25,6 +25,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import fi.thl.koronahaavi.BuildConfig
 import fi.thl.koronahaavi.R
 import fi.thl.koronahaavi.common.navigateSafe
+import fi.thl.koronahaavi.common.viewScopedProperty
 import fi.thl.koronahaavi.data.AppStateRepository
 import fi.thl.koronahaavi.data.ExposureRepository
 import fi.thl.koronahaavi.data.SettingsRepository
@@ -51,13 +52,13 @@ class TestFragment : Fragment() {
     @Inject lateinit var exposureNotificationService: ExposureNotificationService
     @Inject lateinit var settingsRepository: SettingsRepository
 
-    private lateinit var binding: FragmentTestBinding
+    private var binding by viewScopedProperty<FragmentTestBinding>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentTestBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -102,7 +103,7 @@ class TestFragment : Fragment() {
 
         val wm = WorkManager.getInstance(requireContext())
         wm.getWorkInfosForUniqueWorkLiveData(DiagnosisKeyUpdateWorker.KEY_UPDATER_NAME)
-            .observe(viewLifecycleOwner, Observer {
+            .observe(viewLifecycleOwner, {
                 val infos = it.joinToString("\n") { wi ->
                     "${wi.state} run=${wi.runAttemptCount}"
                 }
@@ -110,7 +111,7 @@ class TestFragment : Fragment() {
             })
 
         wm.getWorkInfosByTagLiveData(ExposureUpdateWorker.TAG)
-            .observe(viewLifecycleOwner, Observer {
+            .observe(viewLifecycleOwner, {
                 val stateHistory = it.joinToString { info -> info.state.toString()}
                 binding.testExposureWorkerInfo.text = "Exposure worker: $stateHistory"
             })
@@ -169,7 +170,7 @@ class TestFragment : Fragment() {
             }
         }
 
-        exposureRepository.flowHandledKeyGroupTokens().asLiveData().observe(viewLifecycleOwner, Observer {
+        exposureRepository.flowHandledKeyGroupTokens().asLiveData().observe(viewLifecycleOwner, {
             val tokens = it.joinToString { t -> "(${t.matchedKeyCount},${t.maximumRiskScore})" }
             binding.testExposureRiskScores.text = "Updated tokens: $tokens"
         })

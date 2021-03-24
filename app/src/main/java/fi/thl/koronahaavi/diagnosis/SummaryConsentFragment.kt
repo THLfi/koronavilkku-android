@@ -13,12 +13,13 @@ import androidx.navigation.ui.setupWithNavController
 import fi.thl.koronahaavi.R
 import fi.thl.koronahaavi.common.FormatExtensions.convertToCountryName
 import fi.thl.koronahaavi.common.navigateSafe
+import fi.thl.koronahaavi.common.viewScopedProperty
 import fi.thl.koronahaavi.databinding.FragmentSummaryConsentBinding
 import fi.thl.koronahaavi.databinding.ItemCountryBulletBinding
 
 @AndroidEntryPoint
 class SummaryConsentFragment : Fragment() {
-    private lateinit var binding: FragmentSummaryConsentBinding
+    private var binding by viewScopedProperty<FragmentSummaryConsentBinding>()
 
     private val viewModel: CodeEntryViewModel by hiltNavGraphViewModels(R.id.diagnosis_share_navigation)
 
@@ -26,14 +27,12 @@ class SummaryConsentFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val root = inflater.inflate(R.layout.fragment_summary_consent, container, false)
-        binding = FragmentSummaryConsentBinding.bind(root).apply {
+    ): View {
+        binding = FragmentSummaryConsentBinding.inflate(inflater, container, false).apply {
             this.model = viewModel.shareData
         }
 
         binding.lifecycleOwner = this.viewLifecycleOwner
-
         return binding.root
     }
 
@@ -46,7 +45,7 @@ class SummaryConsentFragment : Fragment() {
             findNavController().navigateSafe(SummaryConsentFragmentDirections.toCodeEntry())
         }
 
-        viewModel.shareData.countries.observe(viewLifecycleOwner, Observer { allCountries ->
+        viewModel.shareData.countries.observe(viewLifecycleOwner, { allCountries ->
             updateCountryBullets(allCountries.filter { it.isSelected })
         })
     }

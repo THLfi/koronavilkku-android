@@ -17,12 +17,13 @@ import fi.thl.koronahaavi.R
 import fi.thl.koronahaavi.common.FormatExtensions
 import fi.thl.koronahaavi.common.FormatExtensions.formatDateRange
 import fi.thl.koronahaavi.common.FormatExtensions.formatLastCheckTime
+import fi.thl.koronahaavi.common.viewScopedProperty
 import fi.thl.koronahaavi.databinding.FragmentExposureNotificationListBinding
 import fi.thl.koronahaavi.databinding.ItemNotificationInfoBinding
 
 @AndroidEntryPoint
 class ExposureNotificationListFragment : BottomSheetDialogFragment() {
-    private lateinit var binding: FragmentExposureNotificationListBinding
+    private var binding by viewScopedProperty<FragmentExposureNotificationListBinding>()
 
     private val viewModel: ExposureDetailViewModel by hiltNavGraphViewModels(R.id.exposure_navigation)
     private val listAdapter by lazy { NotificationAdapter() }
@@ -38,9 +39,8 @@ class ExposureNotificationListFragment : BottomSheetDialogFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val root = inflater.inflate(R.layout.fragment_exposure_notification_list, container, false)
-        binding = FragmentExposureNotificationListBinding.bind(root).apply {
+    ): View {
+        binding = FragmentExposureNotificationListBinding.inflate(inflater, container, false).apply {
             this.model = viewModel
         }
 
@@ -60,11 +60,11 @@ class ExposureNotificationListFragment : BottomSheetDialogFragment() {
             }
         }
 
-        viewModel.lastCheckTime.observe(viewLifecycleOwner, Observer {
+        viewModel.lastCheckTime.observe(viewLifecycleOwner, {
             binding.textNotificationListLastCheck.text = requireContext().formatLastCheckTime(it)
         })
 
-        viewModel.notifications.observe(viewLifecycleOwner, Observer {
+        viewModel.notifications.observe(viewLifecycleOwner, {
             listAdapter.submitList(it)
         })
     }

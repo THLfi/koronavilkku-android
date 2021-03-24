@@ -14,10 +14,11 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import fi.thl.koronahaavi.BuildConfig
 import fi.thl.koronahaavi.R
+import fi.thl.koronahaavi.common.viewScopedProperty
 import fi.thl.koronahaavi.databinding.FragmentPreWebContactBinding
 
 class PreWebContactFragment : Fragment() {
-    private lateinit var binding: FragmentPreWebContactBinding
+    private var binding by viewScopedProperty<FragmentPreWebContactBinding>()
     private val viewModel by activityViewModels<MunicipalityListViewModel>()
     private val args by navArgs<PreWebContactFragmentArgs>()
     private var municipality: Municipality? = null
@@ -26,11 +27,10 @@ class PreWebContactFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val root = inflater.inflate(R.layout.fragment_pre_web_contact, container, false)
+    ): View {
         municipality = viewModel.getMunicipality(args.municipalityCode)
 
-        binding = FragmentPreWebContactBinding.bind(root).apply {
+        binding = FragmentPreWebContactBinding.inflate(inflater, container, false).apply {
             this.model = PreWebContactData.from(args.startEvaluation, municipality)
         }
 

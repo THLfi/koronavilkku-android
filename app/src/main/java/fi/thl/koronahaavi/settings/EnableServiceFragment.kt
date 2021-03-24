@@ -8,18 +8,19 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint
 import fi.thl.koronahaavi.common.ENEnablerFragment
+import fi.thl.koronahaavi.common.viewScopedProperty
 import fi.thl.koronahaavi.databinding.FragmentEnableServiceBinding
 
 @AndroidEntryPoint
 class EnableServiceFragment : ENEnablerFragment() {
 
-    private lateinit var binding: FragmentEnableServiceBinding
+    private var binding by viewScopedProperty<FragmentEnableServiceBinding>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentEnableServiceBinding.inflate(inflater, container, false)
         binding.lifecycleOwner = this.viewLifecycleOwner
         return binding.root

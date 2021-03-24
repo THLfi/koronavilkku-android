@@ -30,20 +30,20 @@ open class ENEnablerFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        statusViewModel.enableResolutionRequired().observe(viewLifecycleOwner, Observer {
+        statusViewModel.enableResolutionRequired().observe(viewLifecycleOwner, {
             Timber.d("startResolutionForResult")
             it.getContentIfNotHandled()?.startResolutionForResult(
                 requireActivity(), RequestResolutionViewModel.REQUEST_CODE_ENABLE
             )
         })
 
-        statusViewModel.enableErrorEvent().observe(viewLifecycleOwner, Observer {
+        statusViewModel.enableErrorEvent().observe(viewLifecycleOwner, {
             it.getContentIfNotHandled()?.let { error ->
                 onErrorEvent(error)
             }
         })
 
-        requestResolutionViewModel.enableResolvedEvent().observe(viewLifecycleOwner, Observer {
+        requestResolutionViewModel.enableResolvedEvent().observe(viewLifecycleOwner, {
             it.getContentIfNotHandled()?.let { accepted ->
                 if (accepted) {
                     enableSystem()
@@ -53,7 +53,7 @@ open class ENEnablerFragment : Fragment() {
             }
         })
 
-        requestResolutionViewModel.playServicesResolvedEvent().observe(viewLifecycleOwner, Observer {
+        requestResolutionViewModel.playServicesResolvedEvent().observe(viewLifecycleOwner, {
             it.getContentIfNotHandled()?.let { successful ->
                 if (successful) {
                     enableSystem()

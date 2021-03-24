@@ -9,10 +9,7 @@ import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import fi.thl.koronahaavi.R
-import fi.thl.koronahaavi.common.ENEnablerFragment
-import fi.thl.koronahaavi.common.fadeGone
-import fi.thl.koronahaavi.common.navigateSafe
-import fi.thl.koronahaavi.common.openLink
+import fi.thl.koronahaavi.common.*
 import fi.thl.koronahaavi.data.AppStateRepository
 import fi.thl.koronahaavi.databinding.FragmentAcceptTermsBinding
 import javax.inject.Inject
@@ -23,7 +20,7 @@ class AcceptTermsFragment : ENEnablerFragment(), View.OnScrollChangeListener {
     @Inject
     lateinit var appStateRepository: AppStateRepository
 
-    private lateinit var binding: FragmentAcceptTermsBinding
+    private var binding by viewScopedProperty<FragmentAcceptTermsBinding>()
     private val viewModel by activityViewModels<OnboardingViewModel>()
 
     private var hasScrolledDown = false
@@ -42,9 +39,8 @@ class AcceptTermsFragment : ENEnablerFragment(), View.OnScrollChangeListener {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val root = inflater.inflate(R.layout.fragment_accept_terms, container, false)
-        binding = FragmentAcceptTermsBinding.bind(root).apply {
+    ): View {
+        binding = FragmentAcceptTermsBinding.inflate(inflater, container, false).apply {
             this.model = viewModel
         }
 

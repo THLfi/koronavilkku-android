@@ -14,33 +14,27 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
 import dagger.hilt.android.AndroidEntryPoint
 import fi.thl.koronahaavi.R
-import fi.thl.koronahaavi.common.RequestResolutionViewModel
-import fi.thl.koronahaavi.common.getInputMethodManager
-import fi.thl.koronahaavi.common.hideKeyboard
-import fi.thl.koronahaavi.common.navigateSafe
+import fi.thl.koronahaavi.common.*
 import fi.thl.koronahaavi.databinding.FragmentCodeEntryBinding
 import timber.log.Timber
 
 @AndroidEntryPoint
 class CodeEntryFragment : Fragment() {
-    private lateinit var binding: FragmentCodeEntryBinding
+    private var binding by viewScopedProperty<FragmentCodeEntryBinding>()
 
     private val viewModel: CodeEntryViewModel by hiltNavGraphViewModels(R.id.diagnosis_share_navigation)
-
     private val requestResolutionViewModel by activityViewModels<RequestResolutionViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val root = inflater.inflate(R.layout.fragment_code_entry, container, false)
-        binding = FragmentCodeEntryBinding.bind(root).apply {
-            this.model = viewModel
+    ): View {
+        binding = FragmentCodeEntryBinding.inflate(inflater, container, false).apply {
+            model = viewModel
         }
 
         binding.lifecycleOwner = this.viewLifecycleOwner
-
         return binding.root
     }
 
@@ -53,7 +47,7 @@ class CodeEntryFragment : Fragment() {
             viewModel.submit() // -> keysSubmittedEvent
         }
 
-        viewModel.keyHistoryResolutionEvent().observe(viewLifecycleOwner, Observer {
+        viewModel.keyHistoryResolutionEvent().observe(viewLifecycleOwner, {
             // API permission request needs to be handled by activity.. result is observed through requestResolutionViewModel
             Timber.d("Got keyHistoryResolutionEvent event, starting request")
             it.getContentIfNotHandled()?.startResolutionForResult(
@@ -61,7 +55,7 @@ class CodeEntryFragment : Fragment() {
             )
         })
 
-        requestResolutionViewModel.keyHistoryResolvedEvent().observe(viewLifecycleOwner, Observer {
+        requestResolutionViewModel.keyHistoryResolvedEvent().observe(viewLifecycleOwner, {
             it.getContentIfNotHandled()?.let { accepted ->
                 if (accepted) {
                     Timber.d("Key history request accepted, trying again")
@@ -72,13 +66,13 @@ class CodeEntryFragment : Fragment() {
             }
         })
 
-        viewModel.keysSubmittedEvent().observe(viewLifecycleOwner, Observer {
+        viewModel.keysSubmittedEvent().observe(viewLifecycleOwner, {
             it.getContentIfNotHandled()?.let {
                 findNavController().navigateSafe(CodeEntryFragmentDirections.toDiagnosisComplete())
             }
         })
 
-        viewModel.codeEntryError.observe(viewLifecycleOwner, Observer {
+        viewModel.codeEntryError.observe(viewLifecycleOwner, {
             updateErrorText(it)
         })
 

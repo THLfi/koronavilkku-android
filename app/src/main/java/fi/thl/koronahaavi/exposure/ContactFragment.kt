@@ -16,12 +16,13 @@ import androidx.recyclerview.widget.*
 import dagger.hilt.android.AndroidEntryPoint
 import fi.thl.koronahaavi.R
 import fi.thl.koronahaavi.common.navigateSafe
+import fi.thl.koronahaavi.common.viewScopedProperty
 import fi.thl.koronahaavi.databinding.FragmentContactBinding
 import fi.thl.koronahaavi.databinding.ItemContactInfoBinding
 
 @AndroidEntryPoint
 class ContactFragment : Fragment(), ContactItemListener {
-    private lateinit var binding: FragmentContactBinding
+    private var binding by viewScopedProperty<FragmentContactBinding>()
 
     private val viewModel by activityViewModels<MunicipalityListViewModel>()
     private val args by navArgs<ContactFragmentArgs>()
@@ -38,9 +39,8 @@ class ContactFragment : Fragment(), ContactItemListener {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        val root = inflater.inflate(R.layout.fragment_contact, container, false)
-        binding = FragmentContactBinding.bind(root).apply {
+    ): View {
+        binding = FragmentContactBinding.inflate(inflater, container, false).apply {
             this.municipality = municipalityData
         }
 
