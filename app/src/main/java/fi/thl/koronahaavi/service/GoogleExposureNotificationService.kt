@@ -74,6 +74,8 @@ class GoogleExposureNotificationService(
             }
     }
 
+    override suspend fun getExposureWindows(): List<ExposureWindow> = client.exposureWindows.await()
+
     private suspend fun updateKeyDataMapping(config: ExposureConfigurationData) {
         // data mapping should only be updated if actually changed, since calls limited to 2 per week
         val currentDataMapping = client.diagnosisKeysDataMapping.await()

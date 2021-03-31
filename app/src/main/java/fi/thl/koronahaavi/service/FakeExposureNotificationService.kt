@@ -70,6 +70,8 @@ class FakeExposureNotificationService(
         }
     }
 
+    override suspend fun getExposureWindows(): List<ExposureWindow> = listOf()
+
     override suspend fun provideDiagnosisKeyFiles(files: List<File>): ResolvableResult<Unit> {
         Timber.d("Got %d files", files.size)
 

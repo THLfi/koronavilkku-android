@@ -6,6 +6,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.DialogInterface
 import com.google.android.gms.common.api.Status
+import com.google.android.gms.nearby.exposurenotification.ExposureWindow
 import com.google.android.gms.nearby.exposurenotification.TemporaryExposureKey
 import fi.thl.koronahaavi.data.DailyExposure
 import kotlinx.coroutines.flow.StateFlow
@@ -18,6 +19,7 @@ interface ExposureNotificationService {
     suspend fun isEnabled(): Boolean
 
     suspend fun getDailyExposures(config: ExposureConfigurationData): List<DailyExposure>
+    suspend fun getExposureWindows(): List<ExposureWindow>
     suspend fun provideDiagnosisKeyFiles(files: List<File>): ResolvableResult<Unit>
 
     suspend fun getTemporaryExposureKeys(): ResolvableResult<List<TemporaryExposureKey>>

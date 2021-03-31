@@ -185,6 +185,24 @@ class HuaweiContactShieldService(
 
     override fun getAvailabilityResolver() = HuaweiAvailabilityResolver()
 
+    // this is only used for test UI
+    override suspend fun getExposureWindows(): List<ExposureWindow> =
+        engine.getContactWindow(ContactShieldEngine.TOKEN_A).await().map {
+            ExposureWindow.Builder()
+                .setDateMillisSinceEpoch(it.dateMillis)
+                .setCalibrationConfidence(it.calibrationConfidence)
+                .setInfectiousness(it.contagiousness)
+                .setReportType(it.reportType)
+                .setScanInstances(it.scanInfos.map { scan ->
+                    ScanInstance.Builder()
+                        .setMinAttenuationDb(scan.minimumAttenuation)
+                        .setTypicalAttenuationDb(scan.averageAttenuation)
+                        .setSecondsSinceLastScan(scan.secondsSinceLastScan)
+                        .build()
+                })
+                .build()
+        }
+
     private suspend fun <T> resultFromRunning(block: suspend () -> T): ResolvableResult<T> {
         return try {
             ResolvableResult.Success(block())
@@ -264,14 +282,6 @@ suspend fun <T> com.huawei.hmf.tasks.Task<T>.await(): T {
         }
     }
 }
-
-private fun ContactDetail.toExposure(
-    createdDate: ZonedDateTime = ZonedDateTime.now()
-) = Exposure(
-    detectedDate = LocalDate.ofEpochDay(dayNumber).atTime(0, 0).atZone(ZoneOffset.UTC),
-    totalRiskScore = totalRiskValue,
-    createdDate = createdDate
-)
 
 class HuaweiAvailabilityResolver : ExposureNotificationService.AvailabilityResolver {
     private val apiAvailability = HuaweiApiAvailability.getInstance()
