@@ -32,9 +32,12 @@ class DiagnosisKeyService @Inject constructor (
         return try {
             val numKeys = settingsRepository.appConfiguration.diagnosisKeysPerSubmit
 
+            // Sort latest first, so that if API returns more keys than max count, then oldest keys are discarded
+            val sortedKeys = keyHistory.sortedByDescending { it.rollingStartIntervalNumber }
+
             val payload = DiagnosisKeyList(
                 keys = List(numKeys) { index ->
-                    keyHistory.getOrNull(index)?.toDiagnosisKey()
+                    sortedKeys.getOrNull(index)?.toDiagnosisKey()
                         ?: createFakeKey(index) // padding
                 },
                 visitedCountries = getVisitedCountries(visitedCountryCodes),
