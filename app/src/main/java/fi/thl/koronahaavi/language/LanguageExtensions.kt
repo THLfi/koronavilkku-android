@@ -16,7 +16,7 @@ fun Context.withSavedLanguage(): Context {
 
 fun Context.withLanguage(language: String?): Context {
 
-    if (language == null || Locale.getDefault().language == language) {
+    if (language == null) {
         return this
     }
 

@@ -148,7 +148,7 @@
     <string name="notification_channel_name">Exposure notifications</string>
     <string name="notification_channel_description">Notifications for possible COVID-19 exposures.</string>
     <string name="notification_exposure_title">Potential exposure</string>
-    <string name="notification_exposure_message">You may have been exposed to the coronavirus. See instructions and contact healthcare.</string>
+    <string name="notification_exposure_message">You may have been exposed to the coronavirus. See the instructions and contact healthcare.</string>
 
     <string name="guide_title">"About Koronavilkku "</string>
     <string name="guide_p1_text">Koronavilkku is an application produced by the Finnish Institute for Health and Welfare that informs you if it estimates that you may have been exposed to the coronavirus. If you are diagnosed with COVID-19, you can report this anonymously using the app. Your privacy is strongly protected.</string>

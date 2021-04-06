@@ -12,6 +12,7 @@ import androidx.core.app.NotificationManagerCompat.IMPORTANCE_NONE
 import dagger.hilt.android.qualifiers.ApplicationContext
 import fi.thl.koronahaavi.MainActivity
 import fi.thl.koronahaavi.R
+import fi.thl.koronahaavi.common.withSavedLanguage
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import timber.log.Timber
@@ -46,8 +47,11 @@ class NotificationService @Inject constructor (
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
         val pendingIntent = PendingIntent.getActivity(context, 0, intent, 0)
-        val title = context.getString(R.string.notification_exposure_title)
-        val message = context.getString(R.string.notification_exposure_message)
+
+        // Localize notification text with app language override, if selected
+        val languageContext = context.withSavedLanguage()
+        val title = languageContext.getString(R.string.notification_exposure_title)
+        val message = languageContext.getString(R.string.notification_exposure_message)
 
         val builder = NotificationCompat.Builder(context, CHANNEL_ID)
             .setContentTitle(title)
