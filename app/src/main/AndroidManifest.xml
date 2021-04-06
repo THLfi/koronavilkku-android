@@ -76,4 +76,16 @@
             android:exported="false" />
 
     </application>
+
+    <!-- Android 11 requires these query definitions to call intent.resolveActivity -->
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="https" />
+        </intent>
+        <intent>
+            <action android:name="android.intent.action.DIAL" />
+            <data android:scheme="tel" />
+        </intent>
+    </queries>
 </manifest>
