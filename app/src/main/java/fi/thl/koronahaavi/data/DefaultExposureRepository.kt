@@ -68,21 +68,29 @@ class DefaultExposureRepository (
             }
         }
 
-    private fun KeyGroupToken.toExposureNotification(): ExposureNotification? =
+    private fun KeyGroupToken.toExposureNotification(): ExposureNotification? {
+        val rangeDays = settingsRepository.appConfiguration.exposureValidDays.toLong()
+        val rangeStart = updatedDate.minusDays(rangeDays)
+
         // exposureCount is only defined for legacy v1 api mode exposures that
         // notify of the count of each individual exposure
-        exposureCount?.let { count ->
+        return exposureCount?.let { count ->
             ExposureNotification(
                 createdDate = updatedDate,
+                exposureRangeStart = rangeStart,
+                exposureRangeEnd = updatedDate.minusDays(1),
                 exposureCount = ExposureCount.ForDetailExposures(count)
             )
         } ?:
         dayCount?.let { count ->
             ExposureNotification(
                 createdDate = updatedDate,
+                exposureRangeStart = rangeStart,
+                exposureRangeEnd = updatedDate,
                 exposureCount = ExposureCount.ForDays(count)
             )
         }
+    }
 
     private fun getDetectionStart(): ZonedDateTime {
         // Exposure detection timestamp is rounded by EN to beginning of day in UTC, so in order to keep

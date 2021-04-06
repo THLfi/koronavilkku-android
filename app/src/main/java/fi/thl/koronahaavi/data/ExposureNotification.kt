@@ -4,6 +4,8 @@ import java.time.ZonedDateTime
 
 data class ExposureNotification(
     val createdDate: ZonedDateTime,
+    val exposureRangeStart: ZonedDateTime,
+    val exposureRangeEnd: ZonedDateTime,
     val exposureCount: ExposureCount
 )
 

@@ -18,6 +18,7 @@ import fi.thl.koronahaavi.common.FormatExtensions
 import fi.thl.koronahaavi.common.FormatExtensions.formatDateRange
 import fi.thl.koronahaavi.common.FormatExtensions.formatLastCheckTime
 import fi.thl.koronahaavi.data.ExposureCount
+import fi.thl.koronahaavi.data.ExposureNotification
 import fi.thl.koronahaavi.databinding.FragmentExposureNotificationListBinding
 import fi.thl.koronahaavi.databinding.ItemNotificationInfoBinding
 
@@ -71,7 +72,7 @@ class ExposureNotificationListFragment : BottomSheetDialogFragment() {
     }
 }
 
-class NotificationAdapter : ListAdapter<NotificationData, NotificationViewHolder>(NotificationItemDiff()) {
+class NotificationAdapter : ListAdapter<ExposureNotification, NotificationViewHolder>(NotificationItemDiff()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NotificationViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -83,11 +84,11 @@ class NotificationAdapter : ListAdapter<NotificationData, NotificationViewHolder
         holder.bind(getItem(position))
     }
 
-    class NotificationItemDiff : DiffUtil.ItemCallback<NotificationData>() {
-        override fun areItemsTheSame(oldItem: NotificationData, newItem: NotificationData)
+    class NotificationItemDiff : DiffUtil.ItemCallback<ExposureNotification>() {
+        override fun areItemsTheSame(oldItem: ExposureNotification, newItem: ExposureNotification)
                 = oldItem == newItem
 
-        override fun areContentsTheSame(oldItem: NotificationData, newItem: NotificationData)
+        override fun areContentsTheSame(oldItem: ExposureNotification, newItem: ExposureNotification)
                 = oldItem == newItem
     }
 }
@@ -95,9 +96,9 @@ class NotificationAdapter : ListAdapter<NotificationData, NotificationViewHolder
 class NotificationViewHolder(val binding: ItemNotificationInfoBinding)
     : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(data: NotificationData) {
+    fun bind(data: ExposureNotification) {
         val context = itemView.context
-        val dateString = FormatExtensions.formatDate(data.dateTime)
+        val dateString = FormatExtensions.formatDate(data.createdDate)
 
         val countLabelResId = when (data.exposureCount) {
             is ExposureCount.ForDetailExposures -> R.string.notification_item_count_label

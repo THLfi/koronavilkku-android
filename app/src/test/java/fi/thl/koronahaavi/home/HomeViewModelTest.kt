@@ -142,8 +142,14 @@ class HomeViewModelTest {
 
     @Test
     fun notificationCountAvailable() {
+        val notificationCreatedDate = ZonedDateTime.now()
         every { exposureRepository.getExposureNotificationsFlow() } returns flowOf(listOf(
-            ExposureNotification(ZonedDateTime.now(), ExposureCount.ForDetailExposures(2))
+            ExposureNotification(
+                createdDate = notificationCreatedDate,
+                exposureRangeStart = notificationCreatedDate.minusDays(14),
+                exposureRangeEnd = notificationCreatedDate.minusDays(1),
+                exposureCount = ExposureCount.ForDetailExposures(2)
+            )
         ))
         viewModel = createViewModel()
 

@@ -26,7 +26,6 @@ class ExposureDetailViewModelTest {
     private lateinit var appStateRepository: AppStateRepository
     private lateinit var exposureNotificationService: ExposureNotificationService
     private lateinit var workDispatcher: WorkDispatcher
-    private lateinit var settingsRepository: SettingsRepository
 
     private val notificationCreatedDate = ZonedDateTime.now()
     @Before
@@ -35,18 +34,20 @@ class ExposureDetailViewModelTest {
         appStateRepository = mockk(relaxed = true)
         exposureNotificationService = mockk(relaxed = true)
         workDispatcher = mockk(relaxed = true)
-        settingsRepository = mockk(relaxed = true)
-
-        every { settingsRepository.appConfiguration } returns TestData.appConfig
 
         every { exposureRepository.getExposureNotificationsFlow() } returns flowOf(listOf(
-            ExposureNotification(notificationCreatedDate, ExposureCount.ForDetailExposures(2))
+            ExposureNotification(
+                createdDate = notificationCreatedDate,
+                exposureRangeStart = notificationCreatedDate.minusDays(14),
+                exposureRangeEnd = notificationCreatedDate.minusDays(1),
+                exposureCount = ExposureCount.ForDetailExposures(2)
+            )
         ))
 
         every { exposureRepository.getIsExposedFlow() } returns flowOf(true)
 
         viewModel = ExposureDetailViewModel(
-            exposureRepository, appStateRepository, exposureNotificationService, workDispatcher, settingsRepository
+            exposureRepository, appStateRepository, exposureNotificationService, workDispatcher
         )
     }
 
@@ -58,7 +59,7 @@ class ExposureDetailViewModelTest {
     @Test
     fun notificationData() {
         viewModel.notifications.test().assertValue {
-            it.size == 1 && it[0].exposureCount.value == 2 && it[0].dateTime == notificationCreatedDate
+            it.size == 1 && it[0].exposureCount.value == 2 && it[0].createdDate == notificationCreatedDate
         }
     }
 }
