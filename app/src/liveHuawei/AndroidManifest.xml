@@ -18,4 +18,10 @@
 
     </application>
 
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <data android:scheme="appmarket" />
+        </intent>
+    </queries>
 </manifest>
