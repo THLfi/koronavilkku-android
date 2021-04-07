@@ -221,9 +221,6 @@ dependencies {
     // Huawei bluetooth tracing
     huaweiImplementation 'com.huawei.hms:contactshield:5.1.0.300'
 
-    // Memory leak detection
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.6'
-
     // Testing
     testImplementation "junit:junit:$junitVersion"
     testImplementation 'androidx.arch.core:core-testing:2.1.0'
