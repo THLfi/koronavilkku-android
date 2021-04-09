@@ -6,6 +6,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### Added
+- Implement app notifications for potential exposure
+- Show status and instructions when app notifications have been disabled
+
+### Changed
+- Change Google EN and Huawei Contact Shield implementation to use exposure window mode
+- Use daily exposure summaries to detect exposures
+- Update target and compile android sdk to 30
+- Update library dependencies and Kotlin version
+
 ## [2.2.0](https://github.com/THLfi/koronavilkku-android/compare/v2.1.1...v2.2.0) - 2021-03-04
 
 ### Added
