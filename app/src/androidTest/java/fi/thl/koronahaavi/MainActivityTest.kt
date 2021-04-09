@@ -244,7 +244,7 @@ class MainActivityTest {
 
             // clear participating countries to simulate no data
             settingsRepository.updateExposureConfiguration(backendService.getConfiguration().copy(
-                participatingCountries = null
+                availableCountries = null
             ))
 
             activityRule.launchActivity(null)

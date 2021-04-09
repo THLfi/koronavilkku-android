@@ -19,10 +19,7 @@ class ContactShieldIntentService : IntentService("ContactShield_BackgroundContac
             engine.handleIntent(it, object : ContactShieldCallback {
                 override fun onHasContact(p0: String?) {
                     Timber.d("onHasContact")
-                    p0?.let { token ->
-                        Timber.d("start ExposureUpdateWorker with $token")
-                        ExposureUpdateWorker.start(this@ContactShieldIntentService, token)
-                    }
+                    ExposureUpdateWorker.start(this@ContactShieldIntentService)
                 }
 
                 override fun onNoContact(p0: String?) {

@@ -29,6 +29,9 @@ annotation class DatabaseName
 @Qualifier
 annotation class BaseUrl
 
+@Qualifier
+annotation class AppStatePreferencesName
+
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
@@ -48,6 +51,9 @@ object AppModule {
     // this allows database testing with a different name so it does not interfere with actual app db
     @Singleton @Provides @DatabaseName
     fun databaseName() = "koronavilkku-db"
+
+    @Singleton @Provides @AppStatePreferencesName
+    fun appStatePreferencesName() = "fi.thl.koronavilkku.app_state_preferences"
 
     @Singleton
     @Provides

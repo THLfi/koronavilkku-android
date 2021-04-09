@@ -84,7 +84,7 @@ class DiagnosisKeyServiceTest {
     @Test
     fun sendVisitedCountries() {
         every { settingsRepository.getExposureConfiguration() } returns TestData.exposureConfiguration().copy(
-            participatingCountries = listOf("aa", "bb", "cc")
+            availableCountries = listOf("aa", "bb", "cc")
         )
 
         runBlocking {
@@ -96,6 +96,28 @@ class DiagnosisKeyServiceTest {
             assertEquals(BackendService.NumericBoolean.FALSE, sentData.captured.visitedCountries["aa"])
             assertEquals(BackendService.NumericBoolean.TRUE, sentData.captured.visitedCountries["bb"])
             assertEquals(BackendService.NumericBoolean.FALSE, sentData.captured.visitedCountries["cc"])
+        }
+    }
+
+    @Test
+    fun sendDiscardsOldestKeys() {
+        val oldestInterval = 2695104
+
+        // simulate api returning one extra key, and ordered oldest first
+        val keys = List(TestData.appConfig.diagnosisKeysPerSubmit + 1) { index ->
+            fakeExposureKey().setRollingStartIntervalNumber(oldestInterval + index * 144).build()
+        }
+
+        runBlocking {
+            val sentList = slot<DiagnosisKeyList>()
+            val result = diagnosisKeyService.sendExposureKeys("1234", keys, listOf(), true)
+            assertEquals(SendKeysResult.Success, result)
+
+            coVerify { backendService.sendKeys(any(), capture(sentList)) }
+            assertEquals(TestData.appConfig.diagnosisKeysPerSubmit, sentList.captured.keys.size)
+
+            // oldest should not be included
+            assertTrue(sentList.captured.keys.all { it.rollingStartIntervalNumber > oldestInterval })
         }
     }
 
@@ -159,7 +181,7 @@ class DiagnosisKeyServiceTest {
     @Test
     fun countryCodesFiltered() {
         coEvery { backendService.getConfiguration() } returns TestData.exposureConfiguration().copy(
-            participatingCountries = listOf("DE", "IE", "", "X", "test", "FI", " ", "&&", "3", "dk", "IT")
+            availableCountries = listOf("DE", "IE", "", "X", "test", "FI", " ", "&&", "3", "dk", "IT")
         )
 
         val expectedCountries = listOf("DE", "IE", "IT")
@@ -167,20 +189,22 @@ class DiagnosisKeyServiceTest {
         runBlocking {
             val result = diagnosisKeyService.downloadDiagnosisKeyFiles()
 
-            assertEquals(expectedCountries, result.exposureConfig.participatingCountries)
+            assertEquals(expectedCountries, result.exposureConfig.availableCountries)
 
             val savedConfig = slot<ExposureConfigurationData>()
             verify { settingsRepository.updateExposureConfiguration(capture(savedConfig)) }
-            assertEquals(expectedCountries, savedConfig.captured.participatingCountries)
+            assertEquals(expectedCountries, savedConfig.captured.availableCountries)
         }
     }
 
-    private fun fakeKeyList() = listOf(fakeExposureKey(), fakeExposureKey())
+    private fun fakeKeyList() = listOf(
+            fakeExposureKey().build(),
+            fakeExposureKey().build()
+    )
 
     private fun fakeExposureKey() = TemporaryExposureKey.TemporaryExposureKeyBuilder()
         .setKeyData(Random.nextBytes(16))
         .setRollingPeriod(144)
         .setRollingStartIntervalNumber((Instant.now().epochSecond / 600).toInt())
-        .build()
 }
 

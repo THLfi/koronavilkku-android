@@ -1,8 +1,13 @@
 package fi.thl.koronahaavi.data
 
+import android.content.Context
 import android.content.SharedPreferences
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import dagger.hilt.android.qualifiers.ApplicationContext
+import fi.thl.koronahaavi.common.getInstant
+import fi.thl.koronahaavi.common.setInstant
+import fi.thl.koronahaavi.di.AppStatePreferencesName
 import fi.thl.koronahaavi.service.BackendService
 import fi.thl.koronahaavi.service.BatchId
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,13 +20,20 @@ import javax.inject.Singleton
 
 @Singleton
 class AppStateRepository @Inject constructor (
-    private val prefs: SharedPreferences,
-    private val backendService: BackendService
+        private val prefs: SharedPreferences,
+        private val backendService: BackendService,
+        @ApplicationContext context: Context,
+        @AppStatePreferencesName preferencesName: String
 ) {
     private val onBoardingCompleteKey = "onboarding_complete"
     private val lastBatchIdKey = "last_batch_id"
     private val lastExposureCheckTimeKey = "last_exposure_check"
+    private val lastExposureKeyMappingUpdateKey = "last_exposure_key_mapping_update"
     private val diagnosisKeysSubmittedKey = "diagnosis_keys_submitted"
+
+    // this is an unencrypted shared preferences instance which is used to avoid further
+    // load to unstable encrypted shared preferences, for data that is not sensitive
+    private val appSharedPreferences = context.getSharedPreferences(preferencesName, Context.MODE_PRIVATE)
 
     private val keysSubmitted = MutableStateFlow(
         prefs.getBoolean(diagnosisKeysSubmittedKey, false)
@@ -59,6 +71,8 @@ class AppStateRepository @Inject constructor (
         updateLastExposureCheckTime()
     }
 
+    fun setLastExposureCheckTimeToNow() = setLastExposureCheckTime(ZonedDateTime.now())
+
     fun isOnboardingComplete() = prefs.getBoolean(onBoardingCompleteKey, false)
 
     fun setOnboardingComplete(complete: Boolean) {
@@ -74,6 +88,10 @@ class AppStateRepository @Inject constructor (
     fun resetDiagnosisKeyBatchId() {
         prefs.edit().remove(lastBatchIdKey).apply()
     }
+
+    fun getLastExposureKeyMappingUpdate(): Instant? = appSharedPreferences.getInstant(lastExposureKeyMappingUpdateKey)
+
+    fun setLastExposureKeyMappingUpdate(time: Instant) = appSharedPreferences.setInstant(lastExposureKeyMappingUpdateKey, time)
 
     private suspend fun getInitialBatchId() : BatchId
             = backendService.getInitialBatchId().current.also { setDiagnosisKeyBatchId(it) }

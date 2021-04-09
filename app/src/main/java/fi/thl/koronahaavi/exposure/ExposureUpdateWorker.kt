@@ -1,17 +1,23 @@
-@file:Suppress("DEPRECATION")
-
 package fi.thl.koronahaavi.exposure
 
 import android.content.Context
 import androidx.hilt.work.HiltWorker
 import androidx.work.*
-import com.google.android.gms.nearby.exposurenotification.ExposureSummary
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import fi.thl.koronahaavi.data.*
 import fi.thl.koronahaavi.service.ExposureNotificationService
+import fi.thl.koronahaavi.service.NotificationService
 import timber.log.Timber
+import java.time.ZoneId
+import java.time.ZonedDateTime
+import java.util.*
 
+/*
+Synchronizes exposure state from ENS daily summaries into local database
+Database entities for exposure and key group token are maintained to keep UX
+the same as with original exposure summary and details API
+*/
 @HiltWorker
 class ExposureUpdateWorker @AssistedInject constructor(
     @Assisted context: Context,
@@ -19,73 +25,69 @@ class ExposureUpdateWorker @AssistedInject constructor(
     private val exposureNotificationService: ExposureNotificationService,
     private val exposureRepository: ExposureRepository,
     private val appStateRepository: AppStateRepository,
-    private val settingsRepository: SettingsRepository
+    private val settingsRepository: SettingsRepository,
+    private val notificationService: NotificationService
 ) : CoroutineWorker(context, workerParams) {
 
     override suspend fun doWork(): Result {
         Timber.i("Starting")
-
-        val token = inputData.getString(TOKEN_KEY)
-        if (token == null) {
-            Timber.e("No input token")
-            return Result.failure()
-        }
 
         if (appStateRepository.lockedAfterDiagnosis().value) {
             Timber.i("App locked, ignoring exposure update")
             return Result.success()
         }
 
-        val summary = exposureNotificationService.getExposureSummary(token)
-                .also { Timber.d(it.toString()) }
-        var exposures: List<Exposure>? = null
+        // configuration is loaded during diagnosis key file download, which must happen
+        // before this worker can be started, so we can rely on config being available
+        val config = settingsRepository.requireExposureConfiguration()
 
-        if (summary.matchedKeyCount > 0) {
-            val config = settingsRepository.requireExposureConfiguration()
-            val checker = ExposureSummaryChecker(summary, config)
-
-            Timber.d("Configuration minimum risk score ${config.minimumRiskScore}")
-
-            if (checker.hasHighRisk()) {
-                Timber.d("High risk detected")
-
-                // this call will trigger EN system notifications
-                exposures = exposureNotificationService.getExposureDetails(token).let {
-                    checker.filterExposures(it)
-                }
-
-                exposures.forEach { exposureRepository.saveExposure(it) }
-            }
-        }
-        else {
-            Timber.i("No exposure matches found")
+        // due to legacy implementation, current exposures can contain each individual exposure, or new daily exposure
+        val latestExposureDate = exposureRepository.getAllExposures().maxOfOrNull {
+            it.detectedDate.toLocalDate()
         }
 
-        exposureRepository.saveKeyGroupToken(createKeyGroupToken(token, summary, exposures))
+        // compare to existing and find new days with exposure
+        val newExposures = exposureNotificationService.getDailyExposures(config)
+            .filter { it.score >= config.minimumDailyScore }
+            .filter { latestExposureDate?.isBefore(it.day) ?: true }
+            .map { it.toExposure() }
+
+        newExposures.forEach {
+            Timber.d("New daily exposure ${it.detectedDate.toLocalDate()}")
+            exposureRepository.saveExposure(it)
+        }
+
+        if (newExposures.isNotEmpty()) {
+            exposureRepository.saveKeyGroupToken(
+                createKeyGroupToken(newExposures)
+            )
+            notificationService.notifyExposure()
+        }
+
         return Result.success()
     }
 
-    private fun createKeyGroupToken(token: String, summary: ExposureSummary, exposures: List<Exposure>?) =
+    // UTC timezone is used to match EN api v1 exposure detail, and also Converters.longToZonedDateTime
+    private fun DailyExposure.toExposure() =
+        Exposure(
+            createdDate = ZonedDateTime.now(),
+            detectedDate = day.atStartOfDay(ZoneId.of("Z")),
+            totalRiskScore = score
+        )
+
+    private fun createKeyGroupToken(exposures: List<Exposure>?) =
             KeyGroupToken(
-                token = token,
-                matchedKeyCount = summary.matchedKeyCount,
-                maximumRiskScore = summary.maximumRiskScore,
-                exposureCount = exposures?.size,
-                latestExposureDate = exposures?.map { it.detectedDate }?.max()
+                token = UUID.randomUUID().toString(), // legacy db schema support
+                dayCount = exposures?.size,
+                latestExposureDate = exposures?.map { it.detectedDate }?.maxOrNull()
             )
 
     companion object {
-        const val TOKEN_KEY = "token_key"
         const val TAG = "fi.thl.koronahaavi.exposure.ExposureUpdateWorker"
 
-        fun start(context: Context, token: String) {
+        fun start(context: Context) {
             WorkManager.getInstance(context).enqueue(
                 OneTimeWorkRequest.Builder(ExposureUpdateWorker::class.java)
-                    .setInputData(
-                        Data.Builder()
-                            .putString(TOKEN_KEY, token)
-                            .build()
-                    )
                     .addTag(TAG)
                     .build()
             )

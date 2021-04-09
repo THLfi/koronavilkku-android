@@ -32,9 +32,12 @@ class DiagnosisKeyService @Inject constructor (
         return try {
             val numKeys = settingsRepository.appConfiguration.diagnosisKeysPerSubmit
 
+            // Sort latest first, so that if API returns more keys than max count, then oldest keys are discarded
+            val sortedKeys = keyHistory.sortedByDescending { it.rollingStartIntervalNumber }
+
             val payload = DiagnosisKeyList(
                 keys = List(numKeys) { index ->
-                    keyHistory.getOrNull(index)?.toDiagnosisKey()
+                    sortedKeys.getOrNull(index)?.toDiagnosisKey()
                         ?: createFakeKey(index) // padding
                 },
                 visitedCountries = getVisitedCountries(visitedCountryCodes),
@@ -63,7 +66,7 @@ class DiagnosisKeyService @Inject constructor (
      * Creates map of country code to 1 or 0, required for json serialization
      */
     private fun getVisitedCountries(selectedCodes: List<String>): Map<String, NumericBoolean> =
-        settingsRepository.getExposureConfiguration()?.participatingCountries?.associateWith {
+        settingsRepository.getExposureConfiguration()?.availableCountries?.associateWith {
             NumericBoolean.from(selectedCodes.contains(it))
         } ?: mapOf()
 
@@ -145,10 +148,10 @@ class DiagnosisKeyService @Inject constructor (
         val config = backendService.getConfiguration()
 
         // Exclude invalid country codes as additional security measure
-        val validatedCountries = config.participatingCountries?.filter { it.isValidCountryCode() }
+        val validatedCountries = config.availableCountries?.filter { it.isValidCountryCode() }
 
         val validatedConfig = config.copy(
-            participatingCountries = validatedCountries
+            availableCountries = validatedCountries
         )
         settingsRepository.updateExposureConfiguration(validatedConfig)
         return validatedConfig

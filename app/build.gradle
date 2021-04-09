@@ -218,7 +218,7 @@ dependencies {
     implementation "com.squareup.okhttp3:logging-interceptor:4.9.0"
 
     // Huawei bluetooth tracing
-    huaweiImplementation 'com.huawei.hms:contactshield:5.1.0.300'
+    huaweiImplementation 'com.huawei.hms:contactshield:5.2.0.301'
 
     // Testing
     testImplementation "junit:junit:$junitVersion"

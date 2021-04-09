@@ -8,6 +8,8 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.Drawable
 import android.net.Uri
+import android.os.Build
+import android.provider.Settings
 import android.view.View
 import android.view.inputmethod.InputMethodManager
 import androidx.annotation.AttrRes
@@ -54,6 +56,27 @@ fun Fragment.openLink(url: String) {
                 .show()
         }
     }
+}
+
+fun Fragment.openNotificationSettings() {
+    val intent = Intent().apply {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            // only available in api level 26
+            action = Settings.ACTION_APP_NOTIFICATION_SETTINGS
+            context?.let {
+                putExtra(Settings.EXTRA_APP_PACKAGE, it.packageName)
+            }
+        }
+        else {
+            // prior to api 26, need to use different parameters
+            action = "android.settings.APP_NOTIFICATION_SETTINGS"
+            context?.let {
+                putExtra("app_package", it.packageName)
+                putExtra("app_uid", it.applicationInfo.uid)
+            }
+        }
+    }
+    startActivity(intent)
 }
 
 fun FragmentActivity.openGuide() {

@@ -3,10 +3,7 @@ package fi.thl.koronahaavi.exposure
 import androidx.lifecycle.*
 import dagger.hilt.android.lifecycle.HiltViewModel
 import fi.thl.koronahaavi.common.Event
-import fi.thl.koronahaavi.data.AppStateRepository
-import fi.thl.koronahaavi.data.ExposureNotification
-import fi.thl.koronahaavi.data.ExposureRepository
-import fi.thl.koronahaavi.data.SettingsRepository
+import fi.thl.koronahaavi.data.*
 import fi.thl.koronahaavi.service.ExposureNotificationService
 import fi.thl.koronahaavi.service.WorkDispatcher
 import fi.thl.koronahaavi.service.WorkState
@@ -18,17 +15,12 @@ class ExposureDetailViewModel @Inject constructor(
     exposureRepository: ExposureRepository,
     appStateRepository: AppStateRepository,
     exposureNotificationService: ExposureNotificationService,
-    private val workDispatcher: WorkDispatcher,
-    private val settingsRepository: SettingsRepository
+    private val workDispatcher: WorkDispatcher
 ) : ViewModel() {
-    private val exposureNotifications = exposureRepository.getExposureNotificationsFlow().asLiveData()
+    val notifications = exposureRepository.getExposureNotificationsFlow().asLiveData()
     val hasExposures = exposureRepository.getIsExposedFlow().asLiveData()
-    val notificationCount = exposureNotifications.map { it.size }
-    val showNotifications = exposureNotifications.map { it.isNotEmpty() }
-
-    val notifications = exposureNotifications.map {
-        it.map(this::createNotificationData)
-    }
+    val notificationCount = notifications.map { it.size }
+    val showNotifications = notifications.map { it.isNotEmpty() }
 
     val lastCheckTime = appStateRepository.getLastExposureCheckTimeLive()
 
@@ -51,22 +43,4 @@ class ExposureDetailViewModel @Inject constructor(
         checkInProgress.postValue(true)
         newExposureCheckEvent.postValue(Event(Unit))
     }
-
-    private fun createNotificationData(notification: ExposureNotification): NotificationData {
-        val rangeDays = settingsRepository.appConfiguration.exposureValidDays.toLong()
-
-        return NotificationData(
-            dateTime = notification.createdDate,
-            exposureRangeStart = notification.createdDate.minusDays(rangeDays),
-            exposureRangeEnd = notification.createdDate.minusDays(1),
-            exposureCount = notification.exposureCount
-        )
-    }
 }
-
-data class NotificationData(
-    val dateTime: ZonedDateTime,
-    val exposureRangeStart: ZonedDateTime,
-    val exposureRangeEnd: ZonedDateTime,
-    val exposureCount: Int
-)

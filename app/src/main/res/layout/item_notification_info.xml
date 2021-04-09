@@ -5,7 +5,6 @@
 
     <data>
         <variable name="title" type="String"/>
-        <variable name="count" type="int"/>
         <variable name="range" type="String"/>
     </data>
 
@@ -51,7 +50,7 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="6dp"
                 android:textAppearance="?attr/textAppearanceBody2"
-                android:text="@string/notification_item_count_label"
+                tools:text="@string/notification_item_count_label"
                 />
 
             <TextView
@@ -63,8 +62,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constrainedWidth="true"
                 android:textAppearance="?attr/textAppearanceBody2"
-                android:text="@{@plurals/all_count(count, count)}"
-                tools:text="1 kpl"
+                tools:text="1 päivänä"
                 />
 
             <!-- time range value uses wrap_content to keep it on single line

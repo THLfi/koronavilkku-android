@@ -14,8 +14,6 @@ class FakeExposureRepository : ExposureRepository {
     override suspend fun saveKeyGroupToken(token: KeyGroupToken) {
     }
 
-    override fun flowHandledKeyGroupTokens(): Flow<List<KeyGroupToken>> = flowOf(listOf())
-
     override suspend fun deleteKeyGroupToken(token: KeyGroupToken) {
     }
 

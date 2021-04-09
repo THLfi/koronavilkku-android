@@ -1,8 +1,10 @@
 package fi.thl.koronahaavi.home
 
+import android.content.Intent
 import android.content.res.ColorStateList
 import android.graphics.drawable.AnimatedVectorDrawable
 import android.os.Bundle
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -200,13 +202,14 @@ class HomeFragment : Fragment() {
                 SystemState.On -> R.string.home_status_system_enabled
                 SystemState.Off -> R.string.home_status_system_disabled
                 SystemState.Locked -> R.string.home_status_system_locked
+                SystemState.NotificationsBlocked -> R.string.home_status_notifications_blocked
             }
         )
 
         binding.textHomeAppStatus.setTextColor(requireContext().getColor(
             when (state) {
                 SystemState.On -> R.color.mainBlue
-                SystemState.Off -> R.color.mainRed
+                SystemState.Off, SystemState.NotificationsBlocked -> R.color.mainRed
                 SystemState.Locked -> R.color.textDarkGrey
             }
         ))
@@ -216,6 +219,7 @@ class HomeFragment : Fragment() {
                 SystemState.On -> R.string.home_status_enabled_explained
                 SystemState.Off -> R.string.home_status_disabled_explained
                 SystemState.Locked -> R.string.home_status_locked_explained
+                SystemState.NotificationsBlocked -> R.string.home_status_notifications_blocked_explained
             }
         )
     }
@@ -231,13 +235,26 @@ class HomeFragment : Fragment() {
     }
 
     private fun updateEnableButton(state: SystemState) {
-        binding.buttonHomeAppEnable.visibility = when (state) {
-            SystemState.Off -> View.VISIBLE
-            else -> View.GONE
+        with (binding.buttonHomeAppEnable) {
+            visibility = when (state) {
+                SystemState.Off, SystemState.NotificationsBlocked -> View.VISIBLE
+                else -> View.GONE
+            }
+
+            text = getString(when (state) {
+                SystemState.NotificationsBlocked -> R.string.home_status_turn_on
+                else -> R.string.all_system_enable
+            })
         }
     }
 
     private fun enableSystem() {
-        viewModel.enableSystem()
+        // todo can this decision be moved to view model
+        if (viewModel.currentSystemState() == SystemState.NotificationsBlocked) {
+            findNavController().navigateSafe(HomeFragmentDirections.toNotificationsBlocked())
+        }
+        else {
+            viewModel.enableSystem()
+        }
     }
 }

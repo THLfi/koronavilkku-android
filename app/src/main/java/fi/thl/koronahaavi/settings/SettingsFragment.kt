@@ -13,7 +13,6 @@ import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import fi.thl.koronahaavi.BuildConfig
 import fi.thl.koronahaavi.R
-import fi.thl.koronahaavi.common.fromDeviceState
 import fi.thl.koronahaavi.common.navigateSafe
 import fi.thl.koronahaavi.common.openGuide
 import fi.thl.koronahaavi.common.openLink
@@ -45,15 +44,16 @@ class SettingsFragment : Fragment() {
     }
 
     private fun updateStatusItemText(state: SystemState) {
-        // updating text with data binding adapter directly here since layout uses an
-        // include tag with a string variable and adapter wont't work there
-
-        binding.settingsStatusItem.linkItemValue.fromDeviceState(state)
+        binding.settingsStatusItem.linkItemValue.text = resources.getString(when (state) {
+            SystemState.On, SystemState.NotificationsBlocked -> R.string.settings_status_on
+            SystemState.Off -> R.string.settings_status_off
+            SystemState.Locked -> R.string.settings_status_locked
+        })
     }
 
     private fun updateStatusDirections(state: SystemState) {
         toggleServiceStateNavDirections = when (state) {
-            SystemState.On -> SettingsFragmentDirections.toDisableService()
+            SystemState.On, SystemState.NotificationsBlocked -> SettingsFragmentDirections.toDisableService()
             SystemState.Off -> SettingsFragmentDirections.toEnableService()
             SystemState.Locked -> null
         }

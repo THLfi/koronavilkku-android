@@ -24,7 +24,7 @@ class ShareTravelChoiceDataTest {
         settingsRepository = mockk(relaxed = true)
 
         every { settingsRepository.getExposureConfiguration() } returns TestData.exposureConfiguration().copy(
-                participatingCountries = listOf("DE", "IE", "IT")
+                availableCountries = listOf("DE", "IE", "IT")
         )
 
         data = ShareTravelChoiceData(settingsRepository)

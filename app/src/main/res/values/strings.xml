@@ -63,6 +63,9 @@
     <string name="home_status_system_enabled">Koronavilkku is active</string>
     <string name="home_status_system_disabled">Koronavilkku is disabled</string>
     <string name="home_status_system_locked">Koronavilkku is locked</string>
+    <string name="home_status_notifications_blocked">Notifications are blocked</string>
+
+    <string name="home_status_turn_on">Turn on</string>
 
     <string name="home_symptom_sub_label">Take an online medical COVID-19 symptom check-up</string>
     <string name="home_app_guide">About Koronavilkku</string>
@@ -70,6 +73,7 @@
     <string name="home_status_disabled_explained">Re-enable exposure notifications.</string>
     <string name="home_status_enabled_explained">The app works even if you close it.</string>
     <string name="home_status_locked_explained">Thank you for reporting your infection. The app will no longer collect information about encounters. We wish you a quick recovery!</string>
+    <string name="home_status_notifications_blocked_explained">Turn on notifications so that Koronavilkku can notify you of potential exposure.</string>
 
     <string name="symptoms_title">COVID-19 symptom assessment</string>
     <string name="symptoms_info">If you suspect that you have COVID-19, take an online COVID-19 symptom assessment in the Omaolo service. You will receive additional instructions based on your answers. It takes approximately 10 minutes to complete the assessment.</string>
@@ -138,7 +142,13 @@
 
     <string name="notification_item_title">Notification about potential exposure %s</string>
     <string name="notification_item_count_label">Potential exposures:</string>
+    <string name="notification_item_count_days_label">Days with new potential exposures:</string>
     <string name="notification_item_time_range_label">Time period:</string>
+
+    <string name="notification_channel_name">Exposure notifications</string>
+    <string name="notification_channel_description">Notifications for possible COVID-19 exposures.</string>
+    <string name="notification_exposure_title">Potential exposure</string>
+    <string name="notification_exposure_message">You may have been exposed to the coronavirus. See the instructions and contact healthcare.</string>
 
     <string name="guide_title">"About Koronavilkku "</string>
     <string name="guide_p1_text">Koronavilkku is an application produced by the Finnish Institute for Health and Welfare that informs you if it estimates that you may have been exposed to the coronavirus. If you are diagnosed with COVID-19, you can report this anonymously using the app. Your privacy is strongly protected.</string>
@@ -244,21 +254,24 @@
 
     <string name="info_icon">Info</string>
 
-    <string name="test_title" translatable="false">Testi</string>
-    <string name="test_update_exposures" translatable="false">Luo simuloitu altistus</string>
-    <string name="test_update_exposures_message" translatable="false">Hei, altistus tulee 5 sekunnin päästä</string>
-    <string name="test_reset_onboarding" translatable="false">Aloita onboarding</string>
-    <string name="test_download" translatable="false">Lataa avaimet nyt</string>
-    <string name="test_download_message" translatable="false">Hei, lataus 5 sekunnin päästä</string>
-    <string name="test_set_batch_id" translatable="false">Aseta</string>
+    <string name="test_title" translatable="false">Test</string>
+    <string name="test_update_exposures" translatable="false">Create exposure</string>
+    <string name="test_update_exposures_message" translatable="false">Hello, exposure in five seconds</string>
+    <string name="test_notification_message" translatable="false">Hello, notification in five seconds</string>
+    <string name="test_reset_onboarding" translatable="false">Start onboarding</string>
+    <string name="test_download" translatable="false">Download keys now</string>
+    <string name="test_download_message" translatable="false">Hello, download in five seconds</string>
+    <string name="test_set_batch_id" translatable="false">Set</string>
     <string name="test_batch_id_hint" translatable="false">Batch id</string>
-    <string name="test_clear_exposures" translatable="false">Poista altistukset</string>
-    <string name="test_lock" translatable="false">Aseta lukitustila</string>
-    <string name="test_unlock" translatable="false">Poista lukitustila</string>
-    <string name="test_set_old_update" translatable="false">Aseta päivitys vanhaksi</string>
-    <string name="test_open_en_settings" translatable="false">EN asetukset</string>
-    <string name="test_check_play_services" translatable="false">Play services tarkistus</string>
-    <string name="test_update_municipalities" translatable="false">Päivitä kuntalista</string>
+    <string name="test_clear_exposures" translatable="false">Delete exposures</string>
+    <string name="test_lock" translatable="false">Set app locked</string>
+    <string name="test_unlock" translatable="false">Clear app locked</string>
+    <string name="test_set_old_update" translatable="false">Set check as delayed</string>
+    <string name="test_check_play_services" translatable="false">Check Play services</string>
+    <string name="test_update_municipalities" translatable="false">Reload municipality data</string>
+    <string name="test_daily_summaries" translatable="false">Daily summaries</string>
+    <string name="test_exposure_windows" translatable="false">Exposure windows</string>
+    <string name="test_create_notification" translatable="false">Create notification</string>
 
     <string name="pre_web_contact_title_evaluation">Omaolo symptom assessment</string>
     <string name="pre_web_contact_title_no_evaluation">Send a contact request</string>
@@ -327,12 +340,24 @@
 
     <string name="notification_guide_page_content_description">Step %1$d of %2$d</string>
 
+    <string name="notifications_blocked_title">Notifications are blocked</string>
+    <string name="notifications_blocked_body">If you don\'t turn on notifications, Koronavilkku can\'t notify you of a potential exposure when the app is closed. Follow these instructions to turn notifications on:</string>
+    <string name="notifications_blocked_instructions_1">1. Tap the button below to open notification settings.</string>
+    <string name="notifications_blocked_instructions_2">2. Turn on <b>Show notifications</b>.</string>
+    <string name="notifications_blocked_instructions_3">3. Turn on <b>Exposure notifications</b>.</string>
+    <string name="notifications_blocked_open_settings">Open settings</string>
+
     <plurals name="exposure_notification_count">
         <item quantity="one">%d notification</item>
         <item quantity="other">%d notifications</item>
     </plurals>
 
     <plurals name="all_count">
+        <item quantity="one">%d pc.</item>
+        <item quantity="other">%d pcs.</item>
+    </plurals>
+
+    <plurals name="all_day_count">
         <item quantity="one">%d pc.</item>
         <item quantity="other">%d pcs.</item>
     </plurals>

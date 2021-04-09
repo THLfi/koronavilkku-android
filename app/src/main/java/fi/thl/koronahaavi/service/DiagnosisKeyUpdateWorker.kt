@@ -8,14 +8,11 @@ import dagger.assisted.Assisted
 import dagger.assisted.AssistedInject
 import fi.thl.koronahaavi.data.AppStateRepository
 import fi.thl.koronahaavi.data.ExposureRepository
-import fi.thl.koronahaavi.data.KeyGroupToken
 import fi.thl.koronahaavi.service.ExposureNotificationService.ResolvableResult
 import retrofit2.HttpException
 import timber.log.Timber
 import java.io.IOException
 import java.net.HttpURLConnection
-import java.time.ZonedDateTime
-import java.util.*
 import java.util.concurrent.TimeUnit
 
 @HiltWorker
@@ -44,14 +41,14 @@ class DiagnosisKeyUpdateWorker @AssistedInject constructor(
             return resultForError(e)
         }
 
-        appStateRepository.setLastExposureCheckTime(ZonedDateTime.now())
-
         if (downloadResult.files.isEmpty()) {
             Timber.i("Key files up to date, nothing downloaded")
+            appStateRepository.setLastExposureCheckTimeToNow()
             return Result.success()
         }
 
         return if (processFiles(downloadResult)) {
+            appStateRepository.setLastExposureCheckTimeToNow()
             appStateRepository.setDiagnosisKeyBatchId(downloadResult.lastSuccessfulBatchId)
             Result.success()
         }
@@ -83,17 +80,10 @@ class DiagnosisKeyUpdateWorker @AssistedInject constructor(
      */
     private suspend fun processFiles(downloadResult: DownloadResult): Boolean {
         Timber.i("Processing ${downloadResult.files.size} key files")
-        // give files to exposure system to process, and save token so it can be retrieved
-        // when processing is done and exposure receiver is called
-        val token = UUID.randomUUID().toString()
-        exposureRepository.saveKeyGroupToken(KeyGroupToken((token)))
 
         val processResult = when (
-            val result = exposureNotificationService.provideDiagnosisKeyFiles(
-                token,
-                downloadResult.files,
-                downloadResult.exposureConfig
-            )) {
+            val result = exposureNotificationService.provideDiagnosisKeyFiles(downloadResult.files)
+            ) {
 
             is ResolvableResult.Success -> {
                 true

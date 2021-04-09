@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <include android:id="@+id/layout_toolbar" layout="@layout/toolbar"/>
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@+id/layout_toolbar"
+        app:layout_constraintBottom_toTopOf="@id/button_notifications_blocked_open_settings"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:overScrollMode="never">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="40dp"
+            android:paddingBottom="40dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:hyphenationFrequency="normal"
+                android:text="@string/notifications_blocked_title"
+                android:textAppearance="?attr/textAppearanceHeadline1" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:textAppearance="?attr/textAppearanceHeadline4"
+                android:text="@string/notifications_blocked_body" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:hyphenationFrequency="normal"
+                android:textAppearance="?attr/textAppearanceBody2"
+                android:text="@string/notifications_blocked_instructions_1" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:hyphenationFrequency="normal"
+                android:textAppearance="?attr/textAppearanceBody2"
+                android:text="@string/notifications_blocked_instructions_2" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:hyphenationFrequency="normal"
+                android:textAppearance="?attr/textAppearanceBody2"
+                android:text="@string/notifications_blocked_instructions_3" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- creates a fade area for scrollable content -->
+    <View
+        android:layout_width="0dp"
+        android:layout_height="30dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/button_notifications_blocked_open_settings"
+        android:background="@drawable/shape_background_fade_vertical" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/button_notifications_blocked_open_settings"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_margin="40dp"
+        android:text="@string/notifications_blocked_open_settings" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

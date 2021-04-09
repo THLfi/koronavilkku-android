@@ -6,6 +6,7 @@ import androidx.hilt.work.HiltWorkerFactory
 import androidx.work.*
 import dagger.hilt.android.HiltAndroidApp
 import fi.thl.koronahaavi.data.AppStateRepository
+import fi.thl.koronahaavi.service.NotificationService
 import fi.thl.koronahaavi.service.WorkDispatcher
 import timber.log.Timber
 import timber.log.Timber.DebugTree
@@ -18,6 +19,7 @@ class VilkkuApplication : Application() {
     @Inject lateinit var workerFactory: HiltWorkerFactory
     @Inject lateinit var workDispatcher: WorkDispatcher
     @Inject lateinit var appStateRepository: AppStateRepository
+    @Inject lateinit var notificationService: NotificationService
 
     override fun onCreate() {
         super.onCreate()
@@ -33,6 +35,9 @@ class VilkkuApplication : Application() {
 
         // manual initialization required by EN api service wake up service
         WorkManager.initialize(this, config)
+
+        // setup notification channel since it creates a user visible app setting
+        notificationService.initialize()
 
         // This is an additional check to make sure workers are scheduled in case
         // app was force-stopped from background and woken up by EN api service.

@@ -9,11 +9,9 @@ import android.content.Context.MODE_PRIVATE
 import android.content.DialogInterface
 import android.content.Intent
 import com.google.android.gms.common.ConnectionResult
-import com.google.android.gms.nearby.exposurenotification.ExposureInformation
-import com.google.android.gms.nearby.exposurenotification.ExposureNotificationClient
-import com.google.android.gms.nearby.exposurenotification.ExposureSummary
-import com.google.android.gms.nearby.exposurenotification.TemporaryExposureKey
+import com.google.android.gms.nearby.exposurenotification.*
 import com.google.android.gms.nearby.exposurenotification.TemporaryExposureKey.TemporaryExposureKeyBuilder
+import fi.thl.koronahaavi.data.DailyExposure
 import fi.thl.koronahaavi.data.Exposure
 import fi.thl.koronahaavi.exposure.ExposureStateUpdatedReceiver
 import fi.thl.koronahaavi.service.ExposureNotificationService.ResolvableResult
@@ -23,6 +21,7 @@ import kotlinx.coroutines.flow.StateFlow
 import timber.log.Timber
 import java.io.File
 import java.time.Instant
+import java.time.LocalDate
 import java.time.ZoneOffset
 import java.time.ZonedDateTime
 import kotlin.random.Random
@@ -63,34 +62,17 @@ class FakeExposureNotificationService(
 
     override suspend fun isEnabled() = isEnabled
 
-    override suspend fun getExposureSummary(token: String): ExposureSummary {
-        return ExposureSummary.ExposureSummaryBuilder()
-            .setMatchedKeyCount(Random.nextInt(1,4))
-            .setMaximumRiskScore(200)
-            .build()
-    }
-
-    override suspend fun getExposureDetails(token: String): List<Exposure> {
-        // return a few high risk exposures and one low risk, that should be filtered out
-        // simulating EN behavior where it zeroes risk score
-
-        return List(Random.nextInt(1,3)) {
-            Exposure(
-                detectedDate = ZonedDateTime.now().minusDays(Random.nextLong(2,6)),
-                totalRiskScore = 200,
-                createdDate = ZonedDateTime.now()
-            )
-        }.plus(Exposure(
-            detectedDate = ZonedDateTime.now().minusDays(Random.nextLong(2,6)),
-            totalRiskScore = 0,
-            createdDate = ZonedDateTime.now()
-        )).also { list ->
-            list.forEach { Timber.d(it.toString()) }
+    override suspend fun getDailyExposures(config: ExposureConfigurationData): List<DailyExposure> {
+        return List(Random.nextInt(1,3)) { index ->
+            val day = LocalDate.now().minusDays(index.plus(2L))
+            Timber.d("Creating fake exposure for $day")
+            DailyExposure(day, 1000)
         }
     }
 
-    override suspend fun provideDiagnosisKeyFiles(token: String, files: List<File>, config: ExposureConfigurationData)
-            : ResolvableResult<Unit> {
+    override suspend fun getExposureWindows(): List<ExposureWindow> = listOf()
+
+    override suspend fun provideDiagnosisKeyFiles(files: List<File>): ResolvableResult<Unit> {
         Timber.d("Got %d files", files.size)
 
         // actual system would save and process the files, but here we only send
@@ -98,7 +80,6 @@ class FakeExposureNotificationService(
         val intent = Intent().apply {
             component = ComponentName(context, ExposureStateUpdatedReceiver::class.java)
             action = ExposureNotificationClient.ACTION_EXPOSURE_STATE_UPDATED
-            putExtra(ExposureNotificationClient.EXTRA_TOKEN, token)
         }
         context.sendBroadcast(intent)
         return ResolvableResult.Success(Unit)

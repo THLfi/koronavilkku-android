@@ -58,6 +58,7 @@
     <string name="home_status_system_enabled">Koronavilkku käytössä</string>
     <string name="home_status_system_disabled">Koronavilkku ei käytössä</string>
     <string name="home_status_system_locked">Koronavilkku lukittu</string>
+    <string name="home_status_notifications_blocked">Ilmoitukset eivät ole käytössä</string>
 
     <string name="home_symptom_sub_label">Tee koronavirustaudin oirearvio</string>
     <string name="home_app_guide">Tietoa Koronavilkusta</string>
@@ -65,6 +66,9 @@
     <string name="home_status_disabled_explained">Ota altistumisilmoitukset uudelleen käyttöön.</string>
     <string name="home_status_enabled_explained">Sovellus toimii, vaikka suljet sen.</string>
     <string name="home_status_locked_explained">Kiitos, että ilmoitit tartunnastasi. Sovellus ei enää kerää tietoja kohtaamisista. Pikaista paranemista!</string>
+    <string name="home_status_notifications_blocked_explained">Ota ilmoitukset käyttöön, jotta Koronavilkku voi ilmoittaa sinulle mahdollisesta altistumisesta.</string>
+
+    <string name="home_status_turn_on">Ota käyttöön</string>
 
     <string name="symptoms_title">Koronavirustaudin oirearvio</string>
     <string name="symptoms_info">Tee oirearvio Omaolo-palvelussa, jos epäilet saaneesi koronavirustartunnan. Saat vastaustesi perusteella lisäohjeita. Vastaaminen kestää noin 10 minuuttia.</string>
@@ -133,7 +137,13 @@
 
     <string name="notification_item_title">Altistumisilmoitus %s</string>
     <string name="notification_item_count_label">Mahdollisia altistumisia</string>
+    <string name="notification_item_count_days_label">Mahdollisia uusia altistumisia</string>
     <string name="notification_item_time_range_label">Aika\u00ADvälillä</string>
+
+    <string name="notification_channel_name">Altistumisilmoitukset</string>
+    <string name="notification_channel_description">Ilmoitukset mahdollisista altistumisista.</string>
+    <string name="notification_exposure_title">Mahdollinen altistuminen</string>
+    <string name="notification_exposure_message">Olet saattanut altistua koronavirukselle. Katso toimintaohjeet ja ota yhteyttä terveydenhuoltoon.</string>
 
     <string name="guide_title">Tietoa Koronavilkusta</string>
     <string name="guide_p1_text">Koronavilkku on Terveyden ja hyvinvoinnin laitoksen tuottama sovellus, jonka avulla saat tiedon, jos olet sovelluksen arvion mukaan altistunut koronavirukselle. Jos sinulla todetaan tartunta, voit ilmoittaa siitä sovelluksella nimettömästi. Sovelluksessa yksityisyytesi on vahvasti suojattu.</string>
@@ -300,6 +310,12 @@
     <string name="notification_guide_text_5">Saat terveydenhuollosta tarkemmat toimintaohjeet ja arvion koronavirustestin tarpeellisuudesta.</string>
 
     <string name="notification_guide_page_content_description">Vaihe %1$d/%2$d</string>
+    <string name="notifications_blocked_open_settings">Avaa asetukset</string>
+    <string name="notifications_blocked_title">Ilmoitukset estetty</string>
+    <string name="notifications_blocked_body">Jos et ota ilmoituksia käyttöön, Koronavilkku ei voi ilmoittaa mahdollisesta altistumisesta, kun sovellus on suljettu. Ota ilmoitukset käyttöön näin:</string>
+    <string name="notifications_blocked_instructions_1">1. Avaa ilmoitus\u00ADasetukset alla olevasta painikkeesta.</string>
+    <string name="notifications_blocked_instructions_2">2. Laita päälle <b>Näytä ilmoitukset</b>.</string>
+    <string name="notifications_blocked_instructions_3">3. Laita päälle <b>Altistumis\u00ADilmoitukset</b>.</string>
 
     <plurals name="exposure_notification_count">
         <item quantity="one">%d ilmoitus</item>
@@ -311,4 +327,8 @@
         <item quantity="other">%d kpl</item>
     </plurals>
 
+    <plurals name="all_day_count">
+        <item quantity="one">%d päivänä</item>
+        <item quantity="other">%d päivänä</item>
+    </plurals>
 </resources>

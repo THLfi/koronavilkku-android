@@ -73,7 +73,7 @@
             app:layout_constraintTop_toBottomOf="@+id/text_home_app_status_explained"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:text="@string/all_system_enable"
+            tools:text="@string/all_system_enable"
             android:elevation="@dimen/home_status_area_elevation"
             android:visibility="gone"
             tools:visibility="visible"

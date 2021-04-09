@@ -133,7 +133,7 @@ class DefaultExposureRepositoryTest {
         val limitDays = TestData.appConfig.exposureValidDays + 1L
 
         every { keyGroupTokenDao.getExposureTokensFlow() } returns flowOf(listOf(
-            createKeyGroupToken().copy(latestExposureDate = ZonedDateTime.now().minusDays(limitDays + 1L)),
+            createKeyGroupToken().copy(latestExposureDate = ZonedDateTime.now().minusDays(limitDays + 1L)), // expired
             createKeyGroupToken().copy(latestExposureDate = ZonedDateTime.now().minusDays(limitDays - 1L)),
             createKeyGroupToken()
         ))
@@ -141,6 +141,26 @@ class DefaultExposureRepositoryTest {
         runBlocking {
             repository.getExposureNotificationsFlow().collectLatest {
                 assertEquals(2, it.size)
+                assertTrue(it.all { n ->
+                    n.exposureRangeStart == n.createdDate.minusDays(TestData.appConfig.exposureValidDays.toLong()) &&
+                    n.exposureRangeEnd == n.createdDate.minusDays(1)
+                })
+            }
+        }
+    }
+
+    @Test
+    fun notificationsWithDayExposures() {
+        every { keyGroupTokenDao.getExposureTokensFlow() } returns flowOf(listOf(
+            createDayExposureKeyGroupToken()
+        ))
+
+        runBlocking {
+            repository.getExposureNotificationsFlow().collectLatest {
+                assertTrue(it.all { n ->
+                    n.exposureRangeStart == n.createdDate.minusDays(TestData.appConfig.exposureValidDays.toLong()) &&
+                    n.exposureRangeEnd == n.createdDate
+                })
             }
         }
     }
@@ -214,4 +234,7 @@ class DefaultExposureRepositoryTest {
 
     private fun createLegacyKeyGroupToken() =
         createKeyGroupToken().copy(exposureCount = null, latestExposureDate = null)
+
+    private fun createDayExposureKeyGroupToken() =
+        createKeyGroupToken().copy(exposureCount = null, dayCount = 1)
 }

@@ -58,6 +58,7 @@
     <string name="home_status_system_enabled">Coronablinkern är påkopplad</string>
     <string name="home_status_system_disabled">Coronablinkern är bortkopplad</string>
     <string name="home_status_system_locked">Coronablinkern är låst</string>
+    <string name="home_status_notifications_blocked">Meddelanden är inte i bruk</string>
 
     <string name="home_symptom_sub_label">Gör en symtombedömning</string>
     <string name="home_app_guide">Om Coronablinkern</string>
@@ -65,6 +66,9 @@
     <string name="home_status_disabled_explained">Koppla på exponeringsmeddelandena på nytt.</string>
     <string name="home_status_enabled_explained">Appen fungerar även om du stänger den.</string>
     <string name="home_status_locked_explained">Tack för att du meddelade om din smitta. Coronablinkern samlar inte längre information om närliggande telefoner. Krya på dig!</string>
+    <string name="home_status_notifications_blocked_explained">Ta meddelandena i bruk för att Coronablinkern ska kunna meddela dig om eventuell exponering.</string>
+
+    <string name="home_status_turn_on">Ta i bruk</string>
 
     <string name="symptoms_title">Bedömning av coronasymtom</string>
     <string name="symptoms_info">Gör en bedömning av dina symtom i Omaolo, om du misstänker att du smittats av coronaviruset. Du får anvisningar på basen av dina svar. Det tar cirka 5–10 minuter att fylla i bedömningen.</string>
@@ -132,8 +136,14 @@
     <string name="notification_list_disclaimer">Bedömningen om exponeringen bygger på den information om möten som Coronablinkern har samlat in under de senaste 14 dygnen. Coronablinkern ger ingen exakt bedömning av hur stor smittorisken är.</string>
 
     <string name="notification_item_title">Meddelande om eventuell exponering %s</string>
-    <string name="notification_item_count_label">Eventuella exponeringar</string>
+    <string name="notification_item_count_label">Eventuella exponeringar:</string>
+    <string name="notification_item_count_days_label">Dagar med nya eventuella exponeringar:</string>
     <string name="notification_item_time_range_label">Tids\u00ADperiod</string>
+
+    <string name="notification_channel_name">Exponerings\u00ADmeddelandena</string>
+    <string name="notification_channel_description">Meddelande om eventuell exponering</string>
+    <string name="notification_exposure_title">Eventuell exponering</string>
+    <string name="notification_exposure_message">Du kan ha exponerats för coronaviruset. Se anvisningar och kontakta hälsovården.</string>
 
     <string name="guide_title">Om Coronablinkern</string>
     <string name="guide_p1_text">Coronablinkern är en applikation (app) som Institutet för hälsa och välfärd ansvarar för. Appen analyserar om du eventuellt har blivit utsatt för coronaviruset. Om du har konstaterats ha en coronavirusinfektion, kan du meddela om det här anonymt via appen. Appen skyddar effektivt din identitet.</string>
@@ -301,12 +311,24 @@
 
     <string name="notification_guide_page_content_description">Steg %1$d av %2$d</string>
 
+    <string name="notifications_blocked_title">Meddelanden blockerade</string>
+    <string name="notifications_blocked_body">Om du inte tar meddelandena i bruk kan Coronablinkern inte meddela dig om eventuell exponering när applikationen är stängd. Så här tar du meddelandena i bruk:</string>
+    <string name="notifications_blocked_instructions_1">1. Öppna meddelande\u00ADinställningarna via knappen nedan.</string>
+    <string name="notifications_blocked_instructions_2">2. Aktivera <b>Visa meddelanden</b>.</string>
+    <string name="notifications_blocked_instructions_3">3. Aktivera <b>Exponerings\u00ADmeddelanden</b>.</string>
+    <string name="notifications_blocked_open_settings">Öppna inställningarna</string>
+
     <plurals name="exposure_notification_count">
         <item quantity="one">%d meddelande</item>
         <item quantity="other">%d meddelanden</item>
     </plurals>
 
     <plurals name="all_count">
+        <item quantity="one">%d st.</item>
+        <item quantity="other">%d st.</item>
+    </plurals>
+
+    <plurals name="all_day_count">
         <item quantity="one">%d st.</item>
         <item quantity="other">%d st.</item>
     </plurals>

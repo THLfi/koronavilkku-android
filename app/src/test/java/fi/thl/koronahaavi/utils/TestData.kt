@@ -1,5 +1,6 @@
 package fi.thl.koronahaavi.utils
 
+import fi.thl.koronahaavi.data.DailyExposure
 import fi.thl.koronahaavi.data.Exposure
 import fi.thl.koronahaavi.data.OmaoloFeatures
 import fi.thl.koronahaavi.data.ServiceLanguages
@@ -7,6 +8,7 @@ import fi.thl.koronahaavi.exposure.Municipality
 import fi.thl.koronahaavi.service.AppConfiguration
 import fi.thl.koronahaavi.service.DiagnosisKey
 import fi.thl.koronahaavi.service.ExposureConfigurationData
+import fi.thl.koronahaavi.service.InfectiousnessLevel
 import java.time.Duration
 import java.time.ZoneId
 import java.time.ZonedDateTime
@@ -17,11 +19,16 @@ import kotlin.random.Random
 object TestData {
     private val baseCreatedDate = ZonedDateTime.of(2020, 11, 2, 13, 10, 5, 0, ZoneId.of("Z"))
 
-    fun exposure(age: TemporalAmount = Duration.ofDays(2)) = Exposure(
+    fun exposure(age: TemporalAmount = Duration.ofDays(2), dayOffset: Long = 3) = Exposure(
         id = Random.nextLong(),
-        detectedDate = baseCreatedDate.minus(age).minusDays(3),
+        detectedDate = baseCreatedDate.minus(age).minusDays(dayOffset),
         createdDate = baseCreatedDate.minus(age),
         totalRiskScore = 0
+    )
+
+    fun dailyExposure(dayOffset: Long = 3) = DailyExposure(
+        day = baseCreatedDate.toLocalDate().minusDays(dayOffset),
+        score = exposureConfiguration().minimumDailyScore
     )
 
     val appConfig = AppConfiguration(
@@ -46,16 +53,21 @@ object TestData {
     )
 
     fun exposureConfiguration() = ExposureConfigurationData(
-        version = 1,
-        minimumRiskScore = 100,
-        attenuationScores = listOf(),
-        daysSinceLastExposureScores = listOf(),
-        durationScores = listOf(),
-        transmissionRiskScoresAndroid = listOf(),
-        durationAtAttenuationThresholds = listOf(),
-        durationAtAttenuationWeights = listOf(1.0f, 0.5f, 0.0f),
-        exposureRiskDuration = 15,
-        participatingCountries = listOf()
+            version = 1,
+            attenuationBucketThresholdDb = listOf(10, 20, 30),
+            attenuationBucketWeights = listOf(2.0, 1.0, 0.0, 0.0),
+            daysSinceExposureThreshold = 10,
+            daysSinceOnsetToInfectiousness = daysSinceOnsetToInfectiousness(),
+            infectiousnessWeightHigh = 1.5,
+            infectiousnessWeightStandard = 1.0,
+            infectiousnessWhenDaysSinceOnsetMissing = InfectiousnessLevel.STANDARD,
+            minimumDailyScore = 900,
+            minimumWindowScore = 1.0,
+            reportTypeWeightConfirmedClinicalDiagnosis = 0.0,
+            reportTypeWeightConfirmedTest = 1.0,
+            reportTypeWeightRecursive = 0.0,
+            reportTypeWeightSelfReport = 0.0,
+            availableCountries = listOf()
     )
 
     fun diagnosisKey() = DiagnosisKey(
@@ -63,5 +75,37 @@ object TestData {
             transmissionRiskLevel = 5,
             rollingPeriod = 144,
             rollingStartIntervalNumber = 2650847
+    )
+
+    fun daysSinceOnsetToInfectiousness() = mapOf(
+        "-14" to InfectiousnessLevel.NONE,
+        "-13" to InfectiousnessLevel.NONE,
+        "-12" to InfectiousnessLevel.NONE,
+        "-11" to InfectiousnessLevel.NONE,
+        "-10" to InfectiousnessLevel.NONE,
+        "-9" to InfectiousnessLevel.NONE,
+        "-8" to InfectiousnessLevel.NONE,
+        "-7" to InfectiousnessLevel.NONE,
+        "-6" to InfectiousnessLevel.NONE,
+        "-5" to InfectiousnessLevel.NONE,
+        "-4" to InfectiousnessLevel.NONE,
+        "-3" to InfectiousnessLevel.NONE,
+        "-2" to InfectiousnessLevel.STANDARD,
+        "-1" to InfectiousnessLevel.HIGH,
+        "0" to InfectiousnessLevel.HIGH,
+        "1" to InfectiousnessLevel.HIGH,
+        "2" to InfectiousnessLevel.HIGH,
+        "3" to InfectiousnessLevel.HIGH,
+        "4" to InfectiousnessLevel.STANDARD,
+        "5" to InfectiousnessLevel.STANDARD,
+        "6" to InfectiousnessLevel.STANDARD,
+        "7" to InfectiousnessLevel.STANDARD,
+        "8" to InfectiousnessLevel.STANDARD,
+        "9" to InfectiousnessLevel.STANDARD,
+        "10" to InfectiousnessLevel.STANDARD,
+        "11" to InfectiousnessLevel.NONE,
+        "12" to InfectiousnessLevel.NONE,
+        "13" to InfectiousnessLevel.NONE,
+        "14" to InfectiousnessLevel.NONE
     )
 }

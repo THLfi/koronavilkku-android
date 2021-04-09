@@ -9,18 +9,19 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.content.IntentSender
 import android.net.Uri
-import com.google.android.gms.nearby.exposurenotification.ExposureNotificationStatusCodes
-import com.google.android.gms.nearby.exposurenotification.ExposureSummary
-import com.google.android.gms.nearby.exposurenotification.ExposureSummary.ExposureSummaryBuilder
-import com.google.android.gms.nearby.exposurenotification.TemporaryExposureKey
+import com.google.android.gms.nearby.exposurenotification.*
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.huawei.hms.api.HuaweiApiAvailability
 import com.huawei.hms.common.ApiException
 import com.huawei.hms.common.ResolvableApiException
 import com.huawei.hms.contactshield.*
+import com.huawei.hms.contactshield.StatusCode.STATUS_APP_QUOTA_LIMITED
 import com.huawei.hms.utils.HMSPackageManager
 import fi.thl.koronahaavi.BuildConfig
 import fi.thl.koronahaavi.R
+import fi.thl.koronahaavi.common.isLessThanWeekOld
+import fi.thl.koronahaavi.data.AppStateRepository
+import fi.thl.koronahaavi.data.DailyExposure
 import fi.thl.koronahaavi.data.Exposure
 import fi.thl.koronahaavi.service.ExposureNotificationService.EnableStep
 import fi.thl.koronahaavi.service.ExposureNotificationService.ResolvableResult
@@ -31,18 +32,20 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.suspendCancellableCoroutine
 import timber.log.Timber
 import java.io.File
+import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneOffset
 import java.time.ZonedDateTime
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.math.min
+import kotlin.math.roundToInt
 
 class HuaweiContactShieldService(
-    private val context: Context
+    private val context: Context,
+    private val engine: ContactShieldEngine,
+    private val appStateRepository: AppStateRepository
 ) : ExposureNotificationService {
-
-    private val engine by lazy { ContactShield.getContactShieldEngine(context) }
 
     private val isEnabledFlow = MutableStateFlow<Boolean?>(null)
     override fun isEnabledFlow(): StateFlow<Boolean?> = isEnabledFlow
@@ -75,37 +78,60 @@ class HuaweiContactShieldService(
         isEnabledFlow.value = false
     }
 
-    override suspend fun isEnabled(): Boolean {
-        Timber.d("calling isContactShieldRunning")
-        return engine.isContactShieldRunning.await()
-    }
-
-    override suspend fun getExposureSummary(token: String): ExposureSummary =
-        engine.getContactSketch(token).await().let {
-            ExposureSummaryBuilder()
-                .setDaysSinceLastExposure(it.daysSinceLastHit)
-                .setMatchedKeyCount(it.numberOfHits)
-                .setMaximumRiskScore(it.maxRiskValue)
-                .setSummationRiskScore(it.summationRiskValue)
-                .setAttenuationDurations(it.attenuationDurations)
-                .build()
+    override suspend fun isEnabled(): Boolean  =
+        when (val result = resultFromRunning { engine.isContactShieldRunning.await() }) {
+            is ResolvableResult.Success -> result.data
+            else -> false
         }
 
-    override suspend fun getExposureDetails(token: String): List<Exposure> {
-        val createdDate = ZonedDateTime.now()
+    override suspend fun getDailyExposures(config: ExposureConfigurationData): List<DailyExposure> {
+        updateKeyDataMapping(config)
 
-        return engine.getContactDetail(token).await()
-                .map { info ->
-                    Timber.d(info.toString())
-                    info.toExposure(createdDate)
-                }
+        return engine.getDailySketch(config.toDailySketchConfiguration())
+            .await()
+            .map { sketch ->
+                Timber.d(sketch.toString())
+                DailyExposure(
+                    day = LocalDate.ofEpochDay(sketch.daysSinceEpoch.toLong()),
+                    score = sketch.sketchData.scoreSum.roundToInt()
+                )
+            }
     }
 
-    override suspend fun provideDiagnosisKeyFiles(
-        token: String,
-        files: List<File>,
-        config: ExposureConfigurationData
-    ): ResolvableResult<Unit> = resultFromRunning<Unit> {
+    private suspend fun updateKeyDataMapping(config: ExposureConfigurationData) {
+        // data mapping should only be updated if actually changed, since calls limited to one per week
+        val currentDataMapping: SharedKeysDataMapping? = engine.sharedKeysDataMapping.await()
+        val newDataMapping = config.toSharedKeysDataMapping()
+
+        if (currentDataMapping?.isEqualTo(newDataMapping) != true) {
+            Timber.d("Setting diagnosis keys data mapping")
+            try {
+                engine.setSharedKeysDataMapping(newDataMapping).await()
+                appStateRepository.setLastExposureKeyMappingUpdate(Instant.now())
+            }
+            catch (e: ApiException) {
+                // setSharedKeysDataMapping is rate limited to one per week, so ignore rate limit errors unless
+                // it has been over a week since last successful call.
+                // This makes sure the app does not just silently ignore setSharedKeysDataMapping errors
+                // and continue for over a week with outdated parameters
+                if (e.statusCode == STATUS_APP_QUOTA_LIMITED) {
+                    val lastUpdate = appStateRepository.getLastExposureKeyMappingUpdate()
+                    if (lastUpdate?.isLessThanWeekOld() == true) {
+                        Timber.d("Ignoring rate limiting for setSharedKeysDataMapping")
+                    }
+                    else {
+                        Timber.e("Incorrect rate limiting for setSharedKeysDataMapping, previous update $lastUpdate")
+                        throw e
+                    }
+                }
+                else {
+                    throw e
+                }
+            }
+        }
+    }
+
+    override suspend fun provideDiagnosisKeyFiles(files: List<File>): ResolvableResult<Unit> = resultFromRunning {
 
         val intent = PendingIntent.getService(
                 context,
@@ -113,17 +139,17 @@ class HuaweiContactShieldService(
                 Intent(context, ContactShieldIntentService::class.java),
                 PendingIntent.FLAG_UPDATE_CURRENT
         )
-        val apiConfig = config.toDiagnosisConfiguration()
 
         val task = if (BuildConfig.SKIP_EXPOSURE_FILE_VERIFICATION) {
             // use this for local backend when you don't have the signature public key
             Timber.d("Skipping exposure key file signature verification")
-            engine.putSharedKeyFiles(intent, files, apiConfig, token)
+            engine.putSharedKeyFiles(intent, SharedKeyFileProvider(files))
         }
         else {
             val publicKeys = listOf(BuildConfig.EXPOSURE_FILE_PUBLIC_KEY)
             Timber.d("putSharedKeyFiles with $publicKeys")
-            engine.putSharedKeyFiles(intent, files, publicKeys, apiConfig, token)
+            // todo how to provide public keys
+            engine.putSharedKeyFiles(intent, SharedKeyFileProvider(files))
         }
 
         task.await()
@@ -159,6 +185,24 @@ class HuaweiContactShieldService(
 
     override fun getAvailabilityResolver() = HuaweiAvailabilityResolver()
 
+    // this is only used for test UI
+    override suspend fun getExposureWindows(): List<ExposureWindow> =
+        engine.getContactWindow(ContactShieldEngine.TOKEN_A).await().map {
+            ExposureWindow.Builder()
+                .setDateMillisSinceEpoch(it.dateMillis)
+                .setCalibrationConfidence(it.calibrationConfidence)
+                .setInfectiousness(it.contagiousness)
+                .setReportType(it.reportType)
+                .setScanInstances(it.scanInfos.map { scan ->
+                    ScanInstance.Builder()
+                        .setMinAttenuationDb(scan.minimumAttenuation)
+                        .setTypicalAttenuationDb(scan.averageAttenuation)
+                        .setSecondsSinceLastScan(scan.secondsSinceLastScan)
+                        .build()
+                })
+                .build()
+        }
+
     private suspend fun <T> resultFromRunning(block: suspend () -> T): ResolvableResult<T> {
         return try {
             ResolvableResult.Success(block())
@@ -190,22 +234,11 @@ class HuaweiContactShieldService(
         }
     }
 
-    // this maps backend json object to google EN api configuration
-    private fun ExposureConfigurationData.toDiagnosisConfiguration(): DiagnosisConfiguration {
-
-        // when test UI is enabled, override minimum risk score so that we get the calculated risk score
-        // from EN api, otherwise it is zeroed out and test UI is not useful
-        val minRiskScore = if (BuildConfig.ENABLE_TEST_UI) 1 else minimumRiskScore
-
-        return DiagnosisConfiguration.Builder()
-            .setMinimumRiskValueThreshold(minRiskScore)
-            .setAttenuationRiskValues(*attenuationScores.toIntArray())
-            .setDaysAfterContactedRiskValues(*daysSinceLastExposureScores.toIntArray())
-            .setDurationRiskValues(*durationScores.toIntArray())
-            .setInitialRiskLevelRiskValues(*transmissionRiskScoresAndroid.toIntArray())
-            .setAttenuationDurationThresholds(*durationAtAttenuationThresholds.toIntArray())
-            .build()
-    }
+    // need to compare fields since SharedKeysDataMapping does not define equals
+    private fun SharedKeysDataMapping.isEqualTo(other: SharedKeysDataMapping) =
+        defaultReportType == other.defaultReportType &&
+        defaultContagiousness == other.defaultContagiousness &&
+        daysSinceCreationToContagiousness == other.daysSinceCreationToContagiousness
 
     companion object {
         const val ROLLING_INTERVALS_IN_DAY = 144
@@ -249,14 +282,6 @@ suspend fun <T> com.huawei.hmf.tasks.Task<T>.await(): T {
         }
     }
 }
-
-private fun ContactDetail.toExposure(
-    createdDate: ZonedDateTime = ZonedDateTime.now()
-) = Exposure(
-    detectedDate = LocalDate.ofEpochDay(dayNumber).atTime(0, 0).atZone(ZoneOffset.UTC),
-    totalRiskScore = totalRiskValue,
-    createdDate = createdDate
-)
 
 class HuaweiAvailabilityResolver : ExposureNotificationService.AvailabilityResolver {
     private val apiAvailability = HuaweiApiAvailability.getInstance()
@@ -324,4 +349,34 @@ class HuaweiApiErrorResolver(private val resolvable: ResolvableApiException) : E
             Timber.e(e, "Failed to start resolution")
         }
     }
+}
+
+fun ExposureConfigurationData.toDailySketchConfiguration(): DailySketchConfiguration =
+        DailySketchConfiguration.Builder()
+                .setThresholdsOfAttenuationInDb(attenuationBucketThresholdDb, attenuationBucketWeights)
+                .setWeightOfContagiousness(Contagiousness.STANDARD, infectiousnessWeightStandard)
+                .setWeightOfContagiousness(Contagiousness.HIGH, infectiousnessWeightHigh)
+                .setWeightOfReportType(ReportType.CONFIRMED_CLINICAL_DIAGNOSIS, reportTypeWeightConfirmedClinicalDiagnosis)
+                .setWeightOfReportType(ReportType.CONFIRMED_TEST, reportTypeWeightConfirmedTest)
+                .setWeightOfReportType(ReportType.SELF_REPORT, reportTypeWeightSelfReport)
+                .setWeightOfReportType(ReportType.RECURSIVE, reportTypeWeightRecursive)
+                .setMinWindowScore(minimumWindowScore)
+                .setThresholdOfDaysSinceHit(daysSinceExposureThreshold)
+                .build()
+
+// backend api uses the term infectiousness to match google EN implementation
+// but contact shield uses term contagiousness for the same data
+fun ExposureConfigurationData.toSharedKeysDataMapping(): SharedKeysDataMapping =
+        SharedKeysDataMapping.Builder()
+                .setDefaultReportType(ReportType.CONFIRMED_TEST)
+                .setDefaultContagiousness(infectiousnessWhenDaysSinceOnsetMissing.toContagiousness())
+                .setDaysSinceCreationToContagiousness(daysSinceOnsetToInfectiousness.entries.associate {
+                    it.key.toInt() to it.value.toContagiousness()
+                })
+                .build()
+
+fun InfectiousnessLevel.toContagiousness() = when (this) {
+    InfectiousnessLevel.HIGH -> Contagiousness.HIGH
+    InfectiousnessLevel.STANDARD -> Contagiousness.STANDARD
+    InfectiousnessLevel.NONE -> Contagiousness.NONE
 }

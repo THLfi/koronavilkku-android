@@ -68,6 +68,14 @@
             </intent-filter>
         </receiver>
 
+        <receiver
+            android:name=".language.LocaleChangedReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.LOCALE_CHANGED"/>
+            </intent-filter>
+        </receiver>
+
         <!-- remove default work manager initializer since we are providing a custom one in app class -->
         <provider
             android:name="androidx.work.impl.WorkManagerInitializer"
