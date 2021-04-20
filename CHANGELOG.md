@@ -6,15 +6,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## [2.3.0](https://github.com/THLfi/koronavilkku-android/compare/v2.2.0...v2.3.0) - 2021-04-20
+
 ### Added
-- Implement app notifications for potential exposure
-- Show status and instructions when app notifications have been disabled
+- App uses exposure window mode for Google Exposure Notifications API
+- Exposures are detected using daily exposure summaries
+- App shows notifications for potential exposure (Google Play Services continues to show notifications for bluetooth disabled and monthly service enabled reminder)
+- Home screen shows status and instructions when app notifications have been disabled
 
 ### Changed
-- Change Google EN and Huawei Contact Shield implementation to use exposure window mode
-- Use daily exposure summaries to detect exposures
-- Update target and compile android sdk to 30
-- Update library dependencies and Kotlin version
+- Android SDK updated to 30
+- Library dependencies and Kotlin version updated
 
 ## [2.2.0](https://github.com/THLfi/koronavilkku-android/compare/v2.1.1...v2.2.0) - 2021-03-04
 
