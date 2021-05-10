@@ -31,7 +31,7 @@ buildscript {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
         classpath "com.google.dagger:hilt-android-gradle-plugin:$hiltVersion"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$navigationVersion"
-        classpath 'org.owasp:dependency-check-gradle:6.1.0'
+        classpath 'org.owasp:dependency-check-gradle:6.1.6'
         classpath 'com.google.android.gms:oss-licenses-plugin:0.10.2'
 
         // Huawei App Gallery Connect build plugin, only used for huawei build variant
