@@ -148,8 +148,7 @@ class HuaweiContactShieldService(
         else {
             val publicKeys = listOf(BuildConfig.EXPOSURE_FILE_PUBLIC_KEY)
             Timber.d("putSharedKeyFiles with $publicKeys")
-            // todo how to provide public keys
-            engine.putSharedKeyFiles(intent, SharedKeyFileProvider(files))
+                engine.putSharedKeyFiles(intent, SharedKeyFileProvider(files), publicKeys)
         }
 
         task.await()
