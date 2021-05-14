@@ -81,8 +81,8 @@ class TestFragment : Fragment() {
         }
 
         binding.buttonTestSetBatchId.setOnClickListener {
-            binding.inputEditTestBatchId.text?.toString()?.toIntOrNull()?.let {
-                appStateRepository.setDiagnosisKeyBatchId(it.toString())
+            binding.inputEditTestBatchId.text?.toString()?.let {
+                appStateRepository.setDiagnosisKeyBatchId(it)
             }
         }
 
