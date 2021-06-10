@@ -79,6 +79,10 @@ class ExposureDetailFragment : Fragment() {
             cardExposureDetailMoreInstructions.linkItemCard.setOnClickListener {
                 openLink(getString(R.string.exposure_detail_more_instructions_link))
             }
+
+            cardExposureDetailVaccinatedInfoLink.linkItemCard.setOnClickListener {
+                openLink(getString(R.string.exposure_detail_vaccinated_info_link_url))
+            }
         }
 
         viewModel.hasExposures.observe(viewLifecycleOwner, Observer { exposed ->

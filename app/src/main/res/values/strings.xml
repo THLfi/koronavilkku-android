@@ -133,10 +133,16 @@
     <string name="exposure_detail_instructions_6">If you cough or sneeze, use a disposable tissue to cover your mouth and nose. Put the used tissue in a waste bin and wash your hands with water and soap or use hand sanitiser. If you do not have a tissue, cough or sneeze into your sleeve.</string>
     <string name="exposure_detail_instructions_7">Work remotely if possible.</string>
     <string name="exposure_detail_instructions_8">If you are not in Finland, follow any instructions given by local authorities.</string>
+    <string name="exposure_detail_vaccinated_info_header">Have you received the coronavirus vaccine or had COVID-19?</string>
+    <string name="exposure_detail_vaccinated_info">If you have received the coronavirus vaccine or had the coronavirus disease, see further instructions.</string>
 
     <string name="exposure_detail_more_instructions_title">See more detailed instructions</string>
     <string name="exposure_detail_more_instructions_link_name">thl.fi</string>
     <string name="exposure_detail_more_instructions_link">https://thl.fi/en/web/infectious-diseases-and-vaccinations/what-s-new/coronavirus-covid-19-latest-updates/symptoms-and-treatment-coronavirus</string>
+
+    <string name="exposure_detail_vaccinated_info_title">Instructions for vaccinated persons</string>
+    <string name="exposure_detail_vaccinated_info_link_name">thl.fi</string>
+    <string name="exposure_detail_vaccinated_info_link_url">https://thl.fi/en/web/infectious-diseases-and-vaccinations/what-s-new/coronavirus-covid-19-latest-updates/transmission-and-protection-coronavirus/contact-tracing-app-will-help-stop-chains-of-infection/koronavilkku-exposure-notifications-in-special-situations</string>
 
     <string name="exposure_detail_app_info">About Koronavilkku</string>
 

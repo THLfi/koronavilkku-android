@@ -128,10 +128,16 @@
     <string name="exposure_detail_instructions_6">Jos yskit tai aivastat, suojaa suusi ja nenäsi kertakäyttönenäliinalla. Laita käytetty nenäliina jäteastiaan ja pese kätesi vedellä ja saippualla tai käytä käsihuuhdetta. Jos sinulla ei ole nenäliinaa, yski tai aivasta hihaan.</string>
     <string name="exposure_detail_instructions_7">Tee etätyötä, jos mahdollista.</string>
     <string name="exposure_detail_instructions_8">Jos et ole Suomessa, noudata paikallisten viranomaisten ohjeita.</string>
+    <string name="exposure_detail_vaccinated_info_header">Oletko saanut koronarokotteen tai sairastanut koronavirustaudin?</string>
+    <string name="exposure_detail_vaccinated_info">Jos olet saanut koronarokotteen tai sairastunut koronavirustaudin, katso tarkemmat ohjeet.</string>
 
     <string name="exposure_detail_more_instructions_title">Katso tarkemmat ohjeet</string>
     <string name="exposure_detail_more_instructions_link_name">thl.fi</string>
     <string name="exposure_detail_more_instructions_link">https://thl.fi/fi/web/infektiotaudit-ja-rokotukset/ajankohtaista/ajankohtaista-koronaviruksesta-covid-19/oireet-ja-hoito-koronavirus</string>
+
+    <string name="exposure_detail_vaccinated_info_title">Ohjeet rokotuksen saaneelle</string>
+    <string name="exposure_detail_vaccinated_info_link_name">thl.fi</string>
+    <string name="exposure_detail_vaccinated_info_link_url">https://thl.fi/fi/web/infektiotaudit-ja-rokotukset/ajankohtaista/ajankohtaista-koronaviruksesta-covid-19/tarttuminen-ja-suojautuminen-koronavirus/tartuntaketjujen-katkaisua-tehostava-sovellus/erityistilanteiden-altistumisilmoitukset-koronavilkussa</string>
 
     <string name="exposure_detail_app_info">Tietoa Koronavilkusta</string>
 
