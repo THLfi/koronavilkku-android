@@ -103,6 +103,14 @@
                     <include layout="@layout/item_divider" />
 
                     <include
+                        android:id="@+id/settings_accessibility_statement_item"
+                        layout="@layout/link_item_content"
+                        app:label="@{@string/settings_accessibility_statement_item}"
+                        app:link="@{@string/settings_accessibility_statement_link_name}" />
+
+                    <include layout="@layout/item_divider" />
+
+                    <include
                         android:id="@+id/settings_open_source_notices"
                         layout="@layout/link_item_content"
                         app:label="@{@string/settings_open_source_notices}" />

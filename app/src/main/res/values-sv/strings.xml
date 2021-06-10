@@ -95,6 +95,9 @@
     <string name="settings_terms_link_name">koronavilkku.fi</string>
     <string name="settings_language_item">Byt appens språk</string>
     <string name="settings_open_source_notices">Licenser för öppen källkod</string>
+    <string name="settings_accessibility_statement_item">Tillgänglighetsutlåtande</string>
+    <string name="settings_accessibility_statement_link_name">koronavilkku.fi</string>
+    <string name="settings_accessibility_statement_link_url">https://koronavilkku.fi/sv/tillganglighetsutlatande/</string>
 
     <string name="terms_url">https://koronavilkku.fi/sv/anvandningsvillkor/</string>
 

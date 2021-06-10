@@ -94,6 +94,9 @@
     <string name="settings_terms_link_name">koronavilkku.fi</string>
     <string name="settings_language_item">Vaihda sovelluksen kieli</string>
     <string name="settings_open_source_notices">Avoimen lähdekoodin lisenssit</string>
+    <string name="settings_accessibility_statement_item">Saavutettavuusseloste</string>
+    <string name="settings_accessibility_statement_link_name">koronavilkku.fi</string>
+    <string name="settings_accessibility_statement_link_url">https://koronavilkku.fi/saavutettavuusseloste/</string>
 
     <string name="settings_version">%1$s %2$s</string>
 

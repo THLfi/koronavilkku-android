@@ -100,6 +100,9 @@
     <string name="settings_terms_link_name">koronavilkku.fi</string>
     <string name="settings_language_item">Change app language</string>
     <string name="settings_open_source_notices">Open source licenses</string>
+    <string name="settings_accessibility_statement_item">Accessibility statement</string>
+    <string name="settings_accessibility_statement_link_name">koronavilkku.fi</string>
+    <string name="settings_accessibility_statement_link_url">https://koronavilkku.fi/en/accessibility-statement/</string>
 
     <string name="terms_url">https://koronavilkku.fi/en/terms/</string>
 
