@@ -17,7 +17,7 @@
     <string name="all_continue">Fortsätt</string>
 
     <string name="diagnosis_title">Meddela din smitta</string>
-    <string name="diagnosis_body1">För att meddela om din smitta behöver du en startkod. Du får startkoden från en yrkesperson inom hälso- och sjukvården eller per textmeddelande från THL, om du i ett coronavirustest i Finland har konstateras vara smittad.</string>
+    <string name="diagnosis_body1">För att meddela om din smitta behöver du en startkod. Du får startkoden från en yrkesperson inom hälsovården eller per textmeddelande från THL, om du i ett coronavirustest i Finland har konstateras vara smittad.</string>
     <string name="diagnosis_body2">Ange startkoden i den telefon som du vanligtvis har med dig. Coronablinkern meddelar om eventuell exponering till de användare av applikationen som har varit i din närhet under perioden som du sannolikt har varit smittsam. Det är inte möjligt att identifiera dig med hjälp av startkoden.</string>
     <string name="diagnosis_page_title">Meddela om din smitta</string>
     <string name="diagnosis_code_entry">Meddela om smitta</string>
@@ -178,7 +178,7 @@
 
     <string name="disable_title">COVID-19-exponerings\u00ADmeddelandena är påkopplade</string>
     <string name="disable_subtitle">Måste du koppla bort exponerings\u00ADmeddelandena?</string>
-    <string name="disable_body">I vissa situationer kan det vara nödvändigt att tillfälligt koppla bort exponeringsmeddelanden. Det här kan vara nödvändigt till exempel om du jobbar inom hälso- och sjukvården och inte vill använda appen på din arbetsplats.\n\nOm du kopplar bort exponeringsmeddelandena fungerar inte appen.</string>
+    <string name="disable_body">I vissa situationer kan det vara nödvändigt att tillfälligt koppla bort exponeringsmeddelanden. Det här kan vara nödvändigt till exempel om du jobbar inom hälsovården och inte vill använda appen på din arbetsplats.\n\nOm du kopplar bort exponeringsmeddelandena fungerar inte appen.</string>
     <string name="disable_note">För att trygga din egen och dina närståendes hälsa rekommenderas du att inte koppla bort exponeringsmeddelandena om det inte är absolut nödvändigt. Du kommer väl ihåg att koppla på dem genast då det är möjligt?</string>
     <string name="disable_turn_off_note">Koppla bort COVID-19-exponerings\u00ADmeddelandena</string>
     <string name="disable_button_turn_off">Koppla bort</string>
@@ -303,7 +303,7 @@
     <string name="summary_consent_travel_body">Du har rest i dessa länder under de senaste 14 dygnen:</string>
     <string name="summary_consent_travel_body_none">Du har inte rest utomlands under de senaste 14 dygnen.</string>
     <string name="summary_consent_accept_header">Samtycke</string>
-    <string name="summary_consent_accept_use">Mina mötesuppgifter samt information om min sannolika smittsamhetsperiod får lämnas ut för användning i Coronablinker-applikationen i syfte att bryta smittkedjorna.\n\nJag ger mitt samtycke frivilligt. Mitt samtycke har inte krävts i en kundbetjäningssituation inom hälso- och sjukvården eller i ett myndighetsförfarande.</string>
+    <string name="summary_consent_accept_use">Mina mötesuppgifter samt information om min sannolika smittsamhetsperiod får lämnas ut för användning i Coronablinker-applikationen i syfte att bryta smittkedjorna.\n\nJag ger mitt samtycke frivilligt. Mitt samtycke har inte krävts i en kundbetjäningssituation inom hälsovården eller i ett myndighetsförfarande.</string>
     <string name="summary_consent_accept_share">Mina mötesuppgifter, ovan valda reseuppgifter och information om min sannolika smittsamhetsperiod får lämnas ut för användning av corona-applikationer i EU- och EES-länderna samt Schweiz och Storbritannien i syfte att bryta smittkedjorna.</string>
     <string name="summary_consent_no_cancellation">När du sänt uppgifterna kan du inte längre återkalla ditt samtycke.</string>
 
