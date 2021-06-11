@@ -72,17 +72,17 @@
                     android:orientation="vertical">
 
                     <include
-                        android:id="@+id/settings_faq_item"
+                        android:id="@+id/settings_guide_item"
                         layout="@layout/link_item_content"
-                        app:label="@{@string/settings_faq_item}"
-                        app:link="@{@string/settings_faq_link_name}" />
+                        app:label="@{String.format(@string/settings_guide_item, @string/app_name)}" />
 
                     <include layout="@layout/item_divider" />
 
                     <include
-                        android:id="@+id/settings_guide_item"
+                        android:id="@+id/settings_faq_item"
                         layout="@layout/link_item_content"
-                        app:label="@{String.format(@string/settings_guide_item, @string/app_name)}" />
+                        app:label="@{@string/settings_faq_item}"
+                        app:link="@{@string/settings_faq_link_name}" />
 
                     <include layout="@layout/item_divider" />
 
@@ -99,6 +99,14 @@
                         layout="@layout/link_item_content"
                         app:label="@{@string/settings_privacy_item}"
                         app:link="@{@string/settings_privacy_link_name}" />
+
+                    <include layout="@layout/item_divider" />
+
+                    <include
+                        android:id="@+id/settings_accessibility_statement_item"
+                        layout="@layout/link_item_content"
+                        app:label="@{@string/settings_accessibility_statement_item}"
+                        app:link="@{@string/settings_accessibility_statement_link_name}" />
 
                     <include layout="@layout/item_divider" />
 

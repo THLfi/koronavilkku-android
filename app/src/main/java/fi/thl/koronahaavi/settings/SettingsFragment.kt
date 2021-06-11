@@ -95,6 +95,10 @@ class SettingsFragment : Fragment() {
             openLink(getString(R.string.terms_url))
         }
 
+        binding.settingsAccessibilityStatementItem.linkItemContainer.setOnClickListener {
+            openLink(getString(R.string.settings_accessibility_statement_link_url))
+        }
+
         binding.settingsOpenSourceNotices.linkItemContainer.setOnClickListener {
             OssLicensesMenuActivity.setActivityTitle(getString(R.string.settings_open_source_notices))
             startActivity(Intent(requireContext(), OssLicensesMenuActivity::class.java))

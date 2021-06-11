@@ -63,6 +63,9 @@
                     text_exposure_detail_instructions_7,
                     text_exposure_detail_instructions_8,
                     card_exposure_detail_more_instructions,
+                    text_exposure_detail_vaccinated_info_header,
+                    text_exposure_detail_vaccinated_info,
+                    card_exposure_detail_vaccinated_info_link,
                     view_exposure_detail_bottom_spacer,
                     text_exposure_detail_disclaimer_none" />
 
@@ -84,9 +87,12 @@
                     text_exposure_detail_instructions_7,
                     text_exposure_detail_instructions_8,
                     card_exposure_detail_more_instructions,
+                    text_exposure_detail_vaccinated_info_header,
+                    text_exposure_detail_vaccinated_info,
+                    card_exposure_detail_vaccinated_info_link,
                     view_exposure_detail_bottom_spacer"
                     android:visibility="@{model.hasExposures ? View.VISIBLE : View.GONE}"
-                    tools:visibility="gone"/>
+                    tools:visibility="visible"/>
 
                 <!-- elements shown when do not have exposures -->
                 <androidx.constraintlayout.widget.Group
@@ -100,7 +106,7 @@
                         text_exposure_detail_notification_guide,
                         text_exposure_detail_app_info"
                     android:visibility="@{model.hasExposures ? View.GONE : View.VISIBLE}"
-                    tools:visibility="visible"
+                    tools:visibility="gone"
                     />
 
                 <TextView
@@ -311,13 +317,32 @@
                     android:textAppearance="?attr/textAppearanceBody2"
                     />
 
+                <TextView
+                    android:id="@+id/text_exposure_detail_vaccinated_info_header"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="10dp"
+                    android:text="@string/exposure_detail_vaccinated_info_header"
+                    android:textAppearance="?attr/textAppearanceHeadline3"
+                    android:hyphenationFrequency="normal"
+                    />
+
+                <TextView
+                    android:id="@+id/text_exposure_detail_vaccinated_info"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="10dp"
+                    android:text="@string/exposure_detail_vaccinated_info"
+                    android:textAppearance="?attr/textAppearanceBody2"
+                    />
+
                 <include
-                    android:id="@+id/card_exposure_detail_more_instructions"
+                    android:id="@+id/card_exposure_detail_vaccinated_info_link"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     layout="@layout/link_item_card"
-                    app:label="@{@string/exposure_detail_more_instructions_title}"
-                    app:link="@{@string/exposure_detail_more_instructions_link_name}"
+                    app:label="@{@string/exposure_detail_vaccinated_info_title}"
+                    app:link="@{@string/exposure_detail_vaccinated_info_link_name}"
                     />
 
                 <View

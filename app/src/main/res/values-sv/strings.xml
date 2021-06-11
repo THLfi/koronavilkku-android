@@ -95,6 +95,9 @@
     <string name="settings_terms_link_name">koronavilkku.fi</string>
     <string name="settings_language_item">Byt appens språk</string>
     <string name="settings_open_source_notices">Licenser för öppen källkod</string>
+    <string name="settings_accessibility_statement_item">Tillgänglighets\u00ADutlåtande</string>
+    <string name="settings_accessibility_statement_link_name">koronavilkku.fi</string>
+    <string name="settings_accessibility_statement_link_url">https://koronavilkku.fi/sv/tillganglighetsutlatande/</string>
 
     <string name="terms_url">https://koronavilkku.fi/sv/anvandningsvillkor/</string>
 
@@ -125,10 +128,12 @@
     <string name="exposure_detail_instructions_6">Om du hostar eller nyser ska du skydda din mun och näsa med en engångsnäsduk. Kasta den använda näsduken i soporna och tvätta dina händer med tvål och vatten eller använd handdesinfektionsmedel. Om du inte har en näsduk till hands, hosta eller nys i armvecket.</string>
     <string name="exposure_detail_instructions_7">Arbeta på distans, om möjligt.</string>
     <string name="exposure_detail_instructions_8">Om du inte befinner dig i Finland ska du följa de lokala myndigheternas anvisningar.</string>
+    <string name="exposure_detail_vaccinated_info_header">Har du fått coronavaccinet eller genomgått coronavirus\u00ADsjukdomen?</string>
+    <string name="exposure_detail_vaccinated_info">Om du har fått coronavaccin eller haft coronavirussjukdomen, se närmare anvisningar.</string>
 
-    <string name="exposure_detail_more_instructions_title">Se närmare anvisningar</string>
-    <string name="exposure_detail_more_instructions_link_name">thl.fi</string>
-    <string name="exposure_detail_more_instructions_link">https://thl.fi/sv/web/infektionssjukdomar-och-vaccinationer/aktuellt/aktuellt-om-coronaviruset-covid-19/symtom-och-behandling-coronaviruset</string>
+    <string name="exposure_detail_vaccinated_info_title">Se närmare anvisningar</string>
+    <string name="exposure_detail_vaccinated_info_link_name">thl.fi</string>
+    <string name="exposure_detail_vaccinated_info_link_url">https://thl.fi/sv/web/infektionssjukdomar-och-vaccinationer/aktuellt/aktuellt-om-coronaviruset-covid-19/smitta-och-skydd-coronaviruset/applikation-som-intensifierar-brytandet-av-smittokedjorna/coronablinkerns-exponeringsmeddelanden-vid-specialsituationer</string>
 
     <string name="exposure_detail_app_info">Information om Coronablinkern</string>
 
