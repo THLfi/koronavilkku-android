@@ -317,23 +317,14 @@
                     android:textAppearance="?attr/textAppearanceBody2"
                     />
 
-                <include
-                    android:id="@+id/card_exposure_detail_more_instructions"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    layout="@layout/link_item_card"
-                    app:label="@{@string/exposure_detail_more_instructions_title}"
-                    app:link="@{@string/exposure_detail_more_instructions_link_name}"
-                    />
-
                 <TextView
                     android:id="@+id/text_exposure_detail_vaccinated_info_header"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:paddingTop="20dp"
                     android:paddingBottom="10dp"
                     android:text="@string/exposure_detail_vaccinated_info_header"
                     android:textAppearance="?attr/textAppearanceHeadline3"
+                    android:hyphenationFrequency="normal"
                     />
 
                 <TextView
