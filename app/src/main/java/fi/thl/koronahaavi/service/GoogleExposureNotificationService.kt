@@ -109,7 +109,7 @@ class GoogleExposureNotificationService(
         }
     }
 
-    override suspend fun provideDiagnosisKeyFiles(files: List<File>): ResolvableResult<Unit> {
+    override suspend fun provideDiagnosisKeyFiles(config: ExposureConfigurationData, files: List<File>): ResolvableResult<Unit> {
         Timber.d("Providing %d key files", files.size)
 
         return resultFromRunning {

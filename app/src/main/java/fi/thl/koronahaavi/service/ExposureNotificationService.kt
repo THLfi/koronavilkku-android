@@ -20,7 +20,7 @@ interface ExposureNotificationService {
 
     suspend fun getDailyExposures(config: ExposureConfigurationData): List<DailyExposure>
     suspend fun getExposureWindows(): List<ExposureWindow>
-    suspend fun provideDiagnosisKeyFiles(files: List<File>): ResolvableResult<Unit>
+    suspend fun provideDiagnosisKeyFiles(config: ExposureConfigurationData, files: List<File>): ResolvableResult<Unit>
 
     suspend fun getTemporaryExposureKeys(): ResolvableResult<List<TemporaryExposureKey>>
     fun deviceSupportsLocationlessScanning(): Boolean

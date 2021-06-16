@@ -130,7 +130,7 @@ class GoogleExposureNotificationServiceTest {
         )
 
         runBlocking {
-            val result = service.provideDiagnosisKeyFiles(listOf())
+            val result = service.provideDiagnosisKeyFiles(TestData.exposureConfiguration(), listOf())
             assertTrue(result is ExposureNotificationService.ResolvableResult.ApiNotSupported)
         }
     }
@@ -140,7 +140,7 @@ class GoogleExposureNotificationServiceTest {
         every { client.version } returns Tasks.forResult(15000000L)
 
         runBlocking {
-            val result = service.provideDiagnosisKeyFiles(listOf())
+            val result = service.provideDiagnosisKeyFiles(TestData.exposureConfiguration(), listOf())
             assertTrue(result is ExposureNotificationService.ResolvableResult.Failed)
         }
     }
@@ -150,7 +150,7 @@ class GoogleExposureNotificationServiceTest {
         every { client.version } returns Tasks.forResult(16000000L)
 
         runBlocking {
-            val result = service.provideDiagnosisKeyFiles(listOf())
+            val result = service.provideDiagnosisKeyFiles(TestData.exposureConfiguration(), listOf())
             assertTrue(result is ExposureNotificationService.ResolvableResult.Success)
         }
     }
