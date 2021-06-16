@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### Added
+- New instructions for vaccinated persons on exposure detail screen
+- Accessibility statement link on settings screen
+
 ## [2.3.0](https://github.com/THLfi/koronavilkku-android/compare/v2.2.0...v2.3.0) - 2021-04-20
 
 ### Added
