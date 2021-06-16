@@ -131,7 +131,9 @@ class HuaweiContactShieldService(
         }
     }
 
-    override suspend fun provideDiagnosisKeyFiles(files: List<File>): ResolvableResult<Unit> = resultFromRunning {
+    override suspend fun provideDiagnosisKeyFiles(config: ExposureConfigurationData, files: List<File>): ResolvableResult<Unit> = resultFromRunning {
+        // key mapping configuration must be applied before providing key batch files
+        updateKeyDataMapping(config)
 
         val intent = PendingIntent.getService(
                 context,

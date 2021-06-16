@@ -97,7 +97,7 @@ class DiagnosisKeyUpdateWorkerTest {
             val result = worker.startWork().get()
 
             assertEquals(Result.success(), result)
-            coVerify(exactly = 0) { exposureNotificationService.provideDiagnosisKeyFiles(any()) }
+            coVerify(exactly = 0) { exposureNotificationService.provideDiagnosisKeyFiles(any(), any()) }
         }
     }
 
@@ -106,7 +106,7 @@ class DiagnosisKeyUpdateWorkerTest {
         coEvery { diagnosisKeyService.downloadDiagnosisKeyFiles() } returns
                 downloadResultWithFiles(listOf(File("")))
 
-        coEvery { exposureNotificationService.provideDiagnosisKeyFiles(any()) } returns
+        coEvery { exposureNotificationService.provideDiagnosisKeyFiles(any(), any()) } returns
                 ExposureNotificationService.ResolvableResult.Failed(1, 1, "error")
 
         runBlocking {
@@ -120,7 +120,7 @@ class DiagnosisKeyUpdateWorkerTest {
         coEvery { diagnosisKeyService.downloadDiagnosisKeyFiles() } returns
                 downloadResultWithFiles(listOf(File("")))
 
-        coEvery { exposureNotificationService.provideDiagnosisKeyFiles(any()) } returns
+        coEvery { exposureNotificationService.provideDiagnosisKeyFiles(any(), any()) } returns
                 ExposureNotificationService.ResolvableResult.Success(Unit)
 
         runBlocking {
@@ -135,7 +135,7 @@ class DiagnosisKeyUpdateWorkerTest {
         coEvery { diagnosisKeyService.downloadDiagnosisKeyFiles() } returns
                 downloadResultWithFiles(listOf(testFile))
 
-        coEvery { exposureNotificationService.provideDiagnosisKeyFiles(any()) } returns
+        coEvery { exposureNotificationService.provideDiagnosisKeyFiles(any(), any()) } returns
                 ExposureNotificationService.ResolvableResult.Success(Unit)
 
         runBlocking {

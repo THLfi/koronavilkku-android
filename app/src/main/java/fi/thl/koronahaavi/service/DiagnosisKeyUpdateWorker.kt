@@ -82,7 +82,7 @@ class DiagnosisKeyUpdateWorker @AssistedInject constructor(
         Timber.i("Processing ${downloadResult.files.size} key files")
 
         val processResult = when (
-            val result = exposureNotificationService.provideDiagnosisKeyFiles(downloadResult.files)
+            val result = exposureNotificationService.provideDiagnosisKeyFiles(downloadResult.exposureConfig, downloadResult.files)
             ) {
 
             is ResolvableResult.Success -> {

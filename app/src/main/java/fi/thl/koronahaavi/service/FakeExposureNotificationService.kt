@@ -72,7 +72,7 @@ class FakeExposureNotificationService(
 
     override suspend fun getExposureWindows(): List<ExposureWindow> = listOf()
 
-    override suspend fun provideDiagnosisKeyFiles(files: List<File>): ResolvableResult<Unit> {
+    override suspend fun provideDiagnosisKeyFiles(config: ExposureConfigurationData, files: List<File>): ResolvableResult<Unit> {
         Timber.d("Got %d files", files.size)
 
         // actual system would save and process the files, but here we only send
