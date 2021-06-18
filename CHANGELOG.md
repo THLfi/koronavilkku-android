@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### Fixed
+- Huawei only: Contact Shield implementation now applies key mapping configuration before providing diagnosis key files to the API. This fixes exposure calculation for the first key match when using exposure window mode (added in v2.3.0).
+
+## [2.4.0](https://github.com/THLfi/koronavilkku-android/compare/v2.4.0...v2.3.0) - 2021-06-17
+
 ### Added
 - New instructions for vaccinated persons on exposure detail screen
 - Accessibility statement link on settings screen
