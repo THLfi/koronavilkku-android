@@ -103,7 +103,7 @@
 
     <string name="exposure_detail_title">Eventuell exponering</string>
 
-    <string name="exposure_detail_message">Du har under de senaste 14 dygnen varit i närheten av en person som meddelat om sin coronasmitta via applikationen.</string>
+    <string name="exposure_detail_message">Du har under de senaste 10 dygnen varit i närheten av en person som meddelat om sin coronasmitta via applikationen.</string>
 
     <string name="exposure_detail_contact_title">Kontakta hälsovården</string>
     <string name="exposure_detail_contact_subtitle">Kontakta hälsovården även om du inte har symtom som passar in på coronavirussjukdom. Hälsovården ger dig anvisningar och en bedömning av behovet av ett coronavirustest.</string>
@@ -111,7 +111,7 @@
 
     <string name="exposure_detail_title_none">Ingen exponering har upptäckts</string>
 
-    <string name="exposure_detail_message_none">Enligt uppgifter som samlats in av Coronablinkern har du inte varit i närheten av en person som meddelat om sin coronasmitta under de senaste 14 dagarna.</string>
+    <string name="exposure_detail_message_none">Enligt uppgifter som samlats in av Coronablinkern har du inte varit i närheten av en person som meddelat om sin coronasmitta under de senaste 10 dagarna.</string>
     <string name="exposure_detail_disclaimer_none">Appen identifierar dock inte alla eventuella exponeringssituationer.</string>
     <string name="exposure_detail_last_check">Senast granskad %s</string>
     <string name="exposure_detail_no_last_check">Ingen kontroll ännu</string>
@@ -119,7 +119,7 @@
     <string name="exposure_detail_notifications_title">Visa exponerings\u00ADmeddelandena</string>
 
     <string name="exposure_detail_instructions_title">Gör så här</string>
-    <string name="exposure_detail_instructions_subtitle">Följ anvisningar nedan i 14 dagar. Fortsätt att följa anvisningarna även om du får ett negativt coronatestresultat.</string>
+    <string name="exposure_detail_instructions_subtitle">Följ anvisningar nedan i 10 dagar. Fortsätt att följa anvisningarna även om du får ett negativt coronatestresultat.</string>
     <string name="exposure_detail_instructions_1">Var uppmärksam på hur du mår. Om du har ens ett av symtomen som passar in på coronavirussjukdom, ska du göra ett coronavirustest även om du redan tidigare har blivit testad. Symtom som kan tyda på coronavirusinfektion är förändringar i lukt- eller smaksinnet, andningssvårigheter, hosta, halsont, snuva, feber, huvudvärk, muskelvärk samt diarré eller magont utan annan uppenbar orsak.</string>
     <string name="exposure_detail_instructions_2">Undvik att träffa andra människor.</string>
     <string name="exposure_detail_instructions_3">Var noggrann med din handhygien.</string>
@@ -138,7 +138,7 @@
     <string name="exposure_detail_app_info">Information om Coronablinkern</string>
 
     <string name="notification_list_title">Exponerings\u00ADmeddelandena</string>
-    <string name="notification_list_disclaimer">Bedömningen om exponeringen bygger på den information om möten som Coronablinkern har samlat in under de senaste 14 dygnen. Coronablinkern ger ingen exakt bedömning av hur stor smittorisken är.</string>
+    <string name="notification_list_disclaimer">Bedömningen om exponeringen bygger på den information om möten som Coronablinkern har samlat in under de senaste 10 dygnen. Coronablinkern ger ingen exakt bedömning av hur stor smittorisken är.</string>
 
     <string name="notification_item_title">Meddelande om eventuell exponering %s</string>
     <string name="notification_item_count_label">Eventuella exponeringar:</string>
