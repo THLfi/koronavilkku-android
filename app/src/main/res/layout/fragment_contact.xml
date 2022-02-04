@@ -123,28 +123,6 @@
                     app:label="@{@string/card_contact_request_title}"
                     app:link="@{@string/card_contact_request_link_name}"/>
 
-                <TextView
-                    android:id="@+id/text_contact_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginHorizontal="20dp"
-                    android:text="@string/contact_title"
-                    android:textAppearance="?attr/textAppearanceHeadline2"
-                    android:hyphenationFrequency="normal"
-                    android:visibility="@{municipality.showOmaoloSymptomAssessment ? View.GONE : View.VISIBLE}"
-                    tools:visibility="gone" />
-
-                <TextView
-                    android:id="@+id/text_contact_body"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginVertical="10dp"
-                    android:layout_marginHorizontal="20dp"
-                    android:text="@string/contact_body"
-                    android:textAppearance="?attr/textAppearanceBody2"
-                    android:visibility="@{municipality.showOmaoloSymptomAssessment ? View.GONE : View.VISIBLE}"
-                    tools:visibility="gone" />
-
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerview_contact"
                     android:layout_width="match_parent"

@@ -247,7 +247,6 @@
     <string name="card_contact_request_title">Skicka kontaktbegäran</string>
     <string name="card_contact_request_link_name">Endast för symtomfria personer (som fyllt 15 år)</string>
     <string name="contact_title">Kontakta hälsovården</string>
-    <string name="contact_body">Kontakta hälsovården även om du inte har symtom som passar in på coronavirussjukdom. Hälsovården ger dig anvisningar och en bedömning av behovet av ett coronavirustest.</string>
     <string name="contact_instructions_title">Ta först kontakt per telefon eller elektroniskt</string>
     <string name="contact_instructions_body">Kontakta hälsovården per telefon eller elektroniskt innan du besöker hälsovårdens verksamhetsställe.\n\nOm ditt tillstånd är mycket dåligt kontakta jouren. I livshotande situationer ring nödnumret 112.</string>
 

@@ -253,7 +253,6 @@
     <string name="card_contact_request_title">Send a contact request</string>
     <string name="card_contact_request_link_name">Only for people without symptoms (not for children under 15)</string>
     <string name="contact_title">Contact healthcare services</string>
-    <string name="contact_body">Contact healthcare services even if you do not have any symptoms consistent with COVID-19. Healthcare services will give you instructions and evaluate your need for a coronavirus test.</string>
     <string name="contact_instructions_title">First contact healthcare services by phone or online</string>
     <string name="contact_instructions_body">Contact healthcare services by phone or online before going to a healthcare facility.\n\nIf your condition is very poor, contact an emergency clinic. If your life is in danger, call the emergency number 112.</string>
 
