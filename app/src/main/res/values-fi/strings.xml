@@ -245,7 +245,6 @@
     <string name="contact_evaluation_other_sub_title">Vaihtoehtoisesti voit ottaa yhteyttä kunnan terveydenhuoltoon muilla tavoin:</string>
     <string name="card_contact_request_title">Lähetä yhteydenottopyyntö</string>
     <string name="card_contact_request_link_name">Vain oireettomille (ei alle 15-vuotiaille)</string>
-    <string name="contact_title">Ota yhteyttä terveyden\u00ADhuoltoon</string>
     <string name="contact_instructions_title">Ota ensin yhteyttä puhelimitse tai sähköisesti</string>
     <string name="contact_instructions_body">Ota yhteyttä terveydenhuoltoon puhelimitse tai sähköisesti ennen kuin menet terveydenhuollon toimipisteeseen.\n\nJos vointisi on erittäin huono, ota yhteyttä päivystykseen. Henkeä uhkaavassa tilanteessa soita hätänumeroon 112.</string>
 

@@ -252,7 +252,6 @@
     <string name="contact_evaluation_other_sub_title">Alternatively, you can contact the municipal healthcare services in another way:</string>
     <string name="card_contact_request_title">Send a contact request</string>
     <string name="card_contact_request_link_name">Only for people without symptoms (not for children under 15)</string>
-    <string name="contact_title">Contact healthcare services</string>
     <string name="contact_instructions_title">First contact healthcare services by phone or online</string>
     <string name="contact_instructions_body">Contact healthcare services by phone or online before going to a healthcare facility.\n\nIf your condition is very poor, contact an emergency clinic. If your life is in danger, call the emergency number 112.</string>
 

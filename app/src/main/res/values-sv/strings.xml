@@ -17,14 +17,14 @@
     <string name="all_continue">Fortsätt</string>
 
     <string name="diagnosis_title">Meddela din smitta</string>
-    <string name="diagnosis_body1">För att meddela om din smitta behöver du en startkod. Du får startkoden från en yrkesperson inom hälsovården eller per textmeddelande från THL, om du i ett coronavirustest i Finland har konstateras vara smittad.</string>
+    <string name="diagnosis_body1">För att meddela om din smitta behöver du en startkod.\n\nDu får startkoden från en yrkesperson inom hälsovården eller per textmeddelande från THL, om du i ett coronavirustest hos hälsovården i Finland har konstaterat vara smittad. Startkoder skickas inte i alla områden.</string>
     <string name="diagnosis_body2">Ange startkoden i den telefon som du vanligtvis har med dig. Coronablinkern meddelar om eventuell exponering till de användare av applikationen som har varit i din närhet under perioden som du sannolikt har varit smittsam. Det är inte möjligt att identifiera dig med hjälp av startkoden.</string>
     <string name="diagnosis_page_title">Meddela om din smitta</string>
     <string name="diagnosis_code_entry">Meddela om smitta</string>
     <string name="diagnosis_en_disabled">Exponeringsmeddelandena måste vara påkopplade för att du ska kunna meddela att du har blivit smittad. Koppla på exponeringsmeddelandena i Coronablinkerns hemvy.</string>
 
     <string name="diagnosis_locked_title">Du har redan meddelat om din smitta</string>
-    <string name="diagnosis_locked_body1">De uppgifter du angett bidrar till att bekämpa coronavirusepidemin. Coronablinkern samlar inte längre information om närliggande telefoner. Krya på dig!</string>
+    <string name="diagnosis_locked_body1">De uppgifter du angett bidrar till att bekämpa coronavirusepidemin. Appen är låst eftersom du meddelat om din smitta. Om du vill ta appen i bruk igen ska du avinstallera den och installera den på nytt.</string>
     <string name="diagnosis_locked_image_description">Låst</string>
 
     <string name="code_entry_title">Ange din startkod</string>
@@ -35,7 +35,7 @@
     <string name="code_entry_info">Det är inte möjligt att identifiera dig med hjälp av startkoden.</string>
 
     <string name="diagnosis_complete_title">Tack för ditt meddelande</string>
-    <string name="diagnosis_complete_body">De uppgifter du angett bidrar till att bekämpa coronavirusepidemin. Appen är nu låst. Coronablinkern samlar inte längre information om närliggande telefoner. Krya på dig!</string>
+    <string name="diagnosis_complete_body">De uppgifter du angett bidrar till att bekämpa coronavirusepidemin. Krya på dig!\n\nAppen är nu låst. Coronablinkern samlar inte längre information om närliggande telefoner. Om du vill ta appen i bruk igen ska du avinstallera den och installera den på nytt från appbutiken.</string>
     <string name="diagnosis_complete_continue">OK</string>
 
     <string name="home_title">Hem</string>
@@ -65,7 +65,7 @@
 
     <string name="home_status_disabled_explained">Koppla på exponeringsmeddelandena på nytt.</string>
     <string name="home_status_enabled_explained">Appen fungerar även om du stänger den.</string>
-    <string name="home_status_locked_explained">Tack för att du meddelade om din smitta. Coronablinkern samlar inte längre information om närliggande telefoner. Krya på dig!</string>
+    <string name="home_status_locked_explained">Appen är låst eftersom du meddelat om din smitta. Om du vill ta appen i bruk igen ska du avinstallera den och installera den på nytt.</string>
     <string name="home_status_notifications_blocked_explained">Ta meddelandena i bruk för att Coronablinkern ska kunna meddela dig om eventuell exponering.</string>
 
     <string name="home_status_turn_on">Ta i bruk</string>
@@ -105,8 +105,8 @@
 
     <string name="exposure_detail_message">Du har under de senaste 10 dygnen varit i närheten av en person som meddelat om sin coronasmitta via applikationen.</string>
 
-    <string name="exposure_detail_contact_title">Kontakta hälsovården</string>
-    <string name="exposure_detail_contact_subtitle">Kontakta hälsovården även om du inte har symtom som passar in på coronavirussjukdom. Hälsovården ger dig anvisningar och en bedömning av behovet av ett coronavirustest.</string>
+    <string name="exposure_detail_contact_title">Kontakta vid behov hälsovården</string>
+    <string name="exposure_detail_contact_subtitle">Om du är symtomfri eller om dina symtom är lindriga och ditt allmäntillstånd är bra behöver du inte kontakta hälsovården eller gå och ta ett test.\n\nI en del situationer är det viktigt att kontakta hälsovården. Läs anvisningarna nedan och kontakta vid behov hälsovården.</string>
     <string name="exposure_detail_contact_start">Ta kontakt</string>
 
     <string name="exposure_detail_title_none">Ingen exponering har upptäckts</string>
@@ -119,17 +119,16 @@
     <string name="exposure_detail_notifications_title">Visa exponerings\u00ADmeddelandena</string>
 
     <string name="exposure_detail_instructions_title">Gör så här</string>
-    <string name="exposure_detail_instructions_subtitle">Följ anvisningar nedan i 10 dagar. Fortsätt att följa anvisningarna även om du får ett negativt coronatestresultat.</string>
-    <string name="exposure_detail_instructions_1">Var uppmärksam på hur du mår. Om du har ens ett av symtomen som passar in på coronavirussjukdom, ska du göra ett coronavirustest även om du redan tidigare har blivit testad. Symtom som kan tyda på coronavirusinfektion är förändringar i lukt- eller smaksinnet, andningssvårigheter, hosta, halsont, snuva, feber, huvudvärk, muskelvärk samt diarré eller magont utan annan uppenbar orsak.</string>
-    <string name="exposure_detail_instructions_2">Undvik att träffa andra människor.</string>
-    <string name="exposure_detail_instructions_3">Var noggrann med din handhygien.</string>
-    <string name="exposure_detail_instructions_4">Undvik offentliga platser och kollektivtrafik. Om du är tvungen att vistas på offentliga platser ska du hålla ett avstånd på minst två meter till andra människor. Använd även ansiktsmask.</string>
-    <string name="exposure_detail_instructions_5">Låt en annan person handla mat och sköta andra ärenden utanför hemmet, om möjligt.</string>
-    <string name="exposure_detail_instructions_6">Om du hostar eller nyser ska du skydda din mun och näsa med en engångsnäsduk. Kasta den använda näsduken i soporna och tvätta dina händer med tvål och vatten eller använd handdesinfektionsmedel. Om du inte har en näsduk till hands, hosta eller nys i armvecket.</string>
-    <string name="exposure_detail_instructions_7">Arbeta på distans, om möjligt.</string>
-    <string name="exposure_detail_instructions_8">Om du inte befinner dig i Finland ska du följa de lokala myndigheternas anvisningar.</string>
-    <string name="exposure_detail_vaccinated_info_header">Har du fått coronavaccinet eller genomgått coronavirus\u00ADsjukdomen?</string>
-    <string name="exposure_detail_vaccinated_info">Om du har fått coronavaccin eller haft coronavirussjukdomen, se närmare anvisningar.</string>
+    <string name="exposure_detail_instructions_subtitle">Följ följande anvisningar i minst 5 dagar. Anvisningarna gäller även vaccinerade.</string>
+    <string name="exposure_detail_instructions_1">Undvik att träffa andra människor.</string>
+    <string name="exposure_detail_instructions_2">Var noggrann med din handhygien.</string>
+    <string name="exposure_detail_instructions_3">Undvik offentliga platser och kollektivtrafik. Om du är tvungen att vistas på offentliga platser ska du hålla ett avstånd på minst två meter till andra människor. Använd även ansiktsmask.</string>
+    <string name="exposure_detail_instructions_4">Låt en annan person handla mat och sköta andra ärenden utanför hemmet, om möjligt.</string>
+    <string name="exposure_detail_instructions_5">Om du hostar eller nyser ska du skydda din mun och näsa med en engångsnäsduk. Kasta den använda näsduken i soporna och tvätta dina händer med tvål och vatten eller använd handdesinfektionsmedel. Om du inte har en näsduk till hands, hosta eller nys i armvecket.</string>
+    <string name="exposure_detail_instructions_6">Arbeta på distans, om möjligt.</string>
+    <string name="exposure_detail_instructions_7">Om du inte befinner dig i Finland ska du följa de lokala myndigheternas anvisningar.</string>
+    <string name="exposure_detail_vaccinated_info_header">När bör man gå och ta ett coronatest?</string>
+    <string name="exposure_detail_vaccinated_info">I en del situationer är det viktigt att ta ett test hos hälsovården. Dessa situationer beskrivs närmare på THL:s webbplats.</string>
 
     <string name="exposure_detail_vaccinated_info_title">Se närmare anvisningar</string>
     <string name="exposure_detail_vaccinated_info_link_name">thl.fi</string>
@@ -148,7 +147,7 @@
     <string name="notification_channel_name">Exponerings\u00ADmeddelandena</string>
     <string name="notification_channel_description">Meddelande om eventuell exponering</string>
     <string name="notification_exposure_title">Eventuell exponering</string>
-    <string name="notification_exposure_message">Du kan ha exponerats för coronaviruset. Se anvisningar och kontakta hälsovården.</string>
+    <string name="notification_exposure_message">Du kan ha exponerats för coronaviruset. Öppna Coronablinkern och se anvisningarna.</string>
 
     <string name="guide_title">Om Coronablinkern</string>
     <string name="guide_p1_text">Coronablinkern är en applikation (app) som Institutet för hälsa och välfärd ansvarar för. Appen analyserar om du eventuellt har blivit utsatt för coronaviruset. Om du har konstaterats ha en coronavirusinfektion, kan du meddela om det här anonymt via appen. Appen skyddar effektivt din identitet.</string>
@@ -166,7 +165,7 @@
     <string name="guide_check_text">Coronablinkern laddar flera gånger per dag ner en förteckning över koder som skickats från smittade personers telefoner med samma app. Coronablinkern jämför dessa med de koder som din telefon har samlat in från andra användare. På det här sättet kan appen avgöra om du har varit i närheten av en person som har coronavirusinfektion.</string>
 
     <string name="guide_notification_title">Du får ett meddelande om eventuell virusexponering</string>
-    <string name="guide_notification_text">Om koderna som din telefon samlat in motsvarar koderna som samlats in från personer som bär på smitta får du ett meddelande om eventuell exponering. I det här fallet kan du meddela dina kontaktuppgifter till hälsovården som ger dig närmare anvisningar.\n\nOm du misstänker att du smittats med coronaviruset kan du när som helst göra en symtombedömning i tjänsten Omaolo.</string>
+    <string name="guide_notification_text">Om koderna som din telefon samlat in motsvarar koderna som samlats in från personer som bär på smitta får du ett meddelande om eventuell exponering och anvisningar.\n\nOm du misstänker att du smittats med coronaviruset kan du när som helst göra en symtombedömning i tjänsten Omaolo.</string>
 
     <string name="guide_privacy_title">Såhär skyddas din identitet</string>
     <string name="guide_privacy_body">Din identitet skyddas på följande sätt:</string>
@@ -239,14 +238,13 @@
     <string name="municipality_no_results">Inga kommuner som börjar med söktexten hittades</string>
 
     <string name="contact_evaluation_title">Ta kontakt med hjälp av Omaolos symtom\u00ADbedömning</string>
-    <string name="contact_evaluation_body">Gör en symtombedömning i tjänsten Omaolo så får du anvisningar och en bedömning av behovet av att ta ett coronavirustest. Gör en symtombedömning även om du inte har symtom som passar in på coronavirussjukdom. Det tar cirka 5–10 minuter att göra en symtombedömning.</string>
+    <string name="contact_evaluation_body">Gör en symtombedömning i tjänsten Omaolo så får du anvisningar och en bedömning av behovet av att ta ett coronavirustest. Det tar cirka 5–10 minuter att göra en symtombedömning.</string>
     <string name="contact_evaluation_start">Börja</string>
     <string name="contact_evaluation_footer">Om du är under 15 år, be din vårdnadshavare sköta dina ärenden i Omaolo för dig.</string>
     <string name="contact_evaluation_other_title">Övriga kontaktmetoder</string>
     <string name="contact_evaluation_other_sub_title">Alternativt kan du kontakta kommunens hälsovård på annat sätt:</string>
     <string name="card_contact_request_title">Skicka kontaktbegäran</string>
     <string name="card_contact_request_link_name">Endast för symtomfria personer (som fyllt 15 år)</string>
-    <string name="contact_title">Kontakta hälsovården</string>
     <string name="contact_instructions_title">Ta först kontakt per telefon eller elektroniskt</string>
     <string name="contact_instructions_body">Kontakta hälsovården per telefon eller elektroniskt innan du besöker hälsovårdens verksamhetsställe.\n\nOm ditt tillstånd är mycket dåligt kontakta jouren. I livshotande situationer ring nödnumret 112.</string>
 
@@ -259,7 +257,7 @@
     <string name="pre_web_contact_title">Välj kontaktspråk</string>
 
     <string name="omaolo_link_failed_title">Omaolo kan inte öppnas</string>
-    <string name="omaolo_link_failed_message">Coronablinkern kan inte öppna Omaolo-tjänsten eftersom din telefon inte har någon webbläsare eller webbläsaren är blockerad. Kontakta hälsovården per telefon.</string>
+    <string name="omaolo_link_failed_message">Coronablinkern kan inte öppna Omaolo-tjänsten eftersom din telefon inte har någon webbläsare eller webbläsaren är blockerad. Öppna Omaolo i webbläsaren på en annan enhet.</string>
 
     <string name="municipality_load_failed">Det gick inte att ladda kommunuppgifterna. Kontrollera din nätverksanslutning och försök på nytt.</string>
     <string name="municipality_retry_load">Försök på nytt</string>
@@ -283,7 +281,7 @@
 
     <string name="share_consent_eu">För användare av Coronablinkern och andra europeiska corona-applikationer.</string>
     <string name="share_consent_finland">Endast för användare av Coronablinkern.</string>
-    <string name="share_consent_header">Vem vill du meddela din smitta till?</string>
+    <string name="share_consent_header">Välj vem du vill att Coronablinkern meddelar om eventuell exponering.</string>
     <string name="share_consent_code_saved">Coronablinkern fick din startkod från textmeddelandet.</string>
 
     <string name="travel_disclosure_header">Har du rest utomlands under de senaste 14 dygnen?</string>
@@ -309,9 +307,9 @@
     <string name="notification_guide_title">Om du får ett exponerings\u00ADmeddelande, gör så här</string>
     <string name="notification_guide_text_1">Om du har varit i närheten av en person som har anmält om sin coronainfektion via appen får du ett meddelande om eventuell exponering till din telefon. Tryck på meddelandet så öppnas Coronablinkern.</string>
     <string name="notification_guide_text_2">Tryck på den röda knappen Se anvisningar.</string>
-    <string name="notification_guide_text_3">Du får anvisningar om hur du ska förfara. Dessutom får du anvisningar om hur du kan kontakta hälsovården. Läs anvisningarna och tryck på Ta kontakt.</string>
-    <string name="notification_guide_text_4">Välj kommun. Du kan kontakta hälsovården på det sätt som kommunen erbjuder, till exempel via webbtjänsten Omaolo eller per telefon.</string>
-    <string name="notification_guide_text_5">Hälsovården ger dig närmare anvisningar och bedömmer behovet av ett coronavirustest.</string>
+    <string name="notification_guide_text_3">Du får anvisningar om hur du ska förfara. Se också de lokala anvisningarna på din kommuns webbplats. Om du behöver hälsovårdstjänster, tryck på Ta kontakt.</string>
+    <string name="notification_guide_text_4">Välj kommun. Du kan kontakta hälsovården på det sätt som kommunen erbjuder, till exempel via webbtjänsten Omaolo.</string>
+    <string name="notification_guide_text_5">Fortsätt följa anvisningarna i Coronablinkern i minst 5 dagar.</string>
 
     <string name="notification_guide_page_content_description">Steg %1$d av %2$d</string>
 
