@@ -212,7 +212,10 @@ class MainActivity : AppCompatActivity() {
         when (requestCode) {
             REQUEST_CODE_POWER_OPTIMIZATION_DISABLE -> {
                 resolutionViewModel.requestActivityInProgress = false
-                if (resultCode == RESULT_OK) {
+
+                // pixel android 12 seems to always return RESULT_CANCELED regardless of user choice,
+                // so we are also checking the current state through device state repository
+                if (resultCode == RESULT_OK || deviceStateRepository.isPowerOptimizationsDisabled()) {
                     userPreferences.powerOptimizationDisableAllowed = true
                 }
                 else {
