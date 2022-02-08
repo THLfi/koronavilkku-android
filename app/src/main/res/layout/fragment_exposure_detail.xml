@@ -297,21 +297,13 @@
                     android:text="@string/exposure_detail_instructions_6"
                     android:textAppearance="?attr/textAppearanceBody2"
                     />
-                <fi.thl.koronahaavi.widget.BulletTextView
+
+                <TextView
                     android:id="@+id/text_exposure_detail_instructions_7"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:paddingBottom="10dp"
                     android:text="@string/exposure_detail_instructions_7"
-                    android:textAppearance="?attr/textAppearanceBody2"
-                    />
-
-                <TextView
-                    android:id="@+id/text_exposure_detail_instructions_8"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:paddingBottom="10dp"
-                    android:text="@string/exposure_detail_instructions_8"
                     android:textAppearance="?attr/textAppearanceBody2"
                     />
 
