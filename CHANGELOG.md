@@ -6,6 +6,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+### Changed
+- Updated text and graphics in exposure, infection reporting and user instruction screens
+
 ## [2.4.2](https://github.com/THLfi/koronavilkku-android/compare/v2.4.1...v2.4.2) - 2021-08-11
 
 ### Changed
