@@ -21,7 +21,8 @@ class DiagnosisKeyService @Inject constructor (
     private val backendService: BackendService,
     private val appStateRepository: AppStateRepository,
     private val settingsRepository: SettingsRepository,
-    private val systemOperations: SystemOperations
+    private val systemOperations: SystemOperations,
+    private val appShutdownService: AppShutdownService
 ) {
     suspend fun sendExposureKeys(authCode: String,
                                  keyHistory: List<TemporaryExposureKey>,
@@ -154,6 +155,9 @@ class DiagnosisKeyService @Inject constructor (
             availableCountries = validatedCountries
         )
         settingsRepository.updateExposureConfiguration(validatedConfig)
+
+        appShutdownService.shutdownByConfiguration(validatedConfig)
+
         return validatedConfig
     }
 

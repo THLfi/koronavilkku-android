@@ -35,6 +35,7 @@ class ExposureUpdateWorkerTest {
     private lateinit var settingsRepository: SettingsRepository
     private lateinit var notificationService: NotificationService
     val lockedFlow = MutableStateFlow(false)
+    val appShutdownFlow = MutableStateFlow(false)
 
     lateinit var worker: ListenableWorker
 
@@ -49,6 +50,7 @@ class ExposureUpdateWorkerTest {
         notificationService = mockk(relaxed = true)
 
         every { appStateRepository.lockedAfterDiagnosis() } returns lockedFlow
+        every { appStateRepository.appShutdown() } returns appShutdownFlow
         every { settingsRepository.requireExposureConfiguration() } returns TestData.exposureConfiguration()
         coEvery { exposureRepository.getAllExposures() } returns listOf()
         coEvery { exposureNotificationService.isEnabled() } returns true

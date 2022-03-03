@@ -8,6 +8,8 @@ import timber.log.Timber
 // not used at the moment, but maybe for standalone demo build or testing
 class FakeBackendService : BackendService {
 
+    var endOfLifeReached = false
+
     override suspend fun sendKeys(token: String, data: DiagnosisKeyList, isFake: BackendService.NumericBoolean) {
         Timber.d("Sending keys")
     }
@@ -66,7 +68,9 @@ class FakeBackendService : BackendService {
             reportTypeWeightConfirmedTest = 1.0,
             reportTypeWeightRecursive = 0.0,
             reportTypeWeightSelfReport = 0.0,
-            availableCountries = listOf("DK", "DE", "IE", "IT", "LV", "ES")
+            availableCountries = listOf("DK", "DE", "IE", "IT", "LV", "ES"),
+            endOfLifeReached = endOfLifeReached,
+            endOfLifeStatistics = listOf()
         )
     }
 

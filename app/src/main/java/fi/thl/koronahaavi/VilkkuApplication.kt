@@ -41,7 +41,10 @@ class VilkkuApplication : Application() {
 
         // This is an additional check to make sure workers are scheduled in case
         // app was force-stopped from background and woken up by EN api service.
-        if (appStateRepository.isOnboardingComplete() && !appStateRepository.lockedAfterDiagnosis().value) {
+        if (appStateRepository.isOnboardingComplete() &&
+            !appStateRepository.lockedAfterDiagnosis().value &&
+            !appStateRepository.appShutdown().value) {
+
             workDispatcher.scheduleWorkers(reconfigureStale = true)
         }
     }

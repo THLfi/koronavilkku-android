@@ -49,6 +49,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.Vilkku.NoActionBar.DefaultBackground"/>
 
+        <activity
+            android:name=".shutdown.ShutdownActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Vilkku.NoActionBar"/>
+
         <!-- Definition required here to use a theme with toolbar -->
         <activity
             android:name="com.google.android.gms.oss.licenses.OssLicensesMenuActivity"
@@ -65,6 +70,7 @@
             <intent-filter>
                 <action android:name="com.google.android.gms.exposurenotification.ACTION_EXPOSURE_STATE_UPDATED" />
                 <action android:name="com.google.android.gms.exposurenotification.ACTION_EXPOSURE_NOT_FOUND" />
+                <action android:name="com.google.android.gms.exposurenotification.ACTION_SERVICE_STATE_UPDATED" />
             </intent-filter>
         </receiver>
 

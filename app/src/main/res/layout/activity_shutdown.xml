@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/image_shutdown"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:layout_marginTop="40dp"
+            android:src="@drawable/ic_radar_off"
+            android:contentDescription="@null"
+            />
+        <TextView
+            android:id="@+id/text_shutdown_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="20dp"
+            android:text="@string/shutdown_title"
+            android:textAppearance="?attr/textAppearanceHeadline2"
+            />
+        <TextView
+            android:id="@+id/text_shutdown_body"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginHorizontal="20dp"
+            android:text="@string/shutdown_body"
+            android:textAppearance="?attr/textAppearanceBody1"
+            />
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerview_shutdown_messages"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:overScrollMode="never"
+            tools:itemCount="2"
+            tools:listitem="@layout/item_labeled_value"
+            />
+        <ImageView
+            android:id="@+id/image_shutdown_thl"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_thl_wide"
+            android:contentDescription="@string/all_thl_image_description"/>
+
+    </LinearLayout>
+</ScrollView>

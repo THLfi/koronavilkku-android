@@ -67,7 +67,9 @@ object TestData {
             reportTypeWeightConfirmedTest = 1.0,
             reportTypeWeightRecursive = 0.0,
             reportTypeWeightSelfReport = 0.0,
-            availableCountries = listOf()
+            availableCountries = listOf(),
+            endOfLifeReached = false,
+            endOfLifeStatistics = listOf()
     )
 
     fun diagnosisKey() = DiagnosisKey(

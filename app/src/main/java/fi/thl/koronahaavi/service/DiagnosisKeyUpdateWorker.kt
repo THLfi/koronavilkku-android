@@ -20,7 +20,6 @@ class DiagnosisKeyUpdateWorker @AssistedInject constructor(
     @Assisted private val context: Context,
     @Assisted workerParams: WorkerParameters,
     private val exposureNotificationService: ExposureNotificationService,
-    private val exposureRepository: ExposureRepository,
     private val appStateRepository: AppStateRepository,
     private val diagnosisKeyService: DiagnosisKeyService
 

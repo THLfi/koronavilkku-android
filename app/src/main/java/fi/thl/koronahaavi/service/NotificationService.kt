@@ -3,6 +3,7 @@ package fi.thl.koronahaavi.service
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
+import android.app.PendingIntent.FLAG_IMMUTABLE
 import android.content.Context
 import android.content.Intent
 import android.os.Build
@@ -46,7 +47,7 @@ class NotificationService @Inject constructor (
         val intent = Intent(context, MainActivity::class.java).apply {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
-        val pendingIntent = PendingIntent.getActivity(context, 0, intent, 0)
+        val pendingIntent = PendingIntent.getActivity(context, 0, intent, FLAG_IMMUTABLE)
 
         // Localize notification text with app language override, if selected
         val languageContext = context.withSavedLanguage()
@@ -67,6 +68,23 @@ class NotificationService @Inject constructor (
         notificationManager.notify(0, builder.build())
     }
 
+    fun notifyShutdown() {
+        initialize()
+
+        val intent = Intent(context, MainActivity::class.java).apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+        }
+        val pendingIntent = PendingIntent.getActivity(context, 0, intent, FLAG_IMMUTABLE)
+
+        val builder = NotificationCompat.Builder(context, CHANNEL_ID)
+            .setContentTitle(context.withSavedLanguage().getString(R.string.notification_shutdown_title))
+            .setSmallIcon(R.drawable.ic_exposure_notification)
+            .setContentIntent(pendingIntent)
+            .setAutoCancel(true) // remove when clicked
+
+        notificationManager.notify(SHUTDOWN_NOTIFICATION_ID, builder.build())
+    }
+
     fun initialize() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             // we should not apply app language override for the channel name since it appears in
@@ -83,5 +101,6 @@ class NotificationService @Inject constructor (
 
     companion object {
         private const val CHANNEL_ID = "fi.thl.koronahaavi.exposure_notification"
+        private const val SHUTDOWN_NOTIFICATION_ID = 1
     }
 }

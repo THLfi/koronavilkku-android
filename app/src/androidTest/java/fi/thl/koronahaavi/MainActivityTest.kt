@@ -21,6 +21,7 @@ import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
 import fi.thl.koronahaavi.data.AppStateRepository
 import fi.thl.koronahaavi.data.ExposureRepository
+import fi.thl.koronahaavi.data.LocaleString
 import fi.thl.koronahaavi.data.SettingsRepository
 import fi.thl.koronahaavi.di.AppModule
 import fi.thl.koronahaavi.di.DatabaseModule
@@ -29,6 +30,7 @@ import fi.thl.koronahaavi.di.NetworkModule
 import fi.thl.koronahaavi.service.BackendService
 import fi.thl.koronahaavi.service.ExposureConfigurationData
 import fi.thl.koronahaavi.service.ExposureNotificationService
+import fi.thl.koronahaavi.service.LabeledStringValue
 import fi.thl.koronahaavi.settings.UserPreferences
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
@@ -63,6 +65,17 @@ class MainActivityTest {
     @Inject
     lateinit var backendService: BackendService
 
+    private val endOfLifeStatistics = listOf(
+        LabeledStringValue(
+            label = LocaleString("test 1", en = null, sv = null),
+            value = "234"
+        ),
+        LabeledStringValue(
+            label = LocaleString("test 2", en = null, sv = null),
+            value = "567"
+        )
+    )
+
     @Before
     fun setup() {
         hiltRule.inject()
@@ -74,6 +87,8 @@ class MainActivityTest {
 
         // disable power disable prompts
         userPreferences.powerOptimizationDisableAllowed = false
+
+        appStateRepository.setAppShutdown(false)
     }
 
     @Test
@@ -271,5 +286,48 @@ class MainActivityTest {
             onView(withText(R.string.summary_consent_travel_header)).checkIsGone()
             onView(withId(R.id.layout_summary_consent_countries)).checkIsGone()
         }
+    }
+
+    @Test
+    fun showsShutdownAtStart() {
+        appStateRepository.setOnboardingComplete(true)
+        setAppShutdownConfig()
+
+        activityRule.launchActivity(null)
+
+        onView(withText(endOfLifeStatistics[0].value)).checkIsDisplayed()
+    }
+
+    @Test
+    fun showsShutdownAtStartDeeplink() {
+        appStateRepository.setOnboardingComplete(true)
+        setAppShutdownConfig()
+
+        activityRule.launchActivity(
+            Intent(Intent.ACTION_VIEW, Uri.parse("https://koronavilkku/i?12345"))
+        )
+
+        onView(withText(endOfLifeStatistics[0].value)).checkIsDisplayed()
+    }
+
+    @Test
+    fun showsShutdownFromMain() {
+        appStateRepository.setOnboardingComplete(true)
+
+        activityRule.launchActivity(null)
+        onView(withId(R.id.image_home_app_status)).checkIsDisplayed()
+
+        setAppShutdownConfig()
+
+        onView(withText(endOfLifeStatistics[0].value)).checkIsDisplayed()
+    }
+
+    private fun setAppShutdownConfig() {
+        runBlocking {
+            settingsRepository.updateExposureConfiguration(backendService.getConfiguration().copy(
+                endOfLifeStatistics = endOfLifeStatistics
+            ))
+        }
+        appStateRepository.setAppShutdown(true)
     }
 }

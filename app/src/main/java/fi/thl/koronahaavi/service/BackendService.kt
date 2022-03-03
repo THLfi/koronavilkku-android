@@ -2,6 +2,7 @@ package fi.thl.koronahaavi.service
 
 import com.squareup.moshi.JsonClass
 import com.squareup.moshi.ToJson
+import fi.thl.koronahaavi.data.LocaleString
 import okhttp3.ResponseBody
 import retrofit2.http.*
 
@@ -83,7 +84,9 @@ data class ExposureConfigurationData (
     val reportTypeWeightConfirmedTest: Double,
     val reportTypeWeightRecursive: Double,
     val reportTypeWeightSelfReport: Double,
-    val availableCountries: List<String>? // country codes for EU interoperability
+    val availableCountries: List<String>?, // country codes for EU interoperability
+    val endOfLifeReached: Boolean?,
+    val endOfLifeStatistics: List<LabeledStringValue>?
 )
 
 @JsonClass(generateAdapter = true)
@@ -100,6 +103,12 @@ data class InitialBatchId(val current: BatchId)
 
 @JsonClass(generateAdapter = true)
 data class DiagnosisKeyBatches(val batches: List<BatchId>)
+
+@JsonClass(generateAdapter = true)
+data class LabeledStringValue(
+    val label: LocaleString,
+    val value: String
+)
 
 class NumericBooleanAdapter{
     @ToJson

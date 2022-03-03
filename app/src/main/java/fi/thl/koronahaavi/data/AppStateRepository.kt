@@ -30,6 +30,7 @@ class AppStateRepository @Inject constructor (
     private val lastExposureCheckTimeKey = "last_exposure_check"
     private val lastExposureKeyMappingUpdateKey = "last_exposure_key_mapping_update"
     private val diagnosisKeysSubmittedKey = "diagnosis_keys_submitted"
+    private val appShutdownKey = "app_shutdown"
 
     // this is an unencrypted shared preferences instance which is used to avoid further
     // load to unstable encrypted shared preferences, for data that is not sensitive
@@ -39,6 +40,11 @@ class AppStateRepository @Inject constructor (
         prefs.getBoolean(diagnosisKeysSubmittedKey, false)
     )
     fun lockedAfterDiagnosis(): StateFlow<Boolean> = keysSubmitted
+
+    private val appShutdown = MutableStateFlow(
+        prefs.getBoolean(appShutdownKey, false)
+    )
+    fun appShutdown(): StateFlow<Boolean> = appShutdown
 
     private val lastExposureCheckTime = MutableLiveData<ZonedDateTime?>(null)
     fun getLastExposureCheckTimeLive(): LiveData<ZonedDateTime?> {
@@ -60,6 +66,11 @@ class AppStateRepository @Inject constructor (
     fun setDiagnosisKeysSubmitted(submitted: Boolean) {
         keysSubmitted.value = submitted
         prefs.edit().putBoolean(diagnosisKeysSubmittedKey, submitted).apply()
+    }
+
+    fun setAppShutdown(shutdown: Boolean) {
+        appShutdown.value = shutdown
+        prefs.edit().putBoolean(appShutdownKey, shutdown).apply()
     }
 
      private fun updateLastExposureCheckTime() {

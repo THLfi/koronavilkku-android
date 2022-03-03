@@ -11,7 +11,9 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
@@ -27,6 +29,7 @@ import fi.thl.koronahaavi.service.ExposureNotificationService
 import fi.thl.koronahaavi.service.NotificationService
 import fi.thl.koronahaavi.service.WorkDispatcher
 import fi.thl.koronahaavi.settings.UserPreferences
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -70,6 +73,7 @@ class MainActivity : AppCompatActivity() {
             finish()
         }
         else {
+            setupShutdownObserver()
             setupServices()
 
             // configure navigation to work with bottom nav bar
@@ -127,6 +131,20 @@ class MainActivity : AppCompatActivity() {
                             // Diagnosis view will give instructions to the user (needs to be enabled first).
                             navController.navigate(MainNavigationDirections.toDiagnosis())
                         }
+                    }
+                }
+            }
+        }
+    }
+
+    private fun setupShutdownObserver() {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                appStateRepository.appShutdown().collect { shutdown ->
+                    if (shutdown) {
+                        Timber.d("App shutdown detected")
+                        navController.navigate(MainNavigationDirections.toShutdown())
+                        finish()
                     }
                 }
             }
@@ -229,7 +247,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupServices() {
-        if (appStateRepository.lockedAfterDiagnosis().value) {
+        if (appStateRepository.appShutdown().value) {
+            workDispatcher.cancelAllWorkers()
+        }
+        else if (appStateRepository.lockedAfterDiagnosis().value) {
             // make sure download is not running when app locked.. this should not be needed since work is canceled
             // after submitting diagnosis, but just making sure
             workDispatcher.cancelWorkersAfterLock()

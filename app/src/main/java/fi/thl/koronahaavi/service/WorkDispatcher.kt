@@ -30,6 +30,14 @@ class WorkDispatcher @Inject constructor(
         }
     }
 
+    fun cancelAllWorkers() {
+        cancelWorkersAfterLock()
+
+        WorkManager.getInstance(context).cancelUniqueWork(
+            ClearExpiredExposuresWorker.CLEAR_EXPIRED_WORKER_NAME
+        )
+    }
+
     fun scheduleWorkers(reconfigureStale: Boolean = false) {
         // Attempting to trigger worker to execute by reconfiguring at app startup
         // This seems to be required on some android models, like Xiaomi, to execute worker

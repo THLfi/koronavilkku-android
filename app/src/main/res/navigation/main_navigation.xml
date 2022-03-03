@@ -157,6 +157,14 @@
         android:id="@+id/onboarding"
         android:name="fi.thl.koronahaavi.onboarding.OnboardingActivity" />
 
+    <action
+        android:id="@+id/to_shutdown"
+        app:destination="@id/shutdown"/>
+
+    <activity
+        android:id="@+id/shutdown"
+        android:name="fi.thl.koronahaavi.shutdown.ShutdownActivity" />
+
     <!-- nested graph so we can scope view model to graph instead of activity -->
     <navigation
         android:id="@+id/exposure_navigation"
