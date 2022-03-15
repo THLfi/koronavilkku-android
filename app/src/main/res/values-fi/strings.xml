@@ -148,7 +148,7 @@
     <string name="notification_channel_description">Ilmoitukset mahdollisista altistumisista.</string>
     <string name="notification_exposure_title">Mahdollinen altistuminen</string>
     <string name="notification_exposure_message">Olet saattanut altistua koronavirukselle. Avaa Koronavilkku ja katso toimintaohjeet.</string>
-    <string name="notification_shutdown_title">Toiminta päättynyt</string>
+    <string name="notification_shutdown_title">Koronavilkun toiminta on päättynyt</string>
 
     <string name="guide_title">Tietoa Koronavilkusta</string>
     <string name="guide_p1_text">Koronavilkku on Terveyden ja hyvinvoinnin laitoksen tuottama sovellus, jonka avulla saat tiedon, jos olet sovelluksen arvion mukaan altistunut koronavirukselle. Jos sinulla todetaan tartunta, voit ilmoittaa siitä sovelluksella nimettömästi. Sovelluksessa yksityisyytesi on vahvasti suojattu.</string>

@@ -107,7 +107,7 @@ data class DiagnosisKeyBatches(val batches: List<BatchId>)
 @JsonClass(generateAdapter = true)
 data class LabeledStringValue(
     val label: LocaleString,
-    val value: String
+    val value: LocaleString
 )
 
 class NumericBooleanAdapter{

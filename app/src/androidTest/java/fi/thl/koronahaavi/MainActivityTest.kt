@@ -68,11 +68,11 @@ class MainActivityTest {
     private val endOfLifeStatistics = listOf(
         LabeledStringValue(
             label = LocaleString("test 1", en = null, sv = null),
-            value = "234"
+            value = LocaleString("234", en = null, sv = null)
         ),
         LabeledStringValue(
             label = LocaleString("test 2", en = null, sv = null),
-            value = "567"
+            value = LocaleString("567", en = null, sv = null)
         )
     )
 
@@ -295,7 +295,7 @@ class MainActivityTest {
 
         activityRule.launchActivity(null)
 
-        onView(withText(endOfLifeStatistics[0].value)).checkIsDisplayed()
+        onView(withText(endOfLifeStatistics[0].value.getLocal())).checkIsDisplayed()
     }
 
     @Test
@@ -307,7 +307,7 @@ class MainActivityTest {
             Intent(Intent.ACTION_VIEW, Uri.parse("https://koronavilkku/i?12345"))
         )
 
-        onView(withText(endOfLifeStatistics[0].value)).checkIsDisplayed()
+        onView(withText(endOfLifeStatistics[0].value.getLocal())).checkIsDisplayed()
     }
 
     @Test
@@ -319,7 +319,7 @@ class MainActivityTest {
 
         setAppShutdownConfig()
 
-        onView(withText(endOfLifeStatistics[0].value)).checkIsDisplayed()
+        onView(withText(endOfLifeStatistics[0].value.getLocal())).checkIsDisplayed()
     }
 
     private fun setAppShutdownConfig() {

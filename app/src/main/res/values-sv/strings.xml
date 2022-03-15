@@ -148,7 +148,7 @@
     <string name="notification_channel_description">Meddelande om eventuell exponering</string>
     <string name="notification_exposure_title">Eventuell exponering</string>
     <string name="notification_exposure_message">Du kan ha exponerats för coronaviruset. Öppna Coronablinkern och se anvisningarna.</string>
-    <string name="notification_shutdown_title">Toiminta päättynyt</string>
+    <string name="notification_shutdown_title">Coronablinkern har lagts ner</string>
 
     <string name="guide_title">Om Coronablinkern</string>
     <string name="guide_p1_text">Coronablinkern är en applikation (app) som Institutet för hälsa och välfärd ansvarar för. Appen analyserar om du eventuellt har blivit utsatt för coronaviruset. Om du har konstaterats ha en coronavirusinfektion, kan du meddela om det här anonymt via appen. Appen skyddar effektivt din identitet.</string>
@@ -320,8 +320,8 @@
     <string name="notifications_blocked_instructions_2">2. Aktivera <b>Visa meddelanden</b>.</string>
     <string name="notifications_blocked_instructions_3">3. Aktivera <b>Exponerings\u00ADmeddelanden</b>.</string>
     <string name="notifications_blocked_open_settings">Öppna inställningarna</string>
-    <string name="shutdown_title">Koronavilkun toiminta on päättynyt</string>
-    <string name="shutdown_body">Voit nyt poistaa Koronavilkun puhelimestasi. Kiitos, että käytit sovellusta ja osallistuit koronaviruksen torjuntaan!</string>
+    <string name="shutdown_title">Coronablinkern har lagts ner</string>
+    <string name="shutdown_body">Nu kan du nu avlägsna Coronablinkern från din telefon. Tack för att du använde appen och deltog i bekämpningen av coronaviruset!</string>
 
     <plurals name="exposure_notification_count">
         <item quantity="one">%d meddelande</item>

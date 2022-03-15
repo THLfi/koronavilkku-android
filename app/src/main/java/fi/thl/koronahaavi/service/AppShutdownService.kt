@@ -22,9 +22,9 @@ class AppShutdownService @Inject constructor(
 
     suspend fun shutdown() {
         appStateRepository.setAppShutdown(true)
-        exposureNotificationService.disable()
         exposureRepository.deleteAllExposures()
         exposureRepository.deleteAllKeyGroupTokens()
+        exposureNotificationService.disable()
         workDispatcher.cancelAllWorkers()
     }
 }

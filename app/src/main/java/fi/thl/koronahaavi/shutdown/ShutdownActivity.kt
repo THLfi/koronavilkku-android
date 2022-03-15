@@ -1,5 +1,6 @@
 package fi.thl.koronahaavi.shutdown
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
+import fi.thl.koronahaavi.common.withSavedLanguage
 import fi.thl.koronahaavi.data.SettingsRepository
 import fi.thl.koronahaavi.databinding.ActivityShutdownBinding
 import fi.thl.koronahaavi.databinding.ItemLabeledValueBinding
@@ -52,6 +54,10 @@ class ShutdownActivity : AppCompatActivity() {
             }
         }
     }
+
+    override fun attachBaseContext(newBase: Context?) {
+        super.attachBaseContext(newBase?.withSavedLanguage())
+    }
 }
 
 class LabeledValueAdapter : ListAdapter<LabeledStringValue, LabeledValueViewHolder>(LabeledStringValueItemDiff()) {
@@ -80,6 +86,6 @@ class LabeledValueViewHolder(val binding: ItemLabeledValueBinding)
 
     fun bind(item: LabeledStringValue) {
         binding.label = item.label.getLocal()
-        binding.value = item.value
+        binding.value = item.value.getLocal()
     }
 }
