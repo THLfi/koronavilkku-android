@@ -1,14 +1,27 @@
 package fi.thl.koronahaavi.service
 
+import fi.thl.koronahaavi.data.LocaleString
 import fi.thl.koronahaavi.service.InfectiousnessLevel.*
 import okhttp3.ResponseBody
 import okhttp3.ResponseBody.Companion.toResponseBody
 import timber.log.Timber
 
-// not used at the moment, but maybe for standalone demo build or testing
+// used for UI testing
 class FakeBackendService : BackendService {
 
     var endOfLifeReached = false
+    val endOfLifeStatistics = listOf(
+        LabeledStringValue(
+            label = LocaleString("test 1", en = null, sv = null),
+            value = LocaleString("234", en = null, sv = null)
+        ),
+        LabeledStringValue(
+            label = LocaleString("test 2", en = null, sv = null),
+            value = LocaleString("567", en = null, sv = null)
+        )
+    )
+
+    var availableCountries = listOf("DK", "DE", "IE", "IT", "LV", "ES")
 
     override suspend fun sendKeys(token: String, data: DiagnosisKeyList, isFake: BackendService.NumericBoolean) {
         Timber.d("Sending keys")
@@ -68,9 +81,9 @@ class FakeBackendService : BackendService {
             reportTypeWeightConfirmedTest = 1.0,
             reportTypeWeightRecursive = 0.0,
             reportTypeWeightSelfReport = 0.0,
-            availableCountries = listOf("DK", "DE", "IE", "IT", "LV", "ES"),
+            availableCountries = availableCountries,
             endOfLifeReached = endOfLifeReached,
-            endOfLifeStatistics = listOf()
+            endOfLifeStatistics = endOfLifeStatistics
         )
     }
 

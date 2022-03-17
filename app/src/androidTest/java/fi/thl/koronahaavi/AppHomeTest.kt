@@ -67,6 +67,7 @@ class AppHomeTest {
 
         appStateRepository.setDiagnosisKeysSubmitted(false)
         appStateRepository.setOnboardingComplete(true)
+        appStateRepository.setAppShutdown(false)
     }
 
     @Test

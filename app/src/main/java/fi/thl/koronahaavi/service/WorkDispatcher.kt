@@ -24,7 +24,6 @@ class WorkDispatcher @Inject constructor(
         with (WorkManager.getInstance(context)) {
             cancelUniqueWork(DiagnosisKeyUpdateWorker.KEY_UPDATER_NAME)
             cancelUniqueWork(MunicipalityUpdateWorker.MUNICIPALITY_UPDATER_NAME)
-            cancelUniqueWork(DiagnosisKeySendTrafficCoverWorker.SEND_TRAFFIC_COVER_WORKER_NAME)
             // not canceling clear expired exposures worker because they need to be cleared also
             // after app locking
         }
@@ -33,9 +32,10 @@ class WorkDispatcher @Inject constructor(
     fun cancelAllWorkers() {
         cancelWorkersAfterLock()
 
-        WorkManager.getInstance(context).cancelUniqueWork(
-            ClearExpiredExposuresWorker.CLEAR_EXPIRED_WORKER_NAME
-        )
+        with (WorkManager.getInstance(context)) {
+            cancelUniqueWork(DiagnosisKeySendTrafficCoverWorker.SEND_TRAFFIC_COVER_WORKER_NAME)
+            cancelUniqueWork(ClearExpiredExposuresWorker.CLEAR_EXPIRED_WORKER_NAME)
+        }
     }
 
     fun scheduleWorkers(reconfigureStale: Boolean = false) {

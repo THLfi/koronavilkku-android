@@ -25,9 +25,7 @@ import fi.thl.koronahaavi.common.withSavedLanguage
 import fi.thl.koronahaavi.data.AppStateRepository
 import fi.thl.koronahaavi.databinding.ActivityMainBinding
 import fi.thl.koronahaavi.device.DeviceStateRepository
-import fi.thl.koronahaavi.service.ExposureNotificationService
-import fi.thl.koronahaavi.service.NotificationService
-import fi.thl.koronahaavi.service.WorkDispatcher
+import fi.thl.koronahaavi.service.*
 import fi.thl.koronahaavi.settings.UserPreferences
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
@@ -42,6 +40,7 @@ class MainActivity : AppCompatActivity() {
     @Inject lateinit var deviceStateRepository: DeviceStateRepository
     @Inject lateinit var userPreferences: UserPreferences
     @Inject lateinit var notificationService: NotificationService
+    @Inject lateinit var diagnosisKeyService: DiagnosisKeyService
 
     private val resolutionViewModel by viewModels<RequestResolutionViewModel>()
 
@@ -134,6 +133,12 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
             }
+        }
+    }
+
+    private fun startShutdownCheck() {
+        lifecycleScope.launch {
+            diagnosisKeyService.reloadExposureConfig()
         }
     }
 
@@ -250,13 +255,22 @@ class MainActivity : AppCompatActivity() {
         if (appStateRepository.appShutdown().value) {
             workDispatcher.cancelAllWorkers()
         }
-        else if (appStateRepository.lockedAfterDiagnosis().value) {
-            // make sure download is not running when app locked.. this should not be needed since work is canceled
-            // after submitting diagnosis, but just making sure
-            workDispatcher.cancelWorkersAfterLock()
-        }
         else {
-            workDispatcher.scheduleWorkers()
+            // run a single shutdown check to make sure it is detected even if background workers
+            // blocked for some reason
+            startShutdownCheck()
+
+            if (appStateRepository.lockedAfterDiagnosis().value) {
+                // make sure download is not running when app locked.. this should not be needed since work is canceled
+                // after submitting diagnosis, but just making sure
+                workDispatcher.cancelWorkersAfterLock()
+
+                // cover traffic sender should be on, and was turned off in previous versions
+                DiagnosisKeySendTrafficCoverWorker.schedule(this.applicationContext)
+            }
+            else {
+                workDispatcher.scheduleWorkers()
+            }
         }
     }
 

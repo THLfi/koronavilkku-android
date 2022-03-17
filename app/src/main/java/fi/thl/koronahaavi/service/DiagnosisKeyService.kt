@@ -121,10 +121,12 @@ class DiagnosisKeyService @Inject constructor (
                 }
             }
 
+            val config = reloadExposureConfig()
+
             DownloadResult(
                 lastSuccessfulBatchId = downloadedBatchId,
                 files = keyFiles,
-                exposureConfig = reloadExposureConfig()
+                exposureConfig = config
             )
         }
     }
@@ -144,8 +146,7 @@ class DiagnosisKeyService @Inject constructor (
         }
     }
 
-
-    private suspend fun reloadExposureConfig(): ExposureConfigurationData {
+    suspend fun reloadExposureConfig(): ExposureConfigurationData {
         val config = backendService.getConfiguration()
 
         // Exclude invalid country codes as additional security measure
@@ -154,7 +155,11 @@ class DiagnosisKeyService @Inject constructor (
         val validatedConfig = config.copy(
             availableCountries = validatedCountries
         )
-        settingsRepository.updateExposureConfiguration(validatedConfig)
+
+        // contains possibly heavy json serialization, so moving to default dispatcher
+        withContext(Dispatchers.Default) {
+            settingsRepository.updateExposureConfiguration(validatedConfig)
+        }
 
         appShutdownService.shutdownByConfiguration(validatedConfig)
 

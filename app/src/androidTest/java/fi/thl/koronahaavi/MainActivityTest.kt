@@ -5,7 +5,6 @@ import android.net.Uri
 import androidx.recyclerview.widget.RecyclerView
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.*
-import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.platform.app.InstrumentationRegistry
@@ -13,14 +12,10 @@ import androidx.test.rule.ActivityTestRule
 import androidx.work.Configuration
 import androidx.work.testing.SynchronousExecutor
 import androidx.work.testing.WorkManagerTestInitHelper
-import dagger.Module
-import dagger.Provides
-import dagger.hilt.InstallIn
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
 import fi.thl.koronahaavi.data.AppStateRepository
-import fi.thl.koronahaavi.data.ExposureRepository
 import fi.thl.koronahaavi.data.LocaleString
 import fi.thl.koronahaavi.data.SettingsRepository
 import fi.thl.koronahaavi.di.AppModule
@@ -28,18 +23,16 @@ import fi.thl.koronahaavi.di.DatabaseModule
 import fi.thl.koronahaavi.di.ExposureNotificationModule
 import fi.thl.koronahaavi.di.NetworkModule
 import fi.thl.koronahaavi.service.BackendService
-import fi.thl.koronahaavi.service.ExposureConfigurationData
 import fi.thl.koronahaavi.service.ExposureNotificationService
+import fi.thl.koronahaavi.service.FakeBackendService
 import fi.thl.koronahaavi.service.LabeledStringValue
 import fi.thl.koronahaavi.settings.UserPreferences
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.runBlocking
 import org.hamcrest.Matchers.allOf
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import javax.inject.Inject
-import javax.inject.Singleton
 
 @UninstallModules(AppModule::class, DatabaseModule::class, NetworkModule::class, ExposureNotificationModule::class)
 @HiltAndroidTest
@@ -65,16 +58,7 @@ class MainActivityTest {
     @Inject
     lateinit var backendService: BackendService
 
-    private val endOfLifeStatistics = listOf(
-        LabeledStringValue(
-            label = LocaleString("test 1", en = null, sv = null),
-            value = LocaleString("234", en = null, sv = null)
-        ),
-        LabeledStringValue(
-            label = LocaleString("test 2", en = null, sv = null),
-            value = LocaleString("567", en = null, sv = null)
-        )
-    )
+    lateinit var endOfLifeStatistics: List<LabeledStringValue>
 
     @Before
     fun setup() {
@@ -89,6 +73,10 @@ class MainActivityTest {
         userPreferences.powerOptimizationDisableAllowed = false
 
         appStateRepository.setAppShutdown(false)
+
+        runBlocking {
+            endOfLifeStatistics = backendService.getConfiguration().endOfLifeStatistics ?: listOf()
+        }
     }
 
     @Test
@@ -258,9 +246,10 @@ class MainActivityTest {
             exposureNotificationService.enable()
 
             // clear participating countries to simulate no data
-            settingsRepository.updateExposureConfiguration(backendService.getConfiguration().copy(
-                availableCountries = null
-            ))
+            (backendService as? FakeBackendService)?.availableCountries = listOf()
+            settingsRepository.updateExposureConfiguration(
+                backendService.getConfiguration()
+            )
 
             activityRule.launchActivity(null)
 
@@ -291,7 +280,7 @@ class MainActivityTest {
     @Test
     fun showsShutdownAtStart() {
         appStateRepository.setOnboardingComplete(true)
-        setAppShutdownConfig()
+        shutdownDetectFromWorker()
 
         activityRule.launchActivity(null)
 
@@ -301,7 +290,7 @@ class MainActivityTest {
     @Test
     fun showsShutdownAtStartDeeplink() {
         appStateRepository.setOnboardingComplete(true)
-        setAppShutdownConfig()
+        shutdownDetectFromWorker()
 
         activityRule.launchActivity(
             Intent(Intent.ACTION_VIEW, Uri.parse("https://koronavilkku/i?12345"))
@@ -317,16 +306,38 @@ class MainActivityTest {
         activityRule.launchActivity(null)
         onView(withId(R.id.image_home_app_status)).checkIsDisplayed()
 
-        setAppShutdownConfig()
+        shutdownDetectFromWorker()
 
         onView(withText(endOfLifeStatistics[0].value.getLocal())).checkIsDisplayed()
     }
 
-    private fun setAppShutdownConfig() {
+    @Test
+    fun showsShutdownDetectedDuringStart() {
+        appStateRepository.setOnboardingComplete(true)
+        (backendService as? FakeBackendService)?.endOfLifeReached = true
+
+        activityRule.launchActivity(null)
+
+        onView(withText(endOfLifeStatistics[0].value.getLocal())).checkIsDisplayed()
+    }
+
+    @Test
+    fun showsShutdownDetectedDuringStartWhenLocked() {
+        appStateRepository.setDiagnosisKeysSubmitted(true)
+        appStateRepository.setOnboardingComplete(true)
+        (backendService as? FakeBackendService)?.endOfLifeReached = true
+
+        activityRule.launchActivity(null)
+
+        onView(withText(endOfLifeStatistics[0].value.getLocal())).checkIsDisplayed()
+    }
+
+    private fun shutdownDetectFromWorker() {
+        // simulates a background worker detecting shutdown and updating state
         runBlocking {
-            settingsRepository.updateExposureConfiguration(backendService.getConfiguration().copy(
-                endOfLifeStatistics = endOfLifeStatistics
-            ))
+            settingsRepository.updateExposureConfiguration(
+                backendService.getConfiguration()
+            )
         }
         appStateRepository.setAppShutdown(true)
     }

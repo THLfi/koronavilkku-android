@@ -62,14 +62,35 @@ class AppShutdownWorkerTest {
         )
 
         appStateRepository.setAppShutdown(false)
-
-        runBlocking {
-            exposureNotificationService.enable()
-        }
     }
 
     @Test
     fun workerDetectsShutdown() {
+        runBlocking {
+            exposureNotificationService.enable()
+        }
+        (backendService as? FakeBackendService)?.endOfLifeReached = true
+
+        val workLiveData = DiagnosisKeyUpdateWorker.runOnce(
+            InstrumentationRegistry.getInstrumentation().targetContext
+        )
+
+        workLiveData.test()
+            .awaitValue(10, SECONDS).assertValue {
+                it.state == WorkInfo.State.RUNNING
+            }
+            .awaitNextValue(10, SECONDS).assertValue {
+                it.state == WorkInfo.State.SUCCEEDED
+            }
+
+        assertTrue(appStateRepository.appShutdown().value)
+    }
+
+    @Test
+    fun workerDetectsShutdownWhenENDisabled() {
+        runBlocking {
+            exposureNotificationService.disable()
+        }
         (backendService as? FakeBackendService)?.endOfLifeReached = true
 
         val workLiveData = DiagnosisKeyUpdateWorker.runOnce(
