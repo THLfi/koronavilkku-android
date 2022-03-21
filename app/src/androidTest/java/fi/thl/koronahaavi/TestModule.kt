@@ -12,6 +12,8 @@ import fi.thl.koronahaavi.di.AppStatePreferencesName
 import fi.thl.koronahaavi.di.DatabaseName
 import fi.thl.koronahaavi.service.*
 import fi.thl.koronahaavi.settings.UserPreferences
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.SupervisorJob
 import javax.inject.Singleton
 
 // redefine dependencies for android test app
@@ -55,6 +57,9 @@ object TestModule {
 
     @Singleton @Provides @AppStatePreferencesName
     fun appStatePreferencesName() = "fi.thl.koronahaavi.test.app_state_preferences"
+
+    @Provides @Singleton
+    fun providesApplicationScope() = CoroutineScope(SupervisorJob())
 
     const val TEST_SHARED_PREFERENCES_NAME = "fi.thl.koronahaavi.test.prefs"
     const val TEST_USER_PREFERENCES_NAME = "fi.thl.koronahaavi.test.user_prefs"

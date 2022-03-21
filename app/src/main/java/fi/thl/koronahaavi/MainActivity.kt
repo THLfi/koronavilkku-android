@@ -27,6 +27,7 @@ import fi.thl.koronahaavi.databinding.ActivityMainBinding
 import fi.thl.koronahaavi.device.DeviceStateRepository
 import fi.thl.koronahaavi.service.*
 import fi.thl.koronahaavi.settings.UserPreferences
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -41,6 +42,7 @@ class MainActivity : AppCompatActivity() {
     @Inject lateinit var userPreferences: UserPreferences
     @Inject lateinit var notificationService: NotificationService
     @Inject lateinit var diagnosisKeyService: DiagnosisKeyService
+    @Inject lateinit var externalScope: CoroutineScope
 
     private val resolutionViewModel by viewModels<RequestResolutionViewModel>()
 
@@ -137,7 +139,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun startShutdownCheck() {
-        lifecycleScope.launch {
+        // external application scope, because shutdown will trigger main activity to finish
+        // through app state observer, which would cancel lifecycleScope
+        externalScope.launch {
             diagnosisKeyService.reloadExposureConfig()
         }
     }
