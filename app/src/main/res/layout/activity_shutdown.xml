@@ -18,11 +18,7 @@
             android:layout_height="180dp"
             android:layout_marginTop="40dp"
             android:src="@drawable/ic_radar_off"
-            android:contentDescription="@null"
-            android:focusable="true"
-            android:focusableInTouchMode="true" />
-        <!-- focusable prevents recyclerview from receiving focus and automatic
-             scrolling when all items do not fit to screen -->
+            android:contentDescription="@null" />
 
         <TextView
             android:id="@+id/text_shutdown_title"
@@ -32,7 +28,11 @@
             android:layout_marginHorizontal="20dp"
             android:text="@string/shutdown_title"
             android:textAppearance="?attr/textAppearanceHeadline2"
-            />
+            android:focusable="true"
+            android:focusableInTouchMode="true" />
+            <!-- focusable prevents recyclerview from receiving focus and automatic
+                 scrolling when all items do not fit to screen -->
+
         <TextView
             android:id="@+id/text_shutdown_body"
             android:layout_width="match_parent"
