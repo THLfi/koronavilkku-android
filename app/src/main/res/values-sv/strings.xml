@@ -321,7 +321,7 @@
     <string name="notifications_blocked_instructions_3">3. Aktivera <b>Exponerings\u00ADmeddelanden</b>.</string>
     <string name="notifications_blocked_open_settings">Öppna inställningarna</string>
     <string name="shutdown_title">Coronablinkern har lagts ner</string>
-    <string name="shutdown_body">Nu kan du nu avlägsna Coronablinkern från din telefon. Tack för att du använde appen och deltog i bekämpningen av coronaviruset!</string>
+    <string name="shutdown_body">Nu kan du avlägsna Coronablinkern från din telefon. Tack för att du använde appen och deltog i bekämpningen av coronaviruset!</string>
 
     <plurals name="exposure_notification_count">
         <item quantity="one">%d meddelande</item>
