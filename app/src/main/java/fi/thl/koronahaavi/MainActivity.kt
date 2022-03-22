@@ -171,7 +171,8 @@ class MainActivity : AppCompatActivity() {
     private fun shouldRequestPowerOptimizationDisable() =
         !deviceStateRepository.isPowerOptimizationsDisabled() &&
         userPreferences.powerOptimizationDisableAllowed != false &&  // do not prompt if user denied before
-        !isPowerOptimizationRequestInProgress()
+        !isPowerOptimizationRequestInProgress() &&
+        !appStateRepository.appShutdown().value
 
     /**
      * Request is considered to be in progress if either a rationale or deny confirm dialog is showing
