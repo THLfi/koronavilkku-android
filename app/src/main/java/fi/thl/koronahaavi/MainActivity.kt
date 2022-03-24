@@ -77,6 +77,13 @@ class MainActivity : AppCompatActivity() {
             setupShutdownObserver()
             setupServices()
 
+            if (savedInstanceState == null &&
+                !appStateRepository.appShutdown().value) {
+                // run a single shutdown check to make sure it is detected even if background workers
+                // blocked for some reason
+                startShutdownCheck()
+            }
+
             // configure navigation to work with bottom nav bar
             binding.navView.setupWithNavController(navController)
 
@@ -261,10 +268,6 @@ class MainActivity : AppCompatActivity() {
             workDispatcher.cancelAllWorkers()
         }
         else {
-            // run a single shutdown check to make sure it is detected even if background workers
-            // blocked for some reason
-            startShutdownCheck()
-
             if (appStateRepository.lockedAfterDiagnosis().value) {
                 // make sure download is not running when app locked.. this should not be needed since work is canceled
                 // after submitting diagnosis, but just making sure
