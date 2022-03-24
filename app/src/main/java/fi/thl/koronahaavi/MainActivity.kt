@@ -149,7 +149,12 @@ class MainActivity : AppCompatActivity() {
         // external application scope, because shutdown will trigger main activity to finish
         // through app state observer, which would cancel lifecycleScope
         externalScope.launch {
-            diagnosisKeyService.reloadExposureConfig()
+            try {
+                diagnosisKeyService.reloadExposureConfig()
+            }
+            catch (t: Throwable) {
+                Timber.e(t, "Failed to check for shutdown config")
+            }
         }
     }
 
