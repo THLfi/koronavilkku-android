@@ -25,6 +25,7 @@ class DiagnosisKeyServiceTest {
     private lateinit var appStateRepository: AppStateRepository
     private lateinit var settingsRepository: SettingsRepository
     private lateinit var systemOperations: SystemOperations
+    private lateinit var appShutdownService: AppShutdownService
 
     private val batches = listOf("a", "b", "c")
 
@@ -37,6 +38,7 @@ class DiagnosisKeyServiceTest {
         appStateRepository = mockk(relaxed = true)
         settingsRepository = mockk(relaxed = true)
         systemOperations = mockk(relaxed = true)
+        appShutdownService = mockk(relaxed = true)
 
         coEvery { appStateRepository.getDiagnosisKeyBatchId() } returns "batch_id"
         coEvery { backendService.listDiagnosisKeyBatches(any()) } returns DiagnosisKeyBatches(batches)
@@ -45,7 +47,7 @@ class DiagnosisKeyServiceTest {
         coEvery { backendService.getConfiguration() } returns TestData.exposureConfiguration()
         every { settingsRepository.appConfiguration } returns TestData.appConfig
 
-        diagnosisKeyService = DiagnosisKeyService(backendService, appStateRepository, settingsRepository, systemOperations)
+        diagnosisKeyService = DiagnosisKeyService(backendService, appStateRepository, settingsRepository, systemOperations, appShutdownService)
     }
 
     @Test

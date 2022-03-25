@@ -32,6 +32,7 @@ import fi.thl.koronahaavi.databinding.FragmentTestBinding
 import fi.thl.koronahaavi.exposure.ExposureStateUpdatedReceiver
 import fi.thl.koronahaavi.exposure.ExposureUpdateWorker
 import fi.thl.koronahaavi.exposure.MunicipalityUpdateWorker
+import fi.thl.koronahaavi.service.AppShutdownService
 import fi.thl.koronahaavi.service.DiagnosisKeyUpdateWorker
 import fi.thl.koronahaavi.service.ExposureNotificationService
 import fi.thl.koronahaavi.service.NotificationService
@@ -52,6 +53,7 @@ class TestFragment : Fragment() {
     @Inject lateinit var exposureNotificationService: ExposureNotificationService
     @Inject lateinit var settingsRepository: SettingsRepository
     @Inject lateinit var notificationService: NotificationService
+    @Inject lateinit var appShutdownService: AppShutdownService
 
     private lateinit var binding: FragmentTestBinding
 
@@ -131,6 +133,8 @@ class TestFragment : Fragment() {
             appStateRepository.setLastExposureCheckTime(ZonedDateTime.now().minusDays(2))
         }
 
+        binding.buttonTestShutdown.setOnClickListener { simulateAppShutdown(it) }
+
         binding.buttonTestCheckPlayServices.setOnClickListener {
             val gaa = GoogleApiAvailability.getInstance()
 
@@ -180,6 +184,14 @@ class TestFragment : Fragment() {
         }
 
         binding.testPlayVersion.text = context?.getPlayServicesVersion() ?: "N/A"
+    }
+
+    private fun simulateAppShutdown(button: View) {
+        GlobalScope.launch {
+            delay(5000)
+            appShutdownService.shutdown()
+        }
+        Snackbar.make(button, getString(R.string.test_shutdown_message), Snackbar.LENGTH_SHORT).show()
     }
 
     private fun simulateReceiver(button: View) {

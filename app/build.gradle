@@ -176,6 +176,7 @@ dependencies {
 
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion"
 
     // Navigation
     implementation "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
@@ -241,9 +242,11 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-contrib:3.2.0'
     androidTestImplementation "com.google.dagger:hilt-android-testing:$hiltVersion"
     kaptAndroidTest "com.google.dagger:hilt-android-compiler:$hiltVersion"
+    androidTestImplementation 'androidx.arch.core:core-testing:2.1.0'
     androidTestImplementation "androidx.work:work-testing:$workVersion"
     androidTestImplementation "androidx.navigation:navigation-testing:$navigationVersion"
     androidTestImplementation "androidx.room:room-testing:$roomVersion"
+    androidTestImplementation 'com.jraska.livedata:testing-ktx:1.1.1'
 }
 
 if (gradle.getStartParameter().getTaskRequests().toString().toLowerCase().contains("huawei")) {

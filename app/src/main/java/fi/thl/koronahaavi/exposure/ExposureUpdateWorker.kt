@@ -32,8 +32,9 @@ class ExposureUpdateWorker @AssistedInject constructor(
     override suspend fun doWork(): Result {
         Timber.i("Starting")
 
-        if (appStateRepository.lockedAfterDiagnosis().value) {
-            Timber.i("App locked, ignoring exposure update")
+        if (appStateRepository.lockedAfterDiagnosis().value ||
+            appStateRepository.appShutdown().value) {
+            Timber.i("App not active, ignoring exposure update")
             return Result.success()
         }
 

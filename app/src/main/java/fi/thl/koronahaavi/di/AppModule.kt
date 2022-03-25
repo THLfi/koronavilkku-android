@@ -13,6 +13,8 @@ import fi.thl.koronahaavi.data.*
 import fi.thl.koronahaavi.service.NumericBooleanAdapter
 import fi.thl.koronahaavi.service.UserAgentInterceptor
 import fi.thl.koronahaavi.settings.UserPreferences
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.SupervisorJob
 import okhttp3.CertificatePinner
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -98,4 +100,8 @@ object AppModule {
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .build()
     }
+
+    // coroutine scope for operations that should be tied to app process
+    @Provides @Singleton
+    fun providesApplicationScope() = CoroutineScope(SupervisorJob())
 }

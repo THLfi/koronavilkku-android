@@ -20,7 +20,6 @@ class DiagnosisKeyUpdateWorker @AssistedInject constructor(
     @Assisted private val context: Context,
     @Assisted workerParams: WorkerParameters,
     private val exposureNotificationService: ExposureNotificationService,
-    private val exposureRepository: ExposureRepository,
     private val appStateRepository: AppStateRepository,
     private val diagnosisKeyService: DiagnosisKeyService
 
@@ -30,6 +29,9 @@ class DiagnosisKeyUpdateWorker @AssistedInject constructor(
         Timber.v("begin, attempt=$runAttemptCount")
 
         if (isDisabled()) {
+            // check configuration for shutdown also when disabled so that
+            // we react to it even if app is never opened
+            diagnosisKeyService.reloadExposureConfig()
             return Result.success()
         }
 

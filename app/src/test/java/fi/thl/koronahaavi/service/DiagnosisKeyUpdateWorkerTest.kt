@@ -184,7 +184,7 @@ class DiagnosisKeyUpdateWorkerTest {
             workerParameters: WorkerParameters
         ): ListenableWorker? {
             return DiagnosisKeyUpdateWorker(appContext, workerParameters, exposureNotificationService,
-                exposureRepository, appStateRepository, diagnosisKeyService)
+                appStateRepository, diagnosisKeyService)
         }
     }
 

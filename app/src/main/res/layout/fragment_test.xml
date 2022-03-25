@@ -110,10 +110,18 @@
                 android:text="@string/test_set_old_update" />
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/button_test_create_notification"
+                android:id="@+id/button_test_shutdown"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintTop_toBottomOf="@+id/button_test_set_old_update"
+                app:layout_constraintStart_toStartOf="parent"
+                android:text="@string/test_set_shutdown" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/button_test_create_notification"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/button_test_shutdown"
                 app:layout_constraintStart_toStartOf="parent"
                 android:text="@string/test_create_notification" />
 

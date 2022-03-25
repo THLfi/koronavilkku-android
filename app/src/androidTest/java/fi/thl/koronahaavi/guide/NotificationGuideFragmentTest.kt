@@ -8,6 +8,7 @@ import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
+import androidx.test.platform.app.InstrumentationRegistry
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import dagger.hilt.android.testing.UninstallModules
@@ -32,8 +33,11 @@ class NotificationGuideFragmentTest {
     fun init() {
         hiltRule.inject()
 
-        val navController = TestNavHostController(ApplicationProvider.getApplicationContext()).apply {
-            setGraph(R.navigation.main_navigation)
+        val navController = TestNavHostController(ApplicationProvider.getApplicationContext())
+
+        InstrumentationRegistry.getInstrumentation().runOnMainSync {
+            // this calls lifecycle methods that require main thread
+            navController.setGraph(R.navigation.main_navigation)
         }
 
         launchFragmentInHiltContainer<NotificationGuideFragment>(navController = navController)

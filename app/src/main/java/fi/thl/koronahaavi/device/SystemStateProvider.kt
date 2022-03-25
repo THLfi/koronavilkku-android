@@ -1,7 +1,6 @@
 package fi.thl.koronahaavi.device
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.distinctUntilChanged
 import fi.thl.koronahaavi.data.AppStateRepository
@@ -22,13 +21,15 @@ class SystemStateProvider @Inject constructor(
     private val isBluetoothOn = deviceStateRepository.bluetoothOn()
     private val isLocationOn = deviceStateRepository.locationOn()
     private val isNotificationsEnabled = notificationService.isEnabled().asLiveData()
+    private val isAppShutdown = appStateRepository.appShutdown().asLiveData()
 
     private val systemState = SystemStateLiveData(
         isENEnabled,
         isBluetoothOn,
         isLocationOn,
         isAppLocked,
-        isNotificationsEnabled
+        isNotificationsEnabled,
+        isAppShutdown
     )
 
     fun systemState(): LiveData<SystemState?> = systemState.distinctUntilChanged()

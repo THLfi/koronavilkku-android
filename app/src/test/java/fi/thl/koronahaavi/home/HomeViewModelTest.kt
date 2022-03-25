@@ -43,6 +43,7 @@ class HomeViewModelTest {
     val enEnabledFlow = MutableStateFlow<Boolean?>(null)
     val lastCheckTime = MutableLiveData<ZonedDateTime?>()
     val notificationsEnabledFlow = MutableStateFlow<Boolean?>(true)
+    val appShutdown = MutableStateFlow(false)
 
     @Before
     fun init() {
@@ -60,6 +61,7 @@ class HomeViewModelTest {
         every { exposureRepository.getExposureNotificationsFlow() } returns flowOf(listOf())
         every { exposureRepository.getIsExposedFlow() } returns flowOf(false)
         every { appStateRepository.getLastExposureCheckTimeLive() } returns lastCheckTime
+        every { appStateRepository.appShutdown() } returns appShutdown
 
         viewModel = createViewModel()
     }
@@ -91,6 +93,17 @@ class HomeViewModelTest {
         setSystemOn()
         notificationsEnabledFlow.value = false
         viewModel.systemState().test().assertValue(SystemState.NotificationsBlocked)
+    }
+
+    @Test
+    fun systemStateAppShutdown() {
+        val observer = viewModel.systemState().test()
+
+        setSystemOn()
+        appShutdown.value = true
+        enEnabledFlow.value = false // this is ignored by system state because shutdown
+
+        observer.assertValue(SystemState.On)
     }
 
     @Test

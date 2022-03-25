@@ -3,7 +3,6 @@ package fi.thl.koronahaavi.home
 import androidx.lifecycle.*
 
 import androidx.lifecycle.ViewModel
-import com.google.android.gms.common.api.Status
 import dagger.hilt.android.lifecycle.HiltViewModel
 import fi.thl.koronahaavi.BuildConfig
 import fi.thl.koronahaavi.common.Event
@@ -54,7 +53,8 @@ class HomeViewModel @Inject constructor(
     private val isBluetoothOn = deviceStateRepository.bluetoothOn()
     private val isLocationOn = deviceStateRepository.locationOn()
     private val isNotificationsEnabled = notificationService.isEnabled().asLiveData()
-    private val systemState = SystemStateLiveData(isENEnabled, isBluetoothOn, isLocationOn, isLocked, isNotificationsEnabled)
+    private val isAppShutdown = appStateRepository.appShutdown().asLiveData()
+    private val systemState = SystemStateLiveData(isENEnabled, isBluetoothOn, isLocationOn, isLocked, isNotificationsEnabled, isAppShutdown)
     private val exposureState = ExposureStateLiveData(hasExposures, lastCheckTime, isLocked, isENEnabled)
     private val showManualCheck = ManualCheckShownLiveData(exposureState, checkInProgress)
     private val newExposureCheckEvent = MutableLiveData<Event<Any>>()

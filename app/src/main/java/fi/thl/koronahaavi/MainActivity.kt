@@ -11,7 +11,9 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
@@ -23,10 +25,10 @@ import fi.thl.koronahaavi.common.withSavedLanguage
 import fi.thl.koronahaavi.data.AppStateRepository
 import fi.thl.koronahaavi.databinding.ActivityMainBinding
 import fi.thl.koronahaavi.device.DeviceStateRepository
-import fi.thl.koronahaavi.service.ExposureNotificationService
-import fi.thl.koronahaavi.service.NotificationService
-import fi.thl.koronahaavi.service.WorkDispatcher
+import fi.thl.koronahaavi.service.*
 import fi.thl.koronahaavi.settings.UserPreferences
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import timber.log.Timber
 import javax.inject.Inject
@@ -39,6 +41,8 @@ class MainActivity : AppCompatActivity() {
     @Inject lateinit var deviceStateRepository: DeviceStateRepository
     @Inject lateinit var userPreferences: UserPreferences
     @Inject lateinit var notificationService: NotificationService
+    @Inject lateinit var diagnosisKeyService: DiagnosisKeyService
+    @Inject lateinit var externalScope: CoroutineScope
 
     private val resolutionViewModel by viewModels<RequestResolutionViewModel>()
 
@@ -70,7 +74,15 @@ class MainActivity : AppCompatActivity() {
             finish()
         }
         else {
+            setupShutdownObserver()
             setupServices()
+
+            if (savedInstanceState == null &&
+                !appStateRepository.appShutdown().value) {
+                // run a single shutdown check to make sure it is detected even if background workers
+                // blocked for some reason
+                startShutdownCheck()
+            }
 
             // configure navigation to work with bottom nav bar
             binding.navView.setupWithNavController(navController)
@@ -133,6 +145,33 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    private fun startShutdownCheck() {
+        // external application scope, because shutdown will trigger main activity to finish
+        // through app state observer, which would cancel lifecycleScope
+        externalScope.launch {
+            try {
+                diagnosisKeyService.reloadExposureConfig()
+            }
+            catch (t: Throwable) {
+                Timber.e(t, "Failed to check for shutdown config")
+            }
+        }
+    }
+
+    private fun setupShutdownObserver() {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                appStateRepository.appShutdown().collect { shutdown ->
+                    if (shutdown) {
+                        Timber.d("App shutdown detected")
+                        navController.navigate(MainNavigationDirections.toShutdown())
+                        finish()
+                    }
+                }
+            }
+        }
+    }
+
     override fun onStart() {
         super.onStart()
 
@@ -144,7 +183,8 @@ class MainActivity : AppCompatActivity() {
     private fun shouldRequestPowerOptimizationDisable() =
         !deviceStateRepository.isPowerOptimizationsDisabled() &&
         userPreferences.powerOptimizationDisableAllowed != false &&  // do not prompt if user denied before
-        !isPowerOptimizationRequestInProgress()
+        !isPowerOptimizationRequestInProgress() &&
+        !appStateRepository.appShutdown().value
 
     /**
      * Request is considered to be in progress if either a rationale or deny confirm dialog is showing
@@ -229,13 +269,21 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupServices() {
-        if (appStateRepository.lockedAfterDiagnosis().value) {
-            // make sure download is not running when app locked.. this should not be needed since work is canceled
-            // after submitting diagnosis, but just making sure
-            workDispatcher.cancelWorkersAfterLock()
+        if (appStateRepository.appShutdown().value) {
+            workDispatcher.cancelAllWorkers()
         }
         else {
-            workDispatcher.scheduleWorkers()
+            if (appStateRepository.lockedAfterDiagnosis().value) {
+                // make sure download is not running when app locked.. this should not be needed since work is canceled
+                // after submitting diagnosis, but just making sure
+                workDispatcher.cancelWorkersAfterLock()
+
+                // cover traffic sender should be on, and was turned off in previous versions
+                DiagnosisKeySendTrafficCoverWorker.schedule(this.applicationContext)
+            }
+            else {
+                workDispatcher.scheduleWorkers()
+            }
         }
     }
 

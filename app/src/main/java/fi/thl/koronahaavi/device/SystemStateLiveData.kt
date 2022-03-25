@@ -8,7 +8,8 @@ class SystemStateLiveData (
     private val isBluetoothOn: LiveData<Boolean>,
     private val isLocationOn: LiveData<Boolean>,
     private val isLocked: LiveData<Boolean>,
-    private val isNotificationsEnabled: LiveData<Boolean?>
+    private val isNotificationsEnabled: LiveData<Boolean?>,
+    private val appShutdown: LiveData<Boolean>
 ) : MediatorLiveData<SystemState?>() {
 
     init {
@@ -17,15 +18,19 @@ class SystemStateLiveData (
         addSource(isLocationOn) { updateSystemState() }
         addSource(isLocked) { updateSystemState() }
         addSource(isNotificationsEnabled) { updateSystemState() }
+        addSource(appShutdown) { }
     }
 
     private fun updateSystemState() {
-        value = when {
-            (isLocked.value == true) -> SystemState.Locked
-            (isENEnabled.value == false || isBluetoothOn.value == false || isLocationOn.value == false) -> SystemState.Off
-            (isSystemOn() && isNotificationsEnabled.value == false) -> SystemState.NotificationsBlocked
-            (isSystemOn()) -> SystemState.On
-            else -> null
+        // stop updates when shutdown in progress to avoid UI flicker when EN is disabled
+        if (appShutdown.value != true) {
+            value = when {
+                (isLocked.value == true) -> SystemState.Locked
+                (isENEnabled.value == false || isBluetoothOn.value == false || isLocationOn.value == false) -> SystemState.Off
+                (isSystemOn() && isNotificationsEnabled.value == false) -> SystemState.NotificationsBlocked
+                (isSystemOn()) -> SystemState.On
+                else -> null
+            }
         }
     }
 

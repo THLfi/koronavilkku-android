@@ -153,6 +153,7 @@
     <string name="notification_channel_description">Notifications for possible COVID-19 exposures.</string>
     <string name="notification_exposure_title">Potential exposure</string>
     <string name="notification_exposure_message">You may have been exposed to the coronavirus. Open Koronavilkku and see instructions.</string>
+    <string name="notification_shutdown_title">Koronavilkku is no longer in use</string>
 
     <string name="guide_title">"About Koronavilkku "</string>
     <string name="guide_p1_text">Koronavilkku is an application produced by the Finnish Institute for Health and Welfare that informs you if it estimates that you may have been exposed to the coronavirus. If you are diagnosed with COVID-19, you can report this anonymously using the app. Your privacy is strongly protected.</string>
@@ -260,6 +261,7 @@
     <string name="test_update_exposures" translatable="false">Create exposure</string>
     <string name="test_update_exposures_message" translatable="false">Hello, exposure in five seconds</string>
     <string name="test_notification_message" translatable="false">Hello, notification in five seconds</string>
+    <string name="test_shutdown_message" translatable="false">Hello, shutdown in five seconds</string>
     <string name="test_reset_onboarding" translatable="false">Start onboarding</string>
     <string name="test_download" translatable="false">Download keys now</string>
     <string name="test_download_message" translatable="false">Hello, download in five seconds</string>
@@ -269,6 +271,7 @@
     <string name="test_lock" translatable="false">Set app locked</string>
     <string name="test_unlock" translatable="false">Clear app locked</string>
     <string name="test_set_old_update" translatable="false">Set check as delayed</string>
+    <string name="test_set_shutdown" translatable="false">Set app shutdown</string>
     <string name="test_check_play_services" translatable="false">Check Play services</string>
     <string name="test_update_municipalities" translatable="false">Reload municipality data</string>
     <string name="test_daily_summaries" translatable="false">Daily summaries</string>
@@ -348,6 +351,9 @@
     <string name="notifications_blocked_instructions_2">2. Turn on <b>Show notifications</b>.</string>
     <string name="notifications_blocked_instructions_3">3. Turn on <b>Exposure notifications</b>.</string>
     <string name="notifications_blocked_open_settings">Open settings</string>
+
+    <string name="shutdown_title">Koronavilkku is no longer in use</string>
+    <string name="shutdown_body">You can now uninstall Koronavilkku from your phone. Thank you for using the app and doing your part in the fight against coronavirus!</string>
 
     <plurals name="exposure_notification_count">
         <item quantity="one">%d notification</item>
