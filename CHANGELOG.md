@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## Unreleased
 
+## [2.5.0](https://github.com/THLfi/koronavilkku-android/compare/v2.4.3...v2.5.0) - 2022-04-28
+
+### Added
+- Functionality to prepare for application shutdown
+
 ## [2.4.3](https://github.com/THLfi/koronavilkku-android/compare/v2.4.2...v2.4.3) - 2022-02-16
 
 ### Changed
