@@ -2,7 +2,8 @@ name: Check latest release dependencies
 
 on:
   push:
-    branches: 'release/**'
+    branches-ignore:
+      - '**'
 
 jobs:
   release-dependency-scan:
