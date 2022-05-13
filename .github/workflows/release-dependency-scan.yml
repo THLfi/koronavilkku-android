@@ -1,8 +1,8 @@
 name: Check latest release dependencies
 
 on:
-  schedule:
-    - cron:  "31 5 * * *" # this is utc time
+  push:
+    branches: 'release/**'
 
 jobs:
   release-dependency-scan:
