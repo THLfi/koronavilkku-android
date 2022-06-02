@@ -40,11 +40,3 @@ jobs:
           path: |
             ./build/reports/dependency-check-report.html
             ./app/build/reports/dependency-check-report.html
-      - name: Notify to slack
-        if: ${{ failure() }}
-        uses: ./.github_latest/docker-slack
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
-        with:
-          text: "OWASP dependency check - release"
-          status: ${{job.status}}
